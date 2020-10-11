@@ -4,7 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }; 
 $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
 $curuser = wp_get_current_user();
-if((get_user_meta($curauth->ID,'valimail',true) == false) && (current_user_can('administrator') == false && $curauth->ID != $curuser->ID)) {
+$args = array(
+	'post_type'        => array('post','property'),
+    'author'     => $curauth->ID,
+);
+
+$posts = get_posts($args);
+wp_reset_postdata();
+
+if(count($posts) == false && (get_user_meta($curauth->ID,'valimail',true) == false) && (current_user_can('administrator') == false && $curauth->ID != $curuser->ID)) {
 	global $wp_query;
     $wp_query->set_404();
     status_header(404);
@@ -35,7 +43,7 @@ if(empty($authortype)) $authortype = 'Агент';
 <div id="authorid" class="button" style="padding: 8px 17px;width: fit-content;z-index: 999;position: relative"><?php echo esc_attr($curauth->ID); ?></div>
 <?php }; ?>
 </div>
-<?php if ($curuser->ID == $curauth->ID || current_user_can('editor' || 'administrator')) { ?>
+<?php if (have_posts() == false || $curuser->ID == $curauth->ID || current_user_can('editor' || 'administrator')) { ?>
 <div class="editauthor">
 <input class="text display_name" type="text" value="<?php echo esc_html($name); ?>" placeholder="Отображаемое имя">
 <input class="text user_email" type="text" value="<?php echo esc_html(get_the_author_meta( 'user_email', $curauth->ID )); ?>" placeholder="E-mail адрес" style="margin: 5px 0 0" >
