@@ -15,6 +15,7 @@ require_once('core/custom-ajax-auth.php'); //CUSTOM AUTHORIZATION ON FRONTEND
 
 
 //CRON DELETE USERS
+if (!wp_next_scheduled( 'my_weeklyClearOut' ))
 wp_schedule_event(time(), 'weekly', 'my_weeklyClearOut');
 
 function my_clearOldUsers() {

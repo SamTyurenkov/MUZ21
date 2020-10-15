@@ -525,7 +525,7 @@ if (!is_numeric($_GET['taxid'])) return;
 
     header('Content-Type: application/json');  
 	$response = array();
-	
+
     $args = array(
 			'post_type' => 'post',
             'order'     => 'DESC',
@@ -544,6 +544,7 @@ if (!is_numeric($_GET['taxid'])) return;
 	if($_GET['taxid'] == 1) $args['orderby'] = 'date';
 
     $loop = new WP_Query($args);
+
 	$amount = 0;
 	$response['response'] = '';
 
@@ -580,7 +581,8 @@ if (!is_numeric($_GET['taxid'])) return;
 
     header('Content-Type: application/json');  
 	$response = array();
-	
+
+
     $args = array(
 			'post_type' => 'post',
             'order'     => 'DESC',
@@ -598,6 +600,7 @@ if (!is_numeric($_GET['taxid'])) return;
     );
 				
     $loop = new WP_Query($args);
+
 	$amount = 0;
 	$response['response'] = '';
 
@@ -638,7 +641,7 @@ $sort = strip_tags($_GET['options'][2]);
 
     header('Content-Type: application/json');  
 	$response = array();
-	
+
     $args = array(
 			'post_type' => 'property',
             'order'     => 'DESC',
@@ -688,6 +691,7 @@ if ($sort == 'price') {
 }		
 				
     $loop = new WP_Query($args);
+
 	$amount = 0;
 	$response['response'] = '';
 
