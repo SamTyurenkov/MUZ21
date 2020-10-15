@@ -47,7 +47,7 @@ function valimail( $request ) {
 		
 		$user = get_user_by( 'login', $_REQUEST['login'] );
 		$userid = $user->ID;
-		
+		flush_rewrite_rules();
 		update_user_meta($userid,'valimail',true);
         wp_redirect( get_author_posts_url( $userid ) );
         exit;

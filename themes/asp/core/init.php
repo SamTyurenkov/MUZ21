@@ -443,5 +443,5 @@ foreach ($authors as $author) {
 
     
 }
-flush_rewrite_rules();
+
 }
