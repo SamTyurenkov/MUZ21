@@ -280,9 +280,14 @@ function update_props_ajax() {
 	$id = $_POST['id'];
 	$val = strip_tags($_POST['metavalue']);
 	$meta = strip_tags($_POST['metaname']);
+	$authid = filter_var($_POST['authid'], FILTER_VALIDATE_INT);
 	
 	header('Content-Type: application/json');  
 	$response = array();
+	
+			wp_cache_delete('feed_avito_'.$authid);
+			wp_cache_delete('feed_cian_'.$authid);
+			wp_cache_delete('feed_yandex_'.$authid);
 	
 	switch ($meta) {
     case 'propertytype':

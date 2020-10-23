@@ -21,6 +21,9 @@ if($xmlhash != $xkey && current_user_can('editor' || 'administrator') == false) 
 	
 echo '<?xml version="1.0" encoding="utf-8"?><Ads formatVersion="3" target="Avito.ru">';
 
+$objects = wp_cache_get( 'feed_avito_'.$author_id );
+if ( false === $objects ) {
+	
 $managers = explode(',', get_the_author_meta( 'managers', $author_id));
 array_push($managers, $author_id); 
 $managers = array_filter(array_unique($managers));
@@ -47,7 +50,8 @@ $objects = new WP_Query(
 				)
 			)
 		));
-
+wp_cache_set( 'feed_avito_'.$author_id );								
+}
 while ($objects->have_posts()) : $objects->the_post(); 
 
 	$options = get_property_options(get_post());

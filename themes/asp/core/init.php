@@ -258,7 +258,7 @@ die();
     return $permalink;
 	}
 	////////////////////////
-	add_filter('post_type_link',"change_link",10,2);
+	add_filter('post_type_link','change_link',10,2);
 
 
 	function change_term_link( $permalink, $term, $taxonomy ) {

@@ -23,6 +23,9 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <realty-feed xmlns="http://webmaster.yandex.ru/schemas/feed/realty/2010-06">
 <generation-date><?php echo date('c'); ?></generation-date>
 <?php  
+$objects = wp_cache_get( 'feed_yandex_'.$author_id );
+if ( false === $objects ) {
+
 $managers = explode(',', get_the_author_meta( 'managers', $author_id));
 array_push($managers, $author_id); 
 $managers = array_filter(array_unique($managers));
@@ -49,6 +52,9 @@ $objects = new WP_Query(
 				)
 			)
 		));
+		
+wp_cache_set( 'feed_yandex_'.$author_id );								
+}
 
 while ($objects->have_posts()) : $objects->the_post(); ?>
 <?php

@@ -119,6 +119,10 @@ function updateauth() {
 		$name = strip_tags($_POST['name']); 
 		$user = get_userdata( $id );
 		
+			wp_cache_delete('feed_avito_'.$id);
+			wp_cache_delete('feed_cian_'.$id);
+			wp_cache_delete('feed_yandex_'.$id);
+		
 		if ($name == 'display_name' ) {
  		
 		if (strlen($meta) < 50)  {
@@ -203,6 +207,7 @@ function updateauth() {
 			$meta = str_replace(' ', '', $meta);
 			
 			update_user_meta( $id, $name, sanitize_text_field( $meta ));
+			
 			$response['response'] = "SUCCESS";
 			$response['name'] = $name;
 			$response['name'] = $meta;

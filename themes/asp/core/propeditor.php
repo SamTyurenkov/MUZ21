@@ -33,6 +33,59 @@ function change_status_ajax() {
 					'post_status' => 'publish',
 					);
 			wp_update_post( $my_post ); 
+		
+		$type = get_post_type( $id );
+		
+
+
+
+if ($type == 'property') {
+			wp_cache_delete( 'pbg_sitemap_index_props' );
+			
+		$props = wp_cache_get( 'pbg_sitemap_props_1' );
+		if ( false != $props ) {
+			$i = 1;
+			while ( $i <= $props->max_num_pages ) {
+			wp_cache_delete( 'pbg_sitemap_props_'.$i );
+			}
+		}	
+
+		$pages = wp_cache_get( 'pbg_sitemap_pages_1'  ); //REQUIRES TO BE ADDED TO PAGE PUBLISH INSTEAD
+		if ( false != $pages ) {
+			$i = 1;
+			while ( $i <= $pages->max_num_pages ) {
+			wp_cache_delete( 'pbg_sitemap_pages_'.$i );
+			}
+		}		
+}	
+	
+else if ($type == 'post') {
+	
+			wp_cache_delete( 'pbg_sitemap_index_blog' );
+			wp_cache_delete( 'pbg_sitemap_index_news' );
+			
+		$blogs = wp_cache_get( 'pbg_sitemap_blog_1'  );
+		if ( false != $blogs ) {
+			$i = 1;
+			while ( $i <= $blogs->max_num_pages ) {
+			wp_cache_delete( 'pbg_sitemap_blog_'.$i );
+			}
+		}
+		
+		$news = wp_cache_get( 'pbg_sitemap_news_1'  );
+		if ( false != $news ) {
+			$i = 1;
+			while ( $i <= $news->max_num_pages ) {
+			wp_cache_delete( 'pbg_sitemap_news_'.$i );
+			}
+		}
+			
+}
+		
+
+			wp_cache_delete( 'pbg_sitemap_cats' );
+			wp_cache_delete( 'pbg_sitemap_tags' );		
+			
 		$response['response'] = "SUCCESS";
 		$response['info'] = 'Опубликовано';
 		echo json_encode($response);	
@@ -368,6 +421,9 @@ function update_props_content_ajax() {
 		'post_content'   => $content,
 		);
 		wp_update_post( $my_post ); 
+		
+
+			
 		$response['response'] = "SUCCESS";
 		echo json_encode($response);
 		die();

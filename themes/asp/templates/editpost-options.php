@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $options = get_property_options($post);
 $title = get_the_title($post); 
 $text = get_the_content($post);
+$authid = get_the_author_meta( 'ID' );
 ?>
 <div class="selector container">
 
@@ -803,6 +804,7 @@ function update_post_meta(obj) {
 var ajaxurl = '<?php echo admin_url("admin-ajax.php"); ?>';
 var nonce = document.getElementById('_edit_properties').value;
 var id = parseInt('<?php echo $post->ID; ?>');
+var authid = parseInt('<?php echo $authid; ?>');
 var metaname = obj.parentNode.id;
 try {
 var metavalue = obj.parentNode.getElementsByTagName("select")[0].value;
@@ -818,6 +820,7 @@ var value = jQuery.ajax({
 				data:{
 				nonce : nonce,
 				id : id,
+				authid: authid,
 				metaname : metaname,
 				metavalue : metavalue,
 				action: 'update_props_ajax',
