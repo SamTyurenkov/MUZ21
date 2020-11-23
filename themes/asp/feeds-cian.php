@@ -55,7 +55,7 @@ $objects = new WP_Query(
 			)
 		));
 
-wp_cache_set( 'feed_cian_'.$author_id );								
+wp_cache_set( 'feed_cian_'.$author_id, $objects );								
 }
 
 while ($objects->have_posts()) : $objects->the_post(); ?>
