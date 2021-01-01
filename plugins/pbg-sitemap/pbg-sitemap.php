@@ -22,6 +22,8 @@ function customRSS(){
 		add_feed('blog_sitemap.xml', 'blog_sitemap');
 		add_feed('tag_sitemap.xml', 'tag_sitemap');
 		add_feed('yandexnews_sitemap.xml', 'yandexnews_sitemap');
+        add_feed('google_pub_sitemap.xml', 'google_pub_sitemap');
+        add_feed('google_pub_blog_sitemap.xml', 'google_pub_blog_sitemap');
 }
 
 function sitemap_index(){     
@@ -231,6 +233,8 @@ $objects = new WP_Query(array(					'post_type' => 'post',
 												'posts_per_page' => 10000,
 												'paged'         => $paged,
 												'category_name' => 'news',
+						                        'orderby' => 'date',
+                                                'order'   => 'DESC'
 									));
 wp_cache_set( 'pbg_sitemap_news_'.$paged, $objects );								
 }
@@ -245,6 +249,77 @@ endwhile;wp_reset_postdata();
 echo '</urlset>';
 ob_end_flush();
 }
+
+function google_pub_sitemap(){ 
+http_response_code(200);
+header('Content-Type: application/xml; charset=utf-8');
+header('Cache-Control: public, must-revalidate, max-age=86400');
+header_remove('Link'); 
+header_remove('Etag'); 
+header_remove('set-cookie');
+header_remove('access-control-allow-origin');
+ob_start();
+echo '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/">'; 
+echo '<channel><lastBuildDate>'.date('D, d M y H:i:s O').'</lastBuildDate><title>ASP Новости</title><description>Новости Недвижимости и Туризма в России и Мире</description><link>https://asp.sale/news/</link>';
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+$objects = new WP_Query(array(					'post_type' => 'post',
+												'post_status' => 'publish',
+												'posts_per_page' => 60,
+												'paged'         => $paged,
+												'category_name' => 'news',
+												'orderby' => 'date',
+												'order'   => 'DESC'
+									));
+
+while ($objects->have_posts()) : $objects->the_post();
+echo '<item><guid>'; the_permalink(); echo '</guid>';
+echo '<pubDate>'.get_the_time('D, d M y H:i:s O').'</pubDate>';
+echo '<title>'.get_the_title().'</title>';
+echo '<content:encoded><![CDATA[<img src="'.esc_attr(get_the_post_thumbnail_url( null, 'large' )).'" alt="'.get_the_title().'" title="'.get_the_title().'">'.get_the_content().']]></content:encoded>';
+echo '<link>'; 
+the_permalink(); 
+echo '</link>';
+echo '<author>'.get_the_author().'</author></item>';
+endwhile; wp_reset_postdata(); 
+echo '</channel></rss>';
+ob_end_flush();
+}
+
+function google_pub_blog_sitemap(){ 
+http_response_code(200);
+header('Content-Type: application/xml; charset=utf-8');
+header('Cache-Control: public, must-revalidate, max-age=86400');
+header_remove('Link'); 
+header_remove('Etag'); 
+header_remove('set-cookie');
+header_remove('access-control-allow-origin');
+ob_start();
+echo '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/">'; 
+echo '<channel><lastBuildDate>'.date('D, d M y H:i:s O').'</lastBuildDate><title>ASP Блог</title><description>Статьи про Недвижимость и Туризм в России и Мире</description><link>https://asp.sale/blog/</link>';
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+$objects = new WP_Query(array(					'post_type' => 'post',
+												'post_status' => 'publish',
+												'posts_per_page' => 60,
+												'paged'         => $paged,
+												'category_name' => 'blog',
+												'orderby' => 'date',
+												'order'   => 'DESC'
+									));
+
+while ($objects->have_posts()) : $objects->the_post();
+echo '<item><guid>'; the_permalink(); echo '</guid>';
+echo '<pubDate>'.get_the_time('D, d M y H:i:s O').'</pubDate>';
+echo '<title>'.get_the_title().'</title>';
+echo '<content:encoded><![CDATA[<img src="'.esc_attr(get_the_post_thumbnail_url( null, 'large' )).'" alt="'.get_the_title().'" title="'.get_the_title().'">'.get_the_content().']]></content:encoded>';
+echo '<link>'; 
+the_permalink(); 
+echo '</link>';
+echo '<author>'.get_the_author().'</author></item>';
+endwhile; wp_reset_postdata(); 
+echo '</channel></rss>';
+ob_end_flush();
+}
+
 
 function yandexnews_sitemap(){ 
 http_response_code(200);
@@ -269,6 +344,8 @@ $objects = new WP_Query(array(					'post_type' => 'post',
 												'posts_per_page' => 10000,
 												'paged'         => $paged,
 												'category_name' => 'news',
+												'orderby' => 'date',
+												'order'   => 'DESC'
 									));
 wp_cache_set( 'pbg_sitemap_yandex_news_'.$paged, $objects );								
 }
@@ -285,7 +362,7 @@ echo '<enclosure url="'.get_the_post_thumbnail_url(null,'medium').'" />';
 echo '<pubDate>';
 the_modified_time('D, d M y H:i:s O');
 echo '</pubDate>'; 
-echo '<yandex:full-text><![CDATA['.get_the_content().']]></yandex:full-text>';
+echo '<yandex:full-text><![CDATA[<img src="'.esc_attr(get_the_post_thumbnail_url( null, 'large' )).'" alt="'.get_the_title().'" title="'.get_the_title().'">'.get_the_content().']]></yandex:full-text>';
 echo '</item>';
 endwhile;wp_reset_postdata(); 
 echo '</channel>';
