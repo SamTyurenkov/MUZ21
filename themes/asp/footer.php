@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="footer_col">
 <h3>© ASP Недвижимость</h3>
 <?php wp_nav_menu( array(
-'menu' => 'business'
+'menu' => 'terms'
 ) ); ?>
 </div>
 
