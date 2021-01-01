@@ -3,7 +3,7 @@ if(!defined('ABSPATH')) {
   die('You are not allowed to call this page directly.');
 }
 //add_filter( 'http_request_host_is_external', '__return_true' );
-
+require_once('core/menu.php'); //MENU
 require_once('core/enqueues.php'); //SCRIPTS ENQUEUE
 require_once('core/init.php'); //INITIALIZE WP WITH CUSTOM FUNCTIONS
 require_once('core/ajaxcalls.php'); //AJAX FUNCTIONS
@@ -11,7 +11,7 @@ require_once('core/helpers.php'); //MOBILE CHECK, LANGUAGE CHECK, COOKIES
 require_once('core/authors.php'); //AUTHORS AND THEIR META
 require_once('core/propeditor.php'); //EDITING PROPERTIES
 require_once('core/custom-ajax-auth.php'); //CUSTOM AUTHORIZATION ON FRONTEND
-//require_once('core/synonimizer.php'); //RERAIT FOR TEXTS
+//require_once('core/synonimizer.php'); //REWRITE FOR TEXTS
 
 
 //CRON DELETE USERS

@@ -5,8 +5,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="footer">
 <div class="container">
-<a href="/terms/">Правила сайта</a> | 
-<a href="/xml-vygruzka-obyavlenij-nedvizhimosti/">XML Выгрузка объявлений недвижимости</a>
+	
+<div class="footer_col">
+<h3>© ASP Недвижимость</h3>
+<?php wp_nav_menu( array(
+'menu' => 'business'
+) ); ?>
+</div>
+
+<div class="footer_col">
+<h3>Для бизнеса</h3>	
+<?php wp_nav_menu( array(
+'menu' => 'business'
+) ); ?>
+</div>
+
 </div>
 </div>
 <script>

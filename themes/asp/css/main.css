@@ -1316,9 +1316,50 @@ position: absolute;
 	display: none;
 }
 .footer {
-	text-align: center;
     padding: 20px;
 	background: #e0e0e0;
+}
+.footer .container {
+	-ms-flex-line-pack: start;
+	    align-content: flex-start;
+	    display: -webkit-box;
+	    display: -ms-flexbox;
+	    display: flex;
+	    -ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	    -webkit-box-align: top;
+	    -ms-flex-align: top;
+	    align-items: top;
+	    -webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	    justify-content: center;
+}
+.footer_col {
+    -ms-flex: 1 0 33%;
+    -webkit-box-flex: 1;
+    flex: 1 0 33%;
+    max-width: 33%;
+    min-width: 33%;
+	margin: 0 3%;
+}
+@media(max-width:720px){
+	.footer_col {
+	    -ms-flex: 1 0 44%;
+	    -webkit-box-flex: 1;
+	    flex: 1 0 44%;
+	    max-width: 44%;
+	    min-width: 44%;
+	}
+}
+@media(max-width:520px){
+	.footer_col {
+	    -ms-flex: 1 0 80%;
+	    -webkit-box-flex: 1;
+	    flex: 1 0 80%;
+	    max-width: 80%;
+	    min-width: 80%;
+		margin: 0;
+	}
 }
 /* WEBSITE ICONS FONT*/
 [class^="icon-"]:before, [class*=" icon-"]:before, [class^="i-"]:before, [class*=" i-"]:before {
