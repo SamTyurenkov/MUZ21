@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <div class="footer_col">
-<h3>Для бизнеса</h3>	
+<h3>Решения для бизнеса</h3>	
 <?php wp_nav_menu( array(
 'menu' => 'business'
 ) ); ?>

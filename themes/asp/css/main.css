@@ -74,8 +74,8 @@ background: rgb(255, 255, 255);
     width: 1024px;
 }
 article .breadcrumbs {
-	margin: 0 -10px;
-    background: #f7f7f7;
+	margin: 15px -10px 0;
+	    background: #fff;
 	border-bottom: 1px solid #f2f2f2;
 }
 .breadcrumbs a, .footer a {
@@ -595,12 +595,17 @@ padding-top:55px;
 }
 .entry-content h2 {
 font-size: 1.5em;
+padding: 1em 0 1em 25px;
+margin: 0 0 0 -25px;
+background: linear-gradient(100deg, #f7f7f7 0%, #f7f7f7 50%, rgba(255,255,255,0) 100%);
 }
-.entry-content h3,h4 {
+.entry-content h3, .entry-content h4 {
 font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
+	padding: 1em 0 1em 25px;
+	margin: 0 0 0 -25px;
+    background: linear-gradient(100deg, #f7f7f7 0%, #f7f7f7 50%, rgba(255,255,255,0) 100%);
 }
+
 .psidebar {
 	display: inline-block;
     -ms-flex-line-pack: start;
