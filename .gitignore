@@ -3,6 +3,7 @@ mmr/
 webp-express/
 uploads/
 upgrade/
+archive/
 /index.php
 /debug.log
 /object-cache.php
