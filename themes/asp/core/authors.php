@@ -16,12 +16,6 @@ function avatar_filenames( $filename ) {
     return wp_get_current_user()->ID . $ext;
 }
 
-//HELPER FOR CUSTOM URL ATTACHEMENTS
-function asp_get_image_id($image_url) {
-    global $wpdb;
-    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
-        return $attachment[0]; 
-}
 
 //EMAIL VALIDATION CLUSTER
 add_action( 'rest_api_init', function () {
