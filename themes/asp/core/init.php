@@ -27,6 +27,7 @@ function asp_default_images( $sizes, $image_meta, $attachment_id ) {
  unset( $sizes['medium_large']); // 768px
  return $sizes;
 }
+
 function asp_get_image_id($image_url) {
     global $wpdb;
     $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
@@ -144,15 +145,7 @@ die();
 	add_action('do_feed_atom', 'itsme_disable_feed', 1);
 	add_action('do_feed_rss2_comments', 'itsme_disable_feed', 1);
 	add_action('do_feed_atom_comments', 'itsme_disable_feed', 1);	
-	
-	
-	// Remove default image sizes here. 
-	function asp_default_images( $sizes ) {
-	unset( $sizes['medium_large']); // 768px
-	unset( $sizes['1536x1536']);
-	unset( $sizes['2048x2048']);
-	return $sizes;
-	}
+
 	
 	function disable_gutenberg() {
 		if (!is_admin()) wp_dequeue_style( 'wp-block-library' );
