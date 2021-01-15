@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	define( 'OPTIONS_SLUG', 'asp' );
 	define( 'LANGUAGE_SLUG', 'asp' );
 		
-		add_filter( 'intermediate_image_sizes_advanced', 'asp_default_images' ); // REMOVE DEFAULT IMAGE SIZES 		
+		add_filter( 'intermediate_image_sizes_advanced', 'asp_default_images',10,3 ); // REMOVE DEFAULT IMAGE SIZES 		
 		add_filter( 'show_admin_bar', '__return_false'); //DO NOT DISPLAY ADMIN BAR
 		add_filter( 'send_email_change_email', '__return_false' ); //DO NOT SEND EMAILS ABOUT EMAIL CHANGE
 		add_action( 'admin_init', 'baw_no_admin_access', 1 ); //ADMIN ACCESS FOR ADMIN OR AJAX ONLY
@@ -21,7 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'template_redirect', 'wpb_redirect_attachment_to_post' ); //REDIRECT ATTACHEMENTS TO POST
 
 
-
+function asp_default_images( $sizes, $image_meta, $attachment_id ) {
+ unset( $sizes['1536x1536']);
+ unset( $sizes['2048x2048']);
+ unset( $sizes['medium_large']); // 768px
+ return $sizes;
+}
+function asp_get_image_id($image_url) {
+    global $wpdb;
+    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
+        return $attachment[0]; 
+}
 
 function stop_loading_wp_embed() {
 	if (!is_admin()) {
