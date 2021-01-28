@@ -105,20 +105,38 @@ jQuery(window).ready(function($) {
     return false;
   });
 
-  $('#weglot_support').on('click change', function(e) {
+  $('#smush_support').on('click change', function(e) {
     e.preventDefault();
     $(this).prop("checked", false);
 
-    $('#weglot-upsell-dialog').dialog('open');
+    $('.smush-thickbox').first().trigger('click');
 
     return false;
   });
 
-  // upsell dialog init
-  $('#weglot-upsell-dialog').dialog({'dialogClass': 'wp-dialog weglot-upsell-dialog',
+  $('#accessibe_support').on('click change', function(e) {
+    e.preventDefault();
+    $(this).prop("checked", false);
+
+    $('.open-accessibe-upsell').first().trigger('click');
+
+    return false;
+  });
+
+  $('body').on('click', '.open-accessibe-upsell', function(e) {
+    e.preventDefault();
+
+    $(this).blur();
+
+    $('#accessibe-upsell-dialog').dialog('open');
+
+    return false;
+  });
+
+  $('#accessibe-upsell-dialog').dialog({'dialogClass': 'wp-dialog accessibe-upsell-dialog',
                               'modal': 1,
                               'resizable': false,
-                              'title': 'Translate your maintenance page to any language',
+                              'title': 'Make your site accessible in just a few clicks',
                               'zIndex': 9999,
                               'width': 550,
                               'height': 'auto',
@@ -126,33 +144,25 @@ jQuery(window).ready(function($) {
                               'hide': 'fade',
                               'open': function(event, ui) {
                                 maintenance_fix_dialog_close(event, ui);
-                                $(this).siblings().find('span.ui-dialog-title').html(mtnc.weglot_dialog_upsell_title);
+                                $(this).siblings().find('span.ui-dialog-title').html(mtnc.accessibe_dialog_upsell_title);
                               },
                               'close': function(event, ui) { },
                               'autoOpen': false,
                               'closeOnEscape': true
   });
   $(window).resize(function(e) {
-    $('#weglot-upsell-dialog').dialog("option", "position", {my: "center", at: "center", of: window});
+    $('#accessibe-upsell-dialog').dialog("option", "position", {my: "center", at: "center", of: window});
   });
 
-  $('body').on('click', '.open-weglot-upsell', function(e) {
-    e.preventDefault();
 
-    $(this).blur();
-
-    $('#weglot-upsell-dialog').dialog('open');
-
-    return false;
-  });
-
-  jQuery('#install-weglot').on('click',function(e){
-    $('#weglot-upsell-dialog').dialog('close');
-    jQuery('body').append('<div style="width:550px;height:450px; position:fixed;top:10%;left:50%;margin-left:-275px; color:#444; background-color: #fbfbfb;border:1px solid #DDD; border-radius:4px;box-shadow: 0px 0px 0px 4000px rgba(0, 0, 0, 0.85);z-index: 9999999;"><iframe src="' + mtnc.weglot_install_url + '" style="width:100%;height:100%;border:none;" /></div>');
+  jQuery('#install-accessibe').on('click',function(e){
+    $('#accessibe-upsell-dialog').dialog('close');
+    jQuery('body').append('<div style="width:550px;height:450px; position:fixed;top:10%;left:50%;margin-left:-275px; color:#444; background-color: #fbfbfb;border:1px solid #DDD; border-radius:4px;box-shadow: 0px 0px 0px 4000px rgba(0, 0, 0, 0.85);z-index: 9999999;"><iframe src="' + mtnc.accessibe_install_url + '" style="width:100%;height:100%;border:none;" /></div>');
     jQuery('#wpwrap').css('pointer-events', 'none');
     e.preventDefault();
     return false;
   });
+
 
 
   /******************* */
@@ -288,7 +298,7 @@ jQuery(window).ready(function($) {
       /*'Cancel': function() {
         dialogForNewInfo.dialog( "close" );
       },*/
-      
+
     },
     close: function() {
       dialogForNewInfoForm[ 0 ].reset();
@@ -347,6 +357,3 @@ function getTimestamp(strDate){
 function stopDialogInterval() {
   clearInterval(dialogCheckIntervalHandler);
 }
-
-
-

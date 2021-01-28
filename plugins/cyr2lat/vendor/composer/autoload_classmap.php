@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Cyr_To_Lat\\ACF' => $baseDir . '/classes/class-acf.php',
     'Cyr_To_Lat\\Admin_Notices' => $baseDir . '/classes/class-admin-notices.php',
     'Cyr_To_Lat\\Conversion_Process' => $baseDir . '/classes/background-processes/class-conversion-process.php',

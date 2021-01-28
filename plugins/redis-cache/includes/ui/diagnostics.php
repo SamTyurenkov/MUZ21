@@ -16,11 +16,12 @@ $disabled = defined( 'WP_REDIS_DISABLED' ) && WP_REDIS_DISABLED;
 
 $info['Status'] = $roc->get_status();
 $info['Client'] = $roc->get_redis_client_name();
+
 $info['Drop-in'] = $roc->object_cache_dropin_exists()
     ? ( $dropin ? 'Valid' : 'Invalid' )
     : 'Not installed';
+
 $info['Disabled'] = $disabled ? 'Yes' : 'No';
-$info['Filesystem'] = is_wp_error( $filesystem ) ? $filesystem->get_error_message() : 'Working';
 
 if ( $dropin && ! $disabled ) {
     $info[ 'Ping' ] = isset( $wp_object_cache->diagnostics[ 'ping' ] )
@@ -56,6 +57,8 @@ $info['Redis Version'] = $roc->get_redis_version() ?: 'Unknown';
 
 $info['Multisite'] = is_multisite() ? 'Yes' : 'No';
 
+$info['Filesystem'] = is_wp_error( $filesystem ) ? $filesystem->get_error_message() : 'Working';
+
 if ( $dropin ) {
     $info['Global Prefix'] = wp_json_encode( $wp_object_cache->global_prefix );
     $info['Blog Prefix'] = wp_json_encode( $wp_object_cache->blog_prefix );
@@ -77,12 +80,14 @@ $constants = [
     'WP_REDIS_SHARDS',
     'WP_REDIS_SENTINEL',
     'WP_REDIS_IGBINARY',
+    'WP_REDIS_SERIALIZER',
     'WP_REDIS_MAXTTL',
     'WP_REDIS_PREFIX',
     'WP_CACHE_KEY_SALT',
     'WP_REDIS_GLOBAL_GROUPS',
     'WP_REDIS_IGNORED_GROUPS',
     'WP_REDIS_UNFLUSHABLE_GROUPS',
+    'WP_REDIS_METRICS_MAX_TIME',
 ];
 
 foreach ( $constants as $constant ) {

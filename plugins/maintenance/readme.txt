@@ -1,9 +1,9 @@
 === Maintenance ===
-Contributors: WebFactory, UnderConstructionPage, googlemapswidget, wpreset, securityninja
+Contributors: WebFactory
 Tags: maintenance, maintenance mode, maintenance page, coming soon, coming soon page, under construction, under construction page
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: 3.96
+Tested up to: 5.6
+Stable tag: 3.99
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Great looking maintenance, coming soon & under construction pages. Put your site
 
 Maintenance plugin allows the WordPress site administrator to close the website for maintenance, enable "503 Service temporarily unavailable”, set a temporary page with authorization, which can be edited via the plugin settings. Easy customize the good look on all devices. Add your logo, background image, select the desired color, add text.
 
-Thanks to our partners at <a href="https://wordpress.org/plugins/weglot/">Weglot</a>, Maintenance is fully multilanguage ready and you can instantly translate your maintenance page to 100+ languages with one click.
+**Web accessibility is not an option in 2021!** Making your site accessible to visitors with disabilities will save you from hefty fines and instantly grow your audience. That's why we've partnered with <a href="https://wordpress.org/plugins/accessibe/">accessiBe</a> - the fully automated AI service for web accessibility. Download their plugin from the official WP repository and make your site fully accessible in a few clicks.
 
 Let <a href="https://wordpress.org/plugins/security-ninja/">Security Ninja</a> take care of your site's security from day one! Run over 50 security tests with one click. Get a detailed report and automatically fix security issues.
 
@@ -86,6 +86,16 @@ Please post the question on the <a href="http://wordpress.org/support/plugin/mai
 
 
 == Changelog ==
+
+= v3.99 =
+- 2021/01/13
+- minor fixes
+- removed promo for WP 301 Redirects
+
+= v3.97 =
+- 2020/10/02
+- minor fixes
+- added promo for WP 301 Redirects
 
 = v3.96 =
 - 2020/08/19

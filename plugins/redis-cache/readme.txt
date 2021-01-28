@@ -3,9 +3,9 @@ Contributors: tillkruess
 Donate link: https://github.com/sponsors/tillkruss
 Tags: redis, predis, phpredis, credis, hhvm, pecl, caching, cache, object cache, performance, replication, clustering, keydb
 Requires at least: 3.3
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.6
-Stable tag: 2.0.13
+Stable tag: 2.0.17
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,7 @@ A **business class** Redis object cache backend. Truly reliable, highly optimize
 * 100% WordPress API compliant
 * Faster serialization and compression
 * Easy debugging & logging
-* Cache analytics and preloading
+* Cache prefetching and analytics
 * Fully unit tested (100% code coverage)
 * Secure connections with TLS
 * Health checks via WordPress & WP CLI
@@ -83,12 +83,43 @@ To see a list of all available WP-CLI commands, please see the [WP CLI commands 
 
 == Changelog ==
 
+= 2.0.17 =
+
+- Code cleanup
+- Fixed missing metrics
+- Fixed filesystem test
+
+= 2.0.16 =
+
+- Updated Credis to v1.11.4
+- Fixed drop-in notice styling
+- Moved metrics into dedicated class
+- Added `redis_cache_validate_dropin` filter
+- Use `WP_DEBUG_DISPLAY` (instead of `WP_DEBUG`) constant to display debug information
+- Fixed rare error in `wp_cache_get_multiple()`
+- Removed `intval()` usage
+
+= 2.0.15 =
+
+- Reverted `build_key()` changes due to issues in multisite environments
+
+= 2.0.14 =
+
+- Made Object Cache Pro card translatable
+- Added `WP_REDIS_SERIALIZER` to diagnostics
+- Improved speed of `build_key()`
+- Support settings `WP_REDIS_PREFIX` and `WP_REDIS_SELECTIVE_FLUSH` via environment variable
+- Added `WP_REDIS_METRICS_MAX_TIME` to adjust stored metrics timeframe
+- Delay loading of text domain and schedule until `init` hook
+- Upgraded bundled Predis library to v1.1.6
+- Prevent variable referencing issue in `connect_using_credis()`
+
 = 2.0.13 =
 
 - Updated bundled Predis library to v1.1.4
 - Made `redis-cache` a global group for improved metrics on multisite
 - Switched to short array syntax
-- Added `@since` tags to all functions
+- Added `@since` tags to all hooks
 - Use `parse_url()` instead of `wp_parse_url()` in drop-in
 - Fixed plugin instance variable name in `wp redis status`
 
@@ -459,6 +490,6 @@ Since Predis isn't maintained any longer, it's highly recommended to switch over
 
 == Upgrade Notice ==
 
-= 2.0.13 =
+= 2.0.17 =
 
 Version 2.0 is a significant rewrite of the plugin. Please read the v2.0.0 release notes.

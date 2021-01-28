@@ -77,10 +77,6 @@ $google_fonts = mtnc_add_google_fonts();
 	} elseif ( ! empty( $google_fonts[0] ) ) {
 		echo '<link rel="stylesheet" href="' . esc_url( 'https://fonts.googleapis.com/css?family=' . esc_attr( $google_fonts[0] ) ) . '">';
   }
-  if (mtnc_is_weglot_setup()) {
-    echo '<link rel="stylesheet" href="' . WEGLOT_URL_DIST . '/css/front-css.css?v=' . WEGLOT_VERSION . '" type="text/css">';
-    echo '<script src="' . WEGLOT_URL_DIST . '/front-js.js?v=' . WEGLOT_VERSION . '"></script>';
-  }
 	?>
 </head>
 
@@ -132,9 +128,17 @@ $google_fonts = mtnc_add_google_fonts();
 		<?php mtnc_do_button_login_form(); ?>
 	</div>
 <?php endif; ?>
-<?php do_action( 'load_options_style' ); ?>
-<?php do_action( 'load_custom_scripts' );
+<?php
+  do_action( 'load_options_style' );
+  do_action( 'load_custom_scripts' );
 
+  if (!is_callable('is_plugin_active')) {
+    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+  }
+
+  if (is_callable('is_plugin_active') && is_plugin_active('accessibe/accessiebe.php') && is_callable(array('Accessibe', 'render_js_in_footer'))) {
+    Accessibe::render_js_in_footer();
+  }
 ?>
 
 </body>

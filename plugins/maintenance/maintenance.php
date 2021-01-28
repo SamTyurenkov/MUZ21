@@ -3,12 +3,12 @@
 	Plugin Name: Maintenance
 	Plugin URI: https://wpmaintenancemode.com/
 	Description: Put your site in maintenance mode, away from the public view. Use maintenance plugin if your website is in development or you need to change a few things, run an upgrade. Make it only accessible to logged in users.
-	Version: 3.96
+	Version: 3.99
 	Author: WebFactory Ltd
 	Author URI: https://www.webfactoryltd.com/
 	License: GPL2
 
-  Copyright 2013-2020  WebFactory Ltd  (email : support@webfactoryltd.com)
+  Copyright 2013-2021  WebFactory Ltd  (email : support@webfactoryltd.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -23,6 +23,7 @@
 	along with this program; if not, write to the Free Software
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 
 class MTNC
 {
@@ -48,7 +49,7 @@ class MTNC
     add_action('init', array(&$this, 'mtnc_admin_bar'));
     add_action('init', array(&$this, 'mtnc_set_global_options'), 1);
 
-    add_action('admin_action_mtnc_install_weglot', array(&$this, 'install_weglot'));
+    add_action('admin_action_mtnc_install_accessibe', array(&$this, 'install_accessibe'));
 
     add_filter(
       'plugin_action_links_' . plugin_basename(__FILE__),
@@ -70,7 +71,7 @@ class MTNC
 
   public function mtnc_constants()
   {
-    define('MTNC_VERSION', '3.8');
+    define('MTNC_VERSION', '3.9');
     define('MTNC_DB_VERSION', 2);
     define('MTNC_WP_VERSION', get_bloginfo('version'));
     define('MTNC_DIR', trailingslashit(plugin_dir_path(__FILE__)));
@@ -237,28 +238,26 @@ class MTNC
     $res = $this->add_plugin_favs('simple-author-box', $res);
     $res = $this->add_plugin_favs('eps-301-redirects', $res);
     $res = $this->add_plugin_favs('wp-force-ssl', $res);
-    $res = $this->add_plugin_favs('security-ninja', $res);
+    $res = $this->add_plugin_favs('accessibe', $res);
 
     return $res;
   } // plugins_api_result
 
-
-  // auto download / install / activate Weglot plugin
-  function install_weglot()
-  {
+  // auto download / install / activate Accessibe plugin
+  static function install_accessibe() {
     if (false === current_user_can('administrator')) {
       wp_die('Sorry, you have to be an admin to run this action.');
     }
 
-    $plugin_slug = 'weglot/weglot.php';
-    $plugin_zip = 'https://downloads.wordpress.org/plugin/weglot.latest-stable.zip';
+    $plugin_slug = 'accessibe/accessiebe.php';
+    $plugin_zip = 'https://downloads.wordpress.org/plugin/accessibe.latest-stable.zip';
 
     @include_once ABSPATH . 'wp-admin/includes/plugin.php';
     @include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
     @include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
     @include_once ABSPATH . 'wp-admin/includes/file.php';
     @include_once ABSPATH . 'wp-admin/includes/misc.php';
-    echo '<style>
+		echo '<style>
 		body{
 			font-family: sans-serif;
 			font-size: 14px;
@@ -268,40 +267,38 @@ class MTNC
 		</style>';
 
     echo '<div style="margin: 20px; color:#444;">';
-    echo 'If things are not done in a minute <a target="_parent" href="' . admin_url('plugin-install.php?s=weglot&tab=search&type=term') . '">install the plugin manually via Plugins page</a><br><br>';
+    echo 'If things are not done in a minute <a target="_parent" href="' . admin_url('plugin-install.php?s=accessibe&tab=search&type=term') .'">install the plugin manually via Plugins page</a><br><br>';
     echo 'Starting ...<br><br>';
 
-    wp_cache_flush();
+		wp_cache_flush();
     $upgrader = new Plugin_Upgrader();
-    echo 'Check if Weglot is already installed ... <br />';
-    if ($this->is_plugin_installed($plugin_slug)) {
-      echo 'Weglot is already installed! <br /><br />Making sure it\'s the latest version.<br />';
+    echo 'Check if accessiBe is already installed ... <br />';
+    if (self::is_plugin_installed($plugin_slug)) {
+      echo 'accessiBe is already installed! <br /><br />Making sure it\'s the latest version.<br />';
       $upgrader->upgrade($plugin_slug);
       $installed = true;
     } else {
-      echo 'Installing Weglot.<br />';
+      echo 'Installing accessiBe.<br />';
       $installed = $upgrader->install($plugin_zip);
     }
     wp_cache_flush();
 
     if (!is_wp_error($installed) && $installed) {
-      echo 'Activating Weglot.<br />';
+      echo 'Activating accessiBe.<br />';
       $activate = activate_plugin($plugin_slug);
 
       if (is_null($activate)) {
-        echo 'Weglot Activated.<br />';
+        echo 'accessiBe Activated.<br />';
 
         echo '<script>setTimeout(function() { top.location = "admin.php?page=maintenance"; }, 1000);</script>';
         echo '<br>If you are not redirected in a few seconds - <a href="admin.php?page=maintenance" target="_parent">click here</a>.';
       }
     } else {
-      echo 'Could not install Weglot. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=weglot&tab=search&type=term') . '">download and install manually</a>.';
+      echo 'Could not install accessiBe. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=accessibe&tab=search&type=term') .'">download and install manually</a>.';
     }
 
     echo '</div>';
-  } // install_weglot
-
-
+  } // install_accessibe
 
   function is_plugin_installed($slug)
   {

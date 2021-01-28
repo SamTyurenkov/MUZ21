@@ -110,7 +110,7 @@ function mtnc_generate_check_filed($title, $label, $id, $name, $value)
 {
   $out_filed  = '';
   $out_filed .= '<tr valign="top">';
-  $out_filed .= '<th scope="row">' . esc_attr($title) . '</th>';
+  $out_filed .= '<th scope="row"><label for="' . esc_attr($id) . '">' . esc_attr($title) . '</label></th>';
   $out_filed .= '<td>';
   $out_filed .= '<fieldset>';
   $out_filed .= '<label for=' . esc_attr($id) . '>';
@@ -298,11 +298,25 @@ function mtnc_add_review_top() {
   echo $promo_text;
 }
 
+function mtnc_accessibe_side() {
+  $promo_text  = '';
+
+  $promo_text .= '<p><b>20% of people who visit your site can\'t use it properly</b> because they have a disability. Making your site accessible is required by law and you can face heavy fines for not doing it.</p><p>By using the <a href="#" class="open-accessibe-upsell">accessiBe plugin</a> you can make your site accessible. This will not only save you from fines but instantly grow your audience.</p>';
+  $promo_text .= '<p class="textcenter"><a href="#" class="open-accessibe-upsell"><img style="max-width: 80%;" src="' . MTNC_URI . 'images/accessibe-logo.png" alt="Install the accessiBe plugin" title="Install the accessiBe plugin"></a></p>';
+
+  echo $promo_text;
+}
+
 function mtnc_page_create_meta_boxes_widget_support()
 {
   global $mtnc_variable;
 
   add_meta_box('promo-review2', __('Help us keep the plugin free &amp; maintained', 'maintenance'), 'mtnc_review_box', $mtnc_variable->options_page, 'side', 'high');
+
+  if (!is_plugin_active('accessibe/accessiebe.php')) {
+    add_meta_box('accessibe-sidebar', 'Web accessibility is not a luxury in 2021!', 'mtnc_accessibe_side', $mtnc_variable->options_page, 'side', 'high');
+  }
+
   if (!mtnc_is_sn_active()) {
     add_meta_box('promo-sn', __('Protect your site from day one with Security Ninja', 'maintenance'), 'mtnc_promo_sn', $mtnc_variable->options_page, 'side', 'default');
   }
@@ -342,19 +356,20 @@ function mtnc_add_data_fields($object, $box)
   <table class="form-table">
     <tbody>
       <?php
-        mtnc_generate_input_filed(__('Page title', 'maintenance'), 'page_title', 'page_title', $page_title);
+        mtnc_generate_input_filed(__('Page Title', 'maintenance'), 'page_title', 'page_title', $page_title);
         mtnc_generate_input_filed(__('Headline', 'maintenance'), 'heading', 'heading', $heading);
         mtnc_generate_tinymce_filed(__('Description', 'maintenance'), 'description', 'description', $description);
         mtnc_generate_input_filed(__('Footer Text', 'maintenance'), 'footer_text', 'footer_text', $footer_text);
-        mtnc_weglot_option();
+        mtnc_accessibe_option();
+        mtnc_smush_option();
         mtnc_generate_check_filed(__('Show Some Love', 'maintenance'), __('Show a small link in the footer to let others know you\'re using this awesome &amp; free plugin', 'maintenance'), 'show_some_love', 'show_some_love', !empty($mt_option['show_some_love']));
-        mtnc_generate_number_filed(__('Set Logo width', 'maintenance'), 'logo_width', 'logo_width', $logo_width);
-        mtnc_generate_number_filed(__('Set Logo height', 'maintenance'), 'logo_height', 'logo_height', $logo_height);
+        mtnc_generate_number_filed(__('Set Logo Width', 'maintenance'), 'logo_width', 'logo_width', $logo_width);
+        mtnc_generate_number_filed(__('Set Logo Height', 'maintenance'), 'logo_height', 'logo_height', $logo_height);
         mtnc_generate_image_filed(__('Logo', 'maintenance'), 'logo', 'logo', (int) $mt_option['logo'], 'boxes box-logo', __('Upload Logo', 'maintenance'), 'upload_logo upload_btn button');
-        mtnc_generate_image_filed(__('Retina logo', 'maintenance'), 'retina_logo', 'retina_logo', (int) $mt_option['retina_logo'], 'boxes box-logo', __('Upload Retina Logo', 'maintenance'), 'upload_logo upload_btn button');
+        mtnc_generate_image_filed(__('Retina Logo', 'maintenance'), 'retina_logo', 'retina_logo', (int) $mt_option['retina_logo'], 'boxes box-logo', __('Upload Retina Logo', 'maintenance'), 'upload_logo upload_btn button');
         do_action('mtnc_background_field');
-        mtnc_generate_image_filed(__('Background image (portrait mode)', 'maintenance'), 'bg_image_portrait', 'bg_image_portrait', isset($mt_option['bg_image_portrait']) ? (int) $mt_option['bg_image_portrait'] : '', 'boxes box-logo', __('Upload image for portrait device orientation', 'maintenance'), 'upload_logo upload_btn button');
-        mtnc_generate_image_filed(__('Page preloader image', 'maintenance'), 'preloader_img', 'preloader_img', isset($mt_option['preloader_img']) ? (int) $mt_option['preloader_img'] : '', 'boxes box-logo', __('Upload preloader', 'maintenance'), 'upload_logo upload_btn button');
+        mtnc_generate_image_filed(__('Background Image (portrait mode)', 'maintenance'), 'bg_image_portrait', 'bg_image_portrait', isset($mt_option['bg_image_portrait']) ? (int) $mt_option['bg_image_portrait'] : '', 'boxes box-logo', __('Upload image for portrait device orientation', 'maintenance'), 'upload_logo upload_btn button');
+        mtnc_generate_image_filed(__('Page Preloader Image', 'maintenance'), 'preloader_img', 'preloader_img', isset($mt_option['preloader_img']) ? (int) $mt_option['preloader_img'] : '', 'boxes box-logo', __('Upload preloader', 'maintenance'), 'upload_logo upload_btn button');
 
         do_action('mtnc_color_fields');
         do_action('mtnc_font_fields');
@@ -373,10 +388,10 @@ function mtnc_add_data_fields($object, $box)
           }
         }
 
-        mtnc_generate_check_filed(__('Apply background blur', 'maintenance'), '', 'is_blur', 'is_blur', $is_blur);
-        mtnc_generate_number_filed(__('Set blur intensity', 'maintenance'), 'blur_intensity', 'blur_intensity', (int) $mt_option['blur_intensity']);
+        mtnc_generate_check_filed(__('Apply Background Blur', 'maintenance'), 'Add blur effect to the background image', 'is_blur', 'is_blur', $is_blur);
+        mtnc_generate_number_filed(__('Set Blur Intensity', 'maintenance'), 'blur_intensity', 'blur_intensity', (int) $mt_option['blur_intensity']);
 
-        mtnc_generate_check_filed(__('Enable frontend login', 'maintenance'), '', 'is_login', 'is_login', isset($mt_option['is_login']));
+        mtnc_generate_check_filed(__('Enable Frontend Login', 'maintenance'), '', 'is_login', 'is_login', isset($mt_option['is_login']));
 
         echo '<tr><td colspan="2"><p><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p></td></tr>'
         ?>
@@ -412,79 +427,42 @@ function mtnc_create_select_options($options, $selected = null, $output = true) 
   }
 } // create_select_options
 
-function mtnc_weglot_option() {
-  return;
-  if (mtnc_is_weglot_active()) {
-    echo '<tr id="weglot-settings">';
-    echo '<th><label for="weglot_lang">Multilingual Support</label></th>';
-    echo '<td>';
-
-    if (mtnc_is_weglot_setup()) {
-      $tmp = '';
-      $active_languages = weglot_get_destination_language();
-      $languages = weglot_get_languages_available();
-      $original_language = weglot_get_original_language();
-
-      echo '<p>Your maintenance page is currently available in the following languages.<br>To add more languages and configure translations open <a href="' . admin_url('admin.php?page=weglot-settings') . '">Weglot settings</a>.</p>';
-      echo '<ul class="mtnc-list">';
-      foreach ($languages as $language) {
-        if ($language->getIso639() == $original_language) {
-          $tmp = '<li>' . esc_html($language->getEnglishName()) . ' - original language</li>' . $tmp;
-        }
-        if (in_array($language->getIso639(), $active_languages, true )) {
-          $tmp .= '<li>' . esc_html($language->getLocalName()) . '</li>';
-        }
-      } // foreach language
-      echo $tmp;
-      echo '</ul>';
-    } else {
-      echo '<p>Your under construction page is currently not translated.<br>Open <a href="' . admin_url('admin.php?page=weglot-settings') . '">Weglot settings</a> to select languages you want to translate to.</p>';
-    }
+function mtnc_smush_option() {
+  if (defined('WP_SMUSH_VERSION')) {
+    echo '<tr>';
+    echo '<th><label for="smush_support">Enable Image Compression</label></th>';
+    echo '<td style="line-height: 1.5;">';
+    echo 'Configure <a href="' . admin_url('admin.php?page=smush') . '">image compression options</a>.';
     echo '</td>';
     echo '</tr>';
-    } else {
-      echo '<tr>';
-      echo '<th><label for="weglot_support">Multilingual Support</label></th>';
-      echo '<td>';
-      echo '<input type="checkbox" id="weglot_support" type="checkbox" value="1" class="skip-save open-weglot-upsell">55% of online visitors prefer to browse in their mother tongue. If you have an audience speaking multiple languages, making your website multilingual is a must-have. To instantly translate your site and your maintenance page, <a href="#" class="open-weglot-upsell">install the Weglot plugin</a> (free plan &amp; free trial available). It seamlessly integrates with Maintenance plugin and is compatible with all themes &amp; plugins.';
-      echo '</td>';
-      echo '</tr>';
-    } // weglot not active
-}
-
-// check if Weglot is completely set up
-function mtnc_is_weglot_setup() {
-  if (!mtnc_is_weglot_active()) {
-    return false;
-  }
-
-  $active_languages = weglot_get_destination_language();
-  if (!empty($active_languages)) {
-    return true;
   } else {
-    return false;
+    echo '<tr>';
+    echo '<th><label for="smush_support">Enable Image Compression</label></th>';
+    echo '<td style="line-height: 1.5;">';
+    echo '<input type="checkbox" id="smush_support" type="checkbox" value="1" class="skip-save">The easiest way to speed up any site is to <b>compress images</b>. On an average page you can easily save a few megabytes. Doing it manually in Photoshop is a pain! That\'s why there are plugins like <a href="' . admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=wp-smushit&TB_iframe=true&width=600&height=550') . '" class="thickbox open-plugin-details-modal smush-thickbox">Smush</a> that specialize in compressing images. <a href="' . admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=wp-smushit&TB_iframe=true&width=600&height=550') . '" class="thickbox open-plugin-details-modal smush-thickbox">Install the free Smush plugin</a>. It has no limit on the amount of images you can compress, seamlessly integrates with WordPress, and is compatible with all plugins &amp; themes. And best of all - <b>it\'s used by over a million users just like you</b>.';
+    echo '</td>';
+    echo '</tr>';
   }
-} // is_weglot_setup
+} // mtnc_smush_option
 
-// check if Weglot plugin is active and min version installed
-function mtnc_is_weglot_active() {
-  if (!function_exists('is_plugin_active') || !function_exists('get_plugin_data')) {
-   require_once ABSPATH . 'wp-admin/includes/plugin.php';
-  }
-
-  if (is_plugin_active('weglot/weglot.php')) {
-    $weglot_info = get_plugin_data(ABSPATH . 'wp-content/plugins/weglot/weglot.php');
-    if( version_compare($weglot_info['Version'], '2.5', '<')) {
-      return false;
-    } else {
-      return true;
-    }
+function mtnc_accessibe_option() {
+  if (is_plugin_active('accessibe/accessiebe.php')) {
+    echo '<tr>';
+    echo '<th><label for="accessibe_support">Web Accessibility</label></th>';
+    echo '<td style="line-height: 1.5;">';
+    echo 'Configure <a href="' . admin_url('options-general.php?page=accessiBe') . '">web accessibility options</a>.';
+    echo '</td>';
+    echo '</tr>';
   } else {
-    return false;
+    echo '<tr>';
+    echo '<th><label for="accessibe_support">Web Accessibility</label></th>';
+    echo '<td style="line-height: 1.5;">';
+    echo '<input type="checkbox" id="accessibe_support" type="checkbox" value="1" class="skip-save">Your maintenance page is currently <b>not fully accessible for over 20% of visitors</b> with dissabilities.<br> Make your site accessible from day one by installing the <a href="#" class="open-accessibe-upsell">accessiBe plugin.</a>';
+    echo '</td>';
+    echo '</tr>';
   }
-} // is_weglot_active
+} // mtnc_accessibe_option
 
-// check if Weglot plugin is active and min version installed
 function mtnc_is_sn_active() {
     if (!function_exists('is_plugin_active') || !function_exists('get_plugin_data')) {
      require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -510,1869 +488,2087 @@ function mtnc_add_css_fields()
 
 function mtnc_add_themes_fields()
 {
-  $themes =
-
+  $themes = array(
+  0 =>
   array (
-    0 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Thu, 22 Feb 2018 18:45:00 +0000',
-      'name' => 'Aeroplane Company',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'aeroplane-company',
-    ),
-    1 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 09 Sep 2018 16:06:39 +0000',
-      'name' => 'Air Balloon',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'air-balloon',
-    ),
-    2 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 03 Aug 2020 12:43:26 +0000',
-      'name' => 'Animated Clock',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'animated-clock',
-    ),
-    3 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 29 May 2019 18:26:27 +0000',
-      'name' => 'Architecture INC.',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'architecture-inc',
-    ),
-    4 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 08 Sep 2018 14:42:03 +0000',
-      'name' => 'Architecture',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'architecture',
-    ),
-    5 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 07 Jul 2019 16:22:50 +0000',
-      'name' => 'Art Gallery',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'art-gallery',
-    ),
-    6 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 23 Sep 2018 12:44:52 +0000',
-      'name' => 'Auto Service',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'auto-service',
-    ),
-    7 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 25 Nov 2019 08:10:48 +0000',
-      'name' => 'Bakery',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'bakery',
-    ),
-    8 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 23 Feb 2020 11:41:46 +0000',
-      'name' => 'Banking App',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'banking-app',
-    ),
-    9 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 09 Jun 2018 13:26:02 +0000',
-      'name' => 'Beach',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'beach',
-    ),
-    10 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.05',
-      'last_edit' => 'Wed, 28 Feb 2018 10:30:46 +0000',
-      'name' => 'Bicycle Race',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'agency',
-      'name_clean' => 'bicycle-race',
-    ),
-    11 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 23 Mar 2019 14:44:52 +0000',
-      'name' => 'Bike Shop',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'bike-shop',
-    ),
-    12 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Sat, 24 Feb 2018 11:48:50 +0000',
-      'name' => 'Bitcoin Miners',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'bitcoin-miners',
-    ),
-    13 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 21 Oct 2019 12:55:24 +0000',
-      'name' => 'Black Friday',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'black-friday',
-    ),
-    14 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:50:26 +0000',
-      'name' => 'Blogging',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'blogging',
-    ),
-    15 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 29 May 2019 18:05:04 +0000',
-      'name' => 'Blue Ocean',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'blue-ocean',
-    ),
-    16 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 03 Jul 2019 12:01:57 +0000',
-      'name' => 'Body Transformation',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'body-transformation',
-    ),
-    17 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:11:04 +0000',
-      'name' => 'Bodybuilding',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'bodybuilding',
-    ),
-    18 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Tue, 27 Feb 2018 09:56:05 +0000',
-      'name' => 'Book Lovers',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'book-lovers',
-    ),
-    19 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 03 Aug 2020 12:36:52 +0000',
-      'name' => 'Business Company',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'agency',
-      'name_clean' => 'business-company',
-    ),
-    20 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 17:05:08 +0000',
-      'name' => 'Business Consulting (Video)',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'business-consulting-video',
-    ),
-    21 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 23 Feb 2020 10:58:18 +0000',
-      'name' => 'Business Consulting',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'business-consulting',
-    ),
-    22 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Thu, 06 Aug 2020 20:25:12 +0000',
-      'name' => 'Business Launch',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'business-launch',
-    ),
-    23 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 16 Jun 2019 20:05:59 +0000',
-      'name' => 'Business Meeting (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'business-meeting-video',
-    ),
-    24 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:06:41 +0000',
-      'name' => 'Business',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'business',
-    ),
-    25 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 30 Jan 2019 19:31:32 +0000',
-      'name' => 'Café',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'cafe',
-    ),
-    26 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:09:16 +0000',
-      'name' => 'Chatbot',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'chatbot',
-    ),
-    27 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 23 Nov 2019 11:33:13 +0000',
-      'name' => 'Christmas Decor',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'christmas-decor',
-    ),
-    28 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 01 Oct 2019 14:39:36 +0000',
-      'name' => 'Church',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'church',
-    ),
-    29 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 10 Mar 2019 11:24:47 +0000',
-      'name' => 'City Nighttime',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'city-nighttime',
-    ),
-    30 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 29 Jul 2018 12:52:06 +0000',
-      'name' => 'Cityscape',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'cityscape',
-    ),
-    31 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:17:59 +0000',
-      'name' => 'Clothing Trends',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'clothing-trends',
-    ),
-    32 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.14',
-      'last_edit' => 'Fri, 23 Mar 2018 16:46:05 +0000',
-      'name' => 'Clouds Screensaver (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'clouds-screensaver-video',
-    ),
-    33 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Thu, 22 Feb 2018 18:45:40 +0000',
-      'name' => 'Coffee Shop',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'coffee-shop',
-    ),
-    34 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 04 May 2018 08:57:40 +0000',
-      'name' => 'Cold Lake',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'cold-lake',
-    ),
-    35 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 07 Jan 2019 08:25:36 +0000',
-      'name' => 'Computer Repair Service',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'computer-repair-service',
-    ),
-    36 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 27 Feb 2019 20:04:27 +0000',
-      'name' => 'Concert',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'concert',
-    ),
-    37 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 23 Apr 2019 08:43:55 +0000',
-      'name' => 'Conference Event',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'conference-event',
-    ),
-    38 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 29 Sep 2019 16:15:39 +0000',
-      'name' => 'Construction Company',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'construction-company',
-    ),
-    39 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 22 Dec 2019 21:18:00 +0000',
-      'name' => 'Creative Design',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'creative-design',
-    ),
-    40 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Nov 2018 10:25:04 +0000',
-      'name' => 'Custom Decor',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'custom-decor',
-    ),
-    41 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sat, 28 Mar 2020 09:02:41 +0000',
-      'name' => 'Cyber Security',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'cyber-security',
-    ),
-    42 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Mon, 26 Feb 2018 20:41:31 +0000',
-      'name' => 'Default',
-      'description' => 'Default settings, nothing more.',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'default',
-    ),
-    43 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:24:59 +0000',
-      'name' => 'Dental Clinic',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'dental-clinic',
-    ),
-    44 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 27 Apr 2020 11:17:15 +0000',
-      'name' => 'Digital Agency',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'digital-agency',
-    ),
-    45 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 26 Nov 2018 18:41:25 +0000',
-      'name' => 'Dog Shelter',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'dog-shelter',
-    ),
-    46 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.001',
-      'last_edit' => 'Tue, 20 Feb 2018 09:14:59 +0000',
-      'name' => 'Dog Training and Behavior Consulting',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'dog-training-and-behavior-consulting',
-    ),
-    47 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 19 Jan 2020 16:12:34 +0000',
-      'name' => 'Donation',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'donation',
-    ),
-    48 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:08:20 +0000',
-      'name' => 'Ecommerce',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'ecommerce',
-    ),
-    49 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 07 Jan 2019 08:27:22 +0000',
-      'name' => 'Employment',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'employment',
-    ),
-    50 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 23 Dec 2018 09:56:23 +0000',
-      'name' => 'Essay Writing Service',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'essay-writing-service',
-    ),
-    51 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 29 Aug 2018 16:00:04 +0000',
-      'name' => 'Fall (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'fall-video',
-    ),
-    52 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 21 Jul 2018 22:37:09 +0000',
-      'name' => 'Fashion',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'fashion',
-    ),
-    53 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 26 Jan 2020 15:35:32 +0000',
-      'name' => 'Financial Counselling',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'financial-counselling',
-    ),
-    54 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 30 Oct 2018 18:11:40 +0000',
-      'name' => 'Financial District',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'financial-district',
-    ),
-    55 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 18 Aug 2019 16:33:36 +0000',
-      'name' => 'Fitness E-Shop',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'fitness-e-shop',
-    ),
-    56 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Thu, 06 Aug 2020 20:26:33 +0000',
-      'name' => 'Florium',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'florium',
-    ),
-    57 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 12:33:55 +0000',
-      'name' => 'Flower Shop',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'flower-shop',
-    ),
-    58 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 02 May 2018 09:37:48 +0000',
-      'name' => 'Food Blog',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'food-blog',
-    ),
-    59 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:13:26 +0000',
-      'name' => 'Food Store',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'food-store',
-    ),
-    60 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Tue, 11 Feb 2020 18:23:19 +0000',
-      'name' => 'Foodie',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'foodie',
-    ),
-    61 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 18 Jun 2018 16:40:10 +0000',
-      'name' => 'Football',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'football',
-    ),
-    62 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 23 Dec 2018 10:16:53 +0000',
-      'name' => 'Frozen Nature',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'frozen-nature',
-    ),
-    63 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Thu, 28 Feb 2019 08:14:36 +0000',
-      'name' => 'Future Technology',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'future-technology',
-    ),
-    64 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 24 May 2020 05:27:47 +0000',
-      'name' => 'Graphic Design',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'graphic-design',
-    ),
-    65 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 25 Aug 2019 09:03:15 +0000',
-      'name' => 'Greenlife',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'greenlife',
-    ),
-    66 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 23 Oct 2018 17:23:42 +0000',
-      'name' => 'Halloween',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'halloween',
-    ),
-    67 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 30 Jul 2019 14:26:58 +0000',
-      'name' => 'Healthy Eating',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'healthy-eating',
-    ),
-    68 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 17:00:48 +0000',
-      'name' => 'Hexagons (Video)',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'hexagons-video',
-    ),
-    69 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 28 Jul 2018 15:16:26 +0000',
-      'name' => 'Holiday Resort',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'holiday-resort',
-    ),
-    70 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 27 Apr 2020 12:54:37 +0000',
-      'name' => 'Home Design',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'home-design',
-    ),
-    71 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:26:42 +0000',
-      'name' => 'Homemade Chocolate Gifts',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'homemade-chocolate-gifts',
-    ),
-    72 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 21 Oct 2019 12:34:08 +0000',
-      'name' => 'Hosting',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'hosting',
-    ),
-    73 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 30 Jan 2019 19:33:31 +0000',
-      'name' => 'Ice Cream Shop',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'ice-cream-shop',
-    ),
-    74 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:12:39 +0000',
-      'name' => 'In Design',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'in-design',
-    ),
-    75 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 23 Sep 2019 13:35:23 +0000',
-      'name' => 'Inspy Romance',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'inspy-romance',
-    ),
-    76 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 12:59:44 +0000',
-      'name' => 'Interior Design',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'interior-design',
-    ),
-    77 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 23 Sep 2019 14:03:55 +0000',
-      'name' => 'IT Conference',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'it-conference',
-    ),
-    78 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.14',
-      'last_edit' => 'Fri, 23 Mar 2018 16:42:15 +0000',
-      'name' => 'Journey (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'journey-video',
-    ),
-    79 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 25 Apr 2020 11:37:42 +0000',
-      'name' => 'Keyword Research',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'keyword-research',
-    ),
-    80 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sat, 30 May 2020 18:37:45 +0000',
-      'name' => 'Kids Center',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'kids-center',
-    ),
-    81 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 29 Dec 2019 19:04:44 +0000',
-      'name' => 'Kids Innovation Program',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'kids-innovation-program',
-    ),
-    82 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 11 Mar 2019 18:11:04 +0000',
-      'name' => 'Ladies Accessories',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'ladies-accessories',
-    ),
-    83 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:28:28 +0000',
-      'name' => 'LEGO Bricks',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'lego-bricks',
-    ),
-    84 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 29 Aug 2018 16:36:44 +0000',
-      'name' => 'Loneliness',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'loneliness',
-    ),
-    85 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:04:55 +0000',
-      'name' => 'Lonely Road',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'lonely-road',
-    ),
-    86 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 30 Mar 2018 11:30:37 +0000',
-      'name' => 'Luxury Car',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'luxury-car',
-    ),
-    87 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Mon, 26 Feb 2018 18:31:18 +0000',
-      'name' => 'Maintenance Mode',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'maintenance-mode',
-    ),
-    88 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Mon, 26 Feb 2018 17:59:30 +0000',
-      'name' => 'Makeup Artist Training',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'makeup-artist-training',
-    ),
-    89 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sat, 28 Mar 2020 10:24:09 +0000',
-      'name' => 'Marketing Webinar',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'marketing-webinar',
-    ),
-    90 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 21 Oct 2019 13:36:56 +0000',
-      'name' => 'Metrics (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'metrics-video',
-    ),
-    91 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 23 Sep 2018 13:09:03 +0000',
-      'name' => 'Misty Forest (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'misty-forest-video',
-    ),
-    92 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 12:29:53 +0000',
-      'name' => 'Mobile App',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'extra',
-      'name_clean' => 'mobile-app',
-    ),
-    93 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:08:31 +0000',
-      'name' => 'Mobile Designer',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'mobile-designer',
-    ),
-    94 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 30 Oct 2018 18:10:11 +0000',
-      'name' => 'Mobile Meeting',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'mobile-meeting',
-    ),
-    95 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Mon, 26 Feb 2018 18:04:32 +0000',
-      'name' => 'Modern Blog',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'modern-blog',
-    ),
-    96 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 10:14:21 +0000',
-      'name' => 'Modern Office',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'agency',
-      'name_clean' => 'modern-office',
-    ),
-    97 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 26 Nov 2018 18:42:35 +0000',
-      'name' => 'Modern Recipes',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'modern-recipes',
-    ),
-    98 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:48:23 +0000',
-      'name' => 'Mountain Slide',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'mountain-slide',
-    ),
-    99 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.05',
-      'last_edit' => 'Thu, 01 Mar 2018 10:49:52 +0000',
-      'name' => 'Mountain',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'mountain',
-    ),
-    100 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:12:56 +0000',
-      'name' => 'Movie Trailer (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'movie-trailer-video',
-    ),
-    101 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 16 Jun 2019 16:57:44 +0000',
-      'name' => 'Music',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'music',
-    ),
-    102 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 10:17:02 +0000',
-      'name' => 'Nature',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'agency',
-      'name_clean' => 'nature',
-    ),
-    103 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:05:07 +0000',
-      'name' => 'Non-Profit Organization',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'non-profit-organization',
-    ),
-    104 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 22 Jul 2020 19:34:37 +0000',
-      'name' => 'Nutritionist',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'nutritionist',
-    ),
-    105 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.14',
-      'last_edit' => 'Fri, 23 Mar 2018 16:37:55 +0000',
-      'name' => 'Office Meeting (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'office-meeting-video',
-    ),
-    106 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 12:35:44 +0000',
-      'name' => 'Office Theme',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'office-theme',
-    ),
-    107 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 28 Mar 2020 07:10:36 +0000',
-      'name' => 'Online Food Delivery',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'online-food-delivery',
-    ),
-    108 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Mon, 26 Feb 2018 18:07:28 +0000',
-      'name' => 'Online Learning',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'online-learning',
-    ),
-    109 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 30 Dec 2019 09:41:36 +0000',
-      'name' => 'Online Shopping',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'online-shopping',
-    ),
-    110 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 25 Aug 2019 10:00:21 +0000',
-      'name' => 'Organic Cosmetics',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'organic-cosmetics',
-    ),
-    111 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:10:44 +0000',
-      'name' => 'Pancake House',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'pancake-house',
-    ),
-    112 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:15:19 +0000',
-      'name' => 'Parenting',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'parenting',
-    ),
-    113 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 28 Aug 2018 15:03:08 +0000',
-      'name' => 'Passage',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'passage',
-    ),
-    114 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 23 Oct 2018 18:08:17 +0000',
-      'name' => 'Peaceful River',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'peaceful-river',
-    ),
-    115 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 18 May 2019 12:49:23 +0000',
-      'name' => 'Personal Trainer',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'personal-trainer',
-    ),
-    116 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 28 Mar 2020 07:55:41 +0000',
-      'name' => 'Photo Studio',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'photo-studio',
-    ),
-    117 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:35:07 +0000',
-      'name' => 'Photography',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'photography',
-    ),
-    118 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sat, 28 Dec 2019 12:08:04 +0000',
-      'name' => 'Plumbing',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'plumbing',
-    ),
-    119 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 06:53:04 +0000',
-      'name' => 'Podcast',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'podcast',
-    ),
-    120 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Thu, 06 Aug 2020 20:27:12 +0000',
-      'name' => 'Portfolio',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'portfolio',
-    ),
-    121 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 25 Nov 2019 08:56:50 +0000',
-      'name' => 'Restaurant',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'restaurant',
-    ),
-    122 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 10 Mar 2019 11:20:31 +0000',
-      'name' => 'Romantic Travels',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'romantic-travels',
-    ),
-    123 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:41:09 +0000',
-      'name' => 'Running Blog',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'agency',
-      'name_clean' => 'running-blog',
-    ),
-    124 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.14',
-      'last_edit' => 'Sat, 24 Mar 2018 10:23:40 +0000',
-      'name' => 'Running (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'running-video',
-    ),
-    125 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Thu, 25 Apr 2019 08:11:16 +0000',
-      'name' => 'Scholar University',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'scholar-university',
-    ),
-    126 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 26 Jun 2019 16:55:04 +0000',
-      'name' => 'SEO & Digital Marketing',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'seo-digital-marketing',
-    ),
-    127 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Mon, 26 Feb 2018 11:17:32 +0000',
-      'name' => 'Shoes Store',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'shoes-store',
-    ),
-    128 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:17:21 +0000',
-      'name' => 'Simple Beige Design',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'simple-beige-design',
-    ),
-    129 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:11:48 +0000',
-      'name' => 'Skin Care',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'skin-care',
-    ),
-    130 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 15 Sep 2019 17:58:36 +0000',
-      'name' => 'Skincare',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'skincare',
-    ),
-    131 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:19:34 +0000',
-      'name' => 'Snow Screensaver (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'snow-screensaver-video',
-    ),
-    132 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Mar 2018 11:44:39 +0000',
-      'name' => 'Snowboarding Blog',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'snowboarding-blog',
-    ),
-    133 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:21:19 +0000',
-      'name' => 'Snowy Mountain',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'snowy-mountain',
-    ),
-    134 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Fri, 30 Nov 2018 10:24:22 +0000',
-      'name' => 'Snowy Oasis',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'snowy-oasis',
-    ),
-    135 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 10 Apr 2019 17:03:10 +0000',
-      'name' => 'Social Media Service',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'social-media-service',
-    ),
-    136 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:06:54 +0000',
-      'name' => 'Social Media',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'social-media',
-    ),
-    137 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 17 Feb 2019 12:27:43 +0000',
-      'name' => 'Spa & Beauty Studio',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'spa-beauty-studio',
-    ),
-    138 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Thu, 30 May 2019 17:05:57 +0000',
-      'name' => 'Spa',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'spa',
-    ),
-    139 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 22 Jul 2020 20:04:16 +0000',
-      'name' => 'Spring Sale',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'spring-sale',
-    ),
-    140 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 30 Mar 2018 09:59:40 +0000',
-      'name' => 'Spring',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'spring',
-    ),
-    141 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sat, 26 Jan 2019 16:30:01 +0000',
-      'name' => 'Startup',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'startup',
-    ),
-    142 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:16:06 +0000',
-      'name' => 'Statistics Survey',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'statistics-survey',
-    ),
-    143 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 23 Feb 2020 10:34:57 +0000',
-      'name' => 'Studio Design',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'studio-design',
-    ),
-    144 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 19 Aug 2018 07:48:14 +0000',
-      'name' => 'Stylish Workplace',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'stylish-workplace',
-    ),
-    145 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 26 Jan 2020 15:16:44 +0000',
-      'name' => 'Tattoo Studio',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'tattoo-studio',
-    ),
-    146 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:10:14 +0000',
-      'name' => 'Tech',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'tech',
-    ),
-    147 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Wed, 26 Jun 2019 17:26:44 +0000',
-      'name' => 'TechExpo',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'techexpo',
-    ),
-    148 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 18 Aug 2019 17:19:12 +0000',
-      'name' => 'Telecommunication',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'telecommunication',
-    ),
-    149 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:22:49 +0000',
-      'name' => 'The Big City Newsletter',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'the-big-city-newsletter',
-    ),
-    150 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.14',
-      'last_edit' => 'Thu, 22 Mar 2018 11:33:57 +0000',
-      'name' => 'The Sunny View',
-      'description' => 'Andrea',
-      'frontpage' => '0',
-      'status' => 'pro',
-      'name_clean' => 'the-sunny-view',
-    ),
-    151 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Mon, 25 Nov 2019 09:23:11 +0000',
-      'name' => 'Theatre',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'theatre',
-    ),
-    152 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.001',
-      'last_edit' => 'Tue, 20 Feb 2018 10:57:27 +0000',
-      'name' => 'Travel Agency',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'travel-agency',
-    ),
-    153 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 12:39:22 +0000',
-      'name' => 'Travel Blog',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'travel-blog',
-    ),
-    154 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:24:56 +0000',
-      'name' => 'Tulips',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'tulips',
-    ),
-    155 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sun, 27 Jan 2019 08:47:12 +0000',
-      'name' => 'Valentines Day',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'valentines-day',
-    ),
-    156 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.001',
-      'last_edit' => 'Mon, 19 Feb 2018 12:31:48 +0000',
-      'name' => 'Video Production',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'video-production',
-    ),
-    157 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Thu, 04 Apr 2019 16:55:28 +0000',
-      'name' => 'Virtual Assistant Service',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'virtual-assistant-service',
-    ),
-    158 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 24 May 2020 06:10:55 +0000',
-      'name' => 'Virtual Reality',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'virtual-reality',
-    ),
-    159 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Sat, 07 Jul 2018 15:15:19 +0000',
-      'name' => 'Walking Away (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'walking-away-video',
-    ),
-    160 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Fri, 07 Aug 2020 08:07:31 +0000',
-      'name' => 'Web Security',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'web-security',
-    ),
-    161 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Mon, 26 Feb 2018 19:54:07 +0000',
-      'name' => 'Webinar',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'webinar',
-    ),
-    162 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.005',
-      'last_edit' => 'Fri, 23 Feb 2018 11:53:23 +0000',
-      'name' => 'Wedding Blog',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'wedding-blog',
-    ),
-    163 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Thu, 06 Aug 2020 20:25:52 +0000',
-      'name' => 'Wedding',
-      'description' => '',
-      'frontpage' => '0',
-      'status' => 'extra',
-      'name_clean' => 'wedding',
-    ),
-    164 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Tue, 22 May 2018 12:41:04 +0000',
-      'name' => 'White Orchids',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'white-orchids',
-    ),
-    165 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.17',
-      'last_edit' => 'Sun, 19 Jan 2020 13:38:20 +0000',
-      'name' => 'Winter Sale',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'pro',
-      'name_clean' => 'winter-sale',
-    ),
-    166 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '5.14',
-      'last_edit' => 'Thu, 22 Mar 2018 11:29:56 +0000',
-      'name' => 'Working Out',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'working-out',
-    ),
-    167 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '15.05',
-      'last_edit' => 'Fri, 02 Mar 2018 12:36:42 +0000',
-      'name' => 'Workplace',
-      'description' => 'Andrea',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'workplace',
-    ),
-    168 => 
-    array (
-      'type' => 'CSMM PRO',
-      'version' => '6.00',
-      'last_edit' => 'Wed, 25 Apr 2018 11:00:38 +0000',
-      'name' => 'Writing Service (Video)',
-      'description' => '',
-      'frontpage' => '1',
-      'status' => 'agency',
-      'name_clean' => 'writing-service-video',
-    ),
-  );
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Thu, 22 Feb 2018 18:45:00 +0000',
+    'name' => 'Aeroplane Company',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'aeroplane-company',
+  ),
+  1 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:32:06 +0000',
+    'name' => 'Air Balloon',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'air-balloon',
+  ),
+  2 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Mon, 03 Aug 2020 12:43:26 +0000',
+    'name' => 'Animated Clock',
+    'description' => 'Andrea',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'animated-clock',
+  ),
+  3 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:34:04 +0000',
+    'name' => 'Architecture INC',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'architecture-inc',
+  ),
+  4 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sat, 08 Sep 2018 14:42:03 +0000',
+    'name' => 'Architecture',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'architecture',
+  ),
+  5 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:36:45 +0000',
+    'name' => 'Art Gallery',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'art-gallery',
+  ),
+  6 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sun, 23 Sep 2018 12:44:52 +0000',
+    'name' => 'Auto Service',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'auto-service',
+  ),
+  7 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:38:10 +0000',
+    'name' => 'Bakery',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'bakery',
+  ),
+  8 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:39:02 +0000',
+    'name' => 'Banking App',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'banking-app',
+  ),
+  9 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 30 Aug 2020 12:23:36 +0000',
+    'name' => 'Barbershop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'barbershop',
+  ),
+  10 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:42:04 +0000',
+    'name' => 'Beach',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'beach',
+  ),
+  11 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.05',
+    'last_edit' => 'Wed, 28 Feb 2018 10:30:46 +0000',
+    'name' => 'Bicycle Race',
+    'description' => 'Andrea',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'bicycle-race',
+  ),
+  12 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sat, 23 Mar 2019 14:44:52 +0000',
+    'name' => 'Bike Shop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'bike-shop',
+  ),
+  13 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Sat, 24 Feb 2018 11:48:50 +0000',
+    'name' => 'Bitcoin Miners',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'bitcoin-miners',
+  ),
+  14 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:44:52 +0000',
+    'name' => 'Black Friday',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'black-friday',
+  ),
+  15 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:50:26 +0000',
+    'name' => 'Blogging',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'blogging',
+  ),
+  16 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Wed, 29 May 2019 18:05:04 +0000',
+    'name' => 'Blue Ocean',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'blue-ocean',
+  ),
+  17 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:51:48 +0000',
+    'name' => 'Body Transformation',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'body-transformation',
+  ),
+  18 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:53:11 +0000',
+    'name' => 'Bodybuilding',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'bodybuilding',
+  ),
+  19 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Tue, 27 Feb 2018 09:56:05 +0000',
+    'name' => 'Book Lovers',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'book-lovers',
+  ),
+  20 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Mon, 03 Aug 2020 12:36:52 +0000',
+    'name' => 'Business Company',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'business-company',
+  ),
+  21 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 12:56:21 +0000',
+    'name' => 'Business Consulting (Video)',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'business-consulting-video',
+  ),
+  22 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:00:25 +0000',
+    'name' => 'Business Consulting',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'business-consulting',
+  ),
+  23 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Thu, 06 Aug 2020 20:25:12 +0000',
+    'name' => 'Business Launch',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'business-launch',
+  ),
+  24 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:02:11 +0000',
+    'name' => 'Business Meeting (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'business-meeting-video',
+  ),
+  25 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:02:57 +0000',
+    'name' => 'Business',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'business',
+  ),
+  26 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:04:27 +0000',
+    'name' => 'Café',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'cafe',
+  ),
+  27 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 08:09:16 +0000',
+    'name' => 'Chatbot',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'chatbot',
+  ),
+  28 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sat, 23 Nov 2019 11:33:13 +0000',
+    'name' => 'Christmas Decor',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'christmas-decor',
+  ),
+  29 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sat, 21 Nov 2020 12:38:08 +0000',
+    'name' => 'Christmas Sale',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'christmas-sale',
+  ),
+  30 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:07:28 +0000',
+    'name' => 'Church',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'church',
+  ),
+  31 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 18 Dec 2020 14:02:43 +0000',
+    'name' => 'Cinema Trailer (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'cinema-trailer-video',
+  ),
+  32 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:08:33 +0000',
+    'name' => 'City Nighttime',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'city-nighttime',
+  ),
+  33 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:09:33 +0000',
+    'name' => 'Cityscape',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'cityscape',
+  ),
+  34 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 08:17:59 +0000',
+    'name' => 'Clothing Trends',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'clothing-trends',
+  ),
+  35 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:11:48 +0000',
+    'name' => 'Clouds Screensaver (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'clouds-screensaver-video',
+  ),
+  36 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Thu, 22 Feb 2018 18:45:40 +0000',
+    'name' => 'Coffee Shop',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'coffee-shop',
+  ),
+  37 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:16:02 +0000',
+    'name' => 'Cold Lake',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'cold-lake',
+  ),
+  38 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:16:57 +0000',
+    'name' => 'Computer Repair Service',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'computer-repair-service',
+  ),
+  39 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:18:01 +0000',
+    'name' => 'Concert',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'concert',
+  ),
+  40 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:19:59 +0000',
+    'name' => 'Conference Event',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'conference-event',
+  ),
+  41 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:21:29 +0000',
+    'name' => 'Construction Company',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'construction-company',
+  ),
+  42 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:23:02 +0000',
+    'name' => 'Creative Design',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'creative-design',
+  ),
+  43 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:24:34 +0000',
+    'name' => 'Custom Decor',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'custom-decor',
+  ),
+  44 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Tue, 29 Sep 2020 09:54:37 +0000',
+    'name' => 'Cyber Security',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'cyber-security',
+  ),
+  45 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Mon, 26 Feb 2018 20:41:31 +0000',
+    'name' => 'Default',
+    'description' => 'Default settings, nothing more.',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'default',
+  ),
+  46 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:24:59 +0000',
+    'name' => 'Dental Clinic',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'dental-clinic',
+  ),
+  47 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Mon, 27 Apr 2020 11:17:15 +0000',
+    'name' => 'Digital Agency',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'digital-agency',
+  ),
+  48 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Mon, 26 Nov 2018 18:41:25 +0000',
+    'name' => 'Dog Shelter',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'dog-shelter',
+  ),
+  49 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.001',
+    'last_edit' => 'Tue, 20 Feb 2018 09:14:59 +0000',
+    'name' => 'Dog Training and Behavior Consulting',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'dog-training-and-behavior-consulting',
+  ),
+  50 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sun, 19 Jan 2020 16:12:34 +0000',
+    'name' => 'Donation',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'donation',
+  ),
+  51 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:33:24 +0000',
+    'name' => 'Ecommerce',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'ecommerce',
+  ),
+  52 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 30 Aug 2020 14:14:29 +0000',
+    'name' => 'Email Platform',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'email-platform',
+  ),
+  53 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:38:56 +0000',
+    'name' => 'Employment',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'employment',
+  ),
+  54 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:41:50 +0000',
+    'name' => 'Essay Writing Service',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'essay-writing-service',
+  ),
+  55 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Wed, 29 Aug 2018 16:00:04 +0000',
+    'name' => 'Fall (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'fall-video',
+  ),
+  56 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:43:16 +0000',
+    'name' => 'Fashion',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'fashion',
+  ),
+  57 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 22 Nov 2020 14:12:40 +0000',
+    'name' => 'Film Trailer',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'film-trailer',
+  ),
+  58 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:44:14 +0000',
+    'name' => 'Financial Counselling',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'financial-counselling',
+  ),
+  59 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Tue, 30 Oct 2018 18:11:40 +0000',
+    'name' => 'Financial District',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'financial-district',
+  ),
+  60 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:45:50 +0000',
+    'name' => 'Fitness E-Shop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'fitness-e-shop',
+  ),
+  61 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:46:51 +0000',
+    'name' => 'Florium',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'florium',
+  ),
+  62 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 12:33:55 +0000',
+    'name' => 'Flower Shop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'flower-shop',
+  ),
+  63 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Wed, 02 May 2018 09:37:48 +0000',
+    'name' => 'Food Blog',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'food-blog',
+  ),
+  64 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 08:13:26 +0000',
+    'name' => 'Food Store',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'food-store',
+  ),
+  65 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:49:30 +0000',
+    'name' => 'Foodie',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'foodie',
+  ),
+  66 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:50:19 +0000',
+    'name' => 'Football',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'football',
+  ),
+  67 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Wed, 23 Sep 2020 13:51:39 +0000',
+    'name' => 'Frozen Nature',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'frozen-nature',
+  ),
+  68 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 08:46:14 +0000',
+    'name' => 'Future Technology',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'future-technology',
+  ),
+  69 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sun, 24 May 2020 05:27:47 +0000',
+    'name' => 'Graphic Design',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'graphic-design',
+  ),
+  70 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 08:48:06 +0000',
+    'name' => 'Greenlife',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'greenlife',
+  ),
+  71 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 08:50:04 +0000',
+    'name' => 'Halloween',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'halloween',
+  ),
+  72 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Tue, 30 Jul 2019 14:26:58 +0000',
+    'name' => 'Healthy Eating',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'healthy-eating',
+  ),
+  73 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 17:00:48 +0000',
+    'name' => 'Hexagons (Video)',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'hexagons-video',
+  ),
+  74 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sat, 28 Jul 2018 15:16:26 +0000',
+    'name' => 'Holiday Resort',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'holiday-resort',
+  ),
+  75 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 08:55:50 +0000',
+    'name' => 'Home Design',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'home-design',
+  ),
+  76 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:26:42 +0000',
+    'name' => 'Homemade Chocolate Gifts',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'homemade-chocolate-gifts',
+  ),
+  77 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Tue, 29 Sep 2020 09:57:03 +0000',
+    'name' => 'Hosting',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'hosting',
+  ),
+  78 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Wed, 30 Jan 2019 19:33:31 +0000',
+    'name' => 'Ice Cream Shop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'ice-cream-shop',
+  ),
+  79 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:03:39 +0000',
+    'name' => 'In Design',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'in-design',
+  ),
+  80 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Mon, 23 Sep 2019 13:35:23 +0000',
+    'name' => 'Inspy Romance',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'inspy-romance',
+  ),
+  81 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 12:59:44 +0000',
+    'name' => 'Interior Design',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'interior-design',
+  ),
+  82 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sat, 21 Nov 2020 08:50:16 +0000',
+    'name' => 'Internet Service Provider',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'internet-service-provider',
+  ),
+  83 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:05:58 +0000',
+    'name' => 'IT Conference',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'it-conference',
+  ),
+  84 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.14',
+    'last_edit' => 'Fri, 23 Mar 2018 16:42:15 +0000',
+    'name' => 'Journey (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'journey-video',
+  ),
+  85 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sat, 25 Apr 2020 11:37:42 +0000',
+    'name' => 'Keyword Research',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'keyword-research',
+  ),
+  86 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:20:14 +0000',
+    'name' => 'Kids Center',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'kids-center',
+  ),
+  87 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:22:07 +0000',
+    'name' => 'Kids Innovation Program',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'kids-innovation-program',
+  ),
+  88 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Mon, 11 Mar 2019 18:11:04 +0000',
+    'name' => 'Ladies Accessories',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'ladies-accessories',
+  ),
+  89 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 18 Dec 2020 10:57:35 +0000',
+    'name' => 'Law',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'law',
+  ),
+  90 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:28:28 +0000',
+    'name' => 'LEGO Bricks',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'lego-bricks',
+  ),
+  91 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Wed, 29 Aug 2018 16:36:44 +0000',
+    'name' => 'Loneliness',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'loneliness',
+  ),
+  92 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:04:55 +0000',
+    'name' => 'Lonely Road',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'lonely-road',
+  ),
+  93 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 30 Mar 2018 11:30:37 +0000',
+    'name' => 'Luxury Car',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'luxury-car',
+  ),
+  94 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Mon, 26 Feb 2018 18:31:18 +0000',
+    'name' => 'Maintenance Mode',
+    'description' => 'Andrea',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'maintenance-mode',
+  ),
+  95 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Mon, 26 Feb 2018 17:59:30 +0000',
+    'name' => 'Makeup Artist Training',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'makeup-artist-training',
+  ),
+  96 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Tue, 29 Sep 2020 09:51:03 +0000',
+    'name' => 'Marketing Webinar',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'marketing-webinar',
+  ),
+  97 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:26:53 +0000',
+    'name' => 'Metrics (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'metrics-video',
+  ),
+  98 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sun, 23 Sep 2018 13:09:03 +0000',
+    'name' => 'Misty Forest (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'misty-forest-video',
+  ),
+  99 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:28:18 +0000',
+    'name' => 'Mobile App',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'extra',
+    'name_clean' => 'mobile-app',
+  ),
+  100 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:08:31 +0000',
+    'name' => 'Mobile Designer',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'mobile-designer',
+  ),
+  101 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Tue, 30 Oct 2018 18:10:11 +0000',
+    'name' => 'Mobile Meeting',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'mobile-meeting',
+  ),
+  102 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Mon, 26 Feb 2018 18:04:32 +0000',
+    'name' => 'Modern Blog',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'modern-blog',
+  ),
+  103 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 10:14:21 +0000',
+    'name' => 'Modern Office',
+    'description' => 'Andrea',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'modern-office',
+  ),
+  104 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Mon, 26 Nov 2018 18:42:35 +0000',
+    'name' => 'Modern Recipes',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'modern-recipes',
+  ),
+  105 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:48:23 +0000',
+    'name' => 'Mountain Slide',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'mountain-slide',
+  ),
+  106 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.05',
+    'last_edit' => 'Thu, 01 Mar 2018 10:49:52 +0000',
+    'name' => 'Mountain',
+    'description' => 'Andrea',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'mountain',
+  ),
+  107 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:31:15 +0000',
+    'name' => 'Movie Trailer (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'movie-trailer-video',
+  ),
+  108 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 27 Sep 2020 11:45:25 +0000',
+    'name' => 'Moving Service',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'moving-service',
+  ),
+  109 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 27 Sep 2020 13:47:44 +0000',
+    'name' => 'Museum',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'museum',
+  ),
+  110 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 27 Sep 2020 10:31:56 +0000',
+    'name' => 'Music Lessons',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'music-lessons',
+  ),
+  111 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Tue, 29 Sep 2020 10:04:47 +0000',
+    'name' => 'Music',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'music',
+  ),
+  112 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 10:17:02 +0000',
+    'name' => 'Nature',
+    'description' => 'Andrea',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'nature',
+  ),
+  113 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 08:05:07 +0000',
+    'name' => 'Non-Profit Organization',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'non-profit-organization',
+  ),
+  114 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:33:03 +0000',
+    'name' => 'Nutritionist',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'nutritionist',
+  ),
+  115 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.14',
+    'last_edit' => 'Fri, 23 Mar 2018 16:37:55 +0000',
+    'name' => 'Office Meeting (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'office-meeting-video',
+  ),
+  116 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 12:35:44 +0000',
+    'name' => 'Office Theme',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'office-theme',
+  ),
+  117 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:35:03 +0000',
+    'name' => 'Online Food Delivery',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'online-food-delivery',
+  ),
+  118 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Mon, 26 Feb 2018 18:07:28 +0000',
+    'name' => 'Online Learning',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'online-learning',
+  ),
+  119 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:36:15 +0000',
+    'name' => 'Online Shopping',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'online-shopping',
+  ),
+  120 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:38:08 +0000',
+    'name' => 'Organic Cosmetics',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'organic-cosmetics',
+  ),
+  121 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 18 Dec 2020 10:15:49 +0000',
+    'name' => 'Organic Farming',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'organic-farming',
+  ),
+  122 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:10:44 +0000',
+    'name' => 'Pancake House',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'pancake-house',
+  ),
+  123 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:15:19 +0000',
+    'name' => 'Parenting',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'parenting',
+  ),
+  124 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 27 Sep 2020 11:14:39 +0000',
+    'name' => 'Parents Online',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'parents-online',
+  ),
+  125 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Tue, 28 Aug 2018 15:03:08 +0000',
+    'name' => 'Passage',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'passage',
+  ),
+  126 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Tue, 23 Oct 2018 18:08:17 +0000',
+    'name' => 'Peaceful River',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'peaceful-river',
+  ),
+  127 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 22 Nov 2020 14:38:52 +0000',
+    'name' => 'Perfume Shop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'perfume-shop',
+  ),
+  128 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Tue, 29 Sep 2020 10:02:16 +0000',
+    'name' => 'Personal Trainer',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'personal-trainer',
+  ),
+  129 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:42:02 +0000',
+    'name' => 'Photo Studio',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'photo-studio',
+  ),
+  130 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:43:25 +0000',
+    'name' => 'Photography',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'photography',
+  ),
+  131 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:44:16 +0000',
+    'name' => 'Plumbing',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'plumbing',
+  ),
+  132 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 06:53:04 +0000',
+    'name' => 'Podcast',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'podcast',
+  ),
+  133 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:45:34 +0000',
+    'name' => 'Portfolio',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'portfolio',
+  ),
+  134 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 30 Oct 2020 20:35:22 +0000',
+    'name' => 'Real Estate',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'real-estate',
+  ),
+  135 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 30 Oct 2020 19:59:35 +0000',
+    'name' => 'Remote Work',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'remote-work',
+  ),
+  136 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:46:39 +0000',
+    'name' => 'Restaurant',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'restaurant',
+  ),
+  137 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:47:38 +0000',
+    'name' => 'Romantic Travels',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'romantic-travels',
+  ),
+  138 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:41:09 +0000',
+    'name' => 'Running Blog',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'running-blog',
+  ),
+  139 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.14',
+    'last_edit' => 'Sat, 24 Mar 2018 10:23:40 +0000',
+    'name' => 'Running (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'running-video',
+  ),
+  140 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:49:31 +0000',
+    'name' => 'Scholar University',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'scholar-university',
+  ),
+  141 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 09:54:51 +0000',
+    'name' => 'SEO & Digital Marketing',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'seo-digital-marketing',
+  ),
+  142 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Mon, 26 Feb 2018 11:17:32 +0000',
+    'name' => 'Shoes Store',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'shoes-store',
+  ),
+  143 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:17:21 +0000',
+    'name' => 'Simple Beige Design',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'simple-beige-design',
+  ),
+  144 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 08:11:48 +0000',
+    'name' => 'Skin Care',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'skin-care',
+  ),
+  145 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:07:56 +0000',
+    'name' => 'Skincare',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'skincare',
+  ),
+  146 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:10:09 +0000',
+    'name' => 'Snow Screensaver (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'snow-screensaver-video',
+  ),
+  147 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Fri, 30 Mar 2018 11:44:39 +0000',
+    'name' => 'Snowboarding Blog',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'snowboarding-blog',
+  ),
+  148 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:21:19 +0000',
+    'name' => 'Snowy Mountain',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'snowy-mountain',
+  ),
+  149 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:11:27 +0000',
+    'name' => 'Snowy Oasis',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'snowy-oasis',
+  ),
+  150 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:12:39 +0000',
+    'name' => 'Social Media Service',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'social-media-service',
+  ),
+  151 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:13:42 +0000',
+    'name' => 'Social Media',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'social-media',
+  ),
+  152 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:14:37 +0000',
+    'name' => 'Spa & Beauty Studio',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'spa-beauty-studio',
+  ),
+  153 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Thu, 30 May 2019 17:05:57 +0000',
+    'name' => 'Spa',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'spa',
+  ),
+  154 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 30 Oct 2020 19:34:57 +0000',
+    'name' => 'Sport Shop',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'sport-shop',
+  ),
+  155 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:21:31 +0000',
+    'name' => 'Spring Sale',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'spring-sale',
+  ),
+  156 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:22:17 +0000',
+    'name' => 'Spring',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'spring',
+  ),
+  157 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sat, 26 Jan 2019 16:30:01 +0000',
+    'name' => 'Startup',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'startup',
+  ),
+  158 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 25 Oct 2020 11:57:16 +0000',
+    'name' => 'Stat Team',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'agency',
+    'name_clean' => 'stat-team',
+  ),
+  159 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:24:20 +0000',
+    'name' => 'Statistics Survey',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'statistics-survey',
+  ),
+  160 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:25:41 +0000',
+    'name' => 'Studio Design',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'studio-design',
+  ),
+  161 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.17',
+    'last_edit' => 'Sun, 19 Aug 2018 07:48:14 +0000',
+    'name' => 'Stylish Workplace',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'stylish-workplace',
+  ),
+  162 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:27:00 +0000',
+    'name' => 'Tattoo Studio',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'tattoo-studio',
+  ),
+  163 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Fri, 07 Aug 2020 08:10:14 +0000',
+    'name' => 'Tech',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'tech',
+  ),
+  164 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:27:58 +0000',
+    'name' => 'TechExpo',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'techexpo',
+  ),
+  165 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:28:48 +0000',
+    'name' => 'Telecommunication',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'telecommunication',
+  ),
+  166 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.00',
+    'last_edit' => 'Wed, 25 Apr 2018 11:22:49 +0000',
+    'name' => 'The Big City Newsletter',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'the-big-city-newsletter',
+  ),
+  167 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:30:02 +0000',
+    'name' => 'The Sunny View',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'pro',
+    'name_clean' => 'the-sunny-view',
+  ),
+  168 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:30:53 +0000',
+    'name' => 'Theatre',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'theatre',
+  ),
+  169 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.001',
+    'last_edit' => 'Tue, 20 Feb 2018 10:57:27 +0000',
+    'name' => 'Travel Agency',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'travel-agency',
+  ),
+  170 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 12:39:22 +0000',
+    'name' => 'Travel Blog',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'travel-blog',
+  ),
+  171 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:31:59 +0000',
+    'name' => 'Travel',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'travel',
+  ),
+  172 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:32:57 +0000',
+    'name' => 'Tulips',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'tulips',
+  ),
+  173 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:33:31 +0000',
+    'name' => 'Valentines Day',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'valentines-day',
+  ),
+  174 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.001',
+    'last_edit' => 'Mon, 19 Feb 2018 12:31:48 +0000',
+    'name' => 'Video Production',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'video-production',
+  ),
+  175 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:34:15 +0000',
+    'name' => 'Virtual Assistant Service',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'virtual-assistant-service',
+  ),
+  176 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:34:56 +0000',
+    'name' => 'Virtual Reality',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'virtual-reality',
+  ),
+  177 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Tue, 29 Sep 2020 10:19:24 +0000',
+    'name' => 'Walking Away (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'walking-away-video',
+  ),
+  178 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:36:23 +0000',
+    'name' => 'Web Security',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'extra',
+    'name_clean' => 'web-security',
+  ),
+  179 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Mon, 26 Feb 2018 19:54:07 +0000',
+    'name' => 'Webinar',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'webinar',
+  ),
+  180 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '5.005',
+    'last_edit' => 'Fri, 23 Feb 2018 11:53:23 +0000',
+    'name' => 'Wedding Blog',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'wedding-blog',
+  ),
+  181 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:37:36 +0000',
+    'name' => 'Wedding',
+    'description' => '',
+    'frontpage' => '0',
+    'status' => 'extra',
+    'name_clean' => 'wedding',
+  ),
+  182 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:38:17 +0000',
+    'name' => 'White Orchids',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'white-orchids',
+  ),
+  183 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 18 Dec 2020 12:13:02 +0000',
+    'name' => 'Winery',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'winery',
+  ),
+  184 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:39:03 +0000',
+    'name' => 'Winter Sale',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'winter-sale',
+  ),
+  185 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:39:48 +0000',
+    'name' => 'Working Out',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'working-out',
+  ),
+  186 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '15.05',
+    'last_edit' => 'Fri, 02 Mar 2018 12:36:42 +0000',
+    'name' => 'Workplace',
+    'description' => 'Andrea',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'workplace',
+  ),
+  187 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Fri, 25 Sep 2020 10:40:35 +0000',
+    'name' => 'Writing Service (Video)',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'agency',
+    'name_clean' => 'writing-service-video',
+  ),
+  188 =>
+  array (
+    'type' => 'CSMM PRO',
+    'version' => '6.09',
+    'last_edit' => 'Sun, 30 Aug 2020 13:19:59 +0000',
+    'name' => 'Yoga Classes',
+    'description' => '',
+    'frontpage' => '1',
+    'status' => 'pro',
+    'name_clean' => 'yoga-classes',
+  ),
+);
 
   function mntc_themes_sort($item1, $item2) {
     if (strtotime($item1['last_edit']) == strtotime($item2['last_edit'])) {
@@ -2408,7 +2604,7 @@ function mtnc_add_themes_fields()
     echo '</div>';
   } // foreach theme
 
-  echo '<p class="textcenter"><a href="#" class="button button-primary" id="show-all-themes">Show All 150+ Themes</a><br><br></p>';
+  echo '<p class="textcenter"><a href="#" class="button button-primary" id="show-all-themes">Show All 190+ Themes</a><br><br></p>';
 }
 
 function mtnc_csmm_generate_web_link($placement = '', $page = '/', $params = array(), $anchor = '') {
@@ -2512,16 +2708,16 @@ function mtnc_add_exclude_pages_fields()
 function mtnc_get_background_fileds_action()
 {
   $mt_option = mtnc_get_plugin_options(true);
-  mtnc_generate_image_filed(__('Background image', 'maintenance'), 'body_bg', 'body_bg', esc_attr($mt_option['body_bg']), 'boxes box-bg', __('Upload Background', 'maintenance'), 'upload_background upload_btn button');
+  mtnc_generate_image_filed(__('Background Image', 'maintenance'), 'body_bg', 'body_bg', esc_attr($mt_option['body_bg']), 'boxes box-bg', __('Upload Background', 'maintenance'), 'upload_background upload_btn button');
 }
 add_action('mtnc_background_field', 'mtnc_get_background_fileds_action', 10);
 
 function mtnc_get_color_fileds_action()
 {
   $mt_option = mtnc_get_plugin_options(true);
-  mtnc_get_color_field(__('Background color', 'maintenance'), 'body_bg_color', 'body_bg_color', esc_attr($mt_option['body_bg_color']), '#111111');
-  mtnc_get_color_field(__('Font color', 'maintenance'), 'font_color', 'font_color', esc_attr($mt_option['font_color']), '#ffffff');
-  mtnc_get_color_field(__('Login block background color', 'maintenance'), 'controls_bg_color', 'controls_bg_color', isset($mt_option['controls_bg_color']) ? esc_attr($mt_option['controls_bg_color']) : '', '#000000');
+  mtnc_get_color_field(__('Background Color', 'maintenance'), 'body_bg_color', 'body_bg_color', esc_attr($mt_option['body_bg_color']), '#111111');
+  mtnc_get_color_field(__('Font Color', 'maintenance'), 'font_color', 'font_color', esc_attr($mt_option['font_color']), '#ffffff');
+  mtnc_get_color_field(__('Login Block Background Color', 'maintenance'), 'controls_bg_color', 'controls_bg_color', isset($mt_option['controls_bg_color']) ? esc_attr($mt_option['controls_bg_color']) : '', '#000000');
 }
 add_action('mtnc_color_fields', 'mtnc_get_color_fileds_action', 10);
 
@@ -2529,7 +2725,7 @@ add_action('mtnc_color_fields', 'mtnc_get_color_fileds_action', 10);
 function mtnc_get_font_fileds_action()
 {
   $mt_option = mtnc_get_plugin_options(true);
-  echo mtnc_get_fonts_field(__('Font family', 'maintenance'), 'body_font_family', 'body_font_family', esc_attr($mt_option['body_font_family'])); // phpcs:ignore WordPress.Security.EscapeOutput
+  echo mtnc_get_fonts_field(__('Font Family', 'maintenance'), 'body_font_family', 'body_font_family', esc_attr($mt_option['body_font_family'])); // phpcs:ignore WordPress.Security.EscapeOutput
   $subset = '';
 
   if (!empty($mt_option['body_font_subset'])) {
@@ -2575,7 +2771,7 @@ function mtnc_promo_sn()
 {
   $promo_text  = '';
   if (!mtnc_is_sn_active()) {
-    $promo_text .= '<a href="' . admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=security-ninja&TB_iframe=true&width=600&height=550') . '" class="thickbox open-plugin-details-modal"><img src="' . MTNC_URI . 'images/security-ninja.png" alt="Security Ninja" title="Security Ninja"></a>';
+    $promo_text .= '<a href="' . admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=security-ninja&TB_iframe=true&width=600&height=550') . '" class="textcenter thickbox open-plugin-details-modal"><img src="' . MTNC_URI . 'images/security-ninja.png" alt="Security Ninja" title="Security Ninja"></a>';
   }
   echo $promo_text;
 }

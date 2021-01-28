@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit460c17ef6a9eaa75f4cb75bec3b19218
+class ComposerStaticInit66aae1050084c32980bd69853e156383
 {
     public static $files = array (
         '344a0f93a05b8ca362c22e39586db500' => __DIR__ . '/../..' . '/lib/polyfill-mbstring/bootstrap.php',
@@ -25,6 +25,7 @@ class ComposerStaticInit460c17ef6a9eaa75f4cb75bec3b19218
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Cyr_To_Lat\\ACF' => __DIR__ . '/../..' . '/classes/class-acf.php',
         'Cyr_To_Lat\\Admin_Notices' => __DIR__ . '/../..' . '/classes/class-admin-notices.php',
         'Cyr_To_Lat\\Conversion_Process' => __DIR__ . '/../..' . '/classes/background-processes/class-conversion-process.php',
@@ -44,9 +45,9 @@ class ComposerStaticInit460c17ef6a9eaa75f4cb75bec3b19218
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit460c17ef6a9eaa75f4cb75bec3b19218::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit460c17ef6a9eaa75f4cb75bec3b19218::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit460c17ef6a9eaa75f4cb75bec3b19218::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit66aae1050084c32980bd69853e156383::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit66aae1050084c32980bd69853e156383::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit66aae1050084c32980bd69853e156383::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -223,7 +223,7 @@ final class ReaderThemes {
 				'query_themes',
 				[
 					'author'   => 'wordpressdotorg',
-					'per_page' => 24, // There are only 12 as of 05/2020.
+					'per_page' => 24, // There are only 13 as of 12/2020.
 				]
 			);
 
@@ -384,8 +384,11 @@ final class ReaderThemes {
 		}
 
 		if ( null === $this->can_install_themes ) {
-			if ( ! class_exists( 'WP_Upgrader' ) ) {
+			if ( ! function_exists( 'request_filesystem_credentials' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/file.php';
+			}
+
+			if ( ! class_exists( 'WP_Upgrader' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			}
 

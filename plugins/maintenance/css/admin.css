@@ -44,29 +44,23 @@
   line-height: 150%;
 }
 
-.weglot-upsell-dialog .ui-dialog-titlebar {
-  background: linear-gradient(140deg, #335ee2 10%, #271f50 90%);
+.ui-dialog-titlebar {
   text-align: center;
-  height: 55px;
-}
-
-.weglot-upsell-dialog .ui-dialog-titlebar img {
-  height: 32px;
-  display: inline-block;
-  margin: 11px 0 0 0;
-}
-
-.weglot-upsell-dialog .ui-button.ui-dialog-titlebar-close {
-  color: #fff;
-  height: 55px;
 }
 
 #promo-extended img {
   max-width: 100%;
 }
 
+#install-accessibe {
+  background: #136ef8;
+  padding: 10px;
+}
+
 #promo-sn img {
-  max-width: 100%;
+  max-width: 80%;
+  display: block;
+  margin: 0 auto;
 }
 
 #wpbody-content .metabox-holder {
