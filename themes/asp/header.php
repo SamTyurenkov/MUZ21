@@ -272,4 +272,4 @@ echo '<script data-ad-client="ca-pub-5275124683424777" async src="https://pagead
 <?php wp_head(); ?>
 </head>
 <body>
-<!-- Yandex.Metrika counter --><script async defer type="text/javascript" src="/wp-content/themes/asp/js/metrika.js?v=2"></script><!-- /Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter --><script async defer type="text/javascript" src="/wp-content/themes/asp/js/metrika.js?v=3"></script><!-- /Yandex.Metrika counter -->

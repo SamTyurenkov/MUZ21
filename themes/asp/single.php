@@ -76,7 +76,7 @@ $thumbnail = null;
 <?php 
 if(is_amp_endpoint() == false) {
 $brcms = '<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/"><span itemprop="name">ASP</span></a><meta itemprop="position" content="1" /></span> > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$taxonomy[0]->slug.'/"><span itemprop="name">'.$taxonomy[0]->name.'</span></a><meta itemprop="position" content="2" /></span> > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="'.get_permalink().'"><span itemprop="name">'.mb_substr(get_the_title(),0,50,'UTF-8').'...</span></a><meta itemprop="position" content="3" /></span></div>';
-echo $brcms; 
+echo wp_kses_post($brcms); 
 }
 ?>
 
@@ -95,8 +95,7 @@ echo $brcms;
 								<?php } ?>
 								<div class="entry-content" <?php if($taxonomy[0]->slug == 'news') echo 'itemprop="articleBody"'; ?>>
 									<?php
-
-									echo preg_replace("/(<li>[^<>]+<\/li>)+/","<ul>$0</ul>",get_the_content());
+									echo wp_kses_post(preg_replace("/(<li>[^<>]+<\/li>)+/","<ul>$0</ul>",get_the_content()));
 									?>
 								</div>
 								<?php if(is_amp_endpoint() == false) { ?>
