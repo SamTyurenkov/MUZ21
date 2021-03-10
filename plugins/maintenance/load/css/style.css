@@ -380,26 +380,6 @@ footer .center {
 	max-width: 210px
 }
 
-.wpcf7 input,.wpcf7 textarea {
-	color: inherit;
-	background-color: rgba(113,113,113,0.6);
-	padding: 10px 0
-}
-
-.wpcf7 .screen-reader-response {
-	padding: 10px 5px
-}
-
-.wpcf7 .screen-reader-response ul {
-	font-size: 14px;
-	padding: 0 0 0 20px
-}
-
-.wpcf7 .wpcf7-not-valid-tip {
-	padding-left: 10px;
-	font-size: 11px
-}
-
 .ie8 .login-form input[type="text"],.ie8 .login-form input[type="password"],.ie7 .login-form input[type="text"],.ie7 .login-form input[type="password"] {
 	background-color: #717171
 }
@@ -538,16 +518,6 @@ input[type="submit"]:hover{
 	animation-timing-function: linear
 }
 
-.wpcf7 {
-	max-width: 400px;
-	margin: 0 auto
-}
-
-.wpcf7 input,.wpcf7 textarea {
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-}
 .site-title, .preloader i, .login-form, .login-form a.lost-pass, .btn-open-login-form, .site-content, .user-content-wrapper, .user-content, footer, .maintenance a{
 	color: #ffffff;
 }

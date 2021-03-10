@@ -1,6 +1,6 @@
 <?php
 $mess_arr    = array();
-$ebody_class = null;
+$ebody_class = '';
 $mess_arr    = mtnc_get_custom_login_code();
 if ( ! empty( $mess_arr[0] ) ) {
 	$ebody_class = 'error';
@@ -25,8 +25,11 @@ if ( ! empty( $page_description ) ) {
 	$page_description = apply_filters( 'wpautop', stripslashes( $page_description ) );
 }
 
-$bg      = wp_get_attachment_image_src( $mt_options['body_bg'], 'full' );
-$body_bg = esc_url( $bg[0] );
+if (!empty($mt_options['body_bg'])) {
+  $bg = wp_get_attachment_image_src( $mt_options['body_bg'], 'full' );
+  $body_bg = esc_url( $bg[0] );
+}
+
 if ( ! empty( $mt_options['bg_image_portrait'] ) ) {
 	$bg_image_portrait = wp_get_attachment_image_src( $mt_options['bg_image_portrait'], 'full' );
 	$bg_image_portrait = ! empty( $bg_image_portrait ) ? $bg_image_portrait[0] : false;
@@ -80,7 +83,7 @@ $google_fonts = mtnc_add_google_fonts();
 	?>
 </head>
 
-<body <?php body_class( 'maintenance ' . $ebody_class ); ?>>
+<body class="maintenance <?php echo $ebody_class; ?>">
 
 <?php do_action( 'before_main_container' ); ?>
 <div class="main-container">
@@ -134,10 +137,6 @@ $google_fonts = mtnc_add_google_fonts();
 
   if (!is_callable('is_plugin_active')) {
     include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-  }
-
-  if (is_callable('is_plugin_active') && is_plugin_active('accessibe/accessiebe.php') && is_callable(array('Accessibe', 'render_js_in_footer'))) {
-    Accessibe::render_js_in_footer();
   }
 ?>
 

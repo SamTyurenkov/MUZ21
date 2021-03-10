@@ -10,13 +10,13 @@
                     onclick: function() {
                         editor.insertContent(`
 <table style="border-collapse: collapse;" border="1">
-    <tr><!--Заголовок таблицы-->
+    <tr>
         <th>Первый столбец</th>
         <th>Второй столбец</th>
     </tr>
-    <tr><!--Строка таблицы-->
-        <th>Первый столбец</th>
-        <th>Второй столбец</th>
+    <tr>
+        <td>Первый столбец</td>
+        <td>Второй столбец</td>
     </tr>
 </table><br>
 `);
@@ -27,13 +27,13 @@
                     onclick: function() {
                         editor.insertContent(`
 <table data-invisible="true">
-    <tr><!--Заголовок таблицы-->
+    <tr>
         <th>Первый столбец</th>
         <th>Второй столбец</th>
     </tr>
-    <tr><!--Строка таблицы-->
-        <th>Первый столбец</th>
-        <th>Второй столбец</th>
+    <tr>
+        <td>Первый столбец</td>
+        <td>Второй столбец</td>
     </tr>
 </table><br>
 `);

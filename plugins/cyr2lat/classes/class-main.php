@@ -66,6 +66,13 @@ class Main {
 	protected $acf;
 
 	/**
+	 * Polylang locale.
+	 *
+	 * @var string
+	 */
+	private $pll_locale = false;
+
+	/**
 	 * Main constructor.
 	 */
 	public function __construct() {
@@ -75,7 +82,6 @@ class Main {
 		$this->admin_notices     = new Admin_Notices();
 		$this->converter         = new Converter(
 			$this,
-			$this->settings,
 			$this->process_all_posts,
 			$this->process_all_terms,
 			$this->admin_notices
@@ -92,6 +98,8 @@ class Main {
 
 	/**
 	 * Init class.
+	 *
+	 * @noinspection PhpUndefinedClassInspection
 	 */
 	public function init() {
 		if ( defined( 'WP_CLI' ) && constant( 'WP_CLI' ) ) {
@@ -117,6 +125,10 @@ class Main {
 		add_filter( 'sanitize_title', [ $this, 'sanitize_title' ], 9, 3 );
 		add_filter( 'sanitize_file_name', [ $this, 'sanitize_filename' ], 10, 2 );
 		add_filter( 'wp_insert_post_data', [ $this, 'sanitize_post_name' ], 10, 2 );
+
+		if ( class_exists( 'Polylang' ) ) {
+			add_filter( 'locale', [ $this, 'pll_locale_filter' ] );
+		}
 	}
 
 	/**
@@ -127,6 +139,7 @@ class Main {
 	 * @param string $context   The context for which the title is being sanitized.
 	 *
 	 * @return string
+	 * @noinspection PhpUnusedParameterInspection
 	 */
 	public function sanitize_title( $title, $raw_title = '', $context = '' ) {
 		global $wpdb;
@@ -183,6 +196,8 @@ class Main {
 			return false;
 		}
 
+		$title = str_replace( 'pa_', '', $title );
+
 		$attribute_taxonomies = wc_get_attribute_taxonomies();
 
 		foreach ( $attribute_taxonomies as $attribute_taxonomy ) {
@@ -201,6 +216,7 @@ class Main {
 	 * @param string $filename_raw The filename prior to sanitization.
 	 *
 	 * @return string
+	 * @noinspection PhpUnusedParameterInspection
 	 */
 	public function sanitize_filename( $filename, $filename_raw ) {
 		$pre = apply_filters( 'ctl_pre_sanitize_filename', false, $filename );
@@ -289,7 +305,7 @@ class Main {
 
 		if ( function_exists( 'iconv' ) ) {
 			$new_string = iconv( 'UTF-8', 'UTF-8//TRANSLIT//IGNORE', $string );
-			$string     = $new_string ? $new_string : $string;
+			return $new_string ?: $string;
 		}
 
 		return $string;
@@ -301,6 +317,7 @@ class Main {
 	 * @link https://kagg.eu/how-to-catch-gutenberg/
 	 *
 	 * @return bool
+	 * @noinspection PhpIncludeInspection
 	 */
 	private function is_classic_editor_plugin_active() {
 		// @codeCoverageIgnoreStart
@@ -349,6 +366,7 @@ class Main {
 	 * @param array $postarr An array of sanitized, but otherwise unmodified post data.
 	 *
 	 * @return mixed
+	 * @noinspection PhpUnusedParameterInspection
 	 */
 	public function sanitize_post_name( $data, $postarr = [] ) {
 		global $current_screen;
@@ -370,6 +388,130 @@ class Main {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Locale filter for Polylang.
+	 *
+	 * @param string $locale Locale.
+	 *
+	 * @return string
+	 */
+	public function pll_locale_filter( $locale ) {
+		if ( $this->pll_locale ) {
+			return $this->pll_locale;
+		}
+
+		$rest_locale = $this->pll_locale_filter_with_rest();
+		if ( false === $rest_locale ) {
+			return $locale;
+		}
+		if ( $rest_locale ) {
+			$this->pll_locale = $rest_locale;
+
+			return $this->pll_locale;
+		}
+
+		if ( ! is_admin() ) {
+			return $locale;
+		}
+
+		$pll_get_post_language = $this->pll_locale_filter_with_classic_editor();
+		if ( $pll_get_post_language ) {
+			$this->pll_locale = $pll_get_post_language;
+
+			return $this->pll_locale;
+		}
+
+		$pll_get_term_language = $this->pll_locale_filter_with_term();
+		if ( $pll_get_term_language ) {
+			$this->pll_locale = $pll_get_term_language;
+
+			return $this->pll_locale;
+		}
+
+		return $locale;
+	}
+
+	/**
+	 * Locale filter for Polylang with REST request.
+	 *
+	 * @return false|null|string
+	 */
+	private function pll_locale_filter_with_rest() {
+		if ( ! defined( 'REST_REQUEST' ) || ! constant( 'REST_REQUEST' ) ) {
+			return null;
+		}
+
+		$rest_server = rest_get_server();
+		$data        = json_decode( $rest_server::get_raw_data(), false );
+		if ( isset( $data->lang ) ) {
+			return $data->lang;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Locale filter for Polylang with classic editor.
+	 *
+	 * @return bool|string
+	 */
+	private function pll_locale_filter_with_classic_editor() {
+		if ( ! function_exists( 'pll_get_post_language' ) ) {
+			return false;
+		}
+
+		$pll_get_post_language = false;
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_POST['post_ID'] ) ) {
+			$pll_get_post_language = pll_get_post_language(
+				(int) filter_input( INPUT_POST, 'post_ID', FILTER_SANITIZE_STRING )
+			);
+		}
+		if ( isset( $_POST['pll_post_id'] ) ) {
+			$pll_get_post_language = pll_get_post_language(
+				(int) filter_input( INPUT_POST, 'pll_post_id', FILTER_SANITIZE_STRING )
+			);
+		}
+		if ( isset( $_GET['post'] ) ) {
+			$pll_get_post_language = pll_get_post_language(
+				(int) filter_input( INPUT_GET, 'post', FILTER_SANITIZE_STRING )
+			);
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+
+		return $pll_get_post_language;
+	}
+
+	/**
+	 * Locale filter for Polylang with term.
+	 *
+	 * @return false|string
+	 */
+	private function pll_locale_filter_with_term() {
+		if ( ! function_exists( 'PLL' ) ) {
+			return false;
+		}
+
+		$pll_get_term_language = false;
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['term_lang_choice'] ) ) {
+			$pll_get_language = PLL()->model->get_language(
+				filter_input( INPUT_POST, 'term_lang_choice', FILTER_SANITIZE_STRING )
+			);
+
+			if ( $pll_get_language ) {
+				$pll_get_term_language = $pll_get_language->slug;
+			}
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+
+		return $pll_get_term_language;
 	}
 
 	/**

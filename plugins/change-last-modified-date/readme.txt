@@ -2,9 +2,9 @@
 Contributors: djuric
 Tags: last modified, edit date, edit last modified
 Requires at least: 5.1
-Tested up to: 5.3.2
+Tested up to: 5.6
 Requires PHP: 5.6
-Stable tag: 1.4.0
+Stable tag: 1.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -16,7 +16,7 @@ Change or prevent updating Last Modified date for individual posts.
 
 <p>When this plugin is active it will enable Last modified date options in Status & Visibility panel in sidebar. Changing the modified date can be done by clicking the date link and selecting a new date for the post. It's also possible to disable future updates of the last modified date by setting the "Freeze modified date" option to on.</p>
 
-= About custom post types support =
+= Custom post types support =
 
 <p>To update the last modified date, plugin is using "rest_pre_insert_{$post_type}" hook which is executed before "init" where other custom post types are usually registered. This is the reason why plugin is not aware of any additional post types other than those registered by WordPress core. To support additional post types you can add constant in following format to wp-config.php:</p>
 
@@ -46,3 +46,6 @@ define( 'CLM_DATE_POST_TYPES', ['post-type-slug-1', 'post-type-slug-2'] );
 
 = 1.3 =
 * Rewrite the plugin for new block editor
+
+= 1.4.2 =
+* Fix plugin crashing for custom post types without custom fields support declared

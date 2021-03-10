@@ -139,32 +139,6 @@ function mtnc_add_custom_scripts()
 
   wp_script_add_data('jquery_ie', 'conditional', 'lte IE 10');
 
-  if (class_exists('WPCF7')) {
-    wp_register_script('_cf7scripts', MTNC_URI . '../contact-form-7/includes/js/scripts.js', '', filemtime(MTNC_DIR . '../contact-form-7/includes/js/scripts.js'), true);
-    $wpcf7 = array(
-      'apiSettings' => array(
-        'root'      => esc_url_raw(rest_url('contact-form-7/v1')),
-        'namespace' => 'contact-form-7/v1',
-      ),
-      'recaptcha'   => array(
-        'messages' => array(
-          'empty' =>
-          __('Please verify that you are not a robot.', 'contact-form-7'),
-        ),
-      ),
-    );
-
-    if (defined('WP_CACHE') && WP_CACHE) {
-      $wpcf7['cached'] = 1;
-    }
-
-    if (wpcf7_support_html5_fallback()) {
-      $wpcf7['jqueryUi'] = 1;
-    }
-
-    wp_localize_script('_cf7scripts', 'wpcf7', $wpcf7);
-  }
-
   if (!empty($mt_options['body_bg']) && empty($mt_options['gallery_array']['attachment_ids'])) {
     $bg                    = wp_get_attachment_image_src($mt_options['body_bg'], 'full');
     $js_options['body_bg'] = esc_url($bg[0]);
@@ -185,10 +159,6 @@ function mtnc_add_custom_scripts()
   $wp_scripts->do_items('_backstretch');
 
   $wp_scripts->do_items('_frontend');
-
-  if (class_exists('WPCF7')) {
-    $wp_scripts->do_items('_cf7scripts');
-  }
 }
 
 add_action('load_custom_scripts', 'mtnc_add_custom_scripts', 15);

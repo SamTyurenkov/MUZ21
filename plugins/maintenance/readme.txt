@@ -2,8 +2,8 @@
 Contributors: WebFactory
 Tags: maintenance, maintenance mode, maintenance page, coming soon, coming soon page, under construction, under construction page
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 3.99
+Tested up to: 5.7
+Stable tag: 4.02
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Great looking maintenance, coming soon & under construction pages. Put your site
 
 Maintenance plugin allows the WordPress site administrator to close the website for maintenance, enable "503 Service temporarily unavailable”, set a temporary page with authorization, which can be edited via the plugin settings. Easy customize the good look on all devices. Add your logo, background image, select the desired color, add text.
 
-**Web accessibility is not an option in 2021!** Making your site accessible to visitors with disabilities will save you from hefty fines and instantly grow your audience. That's why we've partnered with <a href="https://wordpress.org/plugins/accessibe/">accessiBe</a> - the fully automated AI service for web accessibility. Download their plugin from the official WP repository and make your site fully accessible in a few clicks.
+Need **200+ pre-made themes** to build coming soon & landing pages faster? Have a look at our <a href="https://comingsoonwp.com/">Coming Soon & Maintenance Mode</a> plugin.
 
 Let <a href="https://wordpress.org/plugins/security-ninja/">Security Ninja</a> take care of your site's security from day one! Run over 50 security tests with one click. Get a detailed report and automatically fix security issues.
 
@@ -33,6 +33,7 @@ Let <a href="https://wordpress.org/plugins/security-ninja/">Security Ninja</a> t
 <li>Google analytics support</li>
 <li>Exclude selected pages from Maintenance mode</li>
 <li>Support for all popular caching plugins</li>
+<li><i>mtnc_load_maintenance_page_for_this_user</i> filter for modifying show sees the maintenance page</li>
 </ul>
 
 <h3>Support</h3>
@@ -86,6 +87,22 @@ Please post the question on the <a href="http://wordpress.org/support/plugin/mai
 
 
 == Changelog ==
+
+= v4.02 =
+- 2021/03/06
+- JS fixes on frontend
+- Contact Form 7 conflict fix
+
+= v4.01 =
+- 2021/02/20
+- added support for Cache Enabler plugin
+- fixed a bug when background image isn't defined
+- fixed issue on sites with large numbers of posts/pages/CPTs
+
+= v4.0 =
+- 2021/01/30
+- added flyout menu
+- added mtnc_load_maintenance_page_for_this_user filter
 
 = v3.99 =
 - 2021/01/13

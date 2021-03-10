@@ -35,7 +35,7 @@ jQuery(document).ready(function() {
   }
 });
 
-jQuery(window).load(function() {
+jQuery(window).on('load', function() {
   jQuery('#content').center();
 
   jQuery('.main-container > div:not(".preloader")').each(function() {

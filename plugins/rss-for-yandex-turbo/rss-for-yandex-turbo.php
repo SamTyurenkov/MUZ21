@@ -3,7 +3,7 @@
 Plugin Name: RSS for Yandex Turbo
 Plugin URI: https://wordpress.org/plugins/rss-for-yandex-turbo/
 Description: Создание RSS-ленты для сервиса Яндекс.Турбо.
-Version: 1.28
+Version: 1.29
 Author: Flector
 Author URI: https://profiles.wordpress.org/flector#content-plugins
 Text Domain: rss-for-yandex-turbo
@@ -27,7 +27,7 @@ add_action( 'admin_notices', 'yturbo_add_notice_ads' );
 function yturbo_check_version() {
     $yturbo_options = get_option('yturbo_options');
     if (!isset($yturbo_options['version'])){$yturbo_options['version']='1.00';update_option('yturbo_options',$yturbo_options);}
-    if ( $yturbo_options['version'] != '1.28' ) {
+    if ( $yturbo_options['version'] != '1.29' ) {
         yturbo_set_new_options();
     }
 }
@@ -182,7 +182,9 @@ function yturbo_set_new_options() {
     }
     //разбираем список и создаем нужные опции end
 
-    $yturbo_options['version'] = '1.28';
+    if (!isset($yturbo_options['ytextendedhtml'])) {$yturbo_options['ytextendedhtml']='disabled';}
+
+    $yturbo_options['version'] = '1.29';
     update_option('yturbo_options', $yturbo_options);
 }
 //функция установки новых опций при обновлении плагина у пользователей end
@@ -190,7 +192,7 @@ function yturbo_set_new_options() {
 //функция установки значений по умолчанию при активации плагина begin
 function yturbo_init() {
     $yturbo_options = array();
-    $yturbo_options['version'] = '1.28';
+    $yturbo_options['version'] = '1.29';
     $yturbo_options['ytrssname'] = 'turbo';
     $yturbo_options['yttitle'] = esc_html(yturbo_remove_emoji(strip_tags(get_bloginfo_rss('title'))));
     $yturbo_options['ytlink'] = get_bloginfo_rss('url');
@@ -321,6 +323,8 @@ function yturbo_init() {
     $yturbo_options['ytexcludeurls'] = 'disabled';
     $yturbo_options['ytexcludeurlslist'] = '';
     $yturbo_options['ytdeltracking'] = 'disabled';
+
+    $yturbo_options['ytextendedhtml'] = 'disabled';
 
     $yturbo_options['required']='1.00';
 
@@ -654,6 +658,8 @@ if ( ! wp_verify_nonce( $_POST['yturbo_nonce'], plugin_basename(__FILE__) ) || !
     $yturbo_options['ytexcludeurlslist'] = implode("\n", $lines);
     if(isset($_POST['ytdeltracking'])){$yturbo_options['ytdeltracking'] = sanitize_text_field($_POST['ytdeltracking']);}else{$yturbo_options['ytdeltracking'] = 'disabled';}
 
+    if(isset($_POST['ytextendedhtml'])){$yturbo_options['ytextendedhtml'] = sanitize_text_field($_POST['ytextendedhtml']);}else{$yturbo_options['ytextendedhtml'] = 'disabled';}
+
     update_option('yturbo_options', $yturbo_options);
 
     yturbo_clear_transients();
@@ -877,6 +883,16 @@ if (closedonat == 'yes') {
         </p>
 
         <table class="form-table">
+            <tr class="trbordertop">
+                <th class="tdcheckbox"><?php _e('Поддержка CSS:', 'rss-for-yandex-turbo'); ?></th>
+                <td>
+                    <label for="ytextendedhtml"><input type="checkbox" value="enabled" name="ytextendedhtml" id="ytextendedhtml" <?php if ($yturbo_options['ytextendedhtml'] == 'enabled') echo 'checked="checked"'; ?> /><?php _e('Включить режим поддержки CSS', 'rss-for-yandex-turbo'); ?></label>
+                    <br /><small><?php _e('При включении этой опции (<tt>turbo:extendedHtml</tt>) Яндекс не будет удалять классы и идентификаторы', 'rss-for-yandex-turbo'); ?> <br />
+                    <?php _e('из разметки записей, что позволит настроить их внешний вид через CSS (читайте <a target="_blank" href="https://yandex.ru/dev/turbo/doc/rss/elements/custom.html">документацию</a>).', 'rss-for-yandex-turbo'); ?> <br />
+                    <?php _e('Режим поддержки CSS можно включить или выключить для записей индивидуально (в метабоксе плагина).', 'rss-for-yandex-turbo'); ?> <br />
+                    </small>
+                </td>
+            </tr>
             <tr class="trbordertop">
                 <th class="tdcheckbox"><?php _e('Дата записей:', 'rss-for-yandex-turbo'); ?></th>
                 <td>
@@ -1462,7 +1478,7 @@ if (closedonat == 'yes') {
                 <th class="tdcheckbox"><?php _e('Непрерывная лента статей:', 'rss-for-yandex-turbo'); ?></th>
                 <td>
                     <label for="ytrelatedinfinity"><input type="checkbox" value="enabled" name="ytrelatedinfinity" id="ytrelatedinfinity" <?php if ($yturbo_options['ytrelatedinfinity'] == 'enabled') echo 'checked="checked"'; ?> /><?php _e('Включить непрерывную ленту статей', 'rss-for-yandex-turbo'); ?></label>
-                    <br /><small><?php _e('Вместо обычного короткого списка похожих статей будет выводиться непрерывная лента из полных записей (пример смотреть <a target="_blank" href="https://yandex.ru/turbo?text=promo-infinite">здесь</a>).', 'rss-for-yandex-turbo'); ?><br />
+                    <br /><small><?php _e('Вместо обычного короткого списка похожих статей будет выводиться непрерывная лента из полных записей.', 'rss-for-yandex-turbo'); ?><br />
                     <?php _e('При включении непрерывной ленты статей вывод миниатюр для похожих записей будет отключен.', 'rss-for-yandex-turbo'); ?><br />
                     </small>
                 </td>
@@ -2273,6 +2289,11 @@ function yturbo_save_metabox( $post_id ) {
         $custom_template = esc_textarea($_POST['custom_template']);
         update_post_meta($post_id, 'custom_template', $custom_template);
     }
+
+    if(isset($_POST['ytextendedhtmlmeta'])){
+        $selected = $_POST['ytextendedhtmlmeta'];
+        update_post_meta($post_id, 'ytextendedhtmlmeta', $selected);
+    }
 }
 add_action( 'save_post', 'yturbo_save_metabox' );
 //сохраняем метабокс end
@@ -2329,6 +2350,9 @@ function yturbo_callback() {
     if ( $block_editor_enabled == true ) {
         $custom_template = wpautop( $custom_template );
     }
+
+    $ytextendedhtmlmeta = get_post_meta($post->ID, 'ytextendedhtmlmeta', true);
+    if (!$ytextendedhtmlmeta) {$ytextendedhtmlmeta = 'default';}
     ?>
 
     <p style="margin: 10px 0px 0px 1px!important;">
@@ -2392,6 +2416,15 @@ tt{padding: 1px 5px 1px;margin: 0 1px;background: #eaeaea;background: rgba(0, 0,
     <?php if ($yturbo_options['ytad5'] == 'enabled') { ?>
         <label for="ytad5meta"><input type="checkbox" name="ytad5meta" id="ytad5meta" <?php if ($ytad5meta == 'disabled') echo 'checked="checked"'; ?> /><?php _e('Отключить блок рекламы #5 для этой записи (после комментариев)', 'rss-for-yandex-turbo'); ?></label><br />
     <?php } ?>
+    </p>
+
+     <p><?php _e('Поддержка CSS:', 'rss-for-yandex-turbo'); ?>
+        <select name="ytextendedhtmlmeta">
+            <option value="default" <?php if ($ytextendedhtmlmeta == 'default') echo 'selected="selected"'; ?>><?php _e('По умолчанию', 'rss-for-yandex-turbo'); ?></option>
+            <option value="enabled" <?php if ($ytextendedhtmlmeta == 'enabled') echo 'selected="selected"'; ?>><?php _e('Включена', 'rss-for-yandex-turbo'); ?></option>
+            <option value="disabled" <?php if ($ytextendedhtmlmeta == 'disabled') echo 'selected="selected"'; ?>><?php _e('Выключена', 'rss-for-yandex-turbo'); ?></option>
+        </select>
+        <small style="margin-top:5px;"><br /><?php _e('При выборе "По умолчанию" используются общие настройки плагина.', 'rss-for-yandex-turbo'); ?></small>
     </p>
 
     <div style="margin:10px 0 5px 1px!important;">
@@ -2644,6 +2677,15 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'.PHP_EO
         <link><?php the_permalink_rss(); ?></link>
         <turbo:topic><?php echo get_the_title_rss(); ?></turbo:topic>
         <turbo:source><?php the_permalink_rss(); ?></turbo:source>
+        <?php $ytextendedhtmlmeta = get_post_meta(get_the_ID(), 'ytextendedhtmlmeta', true);
+        $ytextendedhtml = $yturbo_options['ytextendedhtml'];
+        if ( ! $ytextendedhtmlmeta or $ytextendedhtmlmeta == 'default' ) {
+            $temphtml = $ytextendedhtml;
+        } else {
+            $temphtml = $ytextendedhtmlmeta;
+        }
+        if ( $temphtml == 'enabled' ) { echo '<turbo:extendedHtml>true</turbo:extendedHtml>'.PHP_EOL;}
+        ?>
         <?php if ($ytpostdate == 'enabled') : ?>
         <?php $gmt_offset = get_option('gmt_offset');
               $gmt_offset_abs = floor(abs($gmt_offset));
@@ -3754,9 +3796,8 @@ add_filter( 'yturbo_add_contents', 'yturbo_toc' );
 
 //функция удаления эмоджи begin
 function yturbo_remove_emoji( $text ) {
-
-    $text = preg_replace('/[^\pL\pM[:ascii:]]+/u', '', $text);
-    $text = str_replace('  ', ' ', $text);
+    $emoji = '/[(\x{1F600}-\x{1F64F})|(\x{2700}-\x{27BF})|(\x{1F680}-\x{1F6FF})|(\x{24C2}-\x{1F251})|(\x{1F30D}-\x{1F567})|(\x{1F900}-\x{1F9FF})|(\x{1F300}-\x{1F5FF})]/mu';
+    $text = preg_replace($emoji, '', $text);
     $text = trim($text);
 
     return $text;

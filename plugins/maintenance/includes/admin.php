@@ -111,14 +111,6 @@ function mtnc_admin_print_custom_styles()
     'mtnc',
                 array(
                         'path' => MTNC_URI,
-                        'accessibe_install_url' => add_query_arg(
-                                array(
-                                        'action' => 'mtnc_install_accessibe',
-                                        'rnd' => rand()
-                                ),
-                                admin_url('admin.php')
-                        ),
-                        'accessibe_dialog_upsell_title' => '<img style="max-height: 26px; vertical-align: text-bottom;" alt="accessiBe" title="accessiBe" src="' . MTNC_URI . 'images/accessibe-logo.png' . '">',
                         'cm_settings' =>  $cm_settings,
                         'site_url' => home_url(),
                         'first_install_date' => $firstInstallDateTimeTimeStamp,
@@ -265,19 +257,4 @@ function mtnc_generate_plugin_page()
     </form>
   </div>
 <?php
-// accessibe install dialog
-echo '<div id="accessibe-upsell-dialog" style="display: none;" title="accessiBe"><span class="ui-helper-hidden-accessible"><input type="text"/></span>';
-echo '<div style="padding: 0 20px; font-size: 15px;">';
-echo '<ul class="mtnc-list">';
-echo '<li>Fully automated WordPress accessibility plugin</li>';
-echo '<li>Protect your site from lawsuits and increase the audience</li>';
-echo '<li>Simple 5-minute set-up. No coding required</li>';
-echo '<li>Compatible with all WordPress themes and plugins</li>';
-echo '<li>AI-powered</li>';
-echo '<li>7-day free trial available</li>';
-echo '</ul>';
-echo '<p class="textcenter upsell-footer"><br><a class="button button-primary" id="install-accessibe">Install &amp; activate accessiBe to make your website accessible</a></p>';
-echo '</div>';
-echo '</div>';
-// accessibe install dialog
 }
