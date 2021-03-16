@@ -25,7 +25,7 @@ function canUseWebP() {
 }
 
 function loadproperties() {
-if(localize == undefined) return;
+if (typeof(localize) == "undefined") return;
 var action = localize.action;
 var obj_id = parseInt(localize.obj_id);
 var ajaxurl = localize.ajaxurl;

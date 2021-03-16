@@ -1846,7 +1846,7 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
       selectors = document.querySelectorAll("#filters .custom-select select");
 
   function loadproperties() {
-    if (null != localize) {
+    if ("undefined" != typeof localize) {
       var action = localize.action,
           obj_id = parseInt(localize.obj_id),
           ajaxurl = localize.ajaxurl,
