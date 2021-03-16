@@ -5,6 +5,10 @@ if (!defined('ABSPATH')) {
 
 function site_scripts()
 {
+	if(is_single('property')) {
+		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array('jquery'), filemtime(get_template_directory() . '/js/splide.min.js'), true);
+	}
+
 	$ajaxurl = admin_url('admin-ajax.php');
 	wp_enqueue_script('asp-main', get_template_directory_uri() . '/js/main.js', array('jquery'), filemtime(get_template_directory() . '/js/main.js'), true);
 
@@ -45,8 +49,6 @@ function site_scripts()
 	));
 	wp_enqueue_style('asp-main', get_template_directory_uri() . '/css/main.css', array(), filemtime(get_template_directory() . '/css/main.css'), 'all');
 
-	if(is_single('property')) {
-		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array('jquery'), filemtime(get_template_directory() . '/js/splide.min.js'), true);
-	}
+
 }
 add_action('wp_enqueue_scripts', 'site_scripts', 999);
