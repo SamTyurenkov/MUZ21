@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 
 function site_scripts()
 {
-	if(is_single('property')) {
+	if(is_singular('property')) {
 		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array('jquery'), filemtime(get_template_directory() . '/js/splide.min.js'), true);
 	}
 
