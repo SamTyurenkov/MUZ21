@@ -13,7 +13,7 @@ module.exports = function () {
         return $.gulp.src(stylesPATH.input)
         .pipe(concat('main.css'))
         .pipe(minifyCSS())
-        .pipe(prefix('last 3 versions'))
+        .pipe(prefix('last 2 versions'))
         .pipe($.gulp.dest(stylesPATH.output))
     });
 
