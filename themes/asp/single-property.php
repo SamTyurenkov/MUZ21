@@ -26,11 +26,11 @@ $editors = array_filter(array_unique($editors));
 </div>
 <div class="splide">
 <div class="splide__arrows">
-		<button class="splide__arrow splide__arrow--prev">
-			< - Назад
+		<button class="button splide__arrow splide__arrow--prev">
+			< Назад
 		</button>
-		<button class="splide__arrow splide__arrow--next">
-			Вперед - >
+		<button class="button splide__arrow splide__arrow--next">
+			Вперед >
 		</button>
 	</div>
 <div class="splide__track">
