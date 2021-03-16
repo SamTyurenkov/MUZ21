@@ -4,9 +4,30 @@
     width: 100%;
     z-index: 99;
 }
+.splide__arrow {
+    height: 40px;
+    background: #fff;
+    border: none;
+    padding: 0 10px;
+    height: 40px;
+    border-radius: 5px;
+    color: #d03030;
+}
 .splide__pagination {
     position: absolute;
     bottom: 40px;
+}
+.splide__pagination__page {
+    background: rgb(255 255 255 / 50%);
+    border: none;
+    margin: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.splide__pagination__page:hover {
+    background: #f4cccc;
 }
 .splide__arrow--next {
     position: absolute;
