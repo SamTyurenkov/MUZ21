@@ -7,5 +7,9 @@ $( document ).ready(function() {
     });
 
     if(document.querySelector('.splide'))
-    new Splide( '.splide' ).mount();
+    new Splide( '.splide', {
+        autoWidth: true,
+        autoplay: true,
+        lazyLoad: true,
+    } ).mount();
 });

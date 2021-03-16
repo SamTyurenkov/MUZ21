@@ -36,7 +36,7 @@ $editors = array_filter(array_unique($editors));
 				}		
 				if(has_post_thumbnail()) {
 					$src = get_the_post_thumbnail_url( null, $slidersize );
-					echo '<img class="splide__slide psliderimg" src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', главное фото" alt="'.esc_attr($title).', главное фото">';
+					echo '<img class="splide__slide psliderimg" data-splide-lazy="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', главное фото" alt="'.esc_attr($title).', главное фото">';
 				};
 				
                 if ($attachments) {
@@ -44,10 +44,10 @@ $editors = array_filter(array_unique($editors));
                     while($index) {	
 						$src = wp_get_attachment_image_src( $attachments[--$index]->ID, $slidersize)[0];
 						if ($i < $max) {
-							echo '<img class="splide__slide psliderimg" src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';
+							echo '<img class="splide__slide psliderimg" data-splide-lazy="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';
 						}
 						else {
-							echo '<img class="splide__slide psliderimg lazy" src="/wp-content/themes/asp/images/imagebckg.jpg" data-src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';						
+							echo '<img class="splide__slide psliderimg lazy" data-splide-lazy="/wp-content/themes/asp/images/imagebckg.jpg" data-src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';						
 						}
 						$i++;
                     }
