@@ -25,6 +25,14 @@ $editors = array_filter(array_unique($editors));
 <?php get_template_part('templates/topmenu'); ?>
 </div>
 <div class="splide">
+<div class="splide__arrows">
+		<button class="splide__arrow splide__arrow--prev">
+			< - Назад
+		</button>
+		<button class="splide__arrow splide__arrow--next">
+			Вперед - >
+		</button>
+	</div>
 <div class="splide__track">
 <div class="splide__list pslider">
 <?php 

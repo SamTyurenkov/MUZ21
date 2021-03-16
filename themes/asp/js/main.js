@@ -1834,7 +1834,12 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
   }), document.querySelector(".splide") && new Splide(".splide", {
     autoWidth: !0,
     autoplay: !0,
-    lazyLoad: !0
+    lazyLoad: "sequential",
+    breakpoints: {
+      640: {
+        arrows: !1
+      }
+    }
   }).mount();
 }), $ = jQuery, $(document).ready(function () {
   var page = 1,

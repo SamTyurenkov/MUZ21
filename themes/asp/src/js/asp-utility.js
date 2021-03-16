@@ -10,6 +10,11 @@ $( document ).ready(function() {
     new Splide( '.splide', {
         autoWidth: true,
         autoplay: true,
-        lazyLoad: true,
+        lazyLoad: 'sequential',
+        breakpoints: {
+            640: {
+                arrows: false,
+            },
+        }
     } ).mount();
 });

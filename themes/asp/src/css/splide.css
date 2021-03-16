@@ -1,0 +1,14 @@
+.splide__arrows {
+    position: absolute;
+    top: calc(50% - 20px);
+    width: 100%;
+    z-index: 99;
+}
+.splide__pagination {
+    position: absolute;
+    bottom: 40px;
+}
+.splide__arrow--next {
+    position: absolute;
+    right: 0;
+}
