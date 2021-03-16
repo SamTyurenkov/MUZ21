@@ -108,10 +108,10 @@ else if ($type == 'post') {
 		  $attachments = get_attached_media( '', $id );
 			foreach ($attachments as $attachment) {
 		
-		$r_thumb = str_replace( 'https://media.', '/var/www/new.',wp_get_attachment_image_src( $attachment->ID, 'thumbnail')[0]);	
-		$r_medium = str_replace( 'https://media.', '/var/www/new.',wp_get_attachment_image_src( $attachment->ID, 'medium')[0]);
-		$r_large = str_replace( 'https://media.', '/var/www/new.',wp_get_attachment_image_src( $attachment->ID, 'large')[0]);		
-		$r_image_full = str_replace( 'https://media.', '/var/www/new.', wp_get_attachment_image_src( $attachment->ID, 'full')[0] );
+		$r_thumb = str_replace( 'https://media.asp.sale', ABSPATH, wp_get_attachment_image_src( $attachment->ID, 'thumbnail')[0]);	
+		$r_medium = str_replace( 'https://media.asp.sale', ABSPATH, wp_get_attachment_image_src( $attachment->ID, 'medium')[0]);
+		$r_large = str_replace( 'https://media.asp.sale', ABSPATH, wp_get_attachment_image_src( $attachment->ID, 'large')[0]);		
+		$r_image_full = str_replace( 'https://media.asp.sale', ABSPATH, wp_get_attachment_image_src( $attachment->ID, 'full')[0] );
 		
 		wp_delete_attachment( $attachment->ID, true );
 		
@@ -284,8 +284,8 @@ function add_attachement_ajax(){
 		$mini = wp_get_attachment_image_src( $attachment_id, 'mini')[0];
 		$large = wp_get_attachment_image_src( $attachment_id, 'large')[0];
 		
-		$r_ava = str_replace( 'https://media.', '/var/www/new.', $ava );
-		$r_mini = str_replace( 'https://media.', '/var/www/new.', $mini );
+		$r_ava = str_replace( 'https://media.asp.sale', ABSPATH, $ava );
+		$r_mini = str_replace( 'https://media.asp.sale', ABSPATH, $mini );
 		
 		$avad = attachment_url_to_postid($ava);	
 		$minid = attachment_url_to_postid($mini);	
@@ -349,10 +349,10 @@ function delete_attachement_ajax() {
 		$imagefull = str_replace('.webp','',$imagefull);
 		$id = asp_get_image_id($imagefull);	
 
-		$r_thumb = str_replace( 'https://media.', '/var/www/new.',wp_get_attachment_image_src( $id, 'thumbnail')[0]);	
-		$r_medium = str_replace( 'https://media.', '/var/www/new.',wp_get_attachment_image_src( $id, 'medium')[0]);
-		$r_large = str_replace( 'https://media.', '/var/www/new.',wp_get_attachment_image_src( $id, 'large')[0]);		
-		$r_image_full = str_replace( 'https://media.', '/var/www/new.', $imagefull );
+		$r_thumb = str_replace( 'https://media.asp.sale', ABSPATH,wp_get_attachment_image_src( $id, 'thumbnail')[0]);	
+		$r_medium = str_replace( 'https://media.asp.sale', ABSPATH,wp_get_attachment_image_src( $id, 'medium')[0]);
+		$r_large = str_replace( 'https://media.asp.sale', ABSPATH,wp_get_attachment_image_src( $id, 'large')[0]);		
+		$r_image_full = str_replace( 'https://media.asp.sale', ABSPATH, $imagefull );
 		
 		wp_delete_attachment( $id, true );
 		

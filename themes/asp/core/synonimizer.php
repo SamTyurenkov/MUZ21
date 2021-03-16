@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
 function str_split_unicode($str, $length = 1) {
     $tmp = preg_split('~~u', $str, -1, PREG_SPLIT_NO_EMPTY);

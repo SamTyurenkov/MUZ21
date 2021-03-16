@@ -48,7 +48,7 @@ if (screen.width > 1980) {
 	<meta property="og:description" content="ASP Недвижимость | Объявления о покупке, продаже, аренде квартир, домов, и коммерческой недвижимости. Вторичное жилье и новостройки. Офисы и торговые помещения. Цены на недвижимость. Бесплатные объявления о недвижимости.">
 	<meta property="og:url" content="https://asp.sale">	  
 	<link rel="canonical" href="https://asp.sale" />
-  <?php } elseif (is_tax()) {
+  <?php } elseif (is_tax('property-type')) {
 $taxonomy = get_queried_object();
 $singletitle = single_term_title('',false);
 $city = get_query_var( 'city' );
@@ -272,4 +272,3 @@ echo '<script data-ad-client="ca-pub-5275124683424777" async src="https://pagead
 <?php wp_head(); ?>
 </head>
 <body>
-<!-- Yandex.Metrika counter --><script async defer type="text/javascript" src="/wp-content/themes/asp/js/metrika.js?v=3"></script><!-- /Yandex.Metrika counter -->

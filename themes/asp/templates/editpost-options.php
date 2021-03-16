@@ -820,7 +820,7 @@ var value = jQuery.ajax({
 				data:{
 				nonce : nonce,
 				id : id,
-				authid: authid,
+				obj_id: authid,
 				metaname : metaname,
 				metavalue : metavalue,
 				action: 'update_props_ajax',

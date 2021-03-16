@@ -1,4 +1,8 @@
 <?php 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 function avitoApiShow() {
 if (!empty($data) && ($yandex != 2)) {
 

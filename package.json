@@ -1,0 +1,46 @@
+{
+  "name": "asp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamTyurenkov/ASP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamTyurenkov/ASP/issues"
+  },
+  "homepage": "https://github.com/SamTyurenkov/ASP#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-cache": "^1.1.3",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat-css": "^3.1.0",
+    "gulp-csscomb": "^3.1.0",
+    "gulp-include": "^2.4.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-terser": "^2.0.1",
+    "imagemin-jpeg-recompress": "^7.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "normalize.css": "^8.0.1",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.26.0"
+  },
+  "dependencies": {
+    "@splidejs/splide": "^2.4.21"
+  }
+}

@@ -7,3 +7,4 @@ archive/
 /index.php
 /debug.log
 /object-cache.php
+node_modules/

@@ -2,10 +2,14 @@
 if(!defined('ABSPATH')) {
   die('You are not allowed to call this page directly.');
 }
+remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
+add_theme_support( 'post-thumbnails' );
+
 //add_filter( 'http_request_host_is_external', '__return_true' );
 require_once('core/menu.php'); //MENU
 require_once('core/enqueues.php'); //SCRIPTS ENQUEUE
 require_once('core/init.php'); //INITIALIZE WP WITH CUSTOM FUNCTIONS
+require_once('core/gutenberg-blocks.php'); //INITIALIZE WP WITH CUSTOM FUNCTIONS
 require_once('core/ajaxcalls.php'); //AJAX FUNCTIONS
 require_once('core/helpers.php'); //MOBILE CHECK, LANGUAGE CHECK, COOKIES
 require_once('core/authors.php'); //AUTHORS AND THEIR META

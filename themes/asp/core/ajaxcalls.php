@@ -280,14 +280,14 @@ function update_props_ajax() {
 	$id = $_POST['id'];
 	$val = strip_tags($_POST['metavalue']);
 	$meta = strip_tags($_POST['metaname']);
-	$authid = filter_var($_POST['authid'], FILTER_VALIDATE_INT);
+	$obj_id = filter_var($_POST['obj_id'], FILTER_VALIDATE_INT);
 	
 	header('Content-Type: application/json');  
 	$response = array();
 	
-			wp_cache_delete('feed_avito_'.$authid);
-			wp_cache_delete('feed_cian_'.$authid);
-			wp_cache_delete('feed_yandex_'.$authid);
+			wp_cache_delete('feed_avito_'.$obj_id);
+			wp_cache_delete('feed_cian_'.$obj_id);
+			wp_cache_delete('feed_yandex_'.$obj_id);
 	
 	switch ($meta) {
     case 'propertytype':
@@ -526,7 +526,7 @@ add_action('wp_ajax_update_props_ajax', 'update_props_ajax');
 function cat_blog_ajax(){
 if (!wp_verify_nonce( $_GET["nonce"], "_load_posts")) return;
 if (!is_numeric($_GET['page'])) return;
-if (!is_numeric($_GET['taxid'])) return;
+if (!is_numeric($_GET['obj_id'])) return;
 
     header('Content-Type: application/json');  
 	$response = array();
@@ -542,11 +542,11 @@ if (!is_numeric($_GET['taxid'])) return;
 				array(
 				'taxonomy'  => 'category',
                 'field'     => 'term_id',
-				'terms' => array($_GET['taxid']),
+				'terms' => array($_GET['obj_id']),
 				)
 			)
     );
-	if($_GET['taxid'] == 1) $args['orderby'] = 'date';
+	if($_GET['obj_id'] == 1) $args['orderby'] = 'date';
 
     $loop = new WP_Query($args);
 
@@ -582,7 +582,7 @@ add_action('wp_ajax_cat_blog_ajax', 'cat_blog_ajax');
 function tag_blog_ajax(){
 if (!wp_verify_nonce( $_GET["nonce"], "_load_tag")) return;
 if (!is_numeric($_GET['page'])) return;
-if (!is_numeric($_GET['taxid'])) return;
+if (!is_numeric($_GET['obj_id'])) return;
 
     header('Content-Type: application/json');  
 	$response = array();
@@ -599,7 +599,7 @@ if (!is_numeric($_GET['taxid'])) return;
 				array(
 				'taxonomy'  => 'post_tag',
                 'field'     => 'term_id',
-				'terms' => array($_GET['taxid']),
+				'terms' => array($_GET['obj_id']),
 				)
 			)
     );
@@ -638,7 +638,7 @@ add_action('wp_ajax_tag_blog_ajax', 'tag_blog_ajax');
 function cat_post_ajax(){
 if (!wp_verify_nonce( $_GET["nonce"], "_load_properties")) return;
 if (!is_numeric($_GET['page'])) return;
-if (!is_numeric($_GET['taxid'])) return;
+if (!is_numeric($_GET['obj_id'])) return;
 
 $city = strip_tags($_GET['options'][0]);
 $ptype = strip_tags($_GET['options'][1]);
@@ -665,7 +665,7 @@ $sort = strip_tags($_GET['options'][2]);
 				array(
 				'taxonomy'  => 'property-type',
                 'field'     => 'term_id',
-				'terms' => array($_GET['taxid']),
+				'terms' => array($_GET['obj_id']),
 				)
 			)
     );
@@ -745,7 +745,7 @@ add_action('wp_ajax_cat_post_ajax', 'cat_post_ajax');
 function auth_post_ajax(){
 if (!wp_verify_nonce( $_GET["nonce"], "_load_properties")) return;
 if (!is_numeric($_GET['page'])) return;
-if (!is_numeric($_GET['authid']) && (current_user_can('editor' || 'administrator') == false)) return;
+if (!is_numeric($_GET['obj_id']) && (current_user_can('editor' || 'administrator') == false)) return;
 if (!is_numeric($_GET['posttype'])) return;
 
 $city = strip_tags($_GET['options'][0]);
@@ -757,7 +757,7 @@ $status = strip_tags($_GET['options'][4]);
 } else {
 $status = 'empty';	
 }
-$author = strip_tags($_GET['authid']);
+$author = strip_tags($_GET['obj_id']);
 
     header('Content-Type: application/json');  
 	$response = array();

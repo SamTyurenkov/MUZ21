@@ -24,8 +24,9 @@ $editors = array_filter(array_unique($editors));
 <div class="container stickymenu transparentmenu" style="height:60px">
 <?php get_template_part('templates/topmenu'); ?>
 </div>
-
-<div class="pslider">
+<div class="splide">
+<div class="splide__track">
+<div class="splide__list pslider">
 <?php 
 				if (my_wp_is_mobile()) {
 					$slidersize = 'medium'; $max = 3; 
@@ -35,7 +36,7 @@ $editors = array_filter(array_unique($editors));
 				}		
 				if(has_post_thumbnail()) {
 					$src = get_the_post_thumbnail_url( null, $slidersize );
-					echo '<img class="psliderimg" src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', главное фото" alt="'.esc_attr($title).', главное фото">';
+					echo '<img class="splide__slide psliderimg" src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', главное фото" alt="'.esc_attr($title).', главное фото">';
 				};
 				
                 if ($attachments) {
@@ -43,10 +44,10 @@ $editors = array_filter(array_unique($editors));
                     while($index) {	
 						$src = wp_get_attachment_image_src( $attachments[--$index]->ID, $slidersize)[0];
 						if ($i < $max) {
-							echo '<img class="psliderimg" src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';
+							echo '<img class="splide__slide psliderimg" src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';
 						}
 						else {
-							echo '<img class="psliderimg lazy" data-src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';						
+							echo '<img class="splide__slide psliderimg lazy" src="/wp-content/themes/asp/images/imagebckg.jpg" data-src="'.esc_url($src).'" style="display:inline-block" title="'.esc_attr($title).', фото '.esc_attr($i+1).'" alt="'.esc_attr($title).', фото '.esc_attr($i+1).'">';						
 						}
 						$i++;
                     }
@@ -55,6 +56,8 @@ $editors = array_filter(array_unique($editors));
 					echo '<div class="psliderimg" style="background: #bbb;width:100%"></div>';
 				}
 ?>
+</div>
+</div>
 </div>
 <div class="container" style="height:50px;padding: 10px 0;">
 <div class="pslidercontrols"> 
@@ -337,10 +340,10 @@ count = 1;
 slider.scrollLeft += document.querySelectorAll('.psliderimg')[count-1].width+10;
 count++;
 } 
-lazyLoad();
+//lazyLoad();
 }
 slider.addEventListener('click', function(){
-   slidernext();
+ //  slidernext();
 });
 
 <?php } else { ?>

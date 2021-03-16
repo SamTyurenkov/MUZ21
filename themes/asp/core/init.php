@@ -448,3 +448,32 @@ foreach ($authors as $author) {
 }
 
 }
+
+add_action( 'add_meta_boxes', 'o99_add_attach_thumbs_meta_b' );
+
+function o99_add_attach_thumbs_meta_b (){
+
+add_meta_box ('att_thumb_display', 'Attached images','o99_render_attach_meta_b','post');
+
+}
+
+function o99_render_attach_meta_b( $post ) {
+$output = '';
+$args = array(
+        'post_type' => 'attachment',
+        'post_mime_type' => 'image',
+        'post_parent' => $post->ID
+    );
+    //
+    // uncomment if you want ordered list
+    //
+    // $output .= '<ul>';
+     $images = get_posts( $args );
+    foreach(  $images as $image) {
+    //$output .= '<li>';
+        $output .= '<img src="' . wp_get_attachment_thumb_url( $image->ID ) . '" />';
+        //$output .= '</li>';
+    }
+   // $output .= '</ul>';
+  echo $output;
+}

@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
 //ADD PURCHASE POST TYPE
 add_action('init', 'my_post_type_purchases');
