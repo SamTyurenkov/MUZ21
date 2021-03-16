@@ -11,6 +11,7 @@ $( document ).ready(function() {
         autoWidth: true,
         autoplay: true,
         lazyLoad: 'sequential',
+        pagination: false,
         breakpoints: {
             640: {
                 arrows: false,

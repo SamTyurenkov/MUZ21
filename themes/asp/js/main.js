@@ -1835,6 +1835,7 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
     autoWidth: !0,
     autoplay: !0,
     lazyLoad: "sequential",
+    pagination: !1,
     breakpoints: {
       640: {
         arrows: !1
