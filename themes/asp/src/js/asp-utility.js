@@ -10,10 +10,9 @@ $( document ).ready(function() {
     new Splide( '.splide', {
         autoWidth: true,
         autoplay: true,
-        lazyLoad: 'sequential',
         pagination: false,
         breakpoints: {
-            640: {
+            991: {
                 arrows: false,
             },
         }
