@@ -9,6 +9,7 @@ $(document).ready(function () {
     new Splide(".splide", {
       width: "100%",
       gap: "7px",
+      lazyLoad: 'nearby',
       autoWidth: true,
       autoplay: true,
       arrows: 'slider',

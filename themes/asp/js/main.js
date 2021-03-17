@@ -48,6 +48,7 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
   }), $(".splide").length && new Splide(".splide", {
     width: "100%",
     gap: "7px",
+    lazyLoad: "nearby",
     autoWidth: !0,
     autoplay: !0,
     arrows: "slider",
