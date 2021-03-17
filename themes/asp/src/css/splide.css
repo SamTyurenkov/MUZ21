@@ -18,6 +18,8 @@
 .splide__pagination {
     position: absolute;
     bottom: 40px;
+    width: 100%;
+    padding: 0;
 }
 .splide__pagination__page {
     background: rgb(255 255 255 / 50%);

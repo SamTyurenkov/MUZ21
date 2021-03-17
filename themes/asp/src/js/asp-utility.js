@@ -1,21 +1,20 @@
 $ = jQuery;
-$( document ).ready(function() {
+$(document).ready(function () {
+  $(".opendd").click(function () {
+    $(this).next().toggleClass("ddopen");
+    $(this).toggleClass("opendd_open");
+  });
 
-    $('.opendd').click( function() {
-        $(this).next().toggleClass( 'ddopen' );
-		$(this).toggleClass('opendd_open');
-    });
-
-    if(document.querySelector('.splide'))
-    new Splide( '.splide', {
-        type: 'loop',
-        width: '100%',
-        gap: "7px",
-        autoWidth: true,
-        autoplay: true,
-        arrows: true,
-        interval: 800,
-        pauseOnHover: true,
-        trimSpace: 'move',
-    } ).mount();
+  if ($(".splide").length) {
+    new Splide(".splide", {
+      width: "100%",
+      gap: "7px",
+      autoWidth: true,
+      autoplay: true,
+      arrows: 'slider',
+      interval: 1800,
+      pauseOnHover: true,
+      trimSpace: "move",
+    }).mount();
+  }
 });
