@@ -34,7 +34,7 @@ $editors = array_filter(array_unique($editors));
 		</button>
 	</div>
 <div class="splide__track">
-<div class="splide__list pslider">
+<div class="splide__list"> <!-- pslider -->
 <?php 
 				if (my_wp_is_mobile()) {
 					$slidersize = 'medium'; $max = 3; 
