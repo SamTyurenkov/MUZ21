@@ -1,19 +1,17 @@
-.splide__slide {
-    margin: 0 7px !important;
-}
 .splide__arrows {
     position: absolute;
-    top: calc(50% - 20px);
+    top: calc(50% - 40px);
     width: 100%;
     z-index: 99;
 }
 .splide__arrow {
-    height: 40px;
     background: #fff;
     border: none;
     padding: 0 10px;
-    height: 40px;
+    height: 80px;
     border-radius: 5px;
+    color: #d03232;
+    font-size: 22px;
 }
 .splide__pagination {
     position: absolute;
