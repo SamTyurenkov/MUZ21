@@ -34,7 +34,7 @@ $editors = array_filter(array_unique($editors));
 		</button>
 	</div>
 <div class="splide__track">
-<div class="splide__list"> <!-- pslider -->
+<div class="splide__list pslider">
 <?php 
 				if (my_wp_is_mobile()) {
 					$slidersize = 'medium'; $max = 3; 
@@ -338,21 +338,6 @@ function lazyLoad() {
 	}
 	}
 }
-var count = 1; 
-function slidernext() {
-
-if (slider.scrollWidth - slider.scrollLeft === slider.clientWidth || count == document.querySelectorAll('.psliderimg').length) {
-slider.scrollLeft = 0;
-count = 1;
-} else {
-slider.scrollLeft += document.querySelectorAll('.psliderimg')[count-1].width+10;
-count++;
-} 
-//lazyLoad();
-}
-slider.addEventListener('click', function(){
- //  slidernext();
-});
 
 <?php } else { ?>
 var slider = document.querySelector('.pslider');  
@@ -369,18 +354,6 @@ function lazyLoad() {
 	}
 	}
 }
-
-if(slider.attachEvent) {
-slider.attachEvent("touchstart", lazyLoad);
-} else {
-slider.addEventListener('touchstart', function(){
-   lazyLoad();
-});
-};
-
-slider.addEventListener('click', function(){
-   lazyLoad();
-});
 <?php }; ?>
 </script>
 <div class="empty2"></div>
