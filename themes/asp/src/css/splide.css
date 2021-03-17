@@ -23,16 +23,27 @@
     background: rgb(255 255 255 / 50%);
     border: none;
     margin: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
     cursor: pointer;
     outline: none;
+}
+@media(max-width:767px) {
+    .splide__pagination__page {
+    display: none;
+    }
 }
 .splide__pagination__page:hover {
     background: #f4cccc;
 }
+.splide__arrow--prev {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
 .splide__arrow--next {
     position: absolute;
     right: 0;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
 }

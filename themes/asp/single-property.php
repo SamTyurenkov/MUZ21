@@ -27,13 +27,13 @@ $editors = array_filter(array_unique($editors));
 <div class="splide">
 	<div class="splide__arrows">
 		<button class="button splide__arrow splide__arrow--prev">
-			--<br>
+			-<br>
 			<br>
-			--</button>
+			-</button>
 		<button class="button splide__arrow splide__arrow--next">
-			--<br>
+			-<br>
 			<br>
-			--
+			-
 		</button>
 	</div>
 	<div class="splide__track">
