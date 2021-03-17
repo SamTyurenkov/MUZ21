@@ -45,14 +45,13 @@ function closeAllSelect(elmnt) {
 document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).ready(function () {
   $(".opendd").click(function () {
     $(this).next().toggleClass("ddopen"), $(this).toggleClass("opendd_open");
-  }), document.querySelector(".splide") && new Splide(".splide", {
-    type: "loop",
+  }), $(".splide").length && new Splide(".splide", {
     width: "100%",
     gap: "7px",
     autoWidth: !0,
     autoplay: !0,
-    arrows: !0,
-    interval: 800,
+    arrows: "slider",
+    interval: 1800,
     pauseOnHover: !0,
     trimSpace: "move"
   }).mount();
