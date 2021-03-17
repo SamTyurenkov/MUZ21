@@ -42,12 +42,7 @@ function closeAllSelect(elmnt) {
   }
 }
 
-document.addEventListener("click", closeAllSelect);
-
-var _require = require("@babel/core"),
-    loadOptions = _require.loadOptions;
-
-$ = jQuery, $(document).ready(function () {
+document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).ready(function () {
   $(".opendd").click(function () {
     $(this).next().toggleClass("ddopen"), $(this).toggleClass("opendd_open");
   }), document.querySelector(".splide") && new Splide(".splide", {

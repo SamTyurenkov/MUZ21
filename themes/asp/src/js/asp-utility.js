@@ -1,5 +1,3 @@
-const { loadOptions } = require("@babel/core");
-
 $ = jQuery;
 $( document ).ready(function() {
 
