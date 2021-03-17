@@ -1,3 +1,5 @@
+const { loadOptions } = require("@babel/core");
+
 $ = jQuery;
 $( document ).ready(function() {
 
@@ -8,13 +10,14 @@ $( document ).ready(function() {
 
     if(document.querySelector('.splide'))
     new Splide( '.splide', {
+        type: 'loop',
+        width: '100%',
+        gap: "7px",
         autoWidth: true,
         autoplay: true,
-        pagination: false,
-        breakpoints: {
-            991: {
-                arrows: false,
-            },
-        }
+        arrows: true,
+        interval: 800,
+        pauseOnHover: true,
+        trimSpace: 'move',
     } ).mount();
 });

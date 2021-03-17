@@ -42,19 +42,24 @@ function closeAllSelect(elmnt) {
   }
 }
 
-document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).ready(function () {
+document.addEventListener("click", closeAllSelect);
+
+var _require = require("@babel/core"),
+    loadOptions = _require.loadOptions;
+
+$ = jQuery, $(document).ready(function () {
   $(".opendd").click(function () {
     $(this).next().toggleClass("ddopen"), $(this).toggleClass("opendd_open");
   }), document.querySelector(".splide") && new Splide(".splide", {
+    type: "loop",
+    width: "100%",
+    gap: "7px",
     autoWidth: !0,
     autoplay: !0,
-    lazyLoad: "sequential",
-    pagination: !1,
-    breakpoints: {
-      640: {
-        arrows: !1
-      }
-    }
+    arrows: !0,
+    interval: 800,
+    pauseOnHover: !0,
+    trimSpace: "move"
   }).mount();
 }), $ = jQuery, $(document).ready(function () {
   var page = 1,
