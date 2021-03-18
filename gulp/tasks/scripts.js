@@ -51,9 +51,26 @@ module.exports = function () {
       )
       .pipe($.gulp.dest(scriptsPATH.output));
   });
+  $.gulp.task("scripts:property", () => {
+    return $.gulp
+      .src([scriptsPATH.input + "property/*.js"])
+      .pipe(concat("property.js"))
+      .pipe(
+        uglify({
+          keep_fnames: true,
+          mangle: false,
+        })
+      )
+      .pipe(
+        babel({
+          presets: ["@babel/preset-env"],
+        })
+      )
+      .pipe($.gulp.dest(scriptsPATH.output));
+  });
   $.gulp.task("scripts:libs", () => {
     return $.gulp
-      .src(["./node_modules/@splidejs/splide/dist/js/splide.min.js"])
+      .src(["./node_modules/@splidejs/splide/dist/js/splide.min.js",scriptsPATH.input + "situational/*.js"])
       .pipe($.gulp.dest(scriptsPATH.output));
   });
 };

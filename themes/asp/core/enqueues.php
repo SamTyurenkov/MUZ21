@@ -7,6 +7,13 @@ function site_scripts()
 {
 	if(is_singular('property')) {
 		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array('jquery'), filemtime(get_template_directory() . '/js/splide.min.js'), true);
+
+		$youtubeid = get_post_meta(get_the_ID(), 'youtube-video', true);
+		if (!empty($youtubeid) && $youtubeid != '')
+		wp_enqueue_script('youtubeiframe', get_template_directory_uri() . '/js/youtubeiframe.js', array('jquery'), filemtime(get_template_directory() . '/js/youtubeiframe.js'), true);
+
+
+		wp_enqueue_script('property', get_template_directory_uri() . '/js/property.js', array('jquery'), filemtime(get_template_directory() . '/js/property.js'), true);
 	}
 
 	$ajaxurl = admin_url('admin-ajax.php');
@@ -16,26 +23,21 @@ function site_scripts()
 		$taxonomy = get_queried_object();
 		$obj_id = $taxonomy->term_id;
 		$action = 'cat_post_ajax';
-		$nonce = wp_create_nonce("_load_properties");
 	} else if(is_category()) {
 		$taxonomy = get_queried_object();
 		$obj_id = $taxonomy->term_id;
 		$action = 'cat_blog_ajax';
-		$nonce = wp_create_nonce("_load_posts");
 	} else if(is_author()) {
-		$curauth = get_queried_object();//(isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+		$curauth = get_queried_object();
 		$obj_id = $curauth->ID;
 		$action = 'auth_post_ajax';
-		$nonce = wp_create_nonce("_load_properties");
 		wp_enqueue_script('asp-authors', get_template_directory_uri() . '/js/authors.js', array('jquery'), filemtime(get_template_directory() . '/js/authors.js'), true);
 	} else if (is_home() || is_front_page()) {
 		$obj_id = null;
 		$action = 'more_post_ajax';
-		$nonce = wp_create_nonce("_load_properties");
 	} else if (is_page('adminka')) {
 		$taxonomy = get_queried_object();
 		$obj_id = $taxonomy->term_id;
-		$nonce = wp_create_nonce("_load_properties");
 		$action = 'more_post_ajax';
 		wp_enqueue_script('asp-authors', get_template_directory_uri() . '/js/authors.js', array('jquery'), filemtime(get_template_directory() . '/js/authors.js'), true);
 	}

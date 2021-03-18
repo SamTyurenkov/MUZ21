@@ -76,66 +76,16 @@ $editors = array_filter(array_unique($editors));
 		<?php if (!my_wp_is_mobile() && $attachments) {
 			echo '<div class="pslidercount" onclick="slidernext()"><i class="icon-picture"></i> <span class="photocount">' . esc_html($i + 1) . ' Фото</span></div>';
 		}; ?>
-		<?php if (get_post_meta($post->ID, 'youtube-video', true)) : ?>
+		<?php 
+		$youtubeid = get_post_meta($post->ID, 'youtube-video', true);
+		if (!empty($youtubeid) && $youtubeid != '') : ?>
 			<div class="pslidercount" onclick="showyoutubevideo()"><i class="icon-youtube-play"></i> <span>Видео</span></div>
-
-			<script>
-				function showyoutubevideo() {
-					document.getElementById('video_container').style.opacity = 1;
-					document.getElementById('video_container').style.zIndex = 99999;
-					if (document.querySelector('.youtube-script') == undefined);
-					var tag = document.createElement('script');
-					tag.classList.add('youtube-script');
-					tag.src = "https://www.youtube.com/iframe_api";
-					var firstScriptTag = document.getElementsByTagName('script')[0];
-					firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-				}
-
-				function hideyoutubevideo() {
-					document.getElementById('video_container').style.opacity = 0;
-					document.getElementById('video_container').style.zIndex = -99999;
-				}
-
-
-				function onYouTubeIframeAPIReady() {
-					var player;
-					var framer = document.getElementById("youtubevideo");
-					var fwidth = document.getElementById("youtubevideo").clientWidth;
-					var fheight = (fwidth / 16 * 9) + 'px';
-					framer.parentElement.style.height = fheight;
-					framer.style.height = fheight;
-					player = new YT.Player('youtubevideo', {
-						videoId: '<?php echo esc_html(get_post_meta($post->ID, "youtube-video", true)); ?>',
-						playerVars: {
-							enablejsapi: 1,
-							autoplay: 1,
-							controls: 1,
-							width: fwidth,
-							height: fheight,
-							showinfo: 1,
-							modestbranding: 1,
-							loop: 1,
-							fs: 1,
-							cc_load_policy: 0,
-							iv_load_policy: 3,
-							autohide: 0,
-							origin: 'https://asp.sale',
-							playsinline: 1,
-							rel: 0
-						},
-						events: {
-							onReady: function(e) {
-								e.target.mute();
-								e.target.playVideo();
-							},
-							onStateChange: function(e) {
-								// e.target.playVideo();
-							}
-						}
-					});
-				}
-			</script>
-		<?php endif; ?>
+		<?php 
+		$data = array(
+			'id' => get_post_meta($post->ID, "youtube-video", true)
+		);
+		wp_localize_script('youtubeiframe','localize',$data);
+		endif; ?>
 
 
 		<?php if (is_user_logged_in() && (in_array($curuser, $editors) || current_user_can('edit_others_posts'))) { ?>
@@ -156,19 +106,6 @@ $editors = array_filter(array_unique($editors));
 		</a>
 
 	</div>
-	<script type="text/javascript">
-		document.getElementById("callclick").addEventListener('click', function() {
-			var cid = uuid();
-
-			var time = new Date(Date.now());
-			var nonce = Math.floor((time.getTime() / 1000)).toString();
-			var ajaxurl = 'https://www.google-analytics.com/collect?v=1&tid=UA-55186923-1&cid=' + cid + '&t=event&ec=click&ea=phonenumber&z=' + nonce;
-			var value = jQuery.ajax({
-				type: 'POST',
-				url: ajaxurl,
-			}, true);
-		});
-	</script>
 </div>
 
 <?php while (have_posts()) : the_post(); ?>
@@ -333,44 +270,10 @@ $editors = array_filter(array_unique($editors));
 		get_template_part('templates/vigruzki');
 		get_template_part('templates/editpost');
 	}; ?>
-	<script type="text/javascript">
-		<?php if (!my_wp_is_mobile()) { ?>
-			var slider = document.querySelector('.pslider');
-
-			function lazyLoad() {
-				var lazy = document.querySelectorAll('.lazy');
-				if (lazy) {
-					for (var j = 0; j < lazy.length; j++) {
-
-						lazy[j].src = lazy[j].dataset.src;
-						lazy[j].classList.remove('lazy');
-						lazy[j].removeAttribute('data-src');
-						lazy[j].style.display = 'block';
-					}
-				}
-			}
-
-		<?php } else { ?>
-			var slider = document.querySelector('.pslider');
-
-			function lazyLoad() {
-				var lazy = document.querySelectorAll('.lazy');
-				if (lazy) {
-					for (var j = 0; j < lazy.length; j++) {
-
-						lazy[j].src = lazy[j].dataset.src;
-						lazy[j].classList.remove('lazy');
-						lazy[j].removeAttribute('data-src');
-
-					}
-				}
-			}
-		<?php }; ?>
-	</script>
 	<div class="empty2"></div>
 	<footer>
 	<?php endwhile;
-get_footer(); ?>
+	get_footer(); ?>
 	</footer>
 
 
