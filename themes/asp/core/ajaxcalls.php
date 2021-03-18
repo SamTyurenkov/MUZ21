@@ -524,7 +524,6 @@ function update_props_ajax() {
 add_action('wp_ajax_update_props_ajax', 'update_props_ajax');
 
 function cat_blog_ajax(){
-if (!wp_verify_nonce( $_GET["nonce"], "_load_posts")) return;
 if (!is_numeric($_GET['page'])) return;
 if (!is_numeric($_GET['obj_id'])) return;
 
@@ -636,7 +635,6 @@ add_action('wp_ajax_nopriv_tag_blog_ajax', 'tag_blog_ajax');
 add_action('wp_ajax_tag_blog_ajax', 'tag_blog_ajax');
 
 function cat_post_ajax(){
-if (!wp_verify_nonce( $_GET["nonce"], "_load_properties")) return;
 if (!is_numeric($_GET['page'])) return;
 if (!is_numeric($_GET['obj_id'])) return;
 
@@ -743,7 +741,6 @@ add_action('wp_ajax_cat_post_ajax', 'cat_post_ajax');
 
 
 function auth_post_ajax(){
-if (!wp_verify_nonce( $_GET["nonce"], "_load_properties")) return;
 if (!is_numeric($_GET['page'])) return;
 if (!is_numeric($_GET['obj_id']) && (current_user_can('editor' || 'administrator') == false)) return;
 if (!is_numeric($_GET['posttype'])) return;
@@ -947,7 +944,7 @@ add_action('wp_ajax_auth_post_ajax', 'auth_post_ajax');
 
 
 function more_post_ajax(){
-if (!wp_verify_nonce( $_GET["nonce"], "_load_properties")) return;
+error_log('moaarr');
 if (!is_numeric($_GET['page'])) return;
 
     header('Content-Type: application/json');  

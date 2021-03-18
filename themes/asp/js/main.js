@@ -61,11 +61,10 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
       selectors = document.querySelectorAll("#filters .custom-select select");
 
   function loadproperties() {
-    if ("undefined" != typeof localize) {
+    if ("undefined" != localize) {
       var action = localize.action,
           obj_id = parseInt(localize.obj_id),
           ajaxurl = localize.ajaxurl,
-          nonce = localize.nonce,
           selected = [];
       if (selectors) for (var i = 0; i < selectors.length; i++) {
         selected[i] = selectors[i].value;
@@ -74,7 +73,6 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
         type: "GET",
         url: ajaxurl,
         data: {
-          nonce: nonce,
           page: page,
           obj_id: obj_id,
           options: selected,

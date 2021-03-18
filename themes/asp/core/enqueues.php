@@ -9,9 +9,9 @@ function site_scripts()
 		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array('jquery'), filemtime(get_template_directory() . '/js/splide.min.js'), true);
 
 		$youtubeid = get_post_meta(get_the_ID(), 'youtube-video', true);
-		if (!empty($youtubeid) && $youtubeid != '')
+		if (!empty($youtubeid) && $youtubeid != '') {
 		wp_enqueue_script('youtubeiframe', get_template_directory_uri() . '/js/youtubeiframe.js', array('jquery'), filemtime(get_template_directory() . '/js/youtubeiframe.js'), true);
-
+		}
 
 		wp_enqueue_script('property', get_template_directory_uri() . '/js/property.js', array('jquery'), filemtime(get_template_directory() . '/js/property.js'), true);
 	}
@@ -42,12 +42,11 @@ function site_scripts()
 		wp_enqueue_script('asp-authors', get_template_directory_uri() . '/js/authors.js', array('jquery'), filemtime(get_template_directory() . '/js/authors.js'), true);
 	}
 
-	if(isset($ajaxurl) && isset($nonce))
+	if(isset($action))
 	wp_localize_script('asp-main', 'localize', array(
 		'ajaxurl' => $ajaxurl,
 		'obj_id' => $obj_id,
 		'action' => $action,
-		'nonce' => $nonce
 	));
 	wp_enqueue_style('asp-main', get_template_directory_uri() . '/css/main.css', array(), filemtime(get_template_directory() . '/css/main.css'), 'all');
 

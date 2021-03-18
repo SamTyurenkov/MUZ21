@@ -25,11 +25,10 @@ function canUseWebP() {
 }
 
 function loadproperties() {
-if (typeof(localize) == "undefined") return;
+if (localize == "undefined") return;
 var action = localize.action;
 var obj_id = parseInt(localize.obj_id);
 var ajaxurl = localize.ajaxurl;
-var nonce = localize.nonce;
 
 var selected = [];
 if (selectors) {
@@ -43,7 +42,6 @@ var value = jQuery.ajax({
 				type: 'GET',
 				url: ajaxurl,
 				data:{
-				nonce : nonce,
 				page : page,
 				obj_id : obj_id, //optional
 				options : selected, //optional

@@ -224,7 +224,7 @@ die();
 	$cats = get_the_terms( $post, 'property-type' );
 	$cats2array = Array();
 	
-
+	if(is_array($cats))
 	foreach ($cats as $cat) {
 	if (preg_match('/(kupit|posutochno-snyat|snyat)/i', $cat->slug) == 1) {
 		$dtype = $cat->slug;
