@@ -218,21 +218,21 @@ function add_attachement_ajax(){
 	$data = array_merge( $posted_data, $file_data );
 	add_filter( 'sanitize_file_name', 'screenshot_filenames' ); 
 	$uploaded_file = wp_handle_upload( $data['file'], array( 'test_form' => false ) );
-	remove_filter( 'sanitize_file_name', 'screenshot_filenames' ); 
+	remove_filter( 'sanitize_file_name', 'screenshot_filenames' );  
 	//Step 2
 	
 	if( $uploaded_file && ! isset( $uploaded_file['error'] ) ) {
 	list($width, $height) = getimagesize($uploaded_file['file']);
-	
+
 	if($posttype == 'post') {
 
-	if (($feature == 1) && ($height < '400px') || ($width < '974px')) {
+	if (($feature == 1) && ($height < 400) || ($width < 974)) {
 		$response['response'] = "ERROR";
 		$response['error'] = 'минимум 980x400 пикселей';
 		unlink( $uploaded_file['file'] );
 		echo json_encode( $response );
 		die();
-	} else if (($feature == 2) && ($height < '600px') || ($width < '974px')) {
+	} else if (($feature == 2) && ($height < 600) || ($width < 974)) {
 		$response['response'] = "ERROR";
 		$response['error'] = 'минимум 980x600 пикселей';
 		unlink( $uploaded_file['file'] );
@@ -242,7 +242,7 @@ function add_attachement_ajax(){
 	}
 
 	} else {
-	if ($height < '740px') { //|| $width < '740px' нужна только высота, ширина может быть меньше
+	if ($height < 740) { //|| $width < '740px' нужна только высота, ширина может быть меньше
 		$response['response'] = "ERROR";
 		$response['error'] = 'минимум 740 пикселей по высоте';
 		unlink( $uploaded_file['file'] );

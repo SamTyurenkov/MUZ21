@@ -256,7 +256,7 @@ function updateavatar()
 			$data = array_merge($posted_data, $file_data);
 
 			$curavatar = '/wp-content/uploads/avatars/' . wp_get_current_user()->ID;
-			if (file_exists( get_template_directory().$curavatar . '-300x300.jpg')) {
+			if (file_exists(ABSPATH . '/wp-content/uploads/avatars/' . $curavatar . '-300x300.jpg')) {
 
 				$attachid = asp_get_image_id('https://media.asp.sale' . $curavatar . '.jpg');
 				wp_delete_attachment($attachid, true);
@@ -264,7 +264,7 @@ function updateavatar()
 				unlink($curavatar . '-60x60.jpg');
 				unlink($curavatar . '-300x300.jpg.webp');
 				unlink($curavatar . '-60x60.jpg.webp');
-			} else if (file_exists($curavatar . '-300x300.png')) {
+			} else if (file_exists(ABSPATH . '/wp-content/uploads/avatars/' . $curavatar . '-300x300.png')) {
 
 				$attachid = asp_get_image_id('https://media.asp.sale' . $curavatar . '.png');
 				wp_delete_attachment($attachid, true);
@@ -272,7 +272,7 @@ function updateavatar()
 				unlink($curavatar . '-60x60.png');
 				unlink($curavatar . '-300x300.png.webp');
 				unlink($curavatar . '-60x60.png.webp');
-			} else if (file_exists($curavatar . '-300x300.jpeg')) {
+			} else if (file_exists(ABSPATH . '/wp-content/uploads/avatars/' . $curavatar . '-300x300.jpeg')) {
 				$attachid = asp_get_image_id('https://media.asp.sale' . $curavatar . '.jpeg');
 				wp_delete_attachment($attachid, true);
 				unlink($curavatar . '-300x300.jpeg');
@@ -330,10 +330,10 @@ function updateavatar()
 					$large = wp_get_attachment_image_src($attachment_id, 'large')[0];
 					$full = wp_get_attachment_image_src($attachment_id, 'full')[0];
 
-					$r_thumb = str_replace('https://media.asp.sale', get_template_directory(), $thumb);
-					$r_medium = str_replace('https://media.asp.sale', get_template_directory(), $medium);
-					$r_large = str_replace('https://media.asp.sale', get_template_directory(), $large);
-					$r_full = str_replace('https://media.asp.sale', get_template_directory(), $full);
+					$r_thumb = str_replace('https://media.asp.sale', ABSPATH, $thumb);
+					$r_medium = str_replace('https://media.asp.sale', ABSPATH, $medium);
+					$r_large = str_replace('https://media.asp.sale', ABSPATH, $large);
+					$r_full = str_replace('https://media.asp.sale', ABSPATH, $full);
 
 					if ($r_thumb) unlink($r_thumb);
 					if ($r_medium) unlink($r_medium);
@@ -407,8 +407,8 @@ function pbg_avatar($avatar, $id_or_email, $size)
 
 	if ($user && is_object($user)) {
 
-		$curavatar = get_template_directory().'/wp-content/uploads/avatars/' . $user->data->ID;
-		$avalink = 'https://media.asp.sale/wp-content/uploads/avatars/' . $user->data->ID;
+		$curavatar = ABSPATH . '/wp-content/uploads/avatars/' . $user->ID;
+		$avalink = 'https://media.asp.sale/wp-content/uploads/avatars/' . $user->ID;
 
 		if ($size == 30) {
 			$sizer = '-60x60';
@@ -457,8 +457,10 @@ function pbg_avatar_url($avatar, $id_or_email, $size)
 
 	if ($user && is_object($user)) {
 
-		$curavatar = get_template_directory().'/wp-content/uploads/avatars/' . $user->data->ID;
-		$avalink = 'https://media.asp.sale/wp-content/uploads/avatars/' . $user->data->ID;
+		$curavatar = ABSPATH . 'wp-content/uploads/avatars/' . $user->ID;
+		$avalink = 'https://media.asp.sale/wp-content/uploads/avatars/' . $user->ID;
+		error_log($curavatar);
+
 
 		if ($size['size'] == 30) {
 			$sizer = '-60x60';
