@@ -93,3 +93,4 @@ document.addEventListener("click", closeAllSelect);
 
 <?php get_footer(); ?>
 </body>
+</html>

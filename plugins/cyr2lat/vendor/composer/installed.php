@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '4.6.4',
-    'version' => '4.6.4.0',
+    'pretty_version' => '5.0.3',
+    'version' => '5.0.3.0',
     'aliases' => 
     array (
     ),
-    'reference' => '4117c3e807c8bed4120639cfcd1ef7f34cb2a543',
+    'reference' => '287d621753ebf1f472ab6b2e8c81fc14e71f464f',
     'name' => 'mihdan/cyr2lat',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'mihdan/cyr2lat' => 
     array (
-      'pretty_version' => '4.6.4',
-      'version' => '4.6.4.0',
+      'pretty_version' => '5.0.3',
+      'version' => '5.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4117c3e807c8bed4120639cfcd1ef7f34cb2a543',
+      'reference' => '287d621753ebf1f472ab6b2e8c81fc14e71f464f',
     ),
     'roundcube/plugin-installer' => 
     array (

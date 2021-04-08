@@ -16,8 +16,6 @@ get_header();
 <?php get_template_part('templates/sharer'); ?>
 </div>
 
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>
 </body>
 </html>

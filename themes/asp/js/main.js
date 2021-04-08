@@ -1,8 +1,38 @@
 "use strict";
 
+(function (m, e, t, r, i, k, a) {
+  m[i] = m[i] || function () {
+    (m[i].a = m[i].a || []).push(arguments);
+  };
+
+  m[i].l = 1 * new Date();
+  k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a);
+})(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+ym(62533903, "init", {
+  clickmap: true,
+  trackLinks: true,
+  accurateTrackBounce: true,
+  webvisor: true
+});
+
+function populate_meta_fields() {
+  if (console.log("populate"), "undefined" != typeof populatemeta) {
+    var dboptions = populatemeta.array;
+
+    for (var i in console.log(populatemeta.array), dboptions) {
+      if (dboptions.hasOwnProperty(i) && "function" != typeof i) try {
+        (document.getElementById(i).children[1].querySelector('option[value="' + dboptions[i] + '"]') || "INPUT" == document.getElementById(i).children[1].tagName) && (document.getElementById(i).children[1].value = dboptions[i]);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+}
+
 var x, i, j, selElmnt, a, b, c;
 
-for (x = document.getElementsByClassName("custom-select"), i = 0; i < x.length; i++) {
+for (populate_meta_fields(), x = document.getElementsByClassName("custom-select"), i = 0; i < x.length; i++) {
   for (selElmnt = x[i].getElementsByTagName("select")[0], (a = document.createElement("DIV")).setAttribute("class", "select-selected"), a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML, x[i].appendChild(a), (b = document.createElement("DIV")).setAttribute("class", "select-items select-hide"), j = 1; j < selElmnt.length; j++) {
     (c = document.createElement("DIV")).innerHTML = selElmnt.options[j].innerHTML, c.addEventListener("click", function (e) {
       var y, i, k, s, h;
@@ -42,7 +72,8 @@ function closeAllSelect(elmnt) {
   }
 }
 
-document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).ready(function () {
+document.addEventListener("click", closeAllSelect);
+$ = jQuery, $(document).ready(function () {
   $(".opendd").click(function () {
     $(this).next().toggleClass("ddopen"), $(this).toggleClass("opendd_open");
   }), $(".splide").length && new Splide(".splide", {
@@ -56,62 +87,62 @@ document.addEventListener("click", closeAllSelect), $ = jQuery, $(document).read
     pauseOnHover: !0,
     trimSpace: "move"
   }).mount();
-}), $ = jQuery, $(document).ready(function () {
-  var page = 1,
-      selectors = document.querySelectorAll("#filters .custom-select select");
+});
+$ = jQuery;
+var page = 1,
+    posttype = 1,
+    selectors = document.querySelectorAll("#filters .custom-select select");
 
-  function loadproperties() {
-    if ("undefined" != localize) {
-      var action = localize.action,
-          obj_id = parseInt(localize.obj_id),
-          ajaxurl = localize.ajaxurl,
-          selected = [];
-      if (selectors) for (var i = 0; i < selectors.length; i++) {
-        selected[i] = selectors[i].value;
-      }
-      jQuery.ajax({
-        type: "GET",
-        url: ajaxurl,
-        data: {
-          page: page,
-          obj_id: obj_id,
-          options: selected,
-          action: action,
-          posttype: 1
-        },
-        success: function success(data, textStatus, jqXHR) {
-          page++;
-          var addwebp = data.response;
-          1 == function canUseWebP() {
-            var elem = document.createElement("canvas");
-            return !(!elem.getContext || !elem.getContext("2d")) && 0 == elem.toDataURL("image/webp").indexOf("data:image/webp");
-          }() && (addwebp = (addwebp = (addwebp = addwebp.split(".png").join(".png.webp")).split(".jpg").join(".jpg.webp")).split(".jpeg").join(".jpeg.webp")), document.querySelector(".categories2").innerHTML += addwebp, data.amount < 9 && (document.querySelector(".loadprops").innerHTML = "Больше объявлений нет");
-        },
-        error: function error(jqXHR, textStatus, errorThrown) {
-          console.log("ajax error in query");
-        }
-      });
+function resetquery() {
+  page = 1, document.querySelector(".categories2").innerHTML = "", document.querySelector(".loadprops").innerHTML = '<i class="icon-plus"></i> Загрузить еще', loadproperties();
+}
+
+function canUseWebP() {
+  var elem = document.createElement("canvas");
+  return !(!elem.getContext || !elem.getContext("2d")) && 0 == elem.toDataURL("image/webp").indexOf("data:image/webp");
+}
+
+function loadproperties() {
+  if ("undefined" != typeof localize) {
+    var action = localize.action,
+        obj_id = parseInt(localize.obj_id),
+        ajaxurl = localize.ajaxurl,
+        selected = [];
+    if (selectors) for (var i = 0; i < selectors.length; i++) {
+      selected[i] = selectors[i].value;
     }
+    jQuery.ajax({
+      type: "GET",
+      url: ajaxurl,
+      data: {
+        page: page,
+        obj_id: obj_id,
+        options: selected,
+        action: action,
+        posttype: posttype
+      },
+      success: function success(data, textStatus, jqXHR) {
+        page++;
+        var addwebp = data.response;
+        1 == canUseWebP() && (addwebp = (addwebp = (addwebp = addwebp.split(".png").join(".png.webp")).split(".jpg").join(".jpg.webp")).split(".jpeg").join(".jpeg.webp")), document.querySelector(".categories2").innerHTML += addwebp, data.amount < 9 && (document.querySelector(".loadprops").innerHTML = "Больше объявлений нет");
+      },
+      error: function error(jqXHR, textStatus, errorThrown) {
+        console.log("ajax error in query");
+      }
+    });
   }
+}
 
+$(document).ready(function () {
   $(".loadprops").on("click", function () {
     console.log("loadmore"), loadproperties();
   });
 
   for (var dropdowns = document.querySelectorAll("#filters .select-items div"), n = 0; n < dropdowns.length; n++) {
     dropdowns[n].addEventListener("click", function () {
-      console.log("reset"), page = 1, document.querySelector(".categories2").innerHTML = "", document.querySelector(".loadprops").innerHTML = '<i class="icon-plus"></i> Загрузить еще', loadproperties();
+      console.log("reset"), resetquery();
     }, !1);
   }
 
-  loadproperties();
-}), function (m, e, t, r, i, k, a) {
-  m.ym = m.ym || function () {
-    (m.ym.a = m.ym.a || []).push(arguments);
-  }, m.ym.l = 1 * new Date(), k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = "https://mc.yandex.ru/metrika/tag.js", a.parentNode.insertBefore(k, a);
-}(window, document, "script"), ym(62533903, "init", {
-  clickmap: !0,
-  trackLinks: !0,
-  accurateTrackBounce: !0,
-  webvisor: !0
+  "#blog" === window.location.hash ? (document.querySelector("#querystatus select").value = "pending", showPosts()) : "#props" === window.location.hash ? (document.querySelector("#querystatus select").value = "pending", showProps()) : loadproperties();
 });

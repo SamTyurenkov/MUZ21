@@ -1,3 +1,29 @@
+function populate_meta_fields() {
+  console.log('populate');
+  if (typeof populatemeta == "undefined") return;
+
+    var dboptions = populatemeta.array;
+    console.log(populatemeta.array);
+    for (var i in dboptions) {
+      if (dboptions.hasOwnProperty(i) && typeof i !== "function") {
+        try {
+          var hasOption = document
+            .getElementById(i)
+            .children[1].querySelector('option[value="' + dboptions[i] + '"]');
+          if (
+            hasOption ||
+            document.getElementById(i).children[1].tagName == "INPUT"
+          )
+            document.getElementById(i).children[1].value = dboptions[i];
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  
+}
+populate_meta_fields();
+
 var x, i, j, selElmnt, a, b, c;
 /* Look for any elements with the class "custom-select": */
 x = document.getElementsByClassName("custom-select");
@@ -16,30 +42,30 @@ for (i = 0; i < x.length; i++) {
     create a new DIV that will act as an option item: */
     c = document.createElement("DIV");
     c.innerHTML = selElmnt.options[j].innerHTML;
-    c.addEventListener("click", function(e) {
-        /* When an item is clicked, update the original select box,
+    c.addEventListener("click", function (e) {
+      /* When an item is clicked, update the original select box,
         and the selected item: */
-        var y, i, k, s, h;
-        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-        h = this.parentNode.previousSibling;
-        for (i = 0; i < s.length; i++) {
-          if (s.options[i].innerHTML == this.innerHTML) {
-            s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
-            y = this.parentNode.getElementsByClassName("same-as-selected");
-            for (k = 0; k < y.length; k++) {
-              y[k].removeAttribute("class");
-            }
-            this.setAttribute("class", "same-as-selected");
-            break;
+      var y, i, k, s, h;
+      s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+      h = this.parentNode.previousSibling;
+      for (i = 0; i < s.length; i++) {
+        if (s.options[i].innerHTML == this.innerHTML) {
+          s.selectedIndex = i;
+          h.innerHTML = this.innerHTML;
+          y = this.parentNode.getElementsByClassName("same-as-selected");
+          for (k = 0; k < y.length; k++) {
+            y[k].removeAttribute("class");
           }
+          this.setAttribute("class", "same-as-selected");
+          break;
         }
-        h.click();
+      }
+      h.click();
     });
     b.appendChild(c);
   }
   x[i].appendChild(b);
-  a.addEventListener("click", function(e) {
+  a.addEventListener("click", function (e) {
     /* When the select box is clicked, close any other select boxes,
     and open/close the current select box: */
     e.stopPropagation();
@@ -52,12 +78,15 @@ for (i = 0; i < x.length; i++) {
 function closeAllSelect(elmnt) {
   /* A function that will close all select boxes in the document,
   except the current select box: */
-  var x, y, i, arrNo = [];
+  var x,
+    y,
+    i,
+    arrNo = [];
   x = document.getElementsByClassName("select-items");
   y = document.getElementsByClassName("select-selected");
   for (i = 0; i < y.length; i++) {
     if (elmnt == y[i]) {
-      arrNo.push(i)
+      arrNo.push(i);
     } else {
       y[i].classList.remove("select-arrow-active");
     }

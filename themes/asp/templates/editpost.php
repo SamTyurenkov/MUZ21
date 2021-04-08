@@ -72,7 +72,7 @@ echo 'Как минимум добавьте фотографии и описа�
 </p>
 <div class="row">
 <h3 class="homeh3" id="imgerror">Редактировать фотографии</h3>
-<p style="text-align:center">Добавьте минимум 5 широкоформатных фотографий размером не менее 740 пикселей по ширине и высоте.</p>
+<p style="text-align:center">Добавьте минимум 5 фотографий размером не менее 740 пикселей по высоте.</p>
 <div class="photoeditor">
 <div class="editimg featured" style="background:#fff; <?php if (has_post_thumbnail()) { echo 'background:url('.get_the_post_thumbnail_url(null,'thumbnail').');background-size: cover';}?>">
 <label class="addimg" for="addicon"></label>

@@ -383,6 +383,11 @@ text-decoration: none;
 .categories2 img {
 	width: 100%;
 	border-radius: 5px;
+    transition: all 0.3s ease;
+}
+.catblock2:hover img {
+    -webkit-filter: brightness(1.2);
+            filter: brightness(1.2);
 }
 .catlist:after {
     content: '>';
@@ -585,7 +590,7 @@ font-size: 1.17em;
     top: 0;
     width: auto;
     padding: 0 20px;
-    margin: 0 calc(50% - 500px);
+    margin: 0 calc(50% - 522px);
     box-shadow: 0px 1px 2px 0px #c3c3c3;
     transition: all 0.4s ease;
     border-top-left-radius: 0;

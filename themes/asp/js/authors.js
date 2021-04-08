@@ -17,4 +17,4 @@ function showLetters() {
 }
 
 var evt = document.createEvent("MouseEvents");
-evt.initMouseEvent("click", !0, !0, window, 1, 0, 0, 0, 0, !1, !1, !1, !1, 0, null), "#blog" === window.location.hash ? (document.querySelector("#querystatus select").value = "pending", showPosts()) : "#props" === window.location.hash ? (document.querySelector("#querystatus select").value = "pending", showProps()) : loadproperties();
+evt.initMouseEvent("click", !0, !0, window, 1, 0, 0, 0, 0, !1, !1, !1, !1, 0, null);

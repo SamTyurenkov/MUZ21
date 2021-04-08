@@ -238,3 +238,5 @@ for (var i = 0; i < selects.length; i++) {
 };
 </script>
 <?php get_footer(); ?>
+</body>
+</html>

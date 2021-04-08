@@ -64,12 +64,3 @@ evt.initMouseEvent(
   null
 );
 
-if (window.location.hash === "#blog") {
-  document.querySelector("#querystatus select").value = "pending";
-  showPosts();
-} else if (window.location.hash === "#props") {
-  document.querySelector("#querystatus select").value = "pending";
-  showProps();
-} else {
-  loadproperties();
-}

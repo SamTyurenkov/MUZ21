@@ -316,8 +316,10 @@ wp_reset_postdata();
  }; ?>
 
 <div class="empty2"></div>
+
+<?php endwhile; ?>
 					<footer>
-<?php endwhile; get_footer(); ?>
+<?php get_footer(); ?>
 					</footer>
 				
 	

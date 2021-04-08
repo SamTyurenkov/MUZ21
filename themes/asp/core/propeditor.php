@@ -242,9 +242,9 @@ function add_attachement_ajax(){
 	}
 
 	} else {
-	if ($height < '740px' || $width < '740px') {
+	if ($height < '740px') { //|| $width < '740px' нужна только высота, ширина может быть меньше
 		$response['response'] = "ERROR";
-		$response['error'] = 'минимум 740 пикселей каждая сторона';
+		$response['error'] = 'минимум 740 пикселей по высоте';
 		unlink( $uploaded_file['file'] );
 		echo json_encode( $response );
 		die();

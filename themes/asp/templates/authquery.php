@@ -73,7 +73,7 @@ $curuser = wp_get_current_user();
 <?php if ($curuser->ID == $curauth->ID || current_user_can('editor' || 'administrator')) { ?>
 <div class="custom-select" id="querystatus">
 <select>
-  <option value="empty">Статус</option>
+  <option value="all" selected>Статус</option>
   <option value="publish">Опубликовано</option>
   <option value="draft">Снято с публикации</option>
   <option value="pending">На модерации</option>

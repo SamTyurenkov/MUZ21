@@ -24,9 +24,6 @@ echo term_description( $taxonomy );
 </div>
 </div>
 
-<?php 
-wp_nonce_field('_load_tag', '_load_tag');
-?>
 <div class="categories2 container">
 
 </div>

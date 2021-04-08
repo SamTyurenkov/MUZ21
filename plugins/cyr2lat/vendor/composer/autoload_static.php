@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitab59197479483050e615845d183c2e8c
+class ComposerStaticInit33e8bee773e45737380b52bc3231ec4b
 {
     public static $files = array (
         '344a0f93a05b8ca362c22e39586db500' => __DIR__ . '/../..' . '/lib/polyfill-mbstring/bootstrap.php',
@@ -26,28 +26,33 @@ class ComposerStaticInitab59197479483050e615845d183c2e8c
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Cyr_To_Lat\\ACF' => __DIR__ . '/../..' . '/classes/class-acf.php',
-        'Cyr_To_Lat\\Admin_Notices' => __DIR__ . '/../..' . '/classes/class-admin-notices.php',
-        'Cyr_To_Lat\\Conversion_Process' => __DIR__ . '/../..' . '/classes/background-processes/class-conversion-process.php',
-        'Cyr_To_Lat\\Conversion_Tables' => __DIR__ . '/../..' . '/classes/class-conversion-tables.php',
-        'Cyr_To_Lat\\Converter' => __DIR__ . '/../..' . '/classes/class-converter.php',
+        'Cyr_To_Lat\\ACF' => __DIR__ . '/../..' . '/src/php/class-acf.php',
+        'Cyr_To_Lat\\Admin_Notices' => __DIR__ . '/../..' . '/src/php/class-admin-notices.php',
+        'Cyr_To_Lat\\Conversion_Process' => __DIR__ . '/../..' . '/src/php/background-processes/class-conversion-process.php',
+        'Cyr_To_Lat\\Conversion_Tables' => __DIR__ . '/../..' . '/src/php/class-conversion-tables.php',
+        'Cyr_To_Lat\\Converter' => __DIR__ . '/../..' . '/src/php/class-converter.php',
         'Cyr_To_Lat\\KAGG\\WP_Background_Processing\\WP_Async_Request' => __DIR__ . '/../..' . '/lib/wp-background-processing/class-wp-async-request.php',
         'Cyr_To_Lat\\KAGG\\WP_Background_Processing\\WP_Background_Process' => __DIR__ . '/../..' . '/lib/wp-background-processing/class-wp-background-process.php',
-        'Cyr_To_Lat\\Main' => __DIR__ . '/../..' . '/classes/class-main.php',
-        'Cyr_To_Lat\\Post_Conversion_Process' => __DIR__ . '/../..' . '/classes/background-processes/class-post-conversion-process.php',
-        'Cyr_To_Lat\\Requirements' => __DIR__ . '/../..' . '/classes/class-requirements.php',
-        'Cyr_To_Lat\\Settings' => __DIR__ . '/../..' . '/classes/class-settings.php',
+        'Cyr_To_Lat\\Main' => __DIR__ . '/../..' . '/src/php/class-main.php',
+        'Cyr_To_Lat\\Post_Conversion_Process' => __DIR__ . '/../..' . '/src/php/background-processes/class-post-conversion-process.php',
+        'Cyr_To_Lat\\Requirements' => __DIR__ . '/../..' . '/src/php/class-requirements.php',
+        'Cyr_To_Lat\\Settings\\Abstracts\\SettingsBase' => __DIR__ . '/../..' . '/src/php/Settings/Abstracts/SettingsBase.php',
+        'Cyr_To_Lat\\Settings\\Abstracts\\SettingsInterface' => __DIR__ . '/../..' . '/src/php/Settings/Abstracts/SettingsInterface.php',
+        'Cyr_To_Lat\\Settings\\Converter' => __DIR__ . '/../..' . '/src/php/Settings/Converter.php',
+        'Cyr_To_Lat\\Settings\\PluginSettingsBase' => __DIR__ . '/../..' . '/src/php/Settings/PluginSettingsBase.php',
+        'Cyr_To_Lat\\Settings\\Settings' => __DIR__ . '/../..' . '/src/php/Settings/Settings.php',
+        'Cyr_To_Lat\\Settings\\Tables' => __DIR__ . '/../..' . '/src/php/Settings/Tables.php',
         'Cyr_To_Lat\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/../..' . '/lib/polyfill-mbstring/Mbstring.php',
-        'Cyr_To_Lat\\Term_Conversion_Process' => __DIR__ . '/../..' . '/classes/background-processes/class-term-conversion-process.php',
-        'Cyr_To_Lat\\WP_CLI' => __DIR__ . '/../..' . '/classes/class-wp-cli.php',
+        'Cyr_To_Lat\\Term_Conversion_Process' => __DIR__ . '/../..' . '/src/php/background-processes/class-term-conversion-process.php',
+        'Cyr_To_Lat\\WP_CLI' => __DIR__ . '/../..' . '/src/php/class-wp-cli.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitab59197479483050e615845d183c2e8c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitab59197479483050e615845d183c2e8c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitab59197479483050e615845d183c2e8c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit33e8bee773e45737380b52bc3231ec4b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit33e8bee773e45737380b52bc3231ec4b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit33e8bee773e45737380b52bc3231ec4b::$classMap;
 
         }, null, ClassLoader::class);
     }

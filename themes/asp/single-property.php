@@ -76,15 +76,15 @@ $editors = array_filter(array_unique($editors));
 		<?php if (!my_wp_is_mobile() && $attachments) {
 			echo '<div class="pslidercount" onclick="slidernext()"><i class="icon-picture"></i> <span class="photocount">' . esc_html($i + 1) . ' Фото</span></div>';
 		}; ?>
-		<?php 
+		<?php
 		$youtubeid = get_post_meta($post->ID, 'youtube-video', true);
 		if (!empty($youtubeid) && $youtubeid != '') : ?>
 			<div class="pslidercount" onclick="showyoutubevideo()"><i class="icon-youtube-play"></i> <span>Видео</span></div>
-		<?php 
-		$data = array(
-			'id' => get_post_meta($post->ID, "youtube-video", true)
-		);
-		wp_localize_script('youtubeiframe','localize',$data);
+		<?php
+			$data = array(
+				'id' => get_post_meta($post->ID, "youtube-video", true)
+			);
+			wp_localize_script('youtubeiframe', 'localize', $data);
 		endif; ?>
 
 
@@ -266,17 +266,18 @@ $editors = array_filter(array_unique($editors));
 		</div>
 
 	</div>
+
 	<?php if (is_user_logged_in() && (in_array($curuser, $editors) || current_user_can('edit_others_posts'))) {
 		get_template_part('templates/vigruzki');
 		get_template_part('templates/editpost');
 	}; ?>
 	<div class="empty2"></div>
-	<footer>
-	<?php endwhile;
-	get_footer(); ?>
-	</footer>
+<?php endwhile; ?>
+
+<footer>
+	<?php get_footer(); ?>
+</footer>
 
 
-	</body>
-
-	</html>
+</body>
+</html>

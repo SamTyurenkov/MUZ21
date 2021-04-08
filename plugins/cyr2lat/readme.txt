@@ -3,10 +3,10 @@ Contributors: SergeyBiryukov, mihdan, karevn, webvitaly, kaggdesign
 Tags: cyrillic, belorussian, ukrainian, bulgarian, macedonian, georgian, kazakh, latin, l10n, russian, cyr-to-lat, cyr2lat, rustolat, slugs, translations, transliteration
 Requires at least: 5.1
 Tested up to: 5.7
-Stable tag: 4.6.4
+Stable tag: 5.0.3
 Requires PHP: 5.6.20
 
-Converts Cyrillic characters in post, page and term slugs to Latin characters.
+Convert Non-Latin characters in post, page and term slugs to Latin characters.
 
 == Description ==
 
@@ -21,11 +21,21 @@ Converts Cyrillic characters in post, page and term slugs to Latin characters. U
 * [Has many advantages over similar plugins](https://kagg.eu/en/the-benefits-of-cyr-to-lat/)
 * [Officially compatible with WPML](https://wpml.org/plugin/cyr-to-lat/)
 
-![WPML Certificate](https://ps.w.org/cyr2lat/assets/Cyr-To-Lat---WPML-Compatibility-Certificate-240x250.png)
+<img src="https://ps.w.org/cyr2lat/assets/Cyr-To-Lat---WPML-Compatibility-Certificate-240x250.png" alt="WPML Certificate" />
 
 Based on the original Rus-To-Lat plugin by Anton Skorobogatov.
 
-[](http://coderisk.com/wp/plugin/cyr2lat/RIPS-nt7iXCmzoc)
+== Screenshots ==
+
+1. Tables settings page
+2. Converter settings page
+3. Block editor with transliterated slug
+4. WPML Certificate
+
+== Plugin Support ==
+
+* [Support Forum](https://wordpress.org/support/plugin/cyr2lat/)
+* [Telegram Group](https://t.me/cyr2lat)
 
 == Installation ==
 
@@ -62,22 +72,21 @@ For instance, if your non-standard locale is uk_UA, you can redefine it to `uk` 
 
 `
 /**
- * Use conversion table for non-standard locale.
- *
- * @param array $table Conversion table.
- *
- * @return array
- */
-function my_ctl_table( $table ) {
-	if ( 'uk_UA' === get_locale() ) {
-		$settings = new Cyr_To_Lat_Settings();
-		$table    = $settings->get_option( 'uk' );
+* Use non-standard locale.
+*
+* @param string $locale Current locale.
+*
+* @return string
+*/
+function my_ctl_locale( $locale ) {
+	if ( 'uk_UA' === $locale ) {
+		return 'uk';
 	}
 
-	return $table;
+	return $locale;
 }
 
-add_filter( 'ctl_table', 'my_ctl_table' );
+add_filter( 'ctl_locale', 'my_ctl_locale' );
 `
 
 = How can I define own transliteration of titles? =
@@ -170,9 +179,26 @@ Where
 Yes you can!
 
 * Join in on our [GitHub repository](https://github.com/mihdan/cyr2lat)
-* Join in on our [Telegram Channel](https://t.me/cyr2lat)
+* Join in on our [Telegram Group](https://t.me/cyr2lat)
 
 == Changelog ==
+
+= 5.0.3 (03.04.2021) =
+* Add filter 'ctl_locale'
+* Fix translation of tabs on settings pages
+* Fix registered post types in conversion settings
+
+= 5.0.2 (27.03.2021) =
+* Fix bug creating tag with the same slug as category
+
+= 5.0.1 (22.03.2021) =
+* Fix fatal error during plugin load on some servers
+
+= 5.0.0 (18.03.2021) =
+* Introduce tabs on options page
+* Add options to select post types and statuses for background conversion
+* Make colors compatible to WP official palette
+* Fix bug with Polylang when locale is not equal to language slug
 
 = 4.6.4 (03.03.2021) =
 * Tested up to WordPress 5.7

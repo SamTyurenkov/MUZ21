@@ -29,7 +29,7 @@ var userslug = '<?php echo esc_html(wp_get_current_user()->user_nicename); ?>';
 var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
 var nonce = document.getElementById('_edit_blog').value;
 var value = jQuery.ajax({
-				type: 'POST',
+				type: 'POST', 
 				url: ajaxurl,
 				cache: false,
 				data:{
