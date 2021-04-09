@@ -79,8 +79,8 @@ function site_scripts()
 		$action = 'more_post_ajax';
 	} else if (is_page('adminka')) {
 		$taxonomy = get_queried_object();
-		$obj_id = $taxonomy->term_id;
-		$action = 'more_post_ajax';
+		$obj_id = 'admin';
+		$action = 'auth_post_ajax';
 		wp_enqueue_script('asp-authors', get_template_directory_uri() . '/js/authors.js', array('jquery'), filemtime(get_template_directory() . '/js/authors.js'), true);
 	}
 

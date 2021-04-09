@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 <div class="custom-select" id="querystatus">
 <select>
-  <option value="empty">Статус</option>
+  <option value="all">Статус</option>
   <option value="publish">Опубликовано</option>
   <option value="draft">Снято с публикации</option>
   <option value="pending">На модерации</option>

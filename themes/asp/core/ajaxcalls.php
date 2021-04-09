@@ -835,6 +835,7 @@ function auth_post_ajax()
 		$response['response'] = '';
 
 		if ($loop->have_posts()) :  while ($loop->have_posts()) : $loop->the_post();
+		if (get_post_status() == 'auto-draft') continue;
 				$array = get_post_meta(get_the_ID(), '', true);
 
 				$thumbnail = get_the_post_thumbnail_url(null, 'thumbnail');
