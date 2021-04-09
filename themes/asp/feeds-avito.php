@@ -207,7 +207,7 @@ else if ($diffzalog >= $options['value_price']*-1) $diffzalog = '2 месяца'
 <?php }; ?>
 
 <?php 
-if (array_key_exists('agent-fee', $options) && $options['agent-fee'] > 0)   
+if (array_key_exists('agent-fee', $options) && ($options['agent-fee'] > 0))   
 $feepercent = intval($options['value_price']*100/$options['agent-fee']);
 else 
 $feepercent = 0;
