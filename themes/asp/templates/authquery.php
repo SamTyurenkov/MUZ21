@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php 
 $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
 $curuser = wp_get_current_user();
+
+$editors = explode(',', get_the_author_meta('editors', $curuser->ID));
+array_push($editors, $curuser->ID);
+$editors = array_filter(array_unique($editors)); 
 ?>
 
 <div class="row" >
@@ -70,7 +74,7 @@ $curuser = wp_get_current_user();
   <option value="posutochno-snyat">Снять посуточно</option>
 </select>
 </div>
-<?php if ($curuser->ID == $curauth->ID || current_user_can('editor' || 'administrator')) { ?>
+<?php if ($curuser->ID == $curauth->ID || current_user_can('editor' || 'administrator') || in_array($curuser->ID, $editors)) { ?>
 <div class="custom-select" id="querystatus">
 <select>
   <option value="all" selected>Статус</option>

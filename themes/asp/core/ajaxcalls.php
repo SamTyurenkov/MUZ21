@@ -761,7 +761,7 @@ add_action('wp_ajax_cat_post_ajax', 'cat_post_ajax');
 function auth_post_ajax()
 {
 	if (!is_numeric($_GET['page'])) return;
-	if (!is_numeric($_GET['obj_id']) && (current_user_can('editor' || 'administrator') == false)) return;
+	if (!is_numeric($_GET['obj_id']) && (current_user_can('editor' || 'administrator') == false)) return; //FOR ADMINKA
 	if (!is_numeric($_GET['posttype'])) return;
 
 	$city = strip_tags($_GET['options'][0]);

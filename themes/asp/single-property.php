@@ -13,7 +13,7 @@ $curuser = get_current_user_id();
 $phone = get_the_author_meta('user_phone', $author_id);
 $editors = explode(',', get_the_author_meta('editors', $author_id));
 array_push($editors, $author_id);
-$editors = array_filter(array_unique($editors));
+$editors = array_filter(array_unique($editors)); 
 ?>
 <div id="video_container">
 	<div class="youtube_controls">
