@@ -149,7 +149,7 @@ function update_blog_ajax()
 	$val = strip_tags($_POST['metavalue']);
 	$meta = strip_tags($_POST['metaname']);
 
-	error_log($id.' '.$meta.' '.$val);
+
 
 	header('Content-Type: application/json');
 	$response = array();
@@ -160,7 +160,7 @@ function update_blog_ajax()
 			if (!in_array($val, $ptypes)) {
 				exit_ajax($meta . ' ' . $val);
 			} else {
-				error_log($val);
+		
 				$result = wp_set_object_terms($id, array($val), 'category', false);
 				$response['response'] = 'success';
 				$response['details'] = $result;
@@ -171,7 +171,7 @@ function update_blog_ajax()
 
 		case 'locality-name':
 			$cities = array("Москва", "Сочи", "Санкт-Петербург", "Тольятти", "Оренбург", "Псков", "Пенза");
-			error_log($val);
+	
 			if (!in_array($val, $cities)) {
 				exit_ajax($meta . ' ' . $val);
 			}
@@ -977,7 +977,7 @@ add_action('wp_ajax_auth_post_ajax', 'auth_post_ajax');
 
 function more_post_ajax()
 {
-	error_log('moaarr');
+
 	if (!is_numeric($_GET['page'])) return;
 
 	header('Content-Type: application/json');

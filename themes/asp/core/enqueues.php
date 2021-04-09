@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 
 function site_scripts()
 {
+	global $post;
 	$ajaxurl = admin_url('admin-ajax.php');
 	wp_enqueue_script('asp-main', get_template_directory_uri() . '/js/main.js', array('jquery'), filemtime(get_template_directory() . '/js/main.js'), true);
 
@@ -20,9 +21,10 @@ function site_scripts()
 		wp_enqueue_script('property', get_template_directory_uri() . '/js/property.js', array('jquery'), filemtime(get_template_directory() . '/js/property.js'), true);
 
 
-		$author_id = get_the_author_meta('ID');
+		$author_id = $post->post_author; //get_the_author_meta('ID');
 		$curuser = get_current_user_id();
 		$editors = explode(',', get_the_author_meta('editors', $author_id));
+
 
 		if (is_user_logged_in() && (in_array($curuser, $editors) || current_user_can('edit_others_posts'))) {
 			wp_enqueue_script('property-author', get_template_directory_uri() . '/js/property-author.js', array('jquery'), filemtime(get_template_directory() . '/js/property-author.js'), true);

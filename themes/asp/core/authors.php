@@ -459,7 +459,6 @@ function pbg_avatar_url($avatar, $id_or_email, $size)
 
 		$curavatar = ABSPATH . 'wp-content/uploads/avatars/' . $user->ID;
 		$avalink = 'https://media.asp.sale/wp-content/uploads/avatars/' . $user->ID;
-		error_log($curavatar);
 
 
 		if ($size['size'] == 30) {
