@@ -89,7 +89,7 @@ foreach( $choices as $k => $v )
 <input type="number" step="0.1" value="">
 </div>
 
-<div class="custom-input houseonly" id="lot_area">
+<div class="custom-input houseland" id="lot_area">
 <p>Площадь участка в сотках</p>
 <input type="number" step="0.1" value="">
 </div>

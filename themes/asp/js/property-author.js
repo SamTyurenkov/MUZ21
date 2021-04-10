@@ -281,6 +281,7 @@ function addBlockElement(type) {
         var houseonly = document.getElementsByClassName("houseonly");
         var landonly = document.getElementsByClassName("landonly");
         var newdev = document.getElementsByClassName("newdev");
+        var houseland = document.getElementsByClassName("houseland");
         
             if (document.querySelector("#dealtype select").value == "kupit") {
                 for (var n = 0; n < notsale.length; n++) notsale[n].style.display = "none";
@@ -326,9 +327,9 @@ function addBlockElement(type) {
             for (var n = 0; n < dailyonly.length; n++) dailyonly[n].style.display = "none";	
             }
                 
-                if(document.querySelector("#propertytype select").value == "uchastok") {
+                if(document.querySelector("#propertytype select").value == "uchastok" ) {
                 for (var n = 0; n < landonly.length; n++) landonly[n].style.display = "block";
-                } else if (document.querySelector("#propertytype select").value != "uchastok") {
+                } else if (document.querySelector("#propertytype select").value != "uchastok") { 
                 for (var n = 0; n < landonly.length; n++) landonly[n].style.display = "none";	
                 }		
                 
@@ -337,6 +338,13 @@ function addBlockElement(type) {
             } else if(document.querySelector("#market_type select").value != 'Новостройка') {
             for (var n = 0; n < newdev.length; n++) newdev[n].style.display = "none";
             }		
+
+
+            if((document.querySelector("#propertytype select").value == "uchastok") || (document.querySelector("#propertytype select").value == "dom") || (document.querySelector("#commercial-type select").value == "land")) {
+                for (var n = 0; n < houseland.length; n++) houseland[n].style.display = "block";
+                } else if (document.querySelector("#propertytype select").value != "uchastok") { 
+                for (var n = 0; n < houseland.length; n++) houseland[n].style.display = "none";	
+                }	
         }
             
             var el = document.querySelectorAll(".editoptions .select-items div");

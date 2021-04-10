@@ -216,11 +216,11 @@ rur
 
 <?php // Площадь
 	$square = get_meta('value_area');
-	if (!has_term(25, 'property-type')) { ?>
+	if (!has_term('uchastok', 'property-type') || $options['commercial-type'] == 'land') { ?>
 	<TotalArea	>
 	<?php echo $square; ?>
 	</TotalArea	>
-	<?php if (has_term(20, 'property-type')) { ?>
+	<?php if (has_term('dom', 'property-type') || $options['commercial-type'] == 'land') { ?>
 	<Land>
 	<Area>
 	<?php echo get_meta('lot_area'); ?>
@@ -229,7 +229,7 @@ rur
 	sotka
 	</AreaUnitType>
 	</Land>
-	<?php }} else if (has_term(25, 'property-type')) { ?>
+	<?php }} else if (has_term('uchastok', 'property-type')) { ?>
 	<Land>
 	<Area>
 	<?php echo floatval($square)*0.01; ?>
