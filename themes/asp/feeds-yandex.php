@@ -273,7 +273,7 @@ echo get_meta('rooms');
 $terms = get_the_terms( get_the_ID(), 'property-type' );
 $output = array(); foreach($terms as $term){ $output[] = $term->name;} echo implode(', ', $output);
 echo '</p>'; 
-the_content(); ?>
+echo str_replace('"','',get_the_content());  ?>
 ]]>
 </description>
 <?php if (array_key_exists('youtube-video', $options) || (array_key_exists('online-show', $options) && ($options['online-show'] == 'Могу показать'))) : ?>

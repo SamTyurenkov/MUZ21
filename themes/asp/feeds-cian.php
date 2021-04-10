@@ -133,7 +133,7 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 $terms = get_the_terms( get_the_ID(), 'property-type' );
 $output = array(); foreach($terms as $term){ $output[] = $term->name;} echo implode(', ', $output); 
 echo '</p>';
-the_content(); 
+echo str_replace('"','',get_the_content()); 
 ?>
 ]]>
 </Description>
@@ -195,6 +195,9 @@ $metro = get_field_object('metro_spb');
 <Price>
 <?php echo $options['value_price'] ?>
 </Price>
+<PriceType>
+all
+</PriceType>
 <Currency>
 rur
 </Currency>

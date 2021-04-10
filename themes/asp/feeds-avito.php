@@ -115,7 +115,7 @@ if ($options['dealtype'] == 'kupit') echo 'Продам';
 $terms = get_the_terms( get_the_ID(), 'property-type' );
 $output = array(); foreach($terms as $term){ $output[] = $term->name;} echo implode(', ', $output); 
 echo '</p>';
-the_content(); 
+echo str_replace('"','',get_the_content()); 
 ?>
 ]]>
 </Description>
