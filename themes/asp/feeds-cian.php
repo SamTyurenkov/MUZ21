@@ -132,7 +132,7 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 <?php
 $terms = get_the_terms( get_the_ID(), 'property-type' );
 $output = array(); foreach($terms as $term){ $output[] = $term->name;} echo implode(', ', $output); 
-echo '</p>';
+echo '</p>'.PHP_EOL;
 echo str_replace('"','',get_the_content()); 
 ?>
 ]]>
