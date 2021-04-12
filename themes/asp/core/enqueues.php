@@ -24,7 +24,7 @@ function site_scripts()
 		$author_id = $post->post_author; //get_the_author_meta('ID');
 		$curuser = get_current_user_id();
 		$editors = explode(',', get_the_author_meta('editors', $author_id));
-
+		array_push($editors, $author_id);
 
 		if (is_user_logged_in() && (in_array($curuser, $editors) || current_user_can('edit_others_posts'))) {
 			wp_enqueue_script('property-author', get_template_directory_uri() . '/js/property-author.js', array('jquery'), filemtime(get_template_directory() . '/js/property-author.js'), true);
@@ -41,6 +41,7 @@ function site_scripts()
 		$author_id = get_the_author_meta('ID');
 		$curuser = get_current_user_id();
 		$editors = explode(',', get_the_author_meta('editors', $author_id));
+		array_push($editors, $author_id);
 
 		if (is_user_logged_in() && (in_array($curuser, $editors) || current_user_can('edit_others_posts'))) {
 			wp_enqueue_script('blog-author', get_template_directory_uri() . '/js/blog-author.js', array('jquery'), filemtime(get_template_directory() . '/js/blog-author.js'), true);
