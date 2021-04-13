@@ -405,7 +405,7 @@ function update_props_content_ajax() {
 		header('Content-Type: application/json');
 		
 		if(!is_numeric($_POST['id'])) {
-		$response['response'] = "ERROR";
+		$response['response'] = "error";
 		$response['error'] = 'Неверные данные'; 
 		echo json_encode($response);	
 		die();		
@@ -424,11 +424,11 @@ function update_props_content_ajax() {
 		
 
 			
-		$response['response'] = "SUCCESS";
+		$response['response'] = "success";
 		echo json_encode($response);
 		die();
 		} else {	
-		$response['response'] = "ERROR";
+		$response['response'] = "error";
 		$response['error'] = 'Обновите страницу'; 
 		echo json_encode($response);	
 		die();		

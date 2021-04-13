@@ -320,6 +320,8 @@ function update_props_ajax()
 				wp_set_object_terms($id, $newterms, 'property-type', false);
 				$response['response'] = 'success';
 				$response['details'] = $newterms;
+				$response['meta'] = $meta;
+				$response['val'] = $val;
 				echo json_encode($response);
 				die();
 			}
@@ -341,6 +343,8 @@ function update_props_ajax()
 				wp_set_object_terms($id, $newterms, 'property-type', false);
 				$response['response'] = 'success';
 				$response['details'] = $newterms;
+				$response['meta'] = $meta;
+				$response['val'] = $val;
 				echo json_encode($response);
 				die();
 			}
@@ -518,6 +522,8 @@ function update_props_ajax()
 				'post_name' => '',
 			);
 			wp_update_post($my_post);
+			$response['meta'] = $meta;
+			$response['val'] = $val;
 			$response['response'] = 'success';
 			echo json_encode($response);
 			die();

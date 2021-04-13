@@ -11,9 +11,11 @@ module.exports = function () {
   $.gulp.task("scripts:site", () => {
     return $.gulp
       .src([
+        scriptsPATH.input + "errors_manager.js",
         scriptsPATH.input + "metrika.min.js",
         scriptsPATH.input + "w3schools-select.js",
         scriptsPATH.input + "*.js",
+        "!" + scriptsPATH.input + "property/*.js",
         "!" + scriptsPATH.input + "gutenberg-blocks/*.js",
         "!" + scriptsPATH.input + "authors/*.js",
       ])

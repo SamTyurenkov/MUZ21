@@ -1,5 +1,40 @@
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ErrorsManager = /*#__PURE__*/function () {
+  function ErrorsManager() {
+    _classCallCheck(this, ErrorsManager);
+  }
+
+  _createClass(ErrorsManager, null, [{
+    key: "createEl",
+    value: function createEl(type, message) {
+      var el = document.createElement("div");
+      el.classList.add("errors_el");
+      var close = document.createElement("div");
+      close.classList.add("errors_close");
+      var content = document.createElement("div");
+      content.classList.add("errors_content"), el.appendChild(close), el.appendChild(content), close.innerHTML = "X", close.setAttribute("onclick", "ErrorsManager.deleteEl(this)"), "error" == type ? (content.innerHTML = message, el.classList.add("errors_bad")) : "success" == type && (content.innerHTML = message, el.classList.add("errors_good")), document.getElementsByClassName("errors")[0].appendChild(el), setTimeout(function (close) {
+        ErrorsManager.deleteEl(close);
+      }, 1e4);
+      var exers = document.querySelectorAll(".errors_close");
+      (exers.length > 2 || window.innerWidth < 650 && exers.length > 1) && this.deleteEl(exers[0]);
+    }
+  }, {
+    key: "deleteEl",
+    value: function deleteEl(el) {
+      void 0 !== el && null != el && el.parentNode.remove();
+    }
+  }]);
+
+  return ErrorsManager;
+}();
+
 (function (m, e, t, r, i, k, a) {
   m[i] = m[i] || function () {
     (m[i].a = m[i].a || []).push(arguments);

@@ -105,10 +105,17 @@ function addBlockElement(type) {
                     action: 'update_props_content_ajax',
                     },
                     success: function(data, textStatus, jqXHR) {
-                        document.querySelector(".error").innerHTML = 'Информация сохранена';
+                            if(data.response == 'success') {
+                            //console.log("success "+data.meta + data.val);
+                            ErrorsManager.createEl('success','Описание объекта успешно обновлено.');
+                            } else {
+                            //console.log("error "+data.meta + data.val);
+                            ErrorsManager.createEl('error','Ошибка при обновлелнии описания объекта: '+data.error);
+                            }
                     },
                     error: function(jqXHR, textStatus, errorThrown){ 	
-                        document.querySelector(".error").innerHTML = 'Произошла ошибка';
+                        //document.querySelector(".error").innerHTML = 'Произошла ошибка';
+                        ErrorsManager.createEl('error','Ошибка при обновлелнии описания объекта: '+textStatus);
                     }
                 })
     }	
@@ -396,13 +403,16 @@ function addBlockElement(type) {
                         },
                         success: function(data, textStatus, jqXHR) {
                             if(data.response == 'success') {
-                            console.log("success "+data.meta + data.val);
+                            //console.log("success "+data.meta + data.val);
+                            ErrorsManager.createEl('success','Поле "'+document.getElementById(data.meta).getElementsByTagName("p")[0].innerHTML+'" успешно обновлено.');
                             } else {
-                            console.log("error "+data.meta + data.val);
+                            //console.log("error "+data.meta + data.val);
+                            ErrorsManager.createEl('error','Ошибка при обновлелнии поля '+document.getElementById(data.meta).getElementsByTagName("p")[0].innerHTML+ ', попробуйте обновить страницу или свяжитесь с админом.');
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown){ 	
-                            console.log('ajax error in update props');
+                            //console.log('ajax error in update props');
+                            ErrorsManager.createEl('error','Ошибка при обновлелнии поля, попробуйте обновить страницу или свяжитесь с админом.');
                         }
                     })
         

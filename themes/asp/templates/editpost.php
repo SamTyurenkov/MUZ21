@@ -262,16 +262,16 @@ var value = jQuery.ajax({
 <script type="text/javascript">
 function loadeditor(n) {
 if (n==1) {
-	document.querySelector('.editor').style.height = '100%';
+	document.querySelector('.editor').classList.add('expanded');
 } else if (n==3) {
-	document.querySelector('.vigruzki').style.height = '100%';
+	document.querySelector('.vigruzki').classList.add('expanded');
 } else {
 	location.reload();
 }
 }
 <?php 
 if($index < 5) : ?>
-if (document.referrer == '<?php echo esc_attr(get_author_posts_url($author_id)); ?>')
+if (document.referrer == '<?php echo esc_attr(get_author_posts_url($author_id)); ?>' && get_post_status( $post ) == 'pending')
 loadeditor(1);
 <?php endif; ?>
 </script>

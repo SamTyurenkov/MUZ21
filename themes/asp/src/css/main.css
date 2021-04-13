@@ -97,15 +97,25 @@ article .breadcrumbs {
 
 /* PROPERTY EDITOR */
 .editor, .acca, .addproperty, .vigruzki {
-	position: fixed;
-    width: 100%;
-    height: 0%;
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    margin: 0 10%;
     background: #f2f2f2;
     top: 0;
-	left: 0;
+    left: 0;
     z-index: 9999999;
-    overflow: scroll; 
-	transition: height 1s;
+    overflow: scroll;
+    transition: all 0.5s;
+    pointer-events: none;
+    opacity: 0;
+}
+.expanded {
+    height: 100%;
+    width: 100%;
+    pointer-events: all;
+    margin: 0;
+    opacity: 1;
 }
 .textblockcontrols {
 	text-align: left;
@@ -234,7 +244,32 @@ display: none;
     align-items: center;
     justify-content: center;
 }
-.deleteimg {
+.errors {
+    position: fixed !important;
+    width: calc(100% - 20px) !important;
+    z-index: 9999999999;
+    bottom: 0;
+    pointer-events: none;
+}
+.errors_el{
+    display: block;
+    width: 250px;
+    position: relative;
+    padding: 10px;
+    padding-right: 40px;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    pointer-events: all;
+    transition: all 0.5s;
+}
+.errors_good {
+    box-shadow: 0 0 2px #e0e0e0;
+}
+.errors_bad {
+    box-shadow: 0 0 2px #d03030;
+}
+.deleteimg, .errors_close {
 	background: #ffffff;
     position: absolute;
     width: 25px;
@@ -264,12 +299,9 @@ display: none;
     padding: 50px 0;
 	height: calc(100% - 100px);
 }
-.deleteimg:hover, .addimg:hover {
+.deleteimg:hover, .addimg:hover, .errors_close:hover {
 	color: #000;
 	cursor: pointer;
-}
-.lazy {
-	display: none;
 }
 /* TOPBAR MENU */
 .topmenu {
@@ -1022,6 +1054,13 @@ margin: 4px 8px 4px 8px;
 }
 }
 @media (max-width: 992px) {
+    .errors {
+        background: rgba(139,137,137,0.6);
+        padding-top: 10px !important;
+    }
+    .errors_el{
+        width: calc(100% - 50px);
+    }
 .entry-content h3, .entry-content h4, .entry-content h2{
 	text-align: center;
 }

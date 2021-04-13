@@ -192,6 +192,7 @@ $metro = get_field_object('metro_spb');
 	</SubAgent>
 
 <BargainTerms>
+<VatType>included</VatType>
 <Price>
 <?php echo $options['value_price'] ?>
 </Price>

@@ -38,13 +38,13 @@ function transparentMenu() {
 <script type="text/javascript">
 function loadauth(n,m = '') {
 if (n==1) {
-	document.querySelector('.acca').style.height = '100%';
+	document.querySelector('.acca').classList.add('expanded');
 } else {
-	document.querySelector('.acca').style.height = '0%';
+	document.querySelector('.acca').classList.remove('expanded');
 }
 }
 function openaddproperty() {
-	document.querySelector('.acca').style.height = '100%';
+	document.querySelector('.acca').classList.add('expanded');
 }
 </script>
 <?php } else { 
@@ -69,12 +69,15 @@ var url = '<?php echo esc_attr(get_author_posts_url( $curuser )); ?>';
 	}
 }
 function closeaddproperty() {
-	document.querySelector('.addproperty').style.height = '0%';
+	document.querySelector('.addproperty').classList.remove('expanded');
 }
 function openaddproperty() {
-	document.querySelector('.addproperty').style.height = '100%';
+	document.querySelector('.addproperty').classList.add('expanded');
 }
 </script>
+<div class="container errors">
+
+</div>
 <?php };
 wp_footer();
  ?>

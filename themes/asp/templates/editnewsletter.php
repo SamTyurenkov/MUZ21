@@ -157,7 +157,7 @@ addicon.addEventListener("change", function (e) {
 <script type="text/javascript">
 function loadeditor(n) {
 if (n==1) {
-	document.querySelector('.editor').style.height = '100%';
+	document.querySelector('.editor').classList.add('expanded');
 } else {
 	location.reload();
 }
