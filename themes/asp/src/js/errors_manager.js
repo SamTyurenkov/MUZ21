@@ -29,7 +29,7 @@ class ErrorsManager {
     let exers = document.querySelectorAll('.errors_close');
     if(exers.length > 2) {
       this.deleteEl(exers[0]);
-    } else if(window.innerWidth < 650 && exers.length > 1) {
+    } else if(window.innerWidth < 1651 && exers.length > 1) {
       this.deleteEl(exers[0]);
     }
   }

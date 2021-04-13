@@ -1017,6 +1017,13 @@ margin: 4px 8px 4px 8px;
     left: 27px;
 	z-index: -1;
 }
+@media(max-width:1650px) {
+    .errors {
+        background: rgba(139,137,137,0.6);
+        padding-top: 10px !important;
+    }
+
+}
 @media(max-width:1050px) {
 	.stickymenu {
 	padding: 0 10px;
@@ -1054,10 +1061,6 @@ margin: 4px 8px 4px 8px;
 }
 }
 @media (max-width: 992px) {
-    .errors {
-        background: rgba(139,137,137,0.6);
-        padding-top: 10px !important;
-    }
     .errors_el{
         width: calc(100% - 50px);
     }

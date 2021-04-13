@@ -23,7 +23,7 @@ var ErrorsManager = /*#__PURE__*/function () {
         ErrorsManager.deleteEl(close);
       }, 1e4);
       var exers = document.querySelectorAll(".errors_close");
-      (exers.length > 2 || window.innerWidth < 650 && exers.length > 1) && this.deleteEl(exers[0]);
+      (exers.length > 2 || window.innerWidth < 1651 && exers.length > 1) && this.deleteEl(exers[0]);
     }
   }, {
     key: "deleteEl",
