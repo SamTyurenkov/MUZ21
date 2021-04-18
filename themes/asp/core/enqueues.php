@@ -38,7 +38,7 @@ function site_scripts()
 		}
 	} else if (is_singular('post')) {
 
-		$author_id = get_the_author_meta('ID');
+		$author_id = $post->post_author; //get_the_author_meta('ID');
 		$curuser = get_current_user_id();
 		$editors = explode(',', get_the_author_meta('editors', $author_id));
 		array_push($editors, $author_id);
