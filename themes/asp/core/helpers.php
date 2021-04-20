@@ -148,7 +148,7 @@ $cats2array = Array();
 		$ptype = $cat->slug;
 	}
 	}
-$cities = array("Москва", "Сочи", "Санкт-Петербург", "Тольятти", "Оренбург", "Псков", "Пенза");
+$cities = CityManager::getCities();
 
 if (!empty($array['locality-name'][0]) && in_array($array['locality-name'][0],$cities)) $response['locality-name'] = $array['locality-name'][0]; 
 if (!empty($array['sublocality-name'][0])) $response['sublocality-name'] = $array['sublocality-name'][0];

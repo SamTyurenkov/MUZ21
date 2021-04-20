@@ -66,13 +66,11 @@ wp_reset_postdata();
 <p>Город расположения объекта</p>
 <select>
   <option value="empty">Город</option>
-  <option value="Сочи">Сочи</option>
-  <option value="Москва">Москва</option>
-  <option value="Санкт-Петербург">Санкт-Петербург</option>
-  <option value="Тольятти">Тольятти</option>
-  <option value="Псков">Псков</option>
-  <option value="Оренбург">Оренбург</option>
-  <option value="Пенза">Пенза</option>
+<?php
+foreach (CityManager::getCities() as $slug => $city) {
+	echo '<option value="'.$city.'">'.$city.'</option>';
+}
+?>
 </select>
 </div>
 
@@ -93,7 +91,7 @@ wp_reset_postdata();
 </p>
 </div>
 <?php } ?>
-<?php if($countpp < 5) { ?>
+<?php if($countpp < 4) { ?>
 <div class="textblockcontrols" >
 
 <div class="pslidercount" onclick="addProperty()">

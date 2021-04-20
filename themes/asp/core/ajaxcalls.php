@@ -16,37 +16,6 @@ function exit_ajax(string $string = null)
 	die();
 }
 
-function get_sublocales_ajax()
-{
-	if (!wp_verify_nonce($_POST["nonce"], "_edit_properties")) exit_ajax();
-	header('Content-Type: application/json');
-	$response = array();
-	$city = $_POST['city'];
-
-	$cities = array("Москва", "Сочи", "Санкт-Петербург", "Тольятти", "Оренбург", "Псков", "Пенза");
-	if (!in_array($city, $cities)) {
-		exit_ajax();
-	}
-
-	switch ($city) {
-		case 'Сочи':
-			$response['sub-locality'] = array("Адлер", "Аше", "Вардане", "Весёлое", "Вишневка", "Волконская", "Голубая Дача", "Дагомыс", "Зубова Щель", "Каткова Щель", "Красная Поляна", "Кудепста", "Лазаревское", "Лоо", "Мацеста", "Роза Хутор", "Центр", "Хоста", "Чвижепсе", "Эсто-Садок");
-			break;
-
-		case 'Санкт-Петербург':
-			$response['sub-locality'] = array("Адмиралтейский район", "Василеостровский район", "Выборгский район", "Калининский район", "Кировский район", "Колпинский район", "Красногвардейский район", "Красносельский район", "Кронштадтский район", "Курортный район", "Московский район", "Невский район", "Петроградский район", "Петродворцовый район", "Приморский район", "Пушкинский район", "Фрунзенский район", "Центральный район");
-			break;
-
-		default:
-			exit_ajax();
-			break;
-	}
-
-	echo json_encode($response);
-	die();
-}
-add_action('wp_ajax_get_sublocales_ajax', 'get_sublocales_ajax');
-
 function add_blog_ajax()
 {
 	header('Content-Type: application/json');
@@ -104,7 +73,7 @@ function add_props_ajax()
 		exit_ajax('Необходимо заполнить базовую информацию, чтобы продолжить!');
 	}
 
-	$cities = array("Москва", "Сочи", "Санкт-Петербург", "Тольятти", "Оренбург", "Псков", "Пенза");
+	$cities = CityManager::getCities(); 
 	if (!in_array($city, $cities)) {
 		exit_ajax('Необходимо заполнить базовую информацию, чтобы продолжить!');
 	}
@@ -170,7 +139,7 @@ function update_blog_ajax()
 			break;
 
 		case 'locality-name':
-			$cities = array("Москва", "Сочи", "Санкт-Петербург", "Тольятти", "Оренбург", "Псков", "Пенза");
+			$cities = CityManager::getCities(); 
 	
 			if (!in_array($val, $cities)) {
 				exit_ajax($meta . ' ' . $val);
@@ -351,7 +320,7 @@ function update_props_ajax()
 			break;
 
 		case 'locality-name':
-			$cities = array("Москва", "Сочи", "Санкт-Петербург", "Тольятти", "Оренбург", "Псков", "Пенза");
+			$cities = CityManager::getCities(); 
 			if (!in_array($val, $cities)) {
 				exit_ajax($meta . ' ' . $val);
 			}

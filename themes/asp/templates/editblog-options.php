@@ -30,12 +30,11 @@ wp_localize_script('asp-main','populatemeta',$array);//json_encode($options));
 <p>Выберите город (необязательно)</p>
 <select>
   <option value="empty">Город</option>
-  <option value="Сочи">Сочи</option>
-  <option value="Москва">Москва</option>
-  <option value="Санкт-Петербург">Санкт-Петербург</option>
-  <option value="Тольятти">Тольятти</option>
-  <option value="Псков">Псков</option>
-  <option value="Оренбург">Оренбург</option>
+  <?php
+foreach (CityManager::getCities() as $slug => $city) {
+	echo '<option value="'.$city.'">'.$city.'</option>';
+}
+?>
 </select>
 </div>
 

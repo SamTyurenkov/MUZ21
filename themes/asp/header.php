@@ -56,33 +56,12 @@ $ptype = get_query_var( 'ptype' );
 $dtype = get_query_var( 'dtype' );	
 $title = '';
 if (!empty($city)) {
-	
-switch($city) {
-case 'sochi':
-	$city = 'Сочи';
-	break;
-case 'moskva':
-	$city = 'Москва';
-	break;
-case 'sankt-peterburg':
-	$city = 'Санкт-Петербург';
-	break;
-case 'tolyatti':
-	$city = 'Тольятти';
-	break;
-case 'pskov':
-	$city = 'Псков';
-	break;
-case 'orenburg':
-	$city = 'Оренбург';
-	break;	
-default:
+if(array_key_exists($city,CityManager::getCities())) {
+	$city = CityManager::getCityBySlug($city);
+	$title = $city.' - ';
+} else {
 	echo '<meta name="robots" content="noindex">';
-	break;
 }
-if(isset($city))
-$title = $city.' - ';
-
 }
 $title .= $singletitle.' ';
 

@@ -31,13 +31,10 @@ $city = get_query_var( 'city' );
 $ptype = get_query_var( 'ptype' );	
 $title = '';
 if (!empty($city)) {
-if ($city == 'sochi') $city = 'Сочи';
-if ($city == 'moskva') $city = 'Москва';
-if ($city == 'sankt-peterburg') $city = 'Санкт-Петербург';	
-if ($city == 'tolyatti') $city = 'Тольятти';	
-if ($city == 'pskov') $city = 'Псков';	
-if ($city == 'orenburg') $city = 'Оренбург';	
-$title = $city.' - ';	
+	if(array_key_exists($city,CityManager::getCities())) {
+		$city = CityManager::getCityBySlug($city);
+		$title = $city.' - ';
+	}
 }
 $title .= $singletitle.' ';
 if (!empty($ptype)) {

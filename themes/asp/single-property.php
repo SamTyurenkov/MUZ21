@@ -199,28 +199,8 @@ $editors = array_filter(array_unique($editors));
 						break;
 				}
 
-				switch ($linkparts[5]) {
-					case 'sochi':
-						$citytitle = 'Сочи';
-						break;
-					case 'moskva':
-						$citytitle = 'Москва';
-						break;
-					case 'sankt-peterburg':
-						$citytitle = 'Санкт-Петербург';
-						break;
-					case 'tolyatti':
-						$citytitle = 'Тольятти';
-						break;
-					case 'pskov':
-						$citytitle = 'Псков';
-						break;
-					case 'orenburg':
-						$citytitle = 'Оренбург';
-						break;
-					case 'penza':
-						$citytitle = 'Пенза';
-						break;
+				if(array_key_exists($linkparts[5],CityManager::getCities())) {
+					$citytitle = CityManager::getCityBySlug($linkparts[5]);
 				}
 
 				$brcms = '<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/"><span itemprop="name">ASP</span></a><meta itemprop="position" content="1" /></span> > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/' . $deallink . '/"><span itemprop="name">' . $dealtitle . '</span></a><meta itemprop="position" content="2" /></span> > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/' . $proplink . '/"><span itemprop="name">' . $typetitle . '</span></a><meta itemprop="position" content="3" /></span> > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/' . $citylink . '/"><span itemprop="name">' . $citytitle . '</span></a><meta itemprop="position" content="4" /></span> > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . get_permalink() . '"><span itemprop="name">' . mb_substr(get_the_title(), 0, 60, 'UTF-8') . '...</span></a><meta itemprop="position" content="5" /></span></div>';

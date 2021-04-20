@@ -15,6 +15,7 @@ require_once('core/helpers.php'); //MOBILE CHECK, LANGUAGE CHECK, COOKIES
 require_once('core/authors.php'); //AUTHORS AND THEIR META
 require_once('core/propeditor.php'); //EDITING PROPERTIES
 require_once('core/custom-ajax-auth.php'); //CUSTOM AUTHORIZATION ON FRONTEND
+require_once('core/city-manager.php'); //CITY MANAGER CLASS
 //require_once('core/synonimizer.php'); //REWRITE FOR TEXTS
 
 

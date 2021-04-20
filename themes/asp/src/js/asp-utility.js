@@ -18,4 +18,8 @@ $(document).ready(function () {
       trimSpace: "move",
     }).mount();
   }
+
+  // $('#querycity, #addlocality-name, #locality-name').each().on('click',function(){
+
+  // });
 });

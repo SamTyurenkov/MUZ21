@@ -47,23 +47,18 @@ default:
 if($typetitle != 'Недвижимость')
 $brcms .= ' > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$taxonomy->slug.'/'.$ptype.'/"><span itemprop="name">'.$typetitle.'</span></a><meta itemprop="position" content="3" /></span>';
 }
-if (!empty($cit)) {
-if ($cit == 'sochi') $city = 'Сочи';
-if ($cit == 'moskva') $city = 'Москва';
-if ($cit == 'sankt-peterburg') $city = 'Санкт-Петербург';	
-if ($cit == 'tolyatti') $city = 'Тольятти';	
-if ($cit == 'pskov') $city = 'Псков';	
-if ($cit == 'orenburg') $city = 'Оренбург';	
-if ($cit == 'penza') $city = 'Пенза';
-$title = $city.' - ';
-$brcms .= ' > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$taxonomy->slug.'/'.$ptype.'/'.$cit.'/"><span itemprop="name">'.$city.'</span></a><meta itemprop="position" content="4" /></span>';	
+if (!empty($cit) && array_key_exists($cit,CityManager::getCities())) {
+		$citytitle = CityManager::getCityBySlug($cit);
+		$title = $citytitle.' - ';
+		$brcms .= ' > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$taxonomy->slug.'/'.$ptype.'/'.$cit.'/"><span itemprop="name">'.$city.'</span></a><meta itemprop="position" content="4" /></span>';	
+} else {
+	$citytitle = 'empty';
 }
 $title .= $singletitle.' '.$typetitle;
 ?>
 
 <div class="row category">
-<h1 class="homeh2"><?php 
-echo esc_html($title); ?> </h1>
+<h1 class="homeh2"><?php echo esc_html($title); ?> </h1>
 
 <div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
 <?php echo $brcms; ?>
@@ -84,14 +79,12 @@ echo term_description( $curterm );
 
 <div class="custom-select" id="querycity">
 <select>
-  <option value="empty">Город</option>
-  <option value="Сочи">Сочи</option>
-  <option value="Москва">Москва</option>
-  <option value="Санкт-Петербург">Санкт-Петербург</option>
-  <option value="Тольятти">Тольятти</option>
-  <option value="Псков">Псков</option>
-  <option value="Оренбург">Оренбург</option>
-  <option value="Пенза">Пенза</option>
+  <option value="empty" selected="selected">Город</option>
+  <?php
+foreach (CityManager::getImportantCities() as $slug => $value) {
+	echo '<option value="'.$value.'">'.$value.'</option>';
+}
+?>
 </select>
 </div>
 <div class="custom-select" id="querytype">
@@ -119,11 +112,11 @@ echo term_description( $curterm );
 </div>
 <script type="text/javascript">
 function populate_query_fields() {
-	var city = '<?php if (!empty($city)) echo esc_html($city); ?>';
+	var city = '<?php if (!empty($citytitle)) echo esc_html($citytitle); ?>';
 	var ptype = '<?php if (!empty($ptype)) echo esc_html($ptype); ?>';
 	
 	if (ptype != '' && ptype != 'nedvizhimost') document.getElementById('querytype').getElementsByTagName("select")[0].value = ptype;
-	if (city != '') document.getElementById('querycity').getElementsByTagName("select")[0].value = city;
+	if (city != 'empty') document.getElementById('querycity').getElementsByTagName("select")[0].value = city;
 }
 populate_query_fields();
 </script>

@@ -68,7 +68,10 @@ function populate_meta_fields() {
 var x, i, j, selElmnt, a, b, c;
 
 for (populate_meta_fields(), x = document.getElementsByClassName("custom-select"), i = 0; i < x.length; i++) {
-  for (selElmnt = x[i].getElementsByTagName("select")[0], (a = document.createElement("DIV")).setAttribute("class", "select-selected"), a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML, x[i].appendChild(a), (b = document.createElement("DIV")).setAttribute("class", "select-items select-hide"), j = 1; j < selElmnt.length; j++) {
+  selElmnt = x[i].getElementsByTagName("select")[0], (a = document.createElement("DIV")).setAttribute("class", "select-selected"), a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML, x[i].appendChild(a), (b = document.createElement("DIV")).setAttribute("class", "select-items select-hide");
+  var jj = 1;
+
+  for ("undefined" == typeof populatemeta && (jj = 0), j = jj; j < selElmnt.length; j++) {
     (c = document.createElement("DIV")).innerHTML = selElmnt.options[j].innerHTML, c.addEventListener("click", function (e) {
       var y, i, k, s, h;
 
