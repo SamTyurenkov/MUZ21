@@ -75,7 +75,7 @@ for (populate_meta_fields(), x = document.getElementsByClassName("custom-select"
     (c = document.createElement("DIV")).innerHTML = selElmnt.options[j].innerHTML, c.addEventListener("click", function (e) {
       var y, i, k, s, h;
 
-      for (s = this.parentNode.parentNode.getElementsByTagName("select")[0], h = this.parentNode.previousSibling, i = 0; i < s.length; i++) {
+      for (s = this.parentNode.parentNode.getElementsByTagName("select")[0], h = this.parentNode.parentNode.getElementsByClassName("select-selected")[0], i = 0; i < s.length; i++) {
         if (s.options[i].innerHTML == this.innerHTML) {
           for (s.selectedIndex = i, h.innerHTML = this.innerHTML, y = this.parentNode.getElementsByClassName("same-as-selected"), k = 0; k < y.length; k++) {
             y[k].removeAttribute("class");
@@ -91,7 +91,22 @@ for (populate_meta_fields(), x = document.getElementsByClassName("custom-select"
   }
 
   x[i].appendChild(b), a.addEventListener("click", function (e) {
-    e.stopPropagation(), closeAllSelect(this), this.nextSibling.classList.toggle("select-hide"), this.classList.toggle("select-arrow-active");
+    if (e.stopPropagation(), closeAllSelect(this), this.nextSibling.classList.toggle("select-hide"), this.classList.toggle("select-arrow-active"), ["querycity", "addlocality-name", "locality-name"].includes(this.parentElement.id)) {
+      var sels = this.parentElement.getElementsByClassName("select-selected");
+
+      if (1 == sels.length) {
+        var inp = document.createElement("input");
+        inp.setAttribute("class", "select-selected"), inp.setAttribute("autocomplete", "chrome-off"), $(sels[0]).after(inp);
+      }
+
+      (sels = this.parentElement.getElementsByClassName("select-selected"))[0].style.display = "none", sels[1].style.display = "block", sels[1].focus(), sels[1].addEventListener("input", function (ee) {
+        ee.stopPropagation();
+        var txt = this.value;
+        $(sels[1].nextSibling.childNodes).show(), $(sels[1].nextSibling.childNodes).each(function () {
+          this.innerHTML.includes(txt) || $(this).hide(), this.innerHTML == txt && (sels[0].innerHTML = txt);
+        });
+      });
+    }
   });
 }
 
@@ -102,7 +117,7 @@ function closeAllSelect(elmnt) {
       arrNo = [];
 
   for (x = document.getElementsByClassName("select-items"), y = document.getElementsByClassName("select-selected"), i = 0; i < y.length; i++) {
-    elmnt == y[i] ? arrNo.push(i) : y[i].classList.remove("select-arrow-active");
+    elmnt == y[i] ? arrNo.push(i) : (y[i].classList.remove("select-arrow-active"), y[i].style.display = "block", $(".select-items div").show(), y[i].nextSibling.classList.contains("select-selected") && y[i].nextSibling.remove());
   }
 
   for (i = 0; i < x.length; i++) {

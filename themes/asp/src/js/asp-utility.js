@@ -19,7 +19,5 @@ $(document).ready(function () {
     }).mount();
   }
 
-  // $('#querycity, #addlocality-name, #locality-name').each().on('click',function(){
 
-  // });
 });

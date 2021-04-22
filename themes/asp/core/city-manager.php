@@ -44,8 +44,8 @@ public static function getCityBySlug(string $slug = 'empty') {
 
 public static function getCities() {
 
+    //return asort(CityManager::$cities); //uasort(CityManager::$cities, array("CityManager", "cmp"));;
     return CityManager::$cities;
-
 }
 
 public static function getImportantCities() {
@@ -60,7 +60,13 @@ public static function getImportantCities() {
         AND p.post_type = %s
     ", 'locality-name', 'publish', 'property' ) );
 
-    return $r;
+    return $r; //return asort($r);//uasort($r, array("CityManager", "cmp"));
 }
+
+private static function cmp($a, $b)
+{
+        return strcmp($a, $b);
+}
+
 
 }

@@ -50,7 +50,7 @@ $brcms .= ' > <span itemprop="itemListElement" itemscope itemtype="http://schema
 if (!empty($cit) && array_key_exists($cit,CityManager::getCities())) {
 		$citytitle = CityManager::getCityBySlug($cit);
 		$title = $citytitle.' - ';
-		$brcms .= ' > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$taxonomy->slug.'/'.$ptype.'/'.$cit.'/"><span itemprop="name">'.$city.'</span></a><meta itemprop="position" content="4" /></span>';	
+		$brcms .= ' > <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$taxonomy->slug.'/'.$ptype.'/'.$cit.'/"><span itemprop="name">'.$citytitle.'</span></a><meta itemprop="position" content="4" /></span>';	
 } else {
 	$citytitle = 'empty';
 }
