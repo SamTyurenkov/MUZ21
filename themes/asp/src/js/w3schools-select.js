@@ -97,9 +97,13 @@ for (i = 0; i < x.length; i++) {
           var txt = this.value;
           $(sels[1].nextSibling.childNodes).show();
           $(sels[1].nextSibling.childNodes).each(function() {
-            if(!this.innerHTML.includes(txt)) $(this).hide();
+            if(!this.innerHTML.toLowerCase().includes(txt.toLowerCase())) $(this).hide();
 
-            if(this.innerHTML == txt) sels[0].innerHTML = txt;
+          //  if(this.innerHTML.toLowerCase() == txt.toLowerCase()) {
+            //  sels[0].innerHTML = txt;
+            //  sels[0].previousSibling.value = txt;
+             // if(typeof resetquery === "function") resetquery();
+          //  }
           });
       })
     }

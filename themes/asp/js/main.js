@@ -103,7 +103,7 @@ for (populate_meta_fields(), x = document.getElementsByClassName("custom-select"
         ee.stopPropagation();
         var txt = this.value;
         $(sels[1].nextSibling.childNodes).show(), $(sels[1].nextSibling.childNodes).each(function () {
-          this.innerHTML.includes(txt) || $(this).hide(), this.innerHTML == txt && (sels[0].innerHTML = txt);
+          this.innerHTML.toLowerCase().includes(txt.toLowerCase()) || $(this).hide();
         });
       });
     }
