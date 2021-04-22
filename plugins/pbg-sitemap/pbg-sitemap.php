@@ -463,11 +463,11 @@ echo '<url><loc>';
 the_permalink(); 
 echo '</loc><lastmod>'; 
 the_modified_time('c'); 
-echo '</lastmod><priority>0.6</priority>';
+echo '</lastmod><priority>0.6</priority>'; 
 echo '</url>';
 endwhile;wp_reset_postdata();
 
-$cities = array("moskva", "sochi", "sankt-peterburg", "tolyatti", "orenburg", "pskov","penza");
+$cities = array_keys(array_intersect(CityManager::getCities(), CityManager::getImportantCities())); //array("moskva", "sochi", "sankt-peterburg", "tolyatti", "orenburg", "pskov","penza");
 $dtypes = array("kupit", "snyat", "posutochno-snyat");
 $ptypes = array("kvartira", "dom", "nezhiloe", "komnata", "uchastok","hotel","koikomesto");
 
@@ -489,7 +489,7 @@ foreach ($dtypes as $dtype) {
 		if ($city == 'sochi') {
 		$priority = '0.5';	
 		} else {
-		$priority = '0.0';		
+		$priority = '0.1';		
 		}
 		
 		echo '<url><loc>'.$home.'/'.esc_html($dtype).'/'.esc_html($ptype).'/'.esc_html($city).'/</loc><changefreq>daily</changefreq><priority>'.esc_html($priority).'</priority></url>';	
