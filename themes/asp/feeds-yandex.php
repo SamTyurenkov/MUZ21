@@ -117,7 +117,7 @@ if ($options['dealtype'] == 'snyat' || $options['dealtype'] == 'posutochno-snyat
 		} else  {
 		echo '<property-type>жилая</property-type>';
 		};
-		if (array_key_exists('agent-fee', $options)) {
+		if (array_key_exists('agent-fee', $options) && is_numeric($options['agent-fee']) && $options['agent-fee'] > 0) {
 			echo '<agent-fee>'.(intval($options['agent-fee']*100/$options['value_price'])).'</agent-fee>';
 		};
 		
