@@ -220,7 +220,11 @@ rur
 
 <?php // Площадь
 	$square = get_meta('value_area');
-	if (!has_term('uchastok', 'property-type') || $options['commercial-type'] == 'land') { ?>
+	if(has_term('komnata','property-type')) { ?>
+	<RoomArea	>
+	<?php echo $square; ?>
+	</RoomArea	>
+	<?php } else if (!has_term('uchastok', 'property-type') || $options['commercial-type'] == 'land') { ?>
 	<TotalArea	>
 	<?php echo $square; ?>
 	</TotalArea	>
