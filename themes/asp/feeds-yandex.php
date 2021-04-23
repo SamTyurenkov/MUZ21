@@ -96,7 +96,7 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 
 <offer internal-id="<?php echo $id; ?>">
     <?php 
-	if (array_key_exists('zalog', $options) && $options['zalog'] != 0) {
+	if (array_key_exists('zalog', $options) && !empty($options['zalog'])) {
 		$zalog = 1;
 		$zalogsum = intval($options['zalog']*100/$options['value_price']);
 	} else {
