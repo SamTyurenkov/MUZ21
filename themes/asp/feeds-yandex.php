@@ -60,19 +60,19 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 <?php
 	$options = get_property_options(get_post());
 	 if (!array_key_exists('value_price', $options))	// объявления без указания цены в я.недвижимости запрещены!
-	 	continue;
+	 		error_log('missing value_price');	
 	 if (!array_key_exists('value_area', $options))	// объявления без указания площади в я.недвижимости запрещены!
-	 	continue;
+	 		error_log('missing value_area');	
 	 if (!get_the_author_meta( 'user_phone' ))
-	 	continue;
+	 		error_log('missing user_phone');	
 	if (!array_key_exists('propertytype', $options) || $options['propertytype'] == 'hotel')
-                continue;	
+			error_log('missing propertytype');		
 	if (!array_key_exists('yandex', $options) || $options['yandex'] == 2)
-                continue;				
+				error_log('missing yandex');				
 	 if (!array_key_exists('dealtype', $options))
-                 continue;
+	 			error_log('missing dealtype');
 	 if (!array_key_exists('locality-name', $options))
-                 continue;
+                 error_log('missing locality');
 			
 	 if ($options['propertytype'] == 'dom' || $options['propertytype'] == 'kvartira') {
 	 	if (!array_key_exists('rooms', $options))	// объявления без указания количества комнат в я.недвижимости запрещены!
@@ -96,7 +96,7 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 
 <offer internal-id="<?php echo $id; ?>">
     <?php 
-	if (array_key_exists('zalog', $options) && is_numeric($options['value_price']) && ($options['value_price'] != ''))  {
+	if (array_key_exists('zalog', $options) && is_numeric($options['value_price']) && ($options['value_price'] > 0))  {
 		$zalog = 1;
 		$zalogsum = intval(intval($options['zalog'])*100/intval($options['value_price']));
 	} else {
