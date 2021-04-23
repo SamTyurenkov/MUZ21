@@ -96,9 +96,9 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 
 <offer internal-id="<?php echo $id; ?>">
     <?php 
-	if (array_key_exists('zalog', $options) && ($options['zalog'] > 0) && ($options['zalog'] != ''))  {
+	if (array_key_exists('zalog', $options) && is_numeric($options['value_price']) && ($options['value_price'] != ''))  {
 		$zalog = 1;
-		$zalogsum = intval($options['zalog']*100/$options['value_price']);
+		$zalogsum = intval(intval($options['zalog'])*100/intval($options['value_price']));
 	} else {
 		$zalog = 0;
 	};
@@ -117,8 +117,8 @@ if ($options['dealtype'] == 'snyat' || $options['dealtype'] == 'posutochno-snyat
 		} else  {
 		echo '<property-type>жилая</property-type>';
 		};
-		if (array_key_exists('agent-fee', $options) && ($options['agent-fee'] > 0) && ($options['agent-fee'] != '')) {
-			echo '<agent-fee>'.(intval($options['agent-fee']*100/$options['value_price'])).'</agent-fee>';
+		if (array_key_exists('agent-fee', $options) && ($options['value_price'] > 0) && ($options['value_price'] != '')) {
+			echo '<agent-fee>'.(intval(intval($options['agent-fee'])*100/intval($options['value_price']))).'</agent-fee>';
 		};
 		
 	if (array_key_exists('kommun-platezh', $options) && $options['kommun-platezh'] == 'включены') {

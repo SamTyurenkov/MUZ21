@@ -161,7 +161,7 @@ echo '<MarketType>'.esc_html($market_type).'</MarketType>';
 <?php if (($category == 'Квартиры' || $category == 'Комнаты') && array_key_exists('housetype', $options)) { 
 echo '<HouseType>'.$options['housetype'].'</HouseType>';
  }; ?>
-<?php if($market_type == 'Новостройка') { 
+<?php if(array_key_exists('market_type', $options) && ($market_type == 'Новостройка')) { 
 if (array_key_exists('avitokorpus', $options))
 echo '<NewDevelopmentId>'.esc_html($options['avitokorpus']).'</NewDevelopmentId>';
 else if (array_key_exists('avitonewdev', $options)) 
@@ -191,7 +191,7 @@ if ($options['dealtype'] == 'snyat' ) {
 	echo '<LeaseType>Посуточно</LeaseType>';
 };
 ?>
-<?php if (array_key_exists('zalog', $options) && is_numeric($options['zalog'])) { 
+<?php if (array_key_exists('zalog', $options) && ($options['value_price'] > 0) && ($options['value_price'] != '')) { 
 $diffzalog = $options['value_price'] - $options['zalog'];
 if ($diffzalog >= $options['value_price']) $diffzalog = 'Без залога';
 else if ($diffzalog >= 0) $diffzalog = '1 месяц';
@@ -209,6 +209,8 @@ else if ($diffzalog >= $options['value_price']*-1) $diffzalog = '2 месяца'
 <?php 
 if (array_key_exists('agent-fee', $options) && ($options['agent-fee'] > 0) && ($options['agent-fee'] != '')) {  
 $feepercent = intval($options['value_price']*100/$options['agent-fee']);
+error_log($options['agent-fee']*100/$options['value_price']);
+
 } else {
 $feepercent = 0;
 }
