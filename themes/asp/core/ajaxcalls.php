@@ -745,7 +745,7 @@ function auth_post_ajax()
 	$dtype = strip_tags($_GET['options'][3]);
 	if (isset($_GET['options'][4])) {
 		$status = strip_tags($_GET['options'][4]);
-	} else if (strip_tags($_GET['options'][4]) == 'all') {
+	} else if (isset($_GET['options'][4]) && strip_tags($_GET['options'][4]) == 'all') {
 		$status = array('publish', 'pending', 'draft');
 	} else {
 		$status = 'empty';

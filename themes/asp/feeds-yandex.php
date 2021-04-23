@@ -22,8 +22,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 ?>
 <realty-feed xmlns="http://webmaster.yandex.ru/schemas/feed/realty/2010-06">
 <generation-date><?php echo date('c'); ?></generation-date>
-<?php  
-wp_cache_delete( 'feed_yandex_'.$author_id);		
+<?php  	
 $objects = wp_cache_get( 'feed_yandex_'.$author_id );
 if ( false === $objects ) {
 
