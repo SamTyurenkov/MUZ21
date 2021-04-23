@@ -191,7 +191,7 @@ if ($options['dealtype'] == 'snyat' ) {
 	echo '<LeaseType>Посуточно</LeaseType>';
 };
 ?>
-<?php if (array_key_exists('zalog', $options) && ($options['value_price'] > 0) && ($options['value_price'] != '')) { 
+<?php if (array_key_exists('zalog', $options) && is_numeric($options['value_price']) && is_numeric($options['zalog'])) { 
 $diffzalog = $options['value_price'] - $options['zalog'];
 if ($diffzalog >= $options['value_price']) $diffzalog = 'Без залога';
 else if ($diffzalog >= 0) $diffzalog = '1 месяц';
