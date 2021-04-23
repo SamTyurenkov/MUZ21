@@ -59,25 +59,25 @@ wp_cache_set( 'feed_yandex_'.$author_id, $objects);
 while ($objects->have_posts()) : $objects->the_post(); ?>
 <?php
 	$options = get_property_options(get_post());
-	// if (!array_key_exists('value_price', $options))	// объявления без указания цены в я.недвижимости запрещены!
-	// 	continue;
-	// if (!array_key_exists('value_area', $options))	// объявления без указания площади в я.недвижимости запрещены!
-	// 	continue;
-	// if (!get_the_author_meta( 'user_phone' ))
-	// 	continue;
+	 if (!array_key_exists('value_price', $options))	// объявления без указания цены в я.недвижимости запрещены!
+	 	continue;
+	 if (!array_key_exists('value_area', $options))	// объявления без указания площади в я.недвижимости запрещены!
+	 	continue;
+	 if (!get_the_author_meta( 'user_phone' ))
+	 	continue;
 	if (!array_key_exists('propertytype', $options) || $options['propertytype'] == 'hotel')
                 continue;	
 	if (!array_key_exists('yandex', $options) || $options['yandex'] == 2)
                 continue;				
-	// if (!array_key_exists('dealtype', $options))
-    //             continue;
-	// if (!array_key_exists('locality-name', $options))
-    //             continue;
+	 if (!array_key_exists('dealtype', $options))
+                 continue;
+	 if (!array_key_exists('locality-name', $options))
+                 continue;
 			
-	// if ($options['propertytype'] == 'dom' || $options['propertytype'] == 'kvartira') {
-	// 	if (!array_key_exists('rooms', $options))	// объявления без указания количества комнат в я.недвижимости запрещены!
-	// 	continue;
-	// }		
+	 if ($options['propertytype'] == 'dom' || $options['propertytype'] == 'kvartira') {
+	 	if (!array_key_exists('rooms', $options))	// объявления без указания количества комнат в я.недвижимости запрещены!
+	 	continue;
+	 }		
 			
 	if ($options['propertytype'] == 'nezhiloe')
 	$category = 'коммерческая';
@@ -96,7 +96,7 @@ while ($objects->have_posts()) : $objects->the_post(); ?>
 
 <offer internal-id="<?php echo $id; ?>">
     <?php 
-	if (array_key_exists('zalog', $options) && !empty($options['zalog'])) {
+	if (array_key_exists('zalog', $options) && is_numeric($options['zalog']) && $options['zalog'] > 0) {
 		$zalog = 1;
 		$zalogsum = intval($options['zalog']*100/$options['value_price']);
 	} else {

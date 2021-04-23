@@ -152,7 +152,7 @@ if(array_key_exists('address1', $options)) $address1 = $options['address1'];
 </Phones>
 
     <?php 
-	if (array_key_exists('zalog', $options)) {
+	if (array_key_exists('zalog', $options) && is_numeric($options['zalog']) && $options['zalog'] > 0) {
 		$zalog = 1;
 		$zalogsum = $options['zalog'];
 	} else {
