@@ -199,7 +199,7 @@ if ($options['commercial-type'] == 'Коммерческая земля') $temp 
 if ($options['commercial-type'] == 'Готовый бизнес') $temp = "Помещение свободного назначения"; //NOT EXACT
 if ($options['commercial-type'] == 'Юр. Адрес') $temp = "Помещение свободного назначения"; //NOT EXACT
 
-echo '<ObjectType>'.$options['commercial-type'].'</ObjectType>';
+echo '<ObjectType>'.$temp.'</ObjectType>';
  }; ?>
 <?php 	
 if ($options['dealtype'] == 'snyat' ) {
