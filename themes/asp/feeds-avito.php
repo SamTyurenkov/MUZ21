@@ -186,18 +186,21 @@ echo '<ObjectType>'.$options['landobjecttype'].'</ObjectType>';
 
 <?php if ($category == 'Коммерческая недвижимость' && array_key_exists('commercial-type', $options)) {
 $temp = '';
-if ($options['commercial-type'] == 'Отель') $temp = "Гостиница";
-if ($options['commercial-type'] == 'Свободное назначение') $temp = "Помещение свободного назначения";
-if ($options['commercial-type'] == 'Офисное') $temp = "Офисное помещение";
-if ($options['commercial-type'] == 'Склад') $temp = "Складское помещение";
-if ($options['commercial-type'] == 'Торговое') $temp = "Торговое помещение";
+if ($options['commercial-type'] == 'hotel') $temp = "Гостиница";
+if ($options['commercial-type'] == 'free purpose') $temp = "Помещение свободного назначения";
+if ($options['commercial-type'] == 'office') $temp = "Офисное помещение";
+if ($options['commercial-type'] == 'warehouse') $temp = "Складское помещение";
+if ($options['commercial-type'] == 'retail') $temp = "Торговое помещение";
 
-if ($options['commercial-type'] == 'Производственное') $temp = "Производственное помещение";
-if ($options['commercial-type'] == 'Общепит') $temp = "Помещение общественного питания";
-if ($options['commercial-type'] == 'Коммерческая земля') $temp = "Помещение свободного назначения"; //NOT EXACT
+if ($options['commercial-type'] == 'manufacturing') $temp = "Производственное помещение";
+if ($options['commercial-type'] == 'public catering') $temp = "Помещение общественного питания";
 
-if ($options['commercial-type'] == 'Готовый бизнес') $temp = "Помещение свободного назначения"; //NOT EXACT
-if ($options['commercial-type'] == 'Юр. Адрес') $temp = "Помещение свободного назначения"; //NOT EXACT
+
+if ($options['commercial-type'] == 'land') $temp = "Помещение свободного назначения"; //NOT EXACT
+if ($options['commercial-type'] == 'business') $temp = "Помещение свободного назначения"; //NOT EXACT
+if ($options['commercial-type'] == 'legal address') $temp = "Помещение свободного назначения"; //NOT EXACT
+if ($options['commercial-type'] == 'auto repair') $temp = "Помещение свободного назначения"; //NOT EXACT
+
 
 echo '<ObjectType>'.$temp.'</ObjectType>';
  }; ?>
