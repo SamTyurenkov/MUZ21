@@ -172,7 +172,7 @@ echo '<NewDevelopmentId>'.esc_html($options['avitonewdev']).'</NewDevelopmentId>
 <?php 
 $authortype = get_the_author_meta( 'authortype' );
 if ($authortype == 'Агент') $authortype = 'Посредник';
-if ($authortype) { 
+if ($authortype && ($options['dealtype'] != 'posutochno-snyat')) { 
 echo '<PropertyRights>'.esc_html($authortype).'</PropertyRights>';
  }; ?>	
 
