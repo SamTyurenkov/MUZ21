@@ -103,42 +103,6 @@ echo wp_kses_post($brcms);
 								К началу статьи
 								</div>
 <script>
-function scrollToSmoothly(pos, time){
-  if(typeof pos!== "number"){
-  pos = parseFloat(pos);
-  }
-  if(isNaN(pos)){
-   console.warn("Position must be a number or a numeric String.");
-   throw "Position must be a number";
-  }
-  if(pos<0||time<0){
-  return;
-  }
-  var currentPos = window.scrollY; // || window.screenTop;
-    var start = null;
-  time = time;// || 1000;
-  window.requestAnimationFrame(function step(currentTime){
-    start = !start? currentTime: start;
-    if(currentPos<pos){
-    var progress = currentTime - start;
-    window.scrollTo(0, ((pos-currentPos)*progress/time)+currentPos);
-    if(progress < time){
-        window.requestAnimationFrame(step);
-    } else {
-        window.scrollTo(0, pos);
-    }
-    } else {
-     var progress = currentTime - start;
-    window.scrollTo(0, currentPos-((currentPos-pos)*progress/time));
-    if(progress < time){
-        window.requestAnimationFrame(step);
-    } else {
-        window.scrollTo(0, pos);
-    }
-    }
-  });
-}
-
 var headings = document.querySelectorAll('.entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6 ');
 var nav = document.querySelector('.headings-post-nav');
 if(headings.length > 0) {
@@ -152,20 +116,16 @@ var navels = nav.querySelectorAll('.headings-post-nav li');
 console.log(navels.length);
 for (var j = 0; j < navels.length; j++) {
 	navels[j].addEventListener('click',function(e){
-	e.stopPropagation();
-	e.stopImmediatePropagation();
-	e.preventDefault();
 	var n = this.getAttribute('data-attr');
-	console.log(headings[n].offsetTop);
-	console.log(parseInt(headings[n].offsetTop)+150);
-	scrollToSmoothly(parseInt(headings[n].offsetTop)+150, 700);
+	$([document.documentElement, document.body]).animate({
+        scrollTop: $(headings[n]).offset().top-70
+    }, 700);
 	});
 }	
 document.querySelector('.naverx').addEventListener('click',function(e) {
-	e.stopPropagation();
-	e.stopImmediatePropagation();
-	e.preventDefault();
-	scrollToSmoothly(parseInt(document.querySelector('h1').offsetTop), 700);
+	$([document.documentElement, document.body]).animate({
+        scrollTop: $('h1').offset().top-70
+    }, 700);
 });				
 </script>
 <?php } ?>
