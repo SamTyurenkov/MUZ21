@@ -1,4 +1,6 @@
+const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const el = wp.element.createElement;
  
 registerBlockType('asp/sidebanner', {
 	title: 'Side Banner',
