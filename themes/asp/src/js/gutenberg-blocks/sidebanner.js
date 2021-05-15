@@ -7,9 +7,9 @@ registerBlockType('asp/sidebanner', {
 	description: 'Show a banner and text',
 	keywords: ['example', 'test'],
 	edit: () => {  
-		return <div>:)</div> 
+	//	return <div>:)</div> 
 	},
 	save: () => { 
-		return <div>:)</div> 
+		return null;//<div>:)</div> 
 	}
 });
