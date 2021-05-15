@@ -16,7 +16,7 @@ module.exports = function() {
             imagemin.gifsicle({
                 interlaced: true
             }),
-            imagemin.jpegtran({
+            imagemin.mozjpeg({
                 progressive: true
             }),
             imageminJpegRecompress({

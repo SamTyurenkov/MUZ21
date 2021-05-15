@@ -16,7 +16,7 @@ module.exports = function () {
         scriptsPATH.input + "w3schools-select.js",
         scriptsPATH.input + "*.js",
         "!" + scriptsPATH.input + "property/*.js",
-        "!" + scriptsPATH.input + "gutenberg-blocks/*.js",
+       // "!" + scriptsPATH.input + "gutenberg-blocks/*.js",
         "!" + scriptsPATH.input + "authors/*.js",
       ])
       .pipe(gulpif('!**/*.min.js', uglify({mangle: false})))

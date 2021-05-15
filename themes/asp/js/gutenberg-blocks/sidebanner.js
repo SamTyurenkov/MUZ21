@@ -6,10 +6,10 @@ registerBlockType('asp/sidebanner', {
 	icon: 'smiley',
 	description: 'Show a banner and text',
 	keywords: ['example', 'test'],
-	edit: () => { 
-		return <div>:)</div> 
+	edit: () => {  
+		return <div>edit</div> 
 	},
 	save: () => { 
-		return <div>:)</div> 
+		return <div>save</div> 
 	}
 });
