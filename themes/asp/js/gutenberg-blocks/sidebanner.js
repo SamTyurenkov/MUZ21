@@ -1,15 +1,15 @@
 const { registerBlockType } = wp.blocks;
  
-registerBlockType('asp/sidebanner', {
+registerBlockType('asp-sidebanner', {
 	title: 'Side Banner',
 	category: 'common',
 	icon: 'smiley',
 	description: 'Show a banner and text',
 	keywords: ['example', 'test'],
 	edit: () => {  
-		return <div>edit</div> 
+		return <div>:)</div> 
 	},
 	save: () => { 
-		return <div>save</div> 
+		return <div>:)</div> 
 	}
 });

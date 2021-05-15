@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action('init', function () {
     wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/sidebanner.js'), true);
 
-    register_block_type('asp/sidebanner', [
+    register_block_type('asp-sidebanner', [
         'editor_script' => 'asp-sidebanner',
         'render_callback' => 'blocks_render_callback',
         'attributes' => [
