@@ -10,7 +10,7 @@ registerBlockType('asp/sidebanner', {
 	keywords: ['example', 'test'],
 	edit: () => {  
 	//	return <div>:)</div> 
-
+	return null;
 	},
 	save: () => { 
 		return null;
