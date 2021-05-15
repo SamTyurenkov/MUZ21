@@ -10,10 +10,7 @@ add_action('init', function () {
         'editor_script' => 'asp-sidebanner',
         'render_callback' => 'blocks_render_callback',
         'attributes' => [
-            'blockname' => [
-               'type' => 'string',
-               'default' => 'sidebanner'
-            ],
+            'blockname' => 'sidebanner',
 			'title' => [
 				'type' => 'string'
 			],
