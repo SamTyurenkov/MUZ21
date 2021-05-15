@@ -2,9 +2,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js');
 
 add_action('init', function () {
+    wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js');
+
     register_block_type('asp/sidebanner', [
         'editor_script' => 'sidebanner',
         'render_callback' => 'blocks_render_callback',
