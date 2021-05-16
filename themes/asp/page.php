@@ -50,7 +50,8 @@ $thumbnail = null;
 							<div>
 								<div class="entry-content">
 									<?php
-									the_content();
+									echo get_the_content();
+									//the_content();
 									//echo preg_replace("/(<li>[^<>]+<\/li>)+/","<ul>$0</ul>",get_the_content());
 									?>
 								</div>
