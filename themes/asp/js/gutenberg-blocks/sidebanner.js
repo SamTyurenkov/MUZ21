@@ -4,7 +4,9 @@ var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
-    InspectorControls = _wp$blockEditor.InspectorControls;
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
 var _wp$components = wp.components,
     ToggleControl = _wp$components.ToggleControl,
     PanelBody = _wp$components.PanelBody,
@@ -62,7 +64,14 @@ registerBlockType("asp/sidebanner", {
           bannerside: newval
         });
       }
-    })))), /*#__PURE__*/React.createElement(RichText, {
+    })))), /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(IconButton, {
+      label: "My very own custom button",
+      icon: "edit",
+      className: "my-custom-button",
+      onClick: function onClick() {
+        return console.log('pressed button');
+      }
+    }))), /*#__PURE__*/React.createElement(RichText, {
       value: attributes.title,
       tagName: "h2",
       onChange: function onChange(newtext) {
@@ -85,7 +94,8 @@ registerBlockType("asp/sidebanner", {
     return /*#__PURE__*/React.createElement("div", {
       "class": "section"
     }, /*#__PURE__*/React.createElement("div", {
-      "class": "banner {attributes.bannerside}"
+      "class": "banner ",
+      className: attributes.bannerside
     }), /*#__PURE__*/React.createElement("div", {
       "class": "content"
     }, /*#__PURE__*/React.createElement(RichText.Content, {

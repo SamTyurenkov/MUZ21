@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { RichText, InspectorControls } = wp.blockEditor;
+const { RichText, InspectorControls, BlockControls, AlignmentToolbar } = wp.blockEditor;
 const {
   ToggleControl,
   PanelBody,
@@ -58,6 +58,16 @@ registerBlockType("asp/sidebanner", {
             </PanelRow>
           </PanelBody>
         </InspectorControls>
+		<BlockControls>
+	<Toolbar>
+		<IconButton
+			label="My very own custom button"
+			icon="edit"
+			className="my-custom-button"
+			onClick={() => console.log('pressed button')}
+		/>
+	</Toolbar>
+</BlockControls>
 
         <RichText
           value={attributes.title}
@@ -76,7 +86,7 @@ registerBlockType("asp/sidebanner", {
     const { attributes } = props;
     return (
       <div class="section">
-	  <div class="banner {attributes.bannerside}">
+	  <div class="banner " className={attributes.bannerside}>
 
 	  </div>
 	  <div class="content">
