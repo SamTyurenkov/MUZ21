@@ -34,6 +34,11 @@ module.exports = function () {
       .pipe(
         babel({
           presets: ["@babel/preset-env","@babel/preset-react"],
+          plugins: [
+            [
+              "@babel/plugin-proposal-class-properties"
+            ]
+          ]
         })
       )
       .pipe($.gulp.dest(scriptsPATH.output + "gutenberg-blocks/"));
