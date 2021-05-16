@@ -31,6 +31,11 @@ module.exports = function () {
   $.gulp.task("scripts:gutenberg", () => {
     return $.gulp
       .src([scriptsPATH.input + "gutenberg-blocks/*.js"])
+      .pipe(
+        babel({
+          presets: ["@babel/preset-env","@babel/preset-react"],
+        })
+      )
       .pipe($.gulp.dest(scriptsPATH.output + "gutenberg-blocks/"));
   });
   $.gulp.task("scripts:authors", () => {
