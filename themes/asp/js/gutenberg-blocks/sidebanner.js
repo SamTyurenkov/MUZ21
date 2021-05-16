@@ -67,7 +67,7 @@ registerBlockType("asp/sidebanner", {
           bannerside: newval
         });
       }
-    })))), /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(IconButton, {
+    })))), /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(Button, {
       label: "My very own custom button",
       icon: "edit",
       className: "my-custom-button",

@@ -63,7 +63,7 @@ registerBlockType("asp/sidebanner", {
         </InspectorControls>
 		<BlockControls>
 	<Toolbar>
-		<IconButton
+		<Button
 			label="My very own custom button"
 			icon="edit"
 			className="my-custom-button"
