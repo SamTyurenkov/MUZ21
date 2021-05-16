@@ -12,9 +12,39 @@ registerBlockType("asp/sidebanner", {
   icon: "smiley",
   description: "Show a banner and text",
   keywords: ["example", "test"],
+  attributes: {
+    title: {
+      type: 'string',
+      "default": 'Заголовок'
+    },
+    subtitle: {
+      type: 'string',
+      "default": 'Описание'
+    },
+    postIds: {
+      type: 'array',
+      "default": []
+    }
+  },
   edit: function edit(props) {
+    var attributes = props.attributes,
+        setAttributes = props.setAttributes;
     console.log(props);
-    return /*#__PURE__*/React.createElement("div", null, "Text input:", /*#__PURE__*/React.createElement(TextControl, null), "Textarea:", /*#__PURE__*/React.createElement(TextareaControl, null), "Richtext:", /*#__PURE__*/React.createElement(RichText, null));
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(RichText, {
+      value: attributes.title,
+      onChange: function onChange(newtext) {
+        return setAttributes({
+          title: newtext
+        });
+      }
+    }), /*#__PURE__*/React.createElement(RichText, {
+      value: attributes.subtitle,
+      onChange: function onChange(newtext) {
+        return setAttributes({
+          subtitle: newtext
+        });
+      }
+    }));
   },
   save: function save(props) {
     return /*#__PURE__*/React.createElement("div", null, ":)");
