@@ -92,12 +92,11 @@ registerBlockType("asp/sidebanner", {
   save: function save(props) {
     var attributes = props.attributes;
     return /*#__PURE__*/React.createElement("div", {
-      "class": "section"
+      className: "section"
     }, /*#__PURE__*/React.createElement("div", {
-      "class": "banner ",
-      className: attributes.bannerside
+      className: attributes.bannerside + "banner"
     }), /*#__PURE__*/React.createElement("div", {
-      "class": "content"
+      className: "content"
     }, /*#__PURE__*/React.createElement(RichText.Content, {
       tagName: "h2",
       value: attributes.title

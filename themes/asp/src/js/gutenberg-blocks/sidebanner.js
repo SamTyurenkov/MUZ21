@@ -85,11 +85,11 @@ registerBlockType("asp/sidebanner", {
   save: (props) => {
     const { attributes } = props;
     return (
-      <div class="section">
-	  <div class="banner " className={attributes.bannerside}>
+      <div className="section">
+	  <div className={attributes.bannerside + "banner"}>
 
 	  </div>
-	  <div class="content">
+	  <div className="content">
         <RichText.Content tagName="h2" value={attributes.title} />
         <RichText.Content tagName="p" value={attributes.subtitle} />
 	  </div>
