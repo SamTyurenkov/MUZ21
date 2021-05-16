@@ -1,6 +1,7 @@
 "use strict";
 
 var __ = wp.i18n.__;
+var Component = wp.element.Component;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
@@ -15,7 +16,9 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl,
     ColorPicker = _wp$components.ColorPicker,
     TextControl = _wp$components.TextControl,
-    TextareaControl = _wp$components.TextareaControl;
+    TextareaControl = _wp$components.TextareaControl,
+    Toolbar = _wp$components.Toolbar,
+    Button = _wp$components.Button;
 registerBlockType("asp/sidebanner", {
   title: "Side Banner",
   category: "common",

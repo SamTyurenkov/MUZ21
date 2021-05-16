@@ -1,4 +1,5 @@
 const { __ } = wp.i18n;
+const { Component } = wp.element;
 const { registerBlockType } = wp.blocks;
 const { RichText, InspectorControls, BlockControls, AlignmentToolbar } = wp.blockEditor;
 const {
@@ -10,6 +11,8 @@ const {
   ColorPicker,
   TextControl,
   TextareaControl,
+  Toolbar,
+  Button
 } = wp.components;
 
 registerBlockType("asp/sidebanner", {
