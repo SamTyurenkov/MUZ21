@@ -1,7 +1,8 @@
 const { __ } = wp.i18n;
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 const { registerBlockType } = wp.blocks;
-const { RichText, InspectorControls, BlockControls, AlignmentToolbar } = wp.blockEditor;
+const { RichText, InspectorControls, BlockControls, AlignmentToolbar } =
+  wp.blockEditor;
 const {
   ToggleControl,
   PanelBody,
@@ -12,8 +13,91 @@ const {
   TextControl,
   TextareaControl,
   Toolbar,
-  Button
+  Button,
+  Placeholder,
+  Disabled,
 } = wp.components;
+
+class SidebannerEdit extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editMode: true,
+    };
+  }
+
+  getInspectorControls = () => {
+    const { attributes, setAttributes } = this.props;
+
+    return (
+      <InspectorControls>
+        <PanelBody title="Настройки блока" initialOpen={true}>
+          <PanelRow>
+            <SelectControl
+              label="С какой стороны баннер?"
+              value={attributes.bannerside}
+              options={[
+                { label: "Слева", value: "left" },
+                { label: "Справа", value: "right" },
+              ]}
+              onChange={(newval) => setAttributes({ bannerside: newval })}
+            />
+          </PanelRow>
+        </PanelBody>
+      </InspectorControls>
+    );
+  };
+
+  getBlockControls = () => {
+    const { attributes, setAttributes } = this.props;
+
+    return (
+      <BlockControls>
+        <Toolbar>
+          <Button
+            label={this.state.editMode ? "Preview" : "Edit"}
+            icon={this.state.editMode ? "format-image" : "edit"}
+            onClick={() => this.setState({ editMode: !this.state.editMode })}
+          />
+        </Toolbar>
+      </BlockControls>
+    );
+  };
+
+  render() {
+    const { attributes, setAttributes } = this.props;
+    return [
+      this.getInspectorControls(),
+      this.getBlockControls(),
+      <div>
+        {this.state.editMode && (
+          <Fragment>
+            <RichText
+              value={attributes.title}
+              tagName="h2"
+              onChange={(newtext) => setAttributes({ title: newtext })}
+            />
+            <RichText
+              value={attributes.subtitle}
+              tagName="p"
+              onChange={(newtext) => setAttributes({ subtitle: newtext })}
+            />
+          </Fragment>
+        )}{" "}
+        {!this.state.editMode && (
+          <div className="section">
+              <div className={attributes.bannerside + "side sidebanner"}></div>
+              <div className="content">
+                <RichText.Content tagName="h2" value={attributes.title} />
+                <RichText.Content tagName="p" value={attributes.subtitle} />
+              </div>
+          </div>
+        )}
+      </div>,
+    ];
+  }
+}
 
 registerBlockType("asp/sidebanner", {
   title: "Side Banner",
@@ -41,61 +125,16 @@ registerBlockType("asp/sidebanner", {
       default: [],
     },
   },
-  edit: (props) => {
-    const { attributes, setAttributes } = props;
-    console.log(props);
-    return (
-      <div>
-        <InspectorControls>
-          <PanelBody title="Настройки блока" initialOpen={true}>
-            <PanelRow>
-              <SelectControl
-                label="С какой стороны баннер?"
-                value={attributes.bannerside}
-                options={[
-                  { label: "Слева", value: "left" },
-                  { label: "Справа", value: "right" },
-                ]}
-                onChange={(newval) => setAttributes({ bannerside: newval })}
-              />
-            </PanelRow>
-          </PanelBody>
-        </InspectorControls>
-		<BlockControls>
-	<Toolbar>
-		<Button
-			label="My very own custom button"
-			icon="edit"
-			className="my-custom-button"
-			onClick={() => console.log('pressed button')}
-		/>
-	</Toolbar>
-</BlockControls>
-
-        <RichText
-          value={attributes.title}
-          tagName="h2"
-          onChange={(newtext) => setAttributes({ title: newtext })}
-        />
-        <RichText
-          value={attributes.subtitle}
-          tagName="p"
-          onChange={(newtext) => setAttributes({ subtitle: newtext })}
-        />
-      </div>
-    );
-  },
+  edit: SidebannerEdit,
   save: (props) => {
     const { attributes } = props;
     return (
       <div className="section">
-	  <div className={attributes.bannerside + "banner"}>
-
-	  </div>
-	  <div className="content">
-        <RichText.Content tagName="h2" value={attributes.title} />
-        <RichText.Content tagName="p" value={attributes.subtitle} />
-	  </div>
+        <div className={attributes.bannerside + "side sidebanner"}></div>
+        <div className="content">
+          <RichText.Content tagName="h2" value={attributes.title} />
+          <RichText.Content tagName="p" value={attributes.subtitle} />
+        </div>
       </div>
     );
   },
