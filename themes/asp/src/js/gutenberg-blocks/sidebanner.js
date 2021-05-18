@@ -27,37 +27,42 @@ const {
   ResponsiveWrapper,
 } = wp.components;
 
-class SidebannerEdit extends Component {
-  constructor(props) {
-    super(props);
+//class SidebannerEdit extends Component {
+const SidebannerEdit = () => {
+//   constructor(props) {
+//     super(props);
 
-    this.state = {
+    var state = {
       editMode: true,
     };
-  }
+ // }
+ const { attributes, setAttributes } = this.props;
 
-  removeMedia = () => {
-    const { attributes, setAttributes } = this.props;
+  const { media } = useSelect( ( select, props ) => {		
+	return {
+		media: props.attributes.mediaId ? select( 'core' ).getMedia(props.attributes.mediaId) : undefined,
+	};
+} );
+
+  const removeMedia = () => {
     setAttributes({
       mediaId: 0,
       mediaUrl: "",
     });
   };
 
-  onSelectMedia = (media) => {
-    const { attributes, setAttributes } = this.props;
+  const onSelectMedia = (media) => {
     setAttributes({
       mediaId: media.id,
       mediaUrl: media.url,
     });
   };
 
-  getInspectorControls = () => {
-    const { attributes, setAttributes } = this.props;
+  const getInspectorControls = () => {
 
     return (
       <InspectorControls>
-        <PanelBody title="Настройки блока" initialOpen={true} key={1}>
+        <PanelBody title="Настройки блока" initialOpen={true}>
           <PanelRow>
             <SelectControl
               label="С какой стороны баннер?"
@@ -71,7 +76,7 @@ class SidebannerEdit extends Component {
           </PanelRow>
         </PanelBody>
 
-        <PanelBody title="Выбор картинки" initialOpen={true} key={2}>
+        <PanelBody title="Выбор картинки" initialOpen={true}>
           <div className="editor-post-featured-image">
             <MediaUploadCheck>
               <MediaUpload
@@ -105,7 +110,7 @@ class SidebannerEdit extends Component {
                 <MediaUpload
                   title={__("Replace image", "awp")}
                   value={attributes.mediaId}
-                  onSelect={this.onSelectMedia}
+                  onSelect={onSelectMedia}
                   allowedTypes={["image"]}
                   render={({ open }) => (
                     <Button onClick={open} isDefault>
@@ -117,7 +122,7 @@ class SidebannerEdit extends Component {
             )}
             {attributes.mediaId != 0 && (
               <MediaUploadCheck>
-                <Button onClick={this.removeMedia} isLink isDestructive>
+                <Button onClick={removeMedia} isLink isDestructive>
                   {__("Remove image", "awp")}
                 </Button>
               </MediaUploadCheck>
@@ -128,27 +133,23 @@ class SidebannerEdit extends Component {
     );
   };
 
-  getBlockControls = () => {
-    const { attributes, setAttributes } = this.props;
-
+  const getBlockControls = () => {
     return (
       <BlockControls>
         <Toolbar>
           <Button
             label={this.state.editMode ? "Preview" : "Edit"}
             icon={this.state.editMode ? "format-image" : "edit"}
-            onClick={() => this.setState({ editMode: !this.state.editMode })}
+            onClick={() => state({ editMode: !this.state.editMode })}
           />
         </Toolbar>
       </BlockControls>
     );
   };
 
-  render() {
-    const { attributes, setAttributes } = this.props;
     return [
-      this.getInspectorControls(),
-      this.getBlockControls(),
+      getInspectorControls(),
+      getBlockControls(),
       <div>
         {this.state.editMode && (
           <Fragment>
@@ -178,7 +179,7 @@ class SidebannerEdit extends Component {
         )}
       </div>,
     ];
-  }
+  
 }
 
 registerBlockType("asp/sidebanner", {
@@ -213,12 +214,6 @@ registerBlockType("asp/sidebanner", {
       default: "",
     },
   },
-  edit: withSelect((select, props) => {
-    return {
-      media: props.attributes.mediaId
-        ? select("core").getMedia(props.attributes.mediaId)
-        : undefined,
-    };
-  })(SidebannerEdit),
+  edit: SidebannerEdit, 
   save: () => { return null }
 });
