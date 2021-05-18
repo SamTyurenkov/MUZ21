@@ -78,12 +78,12 @@ class SidebannerEdit extends Component {
 										onClick={open}
 									>
 										{attributes.mediaId == 0 && __('Choose an image', 'awp')}
-										{props.media != undefined && 
+										{attributes.media != undefined && 
 						            			<ResponsiveWrapper
-									    		naturalWidth={ props.media.media_details.width }
-											naturalHeight={ props.media.media_details.height }
+									    		naturalWidth={ attributes.media.media_details.width }
+											naturalHeight={ attributes.media.media_details.height }
 									    	>
-									    		<img src={props.media.source_url} />
+									    		<img src={attributes.media.source_url} />
 									    	</ResponsiveWrapper>
 						            		}
 									</Button>

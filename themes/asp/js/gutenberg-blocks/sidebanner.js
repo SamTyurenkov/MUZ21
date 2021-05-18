@@ -114,11 +114,11 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
           return /*#__PURE__*/React.createElement(Button, {
             className: attributes.mediaId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview',
             onClick: open
-          }, attributes.mediaId == 0 && __('Choose an image', 'awp'), props.media != undefined && /*#__PURE__*/React.createElement(ResponsiveWrapper, {
-            naturalWidth: props.media.media_details.width,
-            naturalHeight: props.media.media_details.height
+          }, attributes.mediaId == 0 && __('Choose an image', 'awp'), attributes.media != undefined && /*#__PURE__*/React.createElement(ResponsiveWrapper, {
+            naturalWidth: attributes.media.media_details.width,
+            naturalHeight: attributes.media.media_details.height
           }, /*#__PURE__*/React.createElement("img", {
-            src: props.media.source_url
+            src: attributes.media.source_url
           })));
         }
       })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
