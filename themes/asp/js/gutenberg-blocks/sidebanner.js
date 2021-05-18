@@ -137,8 +137,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
           var open = _ref2.open;
           return /*#__PURE__*/React.createElement(Button, {
             onClick: open,
-            isDefault: true,
-            isLarge: true
+            isDefault: true
           }, __("Replace image", "awp"));
         }
       })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {

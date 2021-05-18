@@ -108,7 +108,7 @@ class SidebannerEdit extends Component {
                   onSelect={this.onSelectMedia}
                   allowedTypes={["image"]}
                   render={({ open }) => (
-                    <Button onClick={open} isDefault isLarge>
+                    <Button onClick={open} isDefault>
                       {__("Replace image", "awp")}
                     </Button>
                   )}
