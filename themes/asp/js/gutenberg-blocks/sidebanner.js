@@ -106,7 +106,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React.createElement("div", {
         className: "editor-post-featured-image"
       }, /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
-        onSelect: onSelectMedia,
+        onSelect: _this.onSelectMedia,
         value: attributes.mediaId,
         allowedTypes: ['image'],
         render: function render(_ref) {
@@ -124,7 +124,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
       })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
         title: __('Replace image', 'awp'),
         value: attributes.mediaId,
-        onSelect: onSelectMedia,
+        onSelect: _this.onSelectMedia,
         allowedTypes: ['image'],
         render: function render(_ref2) {
           var open = _ref2.open;
@@ -135,7 +135,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
           }, __('Replace image', 'awp'));
         }
       })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {
-        onClick: removeMedia,
+        onClick: _this.removeMedia,
         isLink: true,
         isDestructive: true
       }, __('Remove image', 'awp'))))));

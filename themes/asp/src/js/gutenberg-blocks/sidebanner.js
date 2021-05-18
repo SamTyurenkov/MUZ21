@@ -69,7 +69,7 @@ class SidebannerEdit extends Component {
 					<div className="editor-post-featured-image">
 						<MediaUploadCheck>
 							<MediaUpload
-								onSelect={onSelectMedia}
+								onSelect={this.onSelectMedia}
 								value={attributes.mediaId}
 								allowedTypes={ ['image'] }
 								render={({open}) => (
@@ -95,7 +95,7 @@ class SidebannerEdit extends Component {
 								<MediaUpload
 									title={__('Replace image', 'awp')}
 									value={attributes.mediaId}
-									onSelect={onSelectMedia}
+									onSelect={this.onSelectMedia}
 									allowedTypes={['image']}
 									render={({open}) => (
 										<Button onClick={open} isDefault isLarge>{__('Replace image', 'awp')}</Button>
@@ -105,7 +105,7 @@ class SidebannerEdit extends Component {
 						}
 						{attributes.mediaId != 0 && 
 							<MediaUploadCheck>
-								<Button onClick={removeMedia} isLink isDestructive>{__('Remove image', 'awp')}</Button>
+								<Button onClick={this.removeMedia} isLink isDestructive>{__('Remove image', 'awp')}</Button>
 							</MediaUploadCheck>
 						}
 					</div>
