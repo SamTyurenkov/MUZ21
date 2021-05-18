@@ -57,31 +57,37 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(SidebannerEdit);
 
-  function SidebannerEdit(_props) {
+  function SidebannerEdit(props) {
     var _this;
 
     _classCallCheck(this, SidebannerEdit);
 
-    _this = _super.call(this, _props);
+    _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "removeMedia", function () {
-      props.setAttributes({
+      var _this$props = _this.props,
+          attributes = _this$props.attributes,
+          setAttributes = _this$props.setAttributes;
+      setAttributes({
         mediaId: 0,
         mediaUrl: ''
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSelectMedia", function (media) {
-      props.setAttributes({
+      var _this$props2 = _this.props,
+          attributes = _this$props2.attributes,
+          setAttributes = _this$props2.setAttributes;
+      setAttributes({
         mediaId: media.id,
         mediaUrl: media.url
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "getInspectorControls", function () {
-      var _this$props = _this.props,
-          attributes = _this$props.attributes,
-          setAttributes = _this$props.setAttributes;
+      var _this$props3 = _this.props,
+          attributes = _this$props3.attributes,
+          setAttributes = _this$props3.setAttributes;
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0431\u043B\u043E\u043A\u0430",
         initialOpen: true
@@ -142,9 +148,9 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getBlockControls", function () {
-      var _this$props2 = _this.props,
-          attributes = _this$props2.attributes,
-          setAttributes = _this$props2.setAttributes;
+      var _this$props4 = _this.props,
+          attributes = _this$props4.attributes,
+          setAttributes = _this$props4.setAttributes;
       return /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(Button, {
         label: _this.state.editMode ? "Preview" : "Edit",
         icon: _this.state.editMode ? "format-image" : "edit",
@@ -165,9 +171,9 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
   _createClass(SidebannerEdit, [{
     key: "render",
     value: function render() {
-      var _this$props3 = this.props,
-          attributes = _this$props3.attributes,
-          setAttributes = _this$props3.setAttributes;
+      var _this$props5 = this.props,
+          attributes = _this$props5.attributes,
+          setAttributes = _this$props5.setAttributes;
       return [this.getInspectorControls(), this.getBlockControls(), /*#__PURE__*/React.createElement("div", null, this.state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
         value: attributes.title,
         tagName: "h2",

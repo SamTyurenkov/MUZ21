@@ -30,14 +30,16 @@ class SidebannerEdit extends Component {
   }
 
   removeMedia = () => {
-	props.setAttributes({
+	const { attributes, setAttributes } = this.props;
+	setAttributes({
 		mediaId: 0,
 		mediaUrl: ''
 	});
 }
 
  onSelectMedia = (media) => {
-	props.setAttributes({
+	const { attributes, setAttributes } = this.props;
+	setAttributes({
 		mediaId: media.id,
 		mediaUrl: media.url
 	});
