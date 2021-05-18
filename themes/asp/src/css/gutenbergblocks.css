@@ -1,0 +1,32 @@
+.section {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 25px 0;
+}
+.leftside {
+    order: -1;
+}
+.rightside {
+    order: 2;
+}
+.sidebanner {
+    flex: 0 0 50%;
+    background: #bfbfbf;
+}
+.sidecontent {
+    flex: 0 0 CALC(50% - 10PX);
+    MARGIN-LEFT: 10PX;
+}
+.sidecontent h2, .sidecontent h3, .sidecontent h4 {
+    margin: 0;
+}
+
+@media(max-width:727px) {
+    .sidebanner {
+        flex: 0 0 100%;
+    }
+    .sidecontent {
+        flex: 0 0 100%;
+        MARGIN-LEFT: 0;
+    }
+}

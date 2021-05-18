@@ -3,6 +3,7 @@ const { Component, Fragment } = wp.element;
 const { registerBlockType } = wp.blocks;
 const { RichText, InspectorControls, BlockControls, AlignmentToolbar } =
   wp.blockEditor;
+  const { withSelect } = wp.data;
 const {
   ToggleControl,
   PanelBody,
@@ -27,6 +28,20 @@ class SidebannerEdit extends Component {
     };
   }
 
+  removeMedia = () => {
+	props.setAttributes({
+		mediaId: 0,
+		mediaUrl: ''
+	});
+}
+
+ onSelectMedia = (media) => {
+	props.setAttributes({
+		mediaId: media.id,
+		mediaUrl: media.url
+	});
+}
+
   getInspectorControls = () => {
     const { attributes, setAttributes } = this.props;
 
@@ -45,6 +60,55 @@ class SidebannerEdit extends Component {
             />
           </PanelRow>
         </PanelBody>
+
+		<PanelBody
+					title="Выбор картинки"
+					initialOpen={ true }
+				>
+					<div className="editor-post-featured-image">
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={onSelectMedia}
+								value={attributes.mediaId}
+								allowedTypes={ ['image'] }
+								render={({open}) => (
+									<Button 
+										className={attributes.mediaId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview'}
+										onClick={open}
+									>
+										{attributes.mediaId == 0 && __('Choose an image', 'awp')}
+										{props.media != undefined && 
+						            			<ResponsiveWrapper
+									    		naturalWidth={ props.media.media_details.width }
+											naturalHeight={ props.media.media_details.height }
+									    	>
+									    		<img src={props.media.source_url} />
+									    	</ResponsiveWrapper>
+						            		}
+									</Button>
+								)}
+							/>
+						</MediaUploadCheck>
+						{attributes.mediaId != 0 && 
+							<MediaUploadCheck>
+								<MediaUpload
+									title={__('Replace image', 'awp')}
+									value={attributes.mediaId}
+									onSelect={onSelectMedia}
+									allowedTypes={['image']}
+									render={({open}) => (
+										<Button onClick={open} isDefault isLarge>{__('Replace image', 'awp')}</Button>
+									)}
+								/>
+							</MediaUploadCheck>
+						}
+						{attributes.mediaId != 0 && 
+							<MediaUploadCheck>
+								<Button onClick={removeMedia} isLink isDestructive>{__('Remove image', 'awp')}</Button>
+							</MediaUploadCheck>
+						}
+					</div>
+				</PanelBody>
       </InspectorControls>
     );
   };
@@ -84,11 +148,11 @@ class SidebannerEdit extends Component {
               onChange={(newtext) => setAttributes({ subtitle: newtext })}
             />
           </Fragment>
-        )}{" "}
+        )}
         {!this.state.editMode && (
           <div className="section">
               <div className={attributes.bannerside + "side sidebanner"}></div>
-              <div className="content">
+              <div className="sidecontent">
                 <RichText.Content tagName="h2" value={attributes.title} />
                 <RichText.Content tagName="p" value={attributes.subtitle} />
               </div>
@@ -120,12 +184,18 @@ registerBlockType("asp/sidebanner", {
       type: "string",
       default: "left",
     },
-    postIds: {
-      type: "array",
-      default: [],
-    },
+	mediaId: {
+		type: 'number',
+		default: 0
+	},
+	mediaUrl: {
+		type: 'string',
+		default: ''
+	}
   },
-  edit: SidebannerEdit,
+  edit: withSelect((select, props) => {
+	return { media: props.attributes.mediaId ? select('core').getMedia(props.attributes.mediaId) : undefined };
+})(SidebannerEdit),
   save: (props) => {
     const { attributes } = props;
     return (
