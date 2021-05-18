@@ -10,7 +10,7 @@ const {
   MediaUpload,
   MediaUploadCheck,
 } = wp.blockEditor;
-const { withSelect } = wp.data;
+const { useSelect } = wp.data;
 const {
   ToggleControl,
   PanelBody,
