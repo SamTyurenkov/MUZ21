@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 
 add_action('init', function () {
     wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/sidebanner.js'), true);
-    wp_register_script('asp-postlist', get_template_directory_uri() . '/js/gutenberg-blocks/postlist.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/postlist.js'), true);
+   // wp_register_script('asp-postlist', get_template_directory_uri() . '/js/gutenberg-blocks/postlist.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/postlist.js'), true);
 
     register_block_type('asp/sidebanner', [
         'editor_script' => 'asp-sidebanner',
@@ -31,28 +31,28 @@ add_action('init', function () {
             ]
         ]
     ]);
-    register_block_type('asp/postlist', [
-        'editor_script' => 'asp-postlist',
-        'render_callback' => 'blocks_render_callback',
-        'attributes' => [
-            'blockname' => [
-                'type' => 'string',
-                'default' => 'postlist'
-            ],
-            'title' => [
-                'type' => 'string',
-                'default' => ''
-            ],
-            'subtitle' => [
-                'type' => 'string',
-                'default' => ''
-            ],
-            'postlist' => [
-                'type' => 'array',
-                'default' => []
-            ]
-        ]
-    ]);
+    // register_block_type('asp/postlist', [
+    //     'editor_script' => 'asp-postlist',
+    //     'render_callback' => 'blocks_render_callback',
+    //     'attributes' => [
+    //         'blockname' => [
+    //             'type' => 'string',
+    //             'default' => 'postlist'
+    //         ],
+    //         'title' => [
+    //             'type' => 'string',
+    //             'default' => ''
+    //         ],
+    //         'subtitle' => [
+    //             'type' => 'string',
+    //             'default' => ''
+    //         ],
+    //         'postlist' => [
+    //             'type' => 'array',
+    //             'default' => []
+    //         ]
+    //     ]
+    // ]);
 });
 
 
