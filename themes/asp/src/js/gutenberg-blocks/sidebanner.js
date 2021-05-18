@@ -29,14 +29,11 @@ const {
 
 //class SidebannerEdit extends Component {
 const SidebannerEdit = (props) => {
-//   constructor(props) {
-//     super(props);
-
     var state = {
       editMode: true,
     };
- // }
- const { attributes, setAttributes } = this.props;
+
+ const { attributes, setAttributes } = props;
 
   const { media } = useSelect( ( select, props ) => {		
 	return {

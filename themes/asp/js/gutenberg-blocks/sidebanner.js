@@ -1,7 +1,5 @@
 "use strict";
 
-var _this = void 0;
-
 var __ = wp.i18n.__;
 var _wp$element = wp.element,
     Component = _wp$element.Component,
@@ -32,15 +30,11 @@ var _wp$components = wp.components,
     ResponsiveWrapper = _wp$components.ResponsiveWrapper; //class SidebannerEdit extends Component {
 
 var SidebannerEdit = function SidebannerEdit(props) {
-  //   constructor(props) {
-  //     super(props);
   var state = {
     editMode: true
-  }; // }
-
-  var _this$props = _this.props,
-      attributes = _this$props.attributes,
-      setAttributes = _this$props.setAttributes;
+  };
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
 
   var _useSelect = useSelect(function (select, props) {
     return {
