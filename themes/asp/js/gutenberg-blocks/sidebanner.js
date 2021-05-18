@@ -249,7 +249,8 @@ registerBlockType("asp/sidebanner", {
     return /*#__PURE__*/React.createElement("div", {
       className: "section"
     }, /*#__PURE__*/React.createElement("div", {
-      className: attributes.bannerside + "side sidebanner"
+      className: attributes.bannerside + "side sidebanner",
+      style: "background:url(" + attributes.mediaUrl + ") no-repeat center center"
     }), /*#__PURE__*/React.createElement("div", {
       className: "content"
     }, /*#__PURE__*/React.createElement(RichText.Content, {

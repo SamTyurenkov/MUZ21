@@ -203,7 +203,7 @@ registerBlockType("asp/sidebanner", {
     const { attributes } = props;
     return (
       <div className="section">
-        <div className={attributes.bannerside + "side sidebanner"}></div>
+        <div className={attributes.bannerside + "side sidebanner"} style={"background:url("+attributes.mediaUrl+") no-repeat center center"}></div>
         <div className="content">
           <RichText.Content tagName="h2" value={attributes.title} />
           <RichText.Content tagName="p" value={attributes.subtitle} />
