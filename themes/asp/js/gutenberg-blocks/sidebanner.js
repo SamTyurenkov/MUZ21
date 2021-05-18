@@ -33,7 +33,9 @@ var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
     InspectorControls = _wp$blockEditor.InspectorControls,
     BlockControls = _wp$blockEditor.BlockControls,
-    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar,
+    MediaUpload = _wp$blockEditor.MediaUpload,
+    MediaUploadCheck = _wp$blockEditor.MediaUploadCheck;
 var withSelect = wp.data.withSelect;
 var _wp$components = wp.components,
     ToggleControl = _wp$components.ToggleControl,
@@ -47,7 +49,8 @@ var _wp$components = wp.components,
     Toolbar = _wp$components.Toolbar,
     Button = _wp$components.Button,
     Placeholder = _wp$components.Placeholder,
-    Disabled = _wp$components.Disabled;
+    Disabled = _wp$components.Disabled,
+    ResponsiveWrapper = _wp$components.ResponsiveWrapper;
 
 var SidebannerEdit = /*#__PURE__*/function (_Component) {
   _inherits(SidebannerEdit, _Component);

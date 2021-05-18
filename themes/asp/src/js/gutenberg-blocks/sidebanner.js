@@ -1,7 +1,7 @@
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const { registerBlockType } = wp.blocks;
-const { RichText, InspectorControls, BlockControls, AlignmentToolbar } =
+const { RichText, InspectorControls, BlockControls, AlignmentToolbar, MediaUpload, MediaUploadCheck } =
   wp.blockEditor;
   const { withSelect } = wp.data;
 const {
@@ -17,6 +17,7 @@ const {
   Button,
   Placeholder,
   Disabled,
+  ResponsiveWrapper 
 } = wp.components;
 
 class SidebannerEdit extends Component {
