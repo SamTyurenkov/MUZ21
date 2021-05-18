@@ -38,7 +38,7 @@ var SidebannerEdit = function SidebannerEdit(props) {
 
   var _useSelect = useSelect(function (select, props) {
     return {
-      media: props.attributes.mediaId ? select('core').getMedia(props.attributes.mediaId) : undefined
+      media: attributes.mediaId ? select('core').getMedia(attributes.mediaId) : undefined
     };
   }),
       media = _useSelect.media;
