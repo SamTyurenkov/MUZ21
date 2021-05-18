@@ -28,7 +28,7 @@ const {
 } = wp.components;
 
 //class SidebannerEdit extends Component {
-const SidebannerEdit = () => {
+const SidebannerEdit = (props) => {
 //   constructor(props) {
 //     super(props);
 
@@ -59,7 +59,6 @@ const SidebannerEdit = () => {
   };
 
   const getInspectorControls = () => {
-
     return (
       <InspectorControls>
         <PanelBody title="Настройки блока" initialOpen={true}>
@@ -80,7 +79,7 @@ const SidebannerEdit = () => {
           <div className="editor-post-featured-image">
             <MediaUploadCheck>
               <MediaUpload
-                onSelect={this.onSelectMedia}
+                onSelect={onSelectMedia}
                 value={attributes.mediaId}
                 allowedTypes={["image"]}
                 render={({ open }) => (
@@ -138,9 +137,9 @@ const SidebannerEdit = () => {
       <BlockControls>
         <Toolbar>
           <Button
-            label={this.state.editMode ? "Preview" : "Edit"}
-            icon={this.state.editMode ? "format-image" : "edit"}
-            onClick={() => state({ editMode: !this.state.editMode })}
+            label={state.editMode ? "Preview" : "Edit"}
+            icon={state.editMode ? "format-image" : "edit"}
+            onClick={() => state({ editMode: !state.editMode })}
           />
         </Toolbar>
       </BlockControls>
@@ -151,7 +150,7 @@ const SidebannerEdit = () => {
       getInspectorControls(),
       getBlockControls(),
       <div>
-        {this.state.editMode && (
+        {state.editMode && (
           <Fragment>
             <RichText
               value={attributes.title}
@@ -165,9 +164,9 @@ const SidebannerEdit = () => {
             />
           </Fragment>
         )}
-        {!this.state.editMode && (
+        {!state.editMode && (
           <ServerSideRender
-		  block={this.props.name}
+		  block={props.name}
 		  attributes={{
 			blockname: "sidebanner",
 			title: attributes.title,

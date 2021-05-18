@@ -31,7 +31,7 @@ var _wp$components = wp.components,
     Disabled = _wp$components.Disabled,
     ResponsiveWrapper = _wp$components.ResponsiveWrapper; //class SidebannerEdit extends Component {
 
-var SidebannerEdit = function SidebannerEdit() {
+var SidebannerEdit = function SidebannerEdit(props) {
   //   constructor(props) {
   //     super(props);
   var state = {
@@ -88,7 +88,7 @@ var SidebannerEdit = function SidebannerEdit() {
     }, /*#__PURE__*/React.createElement("div", {
       className: "editor-post-featured-image"
     }, /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
-      onSelect: _this.onSelectMedia,
+      onSelect: onSelectMedia,
       value: attributes.mediaId,
       allowedTypes: ["image"],
       render: function render(_ref) {
@@ -124,17 +124,17 @@ var SidebannerEdit = function SidebannerEdit() {
 
   var getBlockControls = function getBlockControls() {
     return /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(Button, {
-      label: _this.state.editMode ? "Preview" : "Edit",
-      icon: _this.state.editMode ? "format-image" : "edit",
+      label: state.editMode ? "Preview" : "Edit",
+      icon: state.editMode ? "format-image" : "edit",
       onClick: function onClick() {
         return state({
-          editMode: !_this.state.editMode
+          editMode: !state.editMode
         });
       }
     })));
   };
 
-  return [getInspectorControls(), getBlockControls(), /*#__PURE__*/React.createElement("div", null, _this.state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
+  return [getInspectorControls(), getBlockControls(), /*#__PURE__*/React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
     value: attributes.title,
     tagName: "h2",
     onChange: function onChange(newtext) {
@@ -150,8 +150,8 @@ var SidebannerEdit = function SidebannerEdit() {
         subtitle: newtext
       });
     }
-  })), !_this.state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
-    block: _this.props.name,
+  })), !state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
+    block: props.name,
     attributes: {
       blockname: "sidebanner",
       title: attributes.title,
