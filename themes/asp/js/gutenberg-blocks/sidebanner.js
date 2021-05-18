@@ -91,7 +91,8 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
           setAttributes = _this$props3.setAttributes;
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0431\u043B\u043E\u043A\u0430",
-        initialOpen: true
+        initialOpen: true,
+        key: 1
       }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(SelectControl, {
         label: "\u0421 \u043A\u0430\u043A\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u044B \u0431\u0430\u043D\u043D\u0435\u0440?",
         value: attributes.bannerside,
@@ -109,7 +110,8 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
         }
       }))), /*#__PURE__*/React.createElement(PanelBody, {
         title: "\u0412\u044B\u0431\u043E\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438",
-        initialOpen: true
+        initialOpen: true,
+        key: 2
       }, /*#__PURE__*/React.createElement("div", {
         className: "editor-post-featured-image"
       }, /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {

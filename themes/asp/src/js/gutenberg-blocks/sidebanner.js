@@ -57,7 +57,7 @@ class SidebannerEdit extends Component {
 
     return (
       <InspectorControls>
-        <PanelBody title="Настройки блока" initialOpen={true}>
+        <PanelBody title="Настройки блока" initialOpen={true} key={1}>
           <PanelRow>
             <SelectControl
               label="С какой стороны баннер?"
@@ -71,7 +71,7 @@ class SidebannerEdit extends Component {
           </PanelRow>
         </PanelBody>
 
-        <PanelBody title="Выбор картинки" initialOpen={true}>
+        <PanelBody title="Выбор картинки" initialOpen={true} key={2}>
           <div className="editor-post-featured-image">
             <MediaUploadCheck>
               <MediaUpload
