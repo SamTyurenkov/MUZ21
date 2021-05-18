@@ -188,6 +188,10 @@ registerBlockType("asp/sidebanner", {
   description: "Show a banner and text",
   keywords: ["example", "test"],
   attributes: {
+	blockname: {
+		type: "string",
+		default: "sidebanner",
+	},
     title: {
       type: "string",
       default: "Заголовок",
