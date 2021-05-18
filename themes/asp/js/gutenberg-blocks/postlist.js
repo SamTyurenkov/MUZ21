@@ -29,12 +29,12 @@ var _wp$element = wp.element,
     Component = _wp$element.Component,
     Fragment = _wp$element.Fragment;
 var registerBlockType = wp.blocks.registerBlockType;
+var ServerSideRender = wp.editor.ServerSideRender;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
     InspectorControls = _wp$blockEditor.InspectorControls,
     BlockControls = _wp$blockEditor.BlockControls,
     AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
-var withSelect = wp.data.withSelect;
 var _wp$components = wp.components,
     ToggleControl = _wp$components.ToggleControl,
     PanelBody = _wp$components.PanelBody,
@@ -49,31 +49,17 @@ var _wp$components = wp.components,
     Placeholder = _wp$components.Placeholder,
     Disabled = _wp$components.Disabled;
 
-var SidebannerEdit = /*#__PURE__*/function (_Component) {
-  _inherits(SidebannerEdit, _Component);
+var PostlistEdit = /*#__PURE__*/function (_Component) {
+  _inherits(PostlistEdit, _Component);
 
-  var _super = _createSuper(SidebannerEdit);
+  var _super = _createSuper(PostlistEdit);
 
-  function SidebannerEdit(_props) {
+  function PostlistEdit(props) {
     var _this;
 
-    _classCallCheck(this, SidebannerEdit);
+    _classCallCheck(this, PostlistEdit);
 
-    _this = _super.call(this, _props);
-
-    _defineProperty(_assertThisInitialized(_this), "removeMedia", function () {
-      props.setAttributes({
-        mediaId: 0,
-        mediaUrl: ''
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onSelectMedia", function (media) {
-      props.setAttributes({
-        mediaId: media.id,
-        mediaUrl: media.url
-      });
-    });
+    _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "getInspectorControls", function () {
       var _this$props = _this.props,
@@ -82,60 +68,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0431\u043B\u043E\u043A\u0430",
         initialOpen: true
-      }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(SelectControl, {
-        label: "\u0421 \u043A\u0430\u043A\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u044B \u0431\u0430\u043D\u043D\u0435\u0440?",
-        value: attributes.bannerside,
-        options: [{
-          label: "Слева",
-          value: "left"
-        }, {
-          label: "Справа",
-          value: "right"
-        }],
-        onChange: function onChange(newval) {
-          return setAttributes({
-            bannerside: newval
-          });
-        }
-      }))), /*#__PURE__*/React.createElement(PanelBody, {
-        title: "\u0412\u044B\u0431\u043E\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438",
-        initialOpen: true
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "editor-post-featured-image"
-      }, /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
-        onSelect: onSelectMedia,
-        value: attributes.mediaId,
-        allowedTypes: ['image'],
-        render: function render(_ref) {
-          var open = _ref.open;
-          return /*#__PURE__*/React.createElement(Button, {
-            className: attributes.mediaId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview',
-            onClick: open
-          }, attributes.mediaId == 0 && __('Choose an image', 'awp'), props.media != undefined && /*#__PURE__*/React.createElement(ResponsiveWrapper, {
-            naturalWidth: props.media.media_details.width,
-            naturalHeight: props.media.media_details.height
-          }, /*#__PURE__*/React.createElement("img", {
-            src: props.media.source_url
-          })));
-        }
-      })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
-        title: __('Replace image', 'awp'),
-        value: attributes.mediaId,
-        onSelect: onSelectMedia,
-        allowedTypes: ['image'],
-        render: function render(_ref2) {
-          var open = _ref2.open;
-          return /*#__PURE__*/React.createElement(Button, {
-            onClick: open,
-            isDefault: true,
-            isLarge: true
-          }, __('Replace image', 'awp'));
-        }
-      })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {
-        onClick: removeMedia,
-        isLink: true,
-        isDestructive: true
-      }, __('Remove image', 'awp'))))));
+      }, /*#__PURE__*/React.createElement(PanelRow, null)));
     });
 
     _defineProperty(_assertThisInitialized(_this), "getBlockControls", function () {
@@ -159,7 +92,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
     return _this;
   }
 
-  _createClass(SidebannerEdit, [{
+  _createClass(PostlistEdit, [{
     key: "render",
     value: function render() {
       var _this$props3 = this.props,
@@ -181,30 +114,25 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
             subtitle: newtext
           });
         }
-      })), !this.state.editMode && /*#__PURE__*/React.createElement("div", {
-        className: "section"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: attributes.bannerside + "side sidebanner"
-      }), /*#__PURE__*/React.createElement("div", {
-        className: "sidecontent"
-      }, /*#__PURE__*/React.createElement(RichText.Content, {
-        tagName: "h2",
-        value: attributes.title
-      }), /*#__PURE__*/React.createElement(RichText.Content, {
-        tagName: "p",
-        value: attributes.subtitle
-      }))))];
+      })), " ", !this.state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
+        block: this.props.name,
+        attributes: {
+          title: attributes.title,
+          subtitle: attributes.subtitle,
+          postlist: attributes.postlist
+        }
+      }))];
     }
   }]);
 
-  return SidebannerEdit;
+  return PostlistEdit;
 }(Component);
 
-registerBlockType("asp/sidebanner", {
-  title: "Side Banner",
+registerBlockType("asp/postlist", {
+  title: "Post List",
   category: "common",
   icon: "smiley",
-  description: "Show a banner and text",
+  description: "Show custom post list",
   keywords: ["example", "test"],
   attributes: {
     title: {
@@ -213,42 +141,19 @@ registerBlockType("asp/sidebanner", {
     },
     subtitle: {
       type: "string",
-      "default": "Описание",
-      source: "html",
-      selector: "p"
+      "default": "Описание"
     },
     bannerside: {
       type: "string",
       "default": "left"
     },
-    mediaId: {
-      type: 'number',
-      "default": 0
-    },
-    mediaUrl: {
-      type: 'string',
-      "default": ''
+    postlist: {
+      type: "array",
+      "default": []
     }
   },
-  edit: withSelect(function (select, props) {
-    return {
-      media: props.attributes.mediaId ? select('core').getMedia(props.attributes.mediaId) : undefined
-    };
-  })(SidebannerEdit),
-  save: function save(props) {
-    var attributes = props.attributes;
-    return /*#__PURE__*/React.createElement("div", {
-      className: "section"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: attributes.bannerside + "side sidebanner"
-    }), /*#__PURE__*/React.createElement("div", {
-      className: "content"
-    }, /*#__PURE__*/React.createElement(RichText.Content, {
-      tagName: "h2",
-      value: attributes.title
-    }), /*#__PURE__*/React.createElement(RichText.Content, {
-      tagName: "p",
-      value: attributes.subtitle
-    })));
+  edit: PostlistEdit,
+  save: function save() {
+    return null;
   }
 });
