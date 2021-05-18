@@ -196,6 +196,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
       })), !this.state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
         block: this.props.name,
         attributes: {
+          blockname: block,
           title: attributes.title,
           subtitle: attributes.subtitle,
           postlist: attributes.postlist,
@@ -248,6 +249,7 @@ registerBlockType("asp/sidebanner", {
     return /*#__PURE__*/React.createElement(ServerSideRender, {
       block: _this2.props.name,
       attributes: {
+        blockname: block,
         title: attributes.title,
         subtitle: attributes.subtitle,
         postlist: attributes.postlist,

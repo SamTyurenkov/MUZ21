@@ -168,6 +168,7 @@ class SidebannerEdit extends Component {
           <ServerSideRender
 		  block={this.props.name}
 		  attributes={{
+			blockname: block,
 			title: attributes.title,
 			subtitle: attributes.subtitle,
 			postlist: attributes.postlist,
@@ -223,6 +224,7 @@ registerBlockType("asp/sidebanner", {
 		<ServerSideRender
             block={this.props.name}
             attributes={{
+			  blockname: block,
               title: attributes.title,
               subtitle: attributes.subtitle,
               postlist: attributes.postlist,

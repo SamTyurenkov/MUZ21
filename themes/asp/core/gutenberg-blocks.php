@@ -9,6 +9,7 @@ add_action('init', function () {
 
     register_block_type('asp/sidebanner', [
         'editor_script' => 'asp-sidebanner',
+        'render_callback' => 'blocks_render_callback',
         'attributes' => [
             'blockname' => [
                 'type' => 'string',
