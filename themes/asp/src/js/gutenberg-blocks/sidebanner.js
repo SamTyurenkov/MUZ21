@@ -168,7 +168,7 @@ class SidebannerEdit extends Component {
           <ServerSideRender
 		  block={this.props.name}
 		  attributes={{
-			blockname: block,
+			blockname: this.props.name,
 			title: attributes.title,
 			subtitle: attributes.subtitle,
 			postlist: attributes.postlist,
