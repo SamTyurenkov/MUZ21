@@ -70,7 +70,7 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
           setAttributes = _this$props.setAttributes;
       setAttributes({
         mediaId: 0,
-        mediaUrl: ''
+        mediaUrl: ""
       });
     });
 
@@ -114,13 +114,13 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
         onSelect: _this.onSelectMedia,
         value: attributes.mediaId,
-        allowedTypes: ['image'],
+        allowedTypes: ["image"],
         render: function render(_ref) {
           var open = _ref.open;
           return /*#__PURE__*/React.createElement(Button, {
-            className: attributes.mediaId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview',
+            className: attributes.mediaId == 0 ? "editor-post-featured-image__toggle" : "editor-post-featured-image__preview",
             onClick: open
-          }, attributes.mediaId == 0 && __('Choose an image', 'awp'), attributes.media != undefined && /*#__PURE__*/React.createElement(ResponsiveWrapper, {
+          }, attributes.mediaId == 0 && __("Choose an image", "awp"), attributes.media != undefined && /*#__PURE__*/React.createElement(ResponsiveWrapper, {
             naturalWidth: attributes.media.media_details.width,
             naturalHeight: attributes.media.media_details.height
           }, /*#__PURE__*/React.createElement("img", {
@@ -128,23 +128,23 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
           })));
         }
       })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
-        title: __('Replace image', 'awp'),
+        title: __("Replace image", "awp"),
         value: attributes.mediaId,
         onSelect: _this.onSelectMedia,
-        allowedTypes: ['image'],
+        allowedTypes: ["image"],
         render: function render(_ref2) {
           var open = _ref2.open;
           return /*#__PURE__*/React.createElement(Button, {
             onClick: open,
             isDefault: true,
             isLarge: true
-          }, __('Replace image', 'awp'));
+          }, __("Replace image", "awp"));
         }
       })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {
         onClick: _this.removeMedia,
         isLink: true,
         isDestructive: true
-      }, __('Remove image', 'awp'))))));
+      }, __("Remove image", "awp"))))));
     });
 
     _defineProperty(_assertThisInitialized(_this), "getBlockControls", function () {
@@ -193,9 +193,10 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
       })), !this.state.editMode && /*#__PURE__*/React.createElement("div", {
         className: "section"
       }, /*#__PURE__*/React.createElement("div", {
-        className: attributes.bannerside + "side sidebanner"
+        className: attributes.bannerside + "side sidebanner",
+        style: "background:url(" + attributes.mediaUrl + ") no-repeat center center"
       }), /*#__PURE__*/React.createElement("div", {
-        className: "sidecontent"
+        className: "content"
       }, /*#__PURE__*/React.createElement(RichText.Content, {
         tagName: "h2",
         value: attributes.title
@@ -231,17 +232,17 @@ registerBlockType("asp/sidebanner", {
       "default": "left"
     },
     mediaId: {
-      type: 'number',
+      type: "number",
       "default": 0
     },
     mediaUrl: {
-      type: 'string',
-      "default": ''
+      type: "string",
+      "default": ""
     }
   },
   edit: withSelect(function (select, props) {
     return {
-      media: props.attributes.mediaId ? select('core').getMedia(props.attributes.mediaId) : undefined
+      media: props.attributes.mediaId ? select("core").getMedia(props.attributes.mediaId) : undefined
     };
   })(SidebannerEdit),
   save: function save(props) {
