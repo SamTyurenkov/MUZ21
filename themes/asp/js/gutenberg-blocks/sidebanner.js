@@ -2,8 +2,6 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var _this2 = void 0;
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -222,9 +220,7 @@ registerBlockType("asp/sidebanner", {
     },
     subtitle: {
       type: "string",
-      "default": "Описание",
-      source: "html",
-      selector: "p"
+      "default": "Описание"
     },
     bannerside: {
       type: "string",
@@ -244,17 +240,7 @@ registerBlockType("asp/sidebanner", {
       media: props.attributes.mediaId ? select("core").getMedia(props.attributes.mediaId) : undefined
     };
   })(SidebannerEdit),
-  save: function save(props) {
-    var attributes = props.attributes;
-    return /*#__PURE__*/React.createElement(ServerSideRender, {
-      block: _this2.props.name,
-      attributes: {
-        blockname: block,
-        title: attributes.title,
-        subtitle: attributes.subtitle,
-        postlist: attributes.postlist,
-        mediaUrl: attributes.mediaUrl
-      }
-    });
+  save: function save() {
+    return null;
   }
 });

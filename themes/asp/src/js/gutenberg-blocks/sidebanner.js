@@ -195,8 +195,6 @@ registerBlockType("asp/sidebanner", {
     subtitle: {
       type: "string",
       default: "Описание",
-      source: "html",
-      selector: "p",
     },
     bannerside: {
       type: "string",
@@ -218,19 +216,5 @@ registerBlockType("asp/sidebanner", {
         : undefined,
     };
   })(SidebannerEdit),
-  save: (props) => {
-    const { attributes } = props;
-    return (
-		<ServerSideRender
-            block={this.props.name}
-            attributes={{
-			  blockname: block,
-              title: attributes.title,
-              subtitle: attributes.subtitle,
-              postlist: attributes.postlist,
-			  mediaUrl: attributes.mediaUrl
-            }}
-          />
-    );
-  },
+  save: () => { return null }
 });
