@@ -60,9 +60,9 @@ add_action('init', function () {
 function blocks_render_callback($attr, $content)
 {
     // return the block's output here
-    print_r($attr);
     $slug = $attr['blockname'];
     if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {
+        error_log($slug);
         set_query_var('block-attr', $attr);
         include get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php");
     }
