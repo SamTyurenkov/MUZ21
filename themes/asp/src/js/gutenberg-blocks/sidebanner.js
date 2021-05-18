@@ -1,5 +1,6 @@
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
+const { ServerSideRender } = wp.editor;
 const { registerBlockType } = wp.blocks;
 const {
   RichText,
@@ -164,20 +165,15 @@ class SidebannerEdit extends Component {
           </Fragment>
         )}
         {!this.state.editMode && (
-          <div className="section">
-            <div
-              className={attributes.bannerside + "side sidebanner"}
-              style={
-                "background:url(" +
-                attributes.mediaUrl +
-                ") no-repeat center center"
-              }
-            ></div>
-            <div className="content">
-              <RichText.Content tagName="h2" value={attributes.title} />
-              <RichText.Content tagName="p" value={attributes.subtitle} />
-            </div>
-          </div>
+          <ServerSideRender
+		  block={this.props.name}
+		  attributes={{
+			title: attributes.title,
+			subtitle: attributes.subtitle,
+			postlist: attributes.postlist,
+			mediaUrl: attributes.mediaUrl
+		  }}
+		/>
         )}
       </div>,
     ];
@@ -224,20 +220,15 @@ registerBlockType("asp/sidebanner", {
   save: (props) => {
     const { attributes } = props;
     return (
-      <div className="section">
-        <div
-          className={attributes.bannerside + "side sidebanner"}
-          style={
-            "background:url(" +
-            attributes.mediaUrl +
-            ") no-repeat center center"
-          }
-        ></div>
-        <div className="content">
-          <RichText.Content tagName="h2" value={attributes.title} />
-          <RichText.Content tagName="p" value={attributes.subtitle} />
-        </div>
-      </div>
+		<ServerSideRender
+            block={this.props.name}
+            attributes={{
+              title: attributes.title,
+              subtitle: attributes.subtitle,
+              postlist: attributes.postlist,
+			  mediaUrl: attributes.mediaUrl
+            }}
+          />
     );
   },
 });

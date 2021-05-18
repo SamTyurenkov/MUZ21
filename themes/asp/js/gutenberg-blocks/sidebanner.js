@@ -2,6 +2,8 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+var _this2 = void 0;
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -28,6 +30,7 @@ var __ = wp.i18n.__;
 var _wp$element = wp.element,
     Component = _wp$element.Component,
     Fragment = _wp$element.Fragment;
+var ServerSideRender = wp.editor.ServerSideRender;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
@@ -190,20 +193,15 @@ var SidebannerEdit = /*#__PURE__*/function (_Component) {
             subtitle: newtext
           });
         }
-      })), !this.state.editMode && /*#__PURE__*/React.createElement("div", {
-        className: "section"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: attributes.bannerside + "side sidebanner",
-        style: "background:url(" + attributes.mediaUrl + ") no-repeat center center"
-      }), /*#__PURE__*/React.createElement("div", {
-        className: "content"
-      }, /*#__PURE__*/React.createElement(RichText.Content, {
-        tagName: "h2",
-        value: attributes.title
-      }), /*#__PURE__*/React.createElement(RichText.Content, {
-        tagName: "p",
-        value: attributes.subtitle
-      }))))];
+      })), !this.state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
+        block: this.props.name,
+        attributes: {
+          title: attributes.title,
+          subtitle: attributes.subtitle,
+          postlist: attributes.postlist,
+          mediaUrl: attributes.mediaUrl
+        }
+      }))];
     }
   }]);
 
@@ -247,19 +245,14 @@ registerBlockType("asp/sidebanner", {
   })(SidebannerEdit),
   save: function save(props) {
     var attributes = props.attributes;
-    return /*#__PURE__*/React.createElement("div", {
-      className: "section"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: attributes.bannerside + "side sidebanner",
-      style: "background:url(" + attributes.mediaUrl + ") no-repeat center center"
-    }), /*#__PURE__*/React.createElement("div", {
-      className: "content"
-    }, /*#__PURE__*/React.createElement(RichText.Content, {
-      tagName: "h2",
-      value: attributes.title
-    }), /*#__PURE__*/React.createElement(RichText.Content, {
-      tagName: "p",
-      value: attributes.subtitle
-    })));
+    return /*#__PURE__*/React.createElement(ServerSideRender, {
+      block: _this2.props.name,
+      attributes: {
+        title: attributes.title,
+        subtitle: attributes.subtitle,
+        postlist: attributes.postlist,
+        mediaUrl: attributes.mediaUrl
+      }
+    });
   }
 });
