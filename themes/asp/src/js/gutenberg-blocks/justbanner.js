@@ -8,7 +8,7 @@ const { __ } = wp.i18n;
 
 const BlockEdit = (props) => {
   const { attributes, setAttributes } = props;
-    console.log(attributes);
+    console.log(props);
   const removeMedia = () => {
     props.setAttributes({
       mediaId: 0,
@@ -84,8 +84,9 @@ const BlockEdit = (props) => {
         </PanelBody>
       </InspectorControls>
       <ServerSideRender
-        block={attributes.name}
+        block={props.name}
         attributes={{
+          blockname: "justbanner",
           mediaUrl: attributes.mediaUrl,
         }}
       />

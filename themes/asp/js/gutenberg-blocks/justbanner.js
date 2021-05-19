@@ -18,7 +18,7 @@ var __ = wp.i18n.__;
 var BlockEdit = function BlockEdit(props) {
   var attributes = props.attributes,
       setAttributes = props.setAttributes;
-  console.log(attributes);
+  console.log(props);
 
   var removeMedia = function removeMedia() {
     props.setAttributes({
@@ -72,8 +72,9 @@ var BlockEdit = function BlockEdit(props) {
     isLink: true,
     isDestructive: true
   }, __("Remove image", "awp")))))), /*#__PURE__*/React.createElement(ServerSideRender, {
-    block: attributes.name,
+    block: props.name,
     attributes: {
+      blockname: "justbanner",
       mediaUrl: attributes.mediaUrl
     }
   }));
