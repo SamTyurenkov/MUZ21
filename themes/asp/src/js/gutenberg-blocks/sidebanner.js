@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { ServerSideRender } = wp.editor;
+const { serverSideRender: ServerSideRender } = wp;
 const { registerBlockType } = wp.blocks;
 const {
   RichText,
