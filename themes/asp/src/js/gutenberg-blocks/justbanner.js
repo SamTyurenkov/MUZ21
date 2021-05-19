@@ -8,7 +8,7 @@ const { __ } = wp.i18n;
 
 const BlockEdit = (props) => {
   const { attributes, setAttributes } = props;
-    console.log(props);
+  console.log(props);
   const removeMedia = () => {
     props.setAttributes({
       mediaId: 0,
@@ -102,6 +102,10 @@ registerBlockType("asp/justbanner", {
     align: true,
   },
   attributes: {
+    blockname: {
+      type: "string",
+      default: "",
+    },
     mediaId: {
       type: "number",
       default: 0,

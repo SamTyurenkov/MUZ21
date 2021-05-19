@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
 }
 
 add_action('init', function () {
-    wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/sidebanner.js'), true);
-    wp_register_script('asp-justbanner', get_template_directory_uri() . '/js/gutenberg-blocks/justbanner.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/justbanner.js'), true);
+    wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js', array('jquery', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/sidebanner.js'), true);
+    wp_register_script('asp-justbanner', get_template_directory_uri() . '/js/gutenberg-blocks/justbanner.js', array('jquery', 'wp-editor', 'wp-blocks', 'wp-i18n', 'wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/justbanner.js'), true);
 
     // wp_register_script('asp-postlist', get_template_directory_uri() . '/js/gutenberg-blocks/postlist.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/postlist.js'), true);
 
@@ -23,13 +23,13 @@ add_action('init', function () {
             'subtitle' => [
                 'type' => 'string'
             ],
-            'mediaId'=> [
-                'type'=> 'number',
-                'default'=> 0
+            'mediaId' => [
+                'type' => 'number',
+                'default' => 0
             ],
-            'mediaUrl'=> [
-                'type'=> 'string',
-                'default'=> ''
+            'mediaUrl' => [
+                'type' => 'string',
+                'default' => ''
             ]
         ]
     ]);
@@ -37,13 +37,17 @@ add_action('init', function () {
         'editor_script' => 'asp-justbanner',
         'render_callback' => 'blocks_render_callback',
         'attributes' => [
-            'mediaId'=> [
-                'type'=> 'number',
-                'default'=> 0
+            'blockname' => [
+                'type' => 'string',
+                'default' => 'justbanner'
             ],
-            'mediaUrl'=> [
-                'type'=> 'string',
-                'default'=> ''
+            'mediaId' => [
+                'type' => 'number',
+                'default' => 0
+            ],
+            'mediaUrl' => [
+                'type' => 'string',
+                'default' => ''
             ]
         ]
     ]);
@@ -75,7 +79,7 @@ add_action('init', function () {
 
 function blocks_render_callback($attr, $content)
 {
-    error_log(print_r($attr,true));
+    error_log(print_r($attr, true));
     // return the block's output here
     $slug = $attr['blockname'];
     if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {
