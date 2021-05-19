@@ -23,8 +23,9 @@ var _wp$components = wp.components,
     ColorPicker = _wp$components.ColorPicker,
     TextControl = _wp$components.TextControl,
     TextareaControl = _wp$components.TextareaControl,
-    Toolbar = _wp$components.Toolbar,
+    ToolbarGroup = _wp$components.ToolbarGroup,
     Button = _wp$components.Button,
+    ToolbarButton = _wp$components.ToolbarButton,
     Placeholder = _wp$components.Placeholder,
     Disabled = _wp$components.Disabled,
     ResponsiveWrapper = _wp$components.ResponsiveWrapper; //class SidebannerEdit extends Component {
@@ -125,7 +126,7 @@ var SidebannerEdit = function SidebannerEdit(props) {
   };
 
   var getBlockControls = function getBlockControls() {
-    return /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(Button, {
+    return /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(ToolbarGroup, null, /*#__PURE__*/React.createElement(ToolbarButton, {
       label: state.editMode ? "Preview" : "Edit",
       icon: state.editMode ? "format-image" : "edit",
       onClick: function onClick() {
@@ -153,7 +154,7 @@ var SidebannerEdit = function SidebannerEdit(props) {
       });
     }
   })), !state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
-    block: props.name,
+    block: attributes.name,
     attributes: {
       blockname: "sidebanner",
       title: attributes.title,

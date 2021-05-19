@@ -20,8 +20,9 @@ const {
   ColorPicker,
   TextControl,
   TextareaControl,
-  Toolbar,
+  ToolbarGroup,
   Button,
+  ToolbarButton,
   Placeholder,
   Disabled,
   ResponsiveWrapper,
@@ -134,13 +135,13 @@ const SidebannerEdit = (props) => {
   const getBlockControls = () => {
     return (
       <BlockControls>
-        <Toolbar>
-          <Button
+        <ToolbarGroup>
+          <ToolbarButton
             label={state.editMode ? "Preview" : "Edit"}
             icon={state.editMode ? "format-image" : "edit"}
             onClick={() => state({ editMode: !state.editMode })}
           />
-        </Toolbar>
+        </ToolbarGroup>
       </BlockControls>
     );
   };
@@ -165,7 +166,7 @@ const SidebannerEdit = (props) => {
       )}
       {!state.editMode && (
         <ServerSideRender
-          block={props.name}
+          block={attributes.name}
           attributes={{
             blockname: "sidebanner",
             title: attributes.title,
