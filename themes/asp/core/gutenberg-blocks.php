@@ -5,7 +5,9 @@ if (!defined('ABSPATH')) {
 
 add_action('init', function () {
     wp_register_script('asp-sidebanner', get_template_directory_uri() . '/js/gutenberg-blocks/sidebanner.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/sidebanner.js'), true);
-   // wp_register_script('asp-postlist', get_template_directory_uri() . '/js/gutenberg-blocks/postlist.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/postlist.js'), true);
+    wp_register_script('asp-justbanner', get_template_directory_uri() . '/js/gutenberg-blocks/justbanner.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/justbanner.js'), true);
+
+    // wp_register_script('asp-postlist', get_template_directory_uri() . '/js/gutenberg-blocks/postlist.js', array('jquery', 'wp-editor','wp-blocks','wp-i18n','wp-element'), filemtime(get_template_directory() . '/js/gutenberg-blocks/postlist.js'), true);
 
     register_block_type('asp/sidebanner', [
         'editor_script' => 'asp-sidebanner',
@@ -30,6 +32,9 @@ add_action('init', function () {
                 'default'=> ''
             ]
         ]
+    ]);
+    register_block_type('asp/justbanner', [
+        'editor_script' => 'asp-justbanner',
     ]);
     // register_block_type('asp/postlist', [
     //     'editor_script' => 'asp-postlist',
