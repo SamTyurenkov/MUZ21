@@ -35,6 +35,17 @@ add_action('init', function () {
     ]);
     register_block_type('asp/justbanner', [
         'editor_script' => 'asp-justbanner',
+        'render_callback' => 'blocks_render_callback',
+        'attributes' => [
+            'mediaId'=> [
+                'type'=> 'number',
+                'default'=> 0
+            ],
+            'mediaUrl'=> [
+                'type'=> 'string',
+                'default'=> ''
+            ]
+        ]
     ]);
     // register_block_type('asp/postlist', [
     //     'editor_script' => 'asp-postlist',

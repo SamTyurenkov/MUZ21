@@ -86,8 +86,8 @@ const BlockEdit = (props) => {
 };
  
  
-registerBlockType('awp/imageselectinspector', {
-	title: 'AWP Imageselect',
+registerBlockType('asp/justbanner', {
+	title: 'Just Banner',
 	icon: 'smiley',
 	category: 'layout',
 	supports: {
@@ -106,15 +106,7 @@ registerBlockType('awp/imageselectinspector', {
 	edit: withSelect((select, props) => {
 		return { media: props.attributes.mediaId ? select('core').getMedia(props.attributes.mediaId) : undefined };
 	})(BlockEdit),
-	save: (props) => {
-		const { attributes } = props;
-		const blockStyle = {
-			backgroundImage: attributes.mediaUrl != '' ? 'url("' + attributes.mediaUrl + '")' : 'none'
-		};
-		return (
-			<div style={blockStyle}>
-				... Your block content here...
-			</div>
-		);
-	}
+    save: () => {
+        return null;
+      },
 });

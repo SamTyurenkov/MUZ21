@@ -77,8 +77,8 @@ var BlockEdit = function BlockEdit(props) {
   }, "... Your block content here..."));
 };
 
-registerBlockType('awp/imageselectinspector', {
-  title: 'AWP Imageselect',
+registerBlockType('asp/justbanner', {
+  title: 'Just Banner',
   icon: 'smiley',
   category: 'layout',
   supports: {
@@ -99,13 +99,7 @@ registerBlockType('awp/imageselectinspector', {
       media: props.attributes.mediaId ? select('core').getMedia(props.attributes.mediaId) : undefined
     };
   })(BlockEdit),
-  save: function save(props) {
-    var attributes = props.attributes;
-    var blockStyle = {
-      backgroundImage: attributes.mediaUrl != '' ? 'url("' + attributes.mediaUrl + '")' : 'none'
-    };
-    return /*#__PURE__*/React.createElement("div", {
-      style: blockStyle
-    }, "... Your block content here...");
+  save: function save() {
+    return null;
   }
 });
