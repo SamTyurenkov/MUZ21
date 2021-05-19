@@ -36,9 +36,9 @@ var SidebannerEdit = function SidebannerEdit(props) {
   var attributes = props.attributes,
       setAttributes = props.setAttributes;
 
-  var _useSelect = useSelect(function (select, props) {
+  var _useSelect = useSelect(function (select, attributes) {
     return {
-      media: attributes.mediaId ? select('core').getMedia(attributes.mediaId) : undefined
+      media: attributes.mediaId ? select("core").getMedia(attributes.mediaId) : undefined
     };
   }),
       media = _useSelect.media;
@@ -136,7 +136,7 @@ var SidebannerEdit = function SidebannerEdit(props) {
     })));
   };
 
-  return [getInspectorControls(), getBlockControls(), /*#__PURE__*/React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
+  return [getInspectorControls, getBlockControls, /*#__PURE__*/React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
     value: attributes.title,
     tagName: "h2",
     onChange: function onChange(newtext) {

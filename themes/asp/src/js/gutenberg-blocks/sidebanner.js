@@ -29,17 +29,19 @@ const {
 
 //class SidebannerEdit extends Component {
 const SidebannerEdit = (props) => {
-    var state = {
-      editMode: true,
+  var state = {
+    editMode: true,
+  };
+
+  const { attributes, setAttributes } = props;
+
+  const { media } = useSelect((select, attributes) => {
+    return {
+      media: attributes.mediaId
+        ? select("core").getMedia(attributes.mediaId)
+        : undefined,
     };
-
- const { attributes, setAttributes } = props;
-
-  const { media } = useSelect( ( select, props ) => {		
-	return {
-		media: attributes.mediaId ? select( 'core' ).getMedia(attributes.mediaId) : undefined,
-	};
-} );
+  });
 
   const removeMedia = () => {
     setAttributes({
@@ -143,40 +145,39 @@ const SidebannerEdit = (props) => {
     );
   };
 
-    return [
-      getInspectorControls(),
-      getBlockControls(),
-      <div>
-        {state.editMode && (
-          <Fragment>
-            <RichText
-              value={attributes.title}
-              tagName="h2"
-              onChange={(newtext) => setAttributes({ title: newtext })}
-            />
-            <RichText
-              value={attributes.subtitle}
-              tagName="p"
-              onChange={(newtext) => setAttributes({ subtitle: newtext })}
-            />
-          </Fragment>
-        )}
-        {!state.editMode && (
-          <ServerSideRender
-		  block={props.name}
-		  attributes={{
-			blockname: "sidebanner",
-			title: attributes.title,
-			subtitle: attributes.subtitle,
-			postlist: attributes.postlist,
-			mediaUrl: attributes.mediaUrl
-		  }}
-		/>
-        )}
-      </div>,
-    ];
-  
-}
+  return [
+    getInspectorControls,
+    getBlockControls,
+    <div>
+      {state.editMode && (
+        <Fragment>
+          <RichText
+            value={attributes.title}
+            tagName="h2"
+            onChange={(newtext) => setAttributes({ title: newtext })}
+          />
+          <RichText
+            value={attributes.subtitle}
+            tagName="p"
+            onChange={(newtext) => setAttributes({ subtitle: newtext })}
+          />
+        </Fragment>
+      )}
+      {!state.editMode && (
+        <ServerSideRender
+          block={props.name}
+          attributes={{
+            blockname: "sidebanner",
+            title: attributes.title,
+            subtitle: attributes.subtitle,
+            postlist: attributes.postlist,
+            mediaUrl: attributes.mediaUrl,
+          }}
+        />
+      )}
+    </div>,
+  ];
+};
 
 registerBlockType("asp/sidebanner", {
   title: "Side Banner",
@@ -185,10 +186,10 @@ registerBlockType("asp/sidebanner", {
   description: "Show a banner and text",
   keywords: ["example", "test"],
   attributes: {
-	blockname: {
-		type: "string",
-		default: "sidebanner",
-	},
+    blockname: {
+      type: "string",
+      default: "sidebanner",
+    },
     title: {
       type: "string",
       default: "Заголовок",
@@ -210,6 +211,8 @@ registerBlockType("asp/sidebanner", {
       default: "",
     },
   },
-  edit: SidebannerEdit, 
-  save: () => { return null }
+  edit: SidebannerEdit,
+  save: () => {
+    return null;
+  },
 });
