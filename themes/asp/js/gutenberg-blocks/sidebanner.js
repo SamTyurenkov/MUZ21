@@ -137,7 +137,11 @@ var SidebannerEdit = function SidebannerEdit(props) {
     })));
   };
 
-  return [getInspectorControls(), getBlockControls(), /*#__PURE__*/React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
+  return [
+  /*#__PURE__*/
+  //getInspectorControls(),
+  //getBlockControls(),
+  React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
     value: attributes.title,
     tagName: "h2",
     onChange: function onChange(newtext) {

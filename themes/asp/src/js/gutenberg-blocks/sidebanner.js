@@ -147,8 +147,8 @@ const SidebannerEdit = (props) => {
   };
 
   return ([
-    getInspectorControls(),
-    getBlockControls(),
+    //getInspectorControls(),
+    //getBlockControls(),
     <div>
       {state.editMode && (
         <Fragment>
