@@ -145,9 +145,9 @@ const SidebannerEdit = (props) => {
     );
   };
 
-  return [
-    getInspectorControls,
-    getBlockControls,
+  return ([
+    getInspectorControls(),
+    getBlockControls(),
     <div>
       {state.editMode && (
         <Fragment>
@@ -176,7 +176,7 @@ const SidebannerEdit = (props) => {
         />
       )}
     </div>,
-  ];
+  ]);
 };
 
 registerBlockType("asp/sidebanner", {
