@@ -8,7 +8,7 @@ const { __ } = wp.i18n;
 
 const BlockEdit = (props) => {
   const { attributes, setAttributes } = props;
-
+    console.log(attributes);
   const removeMedia = () => {
     props.setAttributes({
       mediaId: 0,
@@ -66,7 +66,7 @@ const BlockEdit = (props) => {
                   onSelect={onSelectMedia}
                   allowedTypes={["image"]}
                   render={({ open }) => (
-                    <Button onClick={open} isDefault isLarge>
+                    <Button onClick={open} isDefault>
                       {__("Replace image", "awp")}
                     </Button>
                   )}
@@ -86,7 +86,6 @@ const BlockEdit = (props) => {
       <ServerSideRender
         block={attributes.name}
         attributes={{
-          blockname: "justbanner",
           mediaUrl: attributes.mediaUrl,
         }}
       />

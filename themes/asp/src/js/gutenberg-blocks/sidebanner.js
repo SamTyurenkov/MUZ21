@@ -168,7 +168,6 @@ const SidebannerEdit = (props) => {
         <ServerSideRender
           block={attributes.name}
           attributes={{
-            blockname: "sidebanner",
             title: attributes.title,
             subtitle: attributes.subtitle,
             postlist: attributes.postlist,

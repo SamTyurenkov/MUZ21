@@ -159,7 +159,6 @@ var SidebannerEdit = function SidebannerEdit(props) {
   })), !state.editMode && /*#__PURE__*/React.createElement(ServerSideRender, {
     block: attributes.name,
     attributes: {
-      blockname: "sidebanner",
       title: attributes.title,
       subtitle: attributes.subtitle,
       postlist: attributes.postlist,

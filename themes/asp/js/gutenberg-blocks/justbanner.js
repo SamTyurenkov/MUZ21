@@ -18,6 +18,7 @@ var __ = wp.i18n.__;
 var BlockEdit = function BlockEdit(props) {
   var attributes = props.attributes,
       setAttributes = props.setAttributes;
+  console.log(attributes);
 
   var removeMedia = function removeMedia() {
     props.setAttributes({
@@ -63,8 +64,7 @@ var BlockEdit = function BlockEdit(props) {
       var open = _ref2.open;
       return /*#__PURE__*/React.createElement(Button, {
         onClick: open,
-        isDefault: true,
-        isLarge: true
+        isDefault: true
       }, __("Replace image", "awp"));
     }
   })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {
@@ -74,7 +74,6 @@ var BlockEdit = function BlockEdit(props) {
   }, __("Remove image", "awp")))))), /*#__PURE__*/React.createElement(ServerSideRender, {
     block: attributes.name,
     attributes: {
-      blockname: "justbanner",
       mediaUrl: attributes.mediaUrl
     }
   }));
