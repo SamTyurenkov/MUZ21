@@ -137,11 +137,8 @@ var SidebannerEdit = function SidebannerEdit(props) {
     })));
   };
 
-  return [
-  /*#__PURE__*/
-  //getInspectorControls(),
-  //getBlockControls(),
-  React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
+  return [getInspectorControls(), getBlockControls(), /*#__PURE__*/React.createElement("div", null, state.editMode && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(RichText, {
+    key: 1,
     value: attributes.title,
     tagName: "h2",
     onChange: function onChange(newtext) {
@@ -150,6 +147,7 @@ var SidebannerEdit = function SidebannerEdit(props) {
       });
     }
   }), /*#__PURE__*/React.createElement(RichText, {
+    key: 2,
     value: attributes.subtitle,
     tagName: "p",
     onChange: function onChange(newtext) {

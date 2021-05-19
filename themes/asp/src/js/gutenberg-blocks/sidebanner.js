@@ -147,17 +147,17 @@ const SidebannerEdit = (props) => {
   };
 
   return ([
-    //getInspectorControls(),
-    //getBlockControls(),
+    getInspectorControls(),
+    getBlockControls(),
     <div>
       {state.editMode && (
         <Fragment>
-          <RichText
+          <RichText key={1}
             value={attributes.title}
             tagName="h2"
             onChange={(newtext) => setAttributes({ title: newtext })}
           />
-          <RichText
+          <RichText key={2}
             value={attributes.subtitle}
             tagName="p"
             onChange={(newtext) => setAttributes({ subtitle: newtext })}
