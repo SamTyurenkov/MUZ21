@@ -90,7 +90,7 @@ registerBlockType("asp/justbanner", {
   attributes: {
     blockname: {
       type: "string",
-      "default": ""
+      "default": "justbanner"
     },
     mediaId: {
       type: "number",
