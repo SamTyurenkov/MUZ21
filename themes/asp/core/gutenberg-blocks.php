@@ -82,6 +82,7 @@ function blocks_render_callback($attr, $content)
     error_log(print_r($attr, true));
     // return the block's output here
     $slug = $attr['blockname'];
+    error_log(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"));
     if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {
         error_log($slug);
         set_query_var('block-attr', $attr);

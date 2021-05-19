@@ -66,7 +66,7 @@ const BlockEdit = (props) => {
                   onSelect={onSelectMedia}
                   allowedTypes={["image"]}
                   render={({ open }) => (
-                    <Button onClick={open} isDefault>
+                    <Button onClick={open} isSecondary>
                       {__("Replace image", "awp")}
                     </Button>
                   )}

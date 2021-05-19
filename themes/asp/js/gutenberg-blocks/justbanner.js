@@ -64,7 +64,7 @@ var BlockEdit = function BlockEdit(props) {
       var open = _ref2.open;
       return /*#__PURE__*/React.createElement(Button, {
         onClick: open,
-        isDefault: true
+        isSecondary: true
       }, __("Replace image", "awp"));
     }
   })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {
