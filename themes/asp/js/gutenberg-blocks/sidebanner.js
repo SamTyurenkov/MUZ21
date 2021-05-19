@@ -60,7 +60,8 @@ var SidebannerEdit = function SidebannerEdit(props) {
   var getInspectorControls = function getInspectorControls() {
     return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
       title: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0431\u043B\u043E\u043A\u0430",
-      initialOpen: true
+      initialOpen: true,
+      key: 1
     }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(SelectControl, {
       label: "\u0421 \u043A\u0430\u043A\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u044B \u0431\u0430\u043D\u043D\u0435\u0440?",
       value: attributes.bannerside,
@@ -78,10 +79,13 @@ var SidebannerEdit = function SidebannerEdit(props) {
       }
     }))), /*#__PURE__*/React.createElement(PanelBody, {
       title: "\u0412\u044B\u0431\u043E\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438",
-      initialOpen: true
+      initialOpen: true,
+      key: 2
     }, /*#__PURE__*/React.createElement("div", {
       className: "editor-post-featured-image"
-    }, /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
+    }, /*#__PURE__*/React.createElement(MediaUploadCheck, {
+      key: 1
+    }, /*#__PURE__*/React.createElement(MediaUpload, {
       onSelect: onSelectMedia,
       value: attributes.mediaId,
       allowedTypes: ["image"],
@@ -97,7 +101,9 @@ var SidebannerEdit = function SidebannerEdit(props) {
           src: attributes.media.source_url
         })));
       }
-    })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(MediaUpload, {
+    })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, {
+      key: 2
+    }, /*#__PURE__*/React.createElement(MediaUpload, {
       title: __("Replace image", "awp"),
       value: attributes.mediaId,
       onSelect: onSelectMedia,
@@ -109,7 +115,9 @@ var SidebannerEdit = function SidebannerEdit(props) {
           isDefault: true
         }, __("Replace image", "awp"));
       }
-    })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, null, /*#__PURE__*/React.createElement(Button, {
+    })), attributes.mediaId != 0 && /*#__PURE__*/React.createElement(MediaUploadCheck, {
+      key: 3
+    }, /*#__PURE__*/React.createElement(Button, {
       onClick: removeMedia,
       isLink: true,
       isDestructive: true

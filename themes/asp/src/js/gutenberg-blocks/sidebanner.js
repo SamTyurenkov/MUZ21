@@ -58,7 +58,7 @@ const SidebannerEdit = (props) => {
   const getInspectorControls = () => {
     return (
       <InspectorControls>
-        <PanelBody title="Настройки блока" initialOpen={true}>
+        <PanelBody title="Настройки блока" initialOpen={true} key={1}>
           <PanelRow>
             <SelectControl
               label="С какой стороны баннер?"
@@ -72,9 +72,9 @@ const SidebannerEdit = (props) => {
           </PanelRow>
         </PanelBody>
 
-        <PanelBody title="Выбор картинки" initialOpen={true}>
+        <PanelBody title="Выбор картинки" initialOpen={true} key={2}>
           <div className="editor-post-featured-image">
-            <MediaUploadCheck>
+            <MediaUploadCheck key={1}>
               <MediaUpload
                 onSelect={onSelectMedia}
                 value={attributes.mediaId}
@@ -102,7 +102,7 @@ const SidebannerEdit = (props) => {
               />
             </MediaUploadCheck>
             {attributes.mediaId != 0 && (
-              <MediaUploadCheck>
+              <MediaUploadCheck key={2}>
                 <MediaUpload
                   title={__("Replace image", "awp")}
                   value={attributes.mediaId}
@@ -117,7 +117,7 @@ const SidebannerEdit = (props) => {
               </MediaUploadCheck>
             )}
             {attributes.mediaId != 0 && (
-              <MediaUploadCheck>
+              <MediaUploadCheck key={3}>
                 <Button onClick={removeMedia} isLink isDestructive>
                   {__("Remove image", "awp")}
                 </Button>
