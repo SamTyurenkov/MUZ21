@@ -2,8 +2,8 @@ let uglify = require("gulp-terser"),
   gulpif = require("gulp-if"),
   concat = require("gulp-concat"),
   scriptsPATH = {
-    input: "./themes/asp/src/js/",
-    output: "./themes/asp/js/",
+    input: "./themes/muzika21/src/js/",
+    output: "./themes/muzika21/js/",
   };
 var babel = require("gulp-babel");
 

@@ -4,8 +4,8 @@ let plumber = require('gulp-plumber'),
     minifyCSS = require('gulp-minify-css');
 
 stylesPATH = {
-    "input": ["./themes/asp/src/css/**/*.css","node_modules/@splidejs/splide/dist/css/splide-core.min.css"],
-    "output": "./themes/asp/css/"
+    "input": ["./themes/muzika21/src/css/**/*.css","node_modules/@splidejs/splide/dist/css/splide-core.min.css"],
+    "output": "./themes/muzika21/css/"
 }
 
 module.exports = function () {
