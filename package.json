@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SamTyurenkov/ASP.git"
+    "url": "git+https://github.com/SamTyurenkov/MUZ21.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SamTyurenkov/ASP/issues"
+    "url": "https://github.com/SamTyurenkov/MUZ21/issues"
   },
-  "homepage": "https://github.com/SamTyurenkov/ASP#readme",
+  "homepage": "https://github.com/SamTyurenkov/MUZ21#readme",
   "devDependencies": {
     "@babel/core": "^7.14.2",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
