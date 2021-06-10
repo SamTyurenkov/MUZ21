@@ -3,20 +3,22 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     &_el {
-      flex: 0 0 350px;
+      flex: 0 0 260px;
       margin: 20px;
-      background: #f2f2f2;
       border-radius: 15px;
       overflow: hidden;
       text-decoration: none;
       color: #2e2e2e;
+
       &_icon {
         width: 100%;
-        height: 190px;
+        height: 210px;
         background-size: cover;
         background-repeat: no-repeat;
         position: relative;
+        border-radius: 15px;
         h3 {
           padding: 0 20px;
           margin: 0;
@@ -28,10 +30,27 @@
         }
       }
 
+      &:nth-child(2n) {
+        flex: 0 0 400px;
+        .muzallplaces_flex_el_icon {
+          height: 220px;
+        }
+        @media(max-width:440px) {
+            flex: 0 0 100%;
+        }
+      }
+
+      &:nth-child(3n) {
+        flex: 0 0 270px;
+        .muzallplaces_flex_el_icon {
+          height: 240px;
+        }
+      }
+
       &:hover {
         color: #000;
         h3 {
-            padding: 0 30px;
+          padding: 0 30px;
         }
       }
     }
