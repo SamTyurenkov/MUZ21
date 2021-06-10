@@ -1,0 +1,22 @@
+.muzfeatures {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    min-height: 400px;
+    &_flex{
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+        &_el {
+            flex: 0 0 calc(33.3% - 40px);
+            margin: 20px;
+            text-align: center;
+            &_icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+}

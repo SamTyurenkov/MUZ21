@@ -1,29 +1,39 @@
-let plumber = require('gulp-plumber'),
-    concat = require('gulp-concat-css'),
-    prefix = require('gulp-autoprefixer'),
-    minifyCSS = require('gulp-minify-css');
+const autoPrefixer = require("gulp-autoprefixer");
+let plumber = require("gulp-plumber"),
+  concat = require("gulp-concat-css"),
+  prefix = require("gulp-autoprefixer"),
+  sass = require("gulp-sass"),
+  minifyCSS = require("gulp-minify-css");
 
 stylesPATH = {
-    "input": ["./themes/muzika21/src/css/**/*.css","node_modules/@splidejs/splide/dist/css/splide-core.min.css"],
-    "output": "./themes/muzika21/css/"
-}
+  input: ["./themes/muzyka21/src/css/*.scss"],
+  output: "./themes/muzyka21/css/",
+};
 
 module.exports = function () {
-    $.gulp.task('styles', () => {
-        return $.gulp.src(stylesPATH.input)
-        .pipe(concat('main.css'))
-        .pipe(minifyCSS())
-        .pipe(prefix('last 2 versions'))
-        .pipe($.gulp.dest(stylesPATH.output))
-    });
+//   $.gulp.task('styles', () => {
+//       return $.gulp.src(stylesPATH.input)
+//       //.pipe(sourcemaps.init())
 
-    // SCSS Version
-//$.gulp.task('styles', function(){
-    //return $.gulp.src('src/scss/**/*.scss')
-    //.pipe(sass())
-    //.pipe(prefix('last 3 versions'))
-    //.pipe(concat('main.css'))
-    //.pipe(minifyCSS())
-    //.pipe($.gulp.dest('stylesPATH.output'))
-//});
-}
+//       .pipe(scss({ outputStyle: 'compressed'}))
+//       .pipe(prefix("last 2 versions"))
+//       .pipe(csscomb())
+//       .pipe(csso())
+//       //.pipe(concat('main.css'))
+//       //.pipe(minifyCSS())
+//       //.pipe(prefix('last 2 versions'))
+//       .pipe(rename('main.css'))
+//       .pipe($.gulp.dest(stylesPATH.output))
+//   });
+
+  // SCSS Version
+  $.gulp.task("styles", () => {
+    return $.gulp
+      .src(stylesPATH.input)
+      .pipe(sass().on('error', sass.logError))
+      .pipe(prefix("last 2 versions"))
+      .pipe(concat("main.css"))
+      .pipe(minifyCSS())
+      .pipe($.gulp.dest(stylesPATH.output));
+  });
+};

@@ -5,8 +5,8 @@ cache = require('gulp-cache'),
 rimraf = require('rimraf'),
 
 imgPATH = {
-    "input": ["./themes/muzika21/src/images/**/*.{png,jpg,gif,svg,jpeg}"],
-    "output": "./themes/muzika21/images/"
+    "input": ["./themes/muzyka21/src/images/**/*.{png,jpg,gif,svg,jpeg}"],
+    "output": "./themes/muzyka21/images/"
 }
 
 module.exports = function() {

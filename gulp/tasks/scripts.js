@@ -2,8 +2,8 @@ let uglify = require("gulp-terser"),
   gulpif = require("gulp-if"),
   concat = require("gulp-concat"),
   scriptsPATH = {
-    input: "./themes/muzika21/src/js/",
-    output: "./themes/muzika21/js/",
+    input: "./themes/muzyka21/src/js/",
+    output: "./themes/muzyka21/js/",
   };
 var babel = require("gulp-babel");
 
@@ -12,7 +12,6 @@ module.exports = function () {
     return $.gulp
       .src([
         scriptsPATH.input + "errors_manager.js",
-        scriptsPATH.input + "metrika.min.js",
         scriptsPATH.input + "w3schools-select.js",
         scriptsPATH.input + "*.js",
         "!" + scriptsPATH.input + "property/*.js",
