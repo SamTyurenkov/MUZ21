@@ -1,0 +1,39 @@
+.muzallplaces {
+  &_flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    &_el {
+      flex: 0 0 350px;
+      margin: 20px;
+      background: #f2f2f2;
+      border-radius: 15px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #2e2e2e;
+      &_icon {
+        width: 100%;
+        height: 190px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        h3 {
+          padding: 0 20px;
+          margin: 0;
+          position: absolute;
+          bottom: 10px;
+          left: 10px;
+          border-radius: 15px;
+          transition: padding 0.3s ease;
+        }
+      }
+
+      &:hover {
+        color: #000;
+        h3 {
+            padding: 0 30px;
+        }
+      }
+    }
+  }
+}

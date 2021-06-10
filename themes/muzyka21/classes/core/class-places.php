@@ -47,6 +47,7 @@ class Places
 					'with_front' => FALSE,
 				),
 				'supports' => array(
+					'thumbnail',
 					'custom-fields',
 					'title',
 					'author',

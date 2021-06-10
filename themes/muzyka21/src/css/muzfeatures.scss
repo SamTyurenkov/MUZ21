@@ -17,6 +17,9 @@
                 background-size: contain;
                 background-repeat: no-repeat;
             }
+            @media(max-width:992px) {
+                flex: 0 0 calc(100% - 40px);
+            }
         }
     }
 }

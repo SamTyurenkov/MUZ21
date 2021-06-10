@@ -111,9 +111,7 @@ function closeAllSelect(elmnt) {
 
 document.addEventListener("click", closeAllSelect);
 $ = jQuery, $(document).ready(function () {
-  $(".opendd").click(function () {
-    $(this).next().toggleClass("ddopen"), $(this).toggleClass("opendd_open");
-  }), $(".splide").length && new Splide(".splide", {
+  $(".splide").length && new Splide(".splide", {
     width: "100%",
     gap: "7px",
     lazyLoad: "sequential",

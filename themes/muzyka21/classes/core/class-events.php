@@ -47,6 +47,7 @@ class Events
 					'with_front' => FALSE,
 				),
 				'supports' => array(
+					'thumbnail',
 					'custom-fields',
 					'title',
 					'author',

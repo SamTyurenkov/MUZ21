@@ -39,6 +39,28 @@ class ACFBlocks
                 'keywords' => array('features'),
             ));
 
+            acf_register_block(array(
+                'name' => 'muzallplaces',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Muz All Places'),
+                'description' => __('Muz All Places'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('places'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'muzwavescontent',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Muz Waves Content'),
+                'description' => __('Muz Waves Content'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('waves'),
+            ));
+
         }
     }
 

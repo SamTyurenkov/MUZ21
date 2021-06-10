@@ -2,6 +2,10 @@
   height: 300px;
   position: relative;
   overflow: hidden;
+
+  @media(max-width: 992px) {
+    height: 350px;
+  }
   &_text {
     position: relative;
     top: 50px;
