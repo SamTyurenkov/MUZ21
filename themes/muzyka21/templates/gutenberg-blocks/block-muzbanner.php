@@ -1,7 +1,4 @@
-<?php
-$banner = get_field('banner');
-?>
-<div class="muzbanner" style="background-image:url(<?php echo esc_attr($banner['url']); ?>);">
+<div class="muzbanner">
 <div class="ocean">
   <div class="wave"></div>
   <div class="wave"></div>
