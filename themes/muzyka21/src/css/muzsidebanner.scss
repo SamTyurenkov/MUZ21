@@ -1,0 +1,39 @@
+.muzsidebanner {
+  background-size: 100%;
+  min-height: 600px;
+  background-image: url(../images/wave2start.svg);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  &_flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    &_image {
+      border-radius: 15px;
+      height: 600px;
+      flex: 0 0 calc(60% - 200px);
+      padding: 100px;
+      display: flex;
+      align-items: center;
+      @media (max-width: 1440px) {
+        flex: 0 0 calc(60% - 40px);
+        padding: 50px 20px;
+        height: auto;
+      }
+      @media (max-width: 800px) {
+        flex: 0 0 calc(100% - 40px);
+        padding: 20px;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 15px;
+      }
+    }
+    &_text {
+      flex: 0 0 40%;
+      @media (max-width: 800px) {
+        flex: 0 0 100%;
+      }
+    }
+  }
+}

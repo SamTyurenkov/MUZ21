@@ -19,7 +19,8 @@ class Menu
             array(
                 'topbar' => __('Topbar'),
                 'personal' => __('Personal'),
-                'footer' => __('Footer')
+                'footer' => __('Footer'),
+                'mobile' => 'Mobile'
             )
         );
     }

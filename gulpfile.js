@@ -19,7 +19,6 @@ $.gulp.task('default', $.gulp.series(
         'scripts:site',
         'scripts:gutenberg',
         'scripts:authors',
-        'scripts:property',
         'scripts:libs',
         'imgs'
     )
@@ -37,7 +36,6 @@ $.gulp.task('scripts', $.gulp.series(
         'scripts:gutenberg',
         'scripts:authors',
         'scripts:libs',
-        'scripts:property',
     )
 ));
 

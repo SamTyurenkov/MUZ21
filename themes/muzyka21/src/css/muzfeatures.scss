@@ -1,7 +1,5 @@
 .muzfeatures {
-    background-repeat: no-repeat;
-    background-size: 100%;
-    min-height: 400px;
+    background:#d64367;
     &_flex{
         display: flex;
         flex-wrap: wrap;
@@ -21,5 +19,12 @@
                 flex: 0 0 calc(100% - 40px);
             }
         }
+    }
+    .wavesend {
+        position: relative;
+        height: 130px;
+        width: 100%;
+        background: #fff;
+        display: block;
     }
 }

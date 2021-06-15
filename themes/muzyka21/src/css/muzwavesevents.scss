@@ -1,0 +1,59 @@
+.muzwavesevents {
+  background: #d64367;
+  position: relative;
+  &_title {
+    text-align: center;
+  }
+  &_description {
+    text-align: center;
+    margin-bottom:30px;
+    font-size: 20px;
+  }
+  &_flex {
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    // align-items: center;
+    margin: 20px 0 50px;
+    .splide__list {
+      display: flex;
+    align-items: center;
+    }
+    &_el {
+      flex: 0 0 250px;
+      background: #fff;
+      display: block;
+      border-radius: 15px;
+      padding: 20px;
+      text-decoration: none;
+      color: #2e2e2e;
+      margin-right: 20px;
+      margin-bottom: 15px;
+      &_icon {
+        height: 100px;
+        margin: -20px -20px 10px;
+        border-radius: 15px 15px 0 0;
+      }
+      &_place {
+        margin-bottom: 5px;
+      }
+      &_start {
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .wavesstart {
+    position: relative;
+    height: 130px;
+    width: 100%;
+    background: #fff;
+    display: block;
+  }
+  .wavesend {
+    position: relative;
+    height: 130px;
+    width: 100%;
+    background: #fff;
+    display: block;
+  }
+}

@@ -51,14 +51,25 @@ class ACFBlocks
             ));
 
             acf_register_block(array(
-                'name' => 'muzwavescontent',
-                //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz Waves Content'),
-                'description' => __('Muz Waves Content'),
+                'name' => 'muzwavesevents',
+                'enqueue_assets' => ['Core\ACFBlocks','muzwavesevents_assets'],
+                'title' => __('Muz Waves Events'),
+                'description' => __('Muz Waves Events'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('waves'),
+                'keywords' => array('waves','events'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'muzsidebanner',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Muz Side Banner'),
+                'description' => __('Muz Side Banner'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('waves','banner'),
             ));
 
         }
@@ -75,8 +86,9 @@ class ACFBlocks
         }
     }
 
-    static function muzbanner_assets()
+    static function muzwavesevents_assets()
     {
-        //wp_enqueue_script('muzbanner', get_template_directory_uri() . '/assets/gutenbergslider.js', array(), filemtime(get_template_directory() . '/assets/scripts/js'), true);
+        wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array(), filemtime(get_template_directory() . '/js/splide.min.js'), true);
+        wp_enqueue_script('muzwavesevents', get_template_directory_uri() . '/js/gutenberg-blocks/muzwavesevents.js', array('jquery','splide'), filemtime(get_template_directory() . '/js/gutenberg-blocks/muzwavesevents.js'), true);
     }
 }

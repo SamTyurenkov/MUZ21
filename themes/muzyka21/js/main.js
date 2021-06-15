@@ -111,15 +111,7 @@ function closeAllSelect(elmnt) {
 
 document.addEventListener("click", closeAllSelect);
 $ = jQuery, $(document).ready(function () {
-  $(".splide").length && new Splide(".splide", {
-    width: "100%",
-    gap: "7px",
-    lazyLoad: "sequential",
-    autoWidth: !0,
-    autoplay: !0,
-    arrows: "slider",
-    interval: 1800,
-    pauseOnHover: !0,
-    trimSpace: "move"
-  }).mount();
+  $(".menu_button").on("click", function () {
+    $(".menu_mobile").toggleClass("visible");
+  });
 });

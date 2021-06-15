@@ -19,6 +19,7 @@ class Enqueues
 	{
 		global $post;
 		$ajaxurl = admin_url('admin-ajax.php');
+		
 		wp_enqueue_script('muzyka21-main', get_template_directory_uri() . '/js/main.js', array('jquery'), filemtime(get_template_directory() . '/js/main.js'), true);
 
 

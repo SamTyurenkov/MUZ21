@@ -4,7 +4,9 @@ if (!defined('ABSPATH')) {
 }
 get_header();
 ?>
-
+<div class="content">
+	<?php the_content(); ?>
+</div>
 <footer>
 	<?php get_footer(); ?>
 </footer>

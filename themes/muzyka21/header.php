@@ -33,23 +33,35 @@ if (!defined('ABSPATH')) {
 		<div class="container">
 			<div class="topbar">
 				<div class="topbar_left">
-					<a href="/">MUZYKA 21</a>
+					<div class="logo_shape"></div>
+					<a href="/">MUZYKA<br>XXI</a>
 				</div>
 				<div class="topbar_center">
-					<?php 
+					<?php
 					wp_nav_menu(array(
 						'menu' => 'topbar'
-					)); 
+					));
 					?>
 				</div>
 				<div class="topbar_right">
-					<?php 
+					<?php
 					wp_nav_menu(array(
 						'menu' => 'personal'
-					)); 
+					));
 					?>
+				</div>
+				<div class="topbar_mobile">
+					<div class="menu_button"></div>
 				</div>
 			</div>
 
 		</div>
+		<div class="menu_mobile">
+		<div class="menu_button">X</div>
+		<?php
+		wp_nav_menu(array(
+			'menu' => 'mobile'
+		));
+		?>
+	</div>
 	</header>
