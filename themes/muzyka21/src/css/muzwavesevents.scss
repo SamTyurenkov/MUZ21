@@ -6,18 +6,15 @@
   }
   &_description {
     text-align: center;
-    margin-bottom:30px;
+    margin-bottom: 30px;
     font-size: 20px;
   }
   &_flex {
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: center;
-    // align-items: center;
+    overflow: hidden;
     margin: 20px 0 50px;
     .splide__list {
       display: flex;
-    align-items: center;
+      align-items: center;
     }
     &_el {
       flex: 0 0 250px;
