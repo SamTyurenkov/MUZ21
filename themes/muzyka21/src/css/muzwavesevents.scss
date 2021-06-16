@@ -31,11 +31,19 @@
         margin: -20px -20px 10px;
         border-radius: 15px 15px 0 0;
       }
+      h3 {
+        padding: 0;
+      }
       &_place {
         margin-bottom: 5px;
       }
       &_start {
         margin-bottom: 5px;
+      }
+      &:nth-child(2n) {
+        .muzwavesevents_flex_el_icon {
+          height: 130px;
+        }
       }
     }
   }

@@ -18,6 +18,7 @@ new Core\Menu();
 new Core\ACFBlocks();
 $gplaces = new Core\Places();
 $gevents = new Core\Events();
+$gservices = new Core\Services();
 
 //CRON DELETE USERS
 if (!wp_next_scheduled( 'my_weeklyClearOut' ))

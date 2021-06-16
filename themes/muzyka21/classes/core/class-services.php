@@ -43,7 +43,7 @@ class Services
 				'menu_icon'           => null,
 				'menu_position' => 6,
 				'rewrite' => array(
-					'slug' => 'Services',
+					'slug' => 'services',
 					'with_front' => FALSE,
 				),
 				'supports' => array(

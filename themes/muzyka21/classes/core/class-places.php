@@ -43,7 +43,7 @@ class Places
 				'menu_icon'           => null,
 				'menu_position' => 6,
 				'rewrite' => array(
-					'slug' => 'Places',
+					'slug' => 'places',
 					'with_front' => FALSE,
 				),
 				'supports' => array(

@@ -2,6 +2,7 @@
 $event_place_text = get_field('event_place_text');
 $event_start_text = get_field('event_start_text');
 $event_end_text = get_field('event_end_text');
+$posttype = get_post_type(get_the_ID());
 ?>
 
 <div class="muzwavesevents splide">
@@ -21,10 +22,18 @@ $event_end_text = get_field('event_end_text');
             'orderby'       => 'meta_value',
             'posts_per_page' => 20,
             'meta_query' => array(
+                'relation' => 'AND',
                 array('key' => 'date_start'
                 )
             )
         );
+
+        if($posttype == 'places') {
+            $args['meta_query'][] = array(
+                'key' => 'place',
+                'value' => get_the_ID()
+            );
+        };
         $query = new WP_Query($args);
         ?>
         <div class="muzwavesevents_flex splide__track">

@@ -72,6 +72,28 @@ class ACFBlocks
                 'keywords' => array('waves','banner'),
             ));
 
+            acf_register_block(array(
+                'name' => 'service-optionpicker',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Muz Service Option Picker'),
+                'description' => __('Muz Service Option Picker'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('service','banner'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'place-residents',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Muz Place Residents'),
+                'description' => __('Muz Place Residents'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('place','banner','residents'),
+            ));
+
         }
     }
 
