@@ -48,7 +48,7 @@ $posttype = get_post_type(get_the_ID());
                         <?php endif; ?>
                         <h3><?php the_title(); ?></h3>
                             
-                        <?php if(get_field('place',get_the_ID())) : ?>
+                        <?php if($posttype != 'places' && get_field('place',get_the_ID())) : ?>
                         <div class="muzwavesevents_flex_el_place"><b><?= $event_place_text; ?>: </b><?php echo get_field('place',get_the_ID())->post_title; ?></div>
                         <?php endif; ?>
                         <?php if(get_field('date_start',get_the_ID())) : ?>

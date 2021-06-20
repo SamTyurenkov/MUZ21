@@ -10,7 +10,7 @@ $(document).ready(function () {
       gap: "15px",
       lazyLoad: 'sequential',
       autoWidth: true,
-      autoplay: true,
+      autoplay: false,
       arrows: false,
       //'slider',
       pagination: false,

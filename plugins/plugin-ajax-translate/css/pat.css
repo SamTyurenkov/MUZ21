@@ -1,0 +1,80 @@
+.pat_popup {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background: #0000005c;
+    left: 0;
+    top:  0;
+}
+.pat_popup_inner {
+    margin: 0 auto;
+    position: relative;
+    top: 20%;
+    height: 60%;
+    width: 80%;
+    max-width: 700px;
+    background: #f2f2f2;
+    border: 2px  solid #000;
+    border-radius:  10px;
+    overflow: hidden;
+}
+.pat_popup_inner p {
+    break-after: avoid;
+    padding: 10px 35px 10px 15px;
+    border-bottom: 2px solid;
+    margin: 0;
+    z-index: 9;
+    position: relative;
+    background: #f2f2f2;
+}
+.pat_popup_close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    height: 32px;
+    width: 32px;
+    background: #e44545;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    z-index: 10;
+}
+.pat_popup_inputs {
+    padding: 10px;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    -ms-flex-wrap: wrap;
+    top: 0;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    max-height: calc(100% - 100px);
+    z-index: 8;
+    overflow-y: scroll;
+    padding-top: 90px;
+}
+.pat_popup_input {
+    display: inline-block;
+    -ms-flex: 1 0 40%;
+    -webkit-box-flex: 1;
+    flex: 1 0 40%;
+    max-width: 50%;
+    min-width: 40%;
+    margin: 5px;
+}
+.pat_popup_input label, .pat_popup_input textarea {
+    display: block;
+    width: 100%;
+}

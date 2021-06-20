@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
+$uid = wp_get_current_user()->ID; 
 ?>
 <!DOCTYPE html>
 <html lang="ru" class="no-js">
@@ -57,11 +58,17 @@ if (!defined('ABSPATH')) {
 
 		</div>
 		<div class="menu_mobile">
-		<div class="menu_button">X</div>
-		<?php
-		wp_nav_menu(array(
-			'menu' => 'mobile'
-		));
-		?>
-	</div>
+			<div class="menu_button">X</div>
+			<?php
+			wp_nav_menu(array(
+				'menu' => 'mobile'
+			));
+			?>
+		</div>
 	</header>
+
+	<!-- LOGIN/REGISTRATION -->
+	<?php
+	if (!is_user_logged_in()) {
+		get_template_part('templates/loginregistration');
+	} ?>

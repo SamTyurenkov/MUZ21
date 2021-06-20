@@ -42,10 +42,9 @@ module.exports = function () {
       )
       .pipe($.gulp.dest(scriptsPATH.output + "gutenberg-blocks/"));
   });
-  $.gulp.task("scripts:authors", () => {
+  $.gulp.task("scripts:login-reg", () => {
     return $.gulp
-      .src([scriptsPATH.input + "authors/*.js"])
-      .pipe(concat("authors.js"))
+      .src([scriptsPATH.input + "login-reg/*.js"])
       .pipe(
         uglify({
           keep_fnames: true,
@@ -57,7 +56,7 @@ module.exports = function () {
           presets: ["@babel/preset-env"],
         })
       )
-      .pipe($.gulp.dest(scriptsPATH.output));
+      .pipe($.gulp.dest(scriptsPATH.output+ "login-reg/"));
   });
   $.gulp.task("scripts:libs", () => {
     return $.gulp

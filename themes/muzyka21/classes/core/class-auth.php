@@ -8,7 +8,7 @@ class Auth
     public function __construct()
     {
         if (!is_user_logged_in()) {
-            add_action('init', ['Auth', 'ajax_auth_init']);
+            add_action('init', ['Core\Auth', 'ajax_auth_init']);
         }
     }
 
@@ -22,20 +22,20 @@ class Auth
         ));
 
         // Enable the user with no privileges to run ajax_login() in AJAX
-        add_action('wp_ajax_nopriv_ajax_login', ['Auth', 'ajax_login']);
+        add_action('wp_ajax_nopriv_ajax_login', ['Core\Auth', 'ajax_login']);
 
         // Enable the user with no privileges to run ajax_register() in AJAX
-        add_action('wp_ajax_nopriv_ajax_register', ['Auth', 'ajax_register']);
+        add_action('wp_ajax_nopriv_ajax_register', ['Core\Auth', 'ajax_register']);
 
         // Recovery link
-        add_action('wp_ajax_nopriv_ajax_forgotpassword', ['Auth', 'ajax_forgotpassword']);
+        add_action('wp_ajax_nopriv_ajax_forgotpassword', ['Core\Auth', 'ajax_forgotpassword']);
 
-        add_action('login_form_rp', ['Auth', 'redirect_to_custom_password_reset']);
-        add_action('login_form_resetpass', ['Auth', 'redirect_to_custom_password_reset']);
+        add_action('login_form_rp', ['Core\Auth', 'redirect_to_custom_password_reset']);
+        add_action('login_form_resetpass', ['Core\Auth', 'redirect_to_custom_password_reset']);
 
-        add_action('login_form_rp', ['Auth', 'do_password_reset']);
-        add_action('login_form_resetpass', ['Auth', 'do_password_reset']);
-        add_shortcode('custom-password-reset-form', ['Auth', 'render_password_reset_form']);
+        add_action('login_form_rp', ['Core\Auth', 'do_password_reset']);
+        add_action('login_form_resetpass', ['Core\Auth', 'do_password_reset']);
+        add_shortcode('custom-password-reset-form', ['Core\Auth', 'render_password_reset_form']);
     }
 
     // Execute the action only if the user isn't logged in

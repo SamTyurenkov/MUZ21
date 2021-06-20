@@ -1,0 +1,22 @@
+.account_forms {
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    z-index: 99;
+    top: 0;
+    height: 100%;
+    align-items: center;
+    display: none;
+    .button {
+        min-width: 200px;
+        &:nth-child(1) {
+            min-width: auto;
+        }
+    }
+}
+#auth3 {
+    margin-top: 50px;
+}
+#auth3, #auth2 {
+    display: none;
+}

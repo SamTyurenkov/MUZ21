@@ -9,7 +9,7 @@ get_header();
 <?php get_template_part('templates/topmenu'); ?>
 
 </div>
-<div class="account-keeper">
+<div class="container">
 <span style="color: #d03058;font-weight: 600;font-size: 150px;display: block;letter-spacing: -20px">404</span>
 <span>Страница не найдена, но вы можете выбрать другую!</span>
 </div>

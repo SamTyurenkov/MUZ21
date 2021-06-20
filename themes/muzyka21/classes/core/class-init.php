@@ -14,7 +14,7 @@ class Init
 		add_filter('show_admin_bar', '__return_false'); //DO NOT DISPLAY ADMIN BAR
 		add_filter('send_email_change_email', '__return_false'); //DO NOT SEND EMAILS ABOUT EMAIL CHANGE
 		add_action('admin_init', ['Core\Init', 'admin_access'], 1); //ADMIN ACCESS FOR ADMIN OR AJAX ONLY
-		add_filter( 'http_request_host_is_external', '__return_true' );
+		add_filter('http_request_host_is_external', '__return_true');
 		add_filter('jpeg_quality', function ($arg) {
 			return 95;
 		}); //SET IMAGE QUALITY
@@ -75,7 +75,21 @@ class Init
 		add_action('do_feed_rss2_comments', ['Core\Init', 'disable_feed'], 1);
 		add_action('do_feed_atom_comments', ['Core\Init', 'disable_feed'], 1);
 		add_action('add_meta_boxes', ['Core\Init', 'add_attach_thumbs']);
+		add_filter('generate_rewrite_rules', ['Core\Init', 'resources_cpt_generating_rule']);
 	}
+
+	static function resources_cpt_generating_rule($wp_rewrite)
+	{
+
+		$rules['events/([^/]*)$'] = 'index.php?post_type=events&pagename=$matches[1]';
+		$rules['services/([^/]*)$'] = 'index.php?post_type=services&pagename=$matches[1]';
+		$rules['places/([^/]*)$'] = 'index.php?post_type=places&pagename=$matches[1]';
+		$rules['([^/]*)$'] = 'index.php?pagename=$matches[1]';
+
+		$wp_rewrite->rules = $rules + $wp_rewrite->rules;
+	}
+
+
 
 	static function default_images($sizes, $image_meta, $attachment_id)
 	{

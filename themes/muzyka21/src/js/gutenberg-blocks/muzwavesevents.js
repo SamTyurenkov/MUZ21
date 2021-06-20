@@ -9,7 +9,7 @@ if ($(".splide").length) {
       gap: "15px",
       lazyLoad: 'sequential',
       autoWidth: true,
-      autoplay: true,
+      autoplay: false,
       arrows: false, //'slider',
       pagination: false,
       interval: 1800,

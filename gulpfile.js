@@ -18,7 +18,7 @@ $.gulp.task('default', $.gulp.series(
         'styles',
         'scripts:site',
         'scripts:gutenberg',
-        'scripts:authors',
+        'scripts:login-reg',
         'scripts:libs',
         'imgs'
     )
@@ -34,7 +34,7 @@ $.gulp.task('scripts', $.gulp.series(
     $.gulp.parallel(
         'scripts:site',
         'scripts:gutenberg',
-        'scripts:authors',
+        'scripts:login-reg',
         'scripts:libs',
     )
 ));
