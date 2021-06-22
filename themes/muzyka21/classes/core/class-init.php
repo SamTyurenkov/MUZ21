@@ -76,11 +76,20 @@ class Init
 		add_action('do_feed_atom_comments', ['Core\Init', 'disable_feed'], 1);
 		add_action('add_meta_boxes', ['Core\Init', 'add_attach_thumbs']);
 		add_filter('generate_rewrite_rules', ['Core\Init', 'resources_cpt_generating_rule']);
-	}
 
+		add_action('init', ['Core\Init', 'acf_options_pages']);
+		add_action('init', ['Core\Init', 'change_author_permalinks']);
+	}
+	static function change_author_permalinks()
+	{
+		global $wp_rewrite;
+		$wp_rewrite->author_base = 'author'; // Change 'member' to be the base URL you wish to use  
+		$wp_rewrite->author_structure = '/' . $wp_rewrite->author_base . '/%author%';
+	}
 	static function resources_cpt_generating_rule($wp_rewrite)
 	{
-
+		//$rules['blogs/([^/]*)$'] = 'index.php?post_type=post&pagename=$matches[1]';
+		//$rules['author/([^/]*)$'] = 'index.php?post_type=events&pagename=$matches[1]';
 		$rules['events/([^/]*)$'] = 'index.php?post_type=events&pagename=$matches[1]';
 		$rules['services/([^/]*)$'] = 'index.php?post_type=services&pagename=$matches[1]';
 		$rules['places/([^/]*)$'] = 'index.php?post_type=places&pagename=$matches[1]';
@@ -90,6 +99,26 @@ class Init
 	}
 
 
+
+	static function acf_options_pages()
+	{
+		if (function_exists('acf_add_options_page')) {
+
+			acf_add_options_page(array(
+				'page_title' 	=> 'Theme Settings',
+				'menu_title'	=> 'Theme Settings',
+				'menu_slug' 	=> 'theme-general-settings',
+				'capability'	=> 'edit_posts',
+				'redirect'		=> false
+			));
+
+			acf_add_options_sub_page(array(
+				'page_title' 	=> 'Author Page',
+				'menu_title'	=> 'Author',
+				'parent_slug'	=> 'theme-general-settings',
+			));
+		}
+	}
 
 	static function default_images($sizes, $image_meta, $attachment_id)
 	{

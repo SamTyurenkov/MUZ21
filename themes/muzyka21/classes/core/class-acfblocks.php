@@ -94,6 +94,28 @@ class ACFBlocks
                 'keywords' => array('place','banner','residents'),
             ));
 
+            acf_register_block(array(
+                'name' => 'places-all-extended',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Places All Extended'),
+                'description' => __('Places All Extended'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('places','list'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'general-shapebanner',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Shape Banner'),
+                'description' => __('Shape Banner'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('shape','banner'),
+            ));
+
         }
     }
 

@@ -51,7 +51,8 @@ class Places
 					'custom-fields',
 					'title',
 					'author',
-					'editor'
+					'editor',
+					'excerpt'
 				)
 			)
 		);

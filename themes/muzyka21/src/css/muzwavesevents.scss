@@ -1,5 +1,8 @@
 .muzwavesevents {
   background: #d64367;
+  background: linear-gradient(
+0deg
+, #d64367 43%, #f26b41 100%);
   position: relative;
   overflow: hidden;
   &_title {

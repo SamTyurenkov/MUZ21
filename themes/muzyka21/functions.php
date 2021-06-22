@@ -14,6 +14,7 @@ spl_autoload_register( function($classname) {
 
 new Core\Init();
 new Core\Enqueues();
+new Core\Auth();
 new Core\Menu();
 new Core\ACFBlocks();
 $gplaces = new Core\Places();

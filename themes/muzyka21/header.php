@@ -27,6 +27,7 @@ $uid = wp_get_current_user()->ID;
 	<meta name="apple-mobile-web-app-status-bar-style" content="#d03030">
 
 	<?php wp_head(); ?>
+	<?php $my_home_url = apply_filters( 'wpml_home_url', get_option( 'home' ) ); ?>
 </head>
 
 <body>
@@ -35,7 +36,7 @@ $uid = wp_get_current_user()->ID;
 			<div class="topbar">
 				<div class="topbar_left">
 					<div class="logo_shape"></div>
-					<a href="/">MUZYKA<br>XXI</a>
+					<a href="<?php echo esc_attr($my_home_url); ?>">MUZYKA<br>XXI</a>
 				</div>
 				<div class="topbar_center">
 					<?php

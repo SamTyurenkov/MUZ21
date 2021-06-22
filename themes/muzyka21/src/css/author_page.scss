@@ -1,0 +1,50 @@
+.author_page {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 150px;
+
+  .author_shape {
+    background-image: url(../images/shape_logo.svg);
+    width: 440px;
+    height: 440px;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: -40px;
+    z-index: -1;
+    left: -8px;
+    pointer-events: none;
+    transform: rotate(45deg);
+  }
+
+  #logout {
+    margin-right: 0;
+  }
+  .user_thumb {
+    margin: 20px 0;
+    label {
+      background-size: cover;
+      position: relative;
+      width: 150px;
+      height: 150px;
+      display: block;
+      border-radius: 10px;
+      margin: 0 auto;
+      color: transparent;
+      cursor: pointer;
+      border: 2px solid #f06a42;
+      transition: all 0.4s ease;
+      &:hover {
+        border: 2px solid #f2f2f2;
+
+      }
+    }
+    #userthumb {
+      display: none;
+    }
+  }
+  .editauthor {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+}

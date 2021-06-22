@@ -103,7 +103,7 @@ $(document).ready(function () {
 					logform.parentElement.getElementsByClassName("status")[0].style.display = 'block';
 					logform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message;
 					if (data.response == 'SUCCESS') {
-						location.href = window.location.protocol + '//' + window.location.hostname + '/author/' + data.id;
+						location.href = localize.homeurl + '/author/' + data.id; // window.location.protocol + '//' + window.location.hostname + '/author/' + data.id;
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
@@ -155,7 +155,7 @@ $(document).ready(function () {
 						regform.parentElement.getElementsByClassName("status")[0].style.display = 'block';
 						regform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message;
 						if (data.response == 'SUCCESS') {
-							location.href = window.location.protocol + '//' + window.location.hostname + '/author/' + data.id;
+							location.href = localize.homeurl + '/author/' + data.id; //window.location.protocol + '//' + window.location.hostname + '/author/' + data.id;
 						}
 					},
 					error: function(jqXHR, textStatus, errorThrown) {

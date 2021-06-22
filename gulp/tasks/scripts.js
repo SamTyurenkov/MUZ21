@@ -14,9 +14,9 @@ module.exports = function () {
         scriptsPATH.input + "errors_manager.js",
         scriptsPATH.input + "w3schools-select.js",
         scriptsPATH.input + "*.js",
-        "!" + scriptsPATH.input + "property/*.js",
-       // "!" + scriptsPATH.input + "gutenberg-blocks/*.js",
-        "!" + scriptsPATH.input + "authors/*.js",
+        "!" + scriptsPATH.input + "login-reg/*.js",
+        "!" + scriptsPATH.input + "gutenberg-blocks/*.js",
+        "!" + scriptsPATH.input + "author_page/*.js",
       ])
       .pipe(gulpif('!**/*.min.js', uglify({mangle: false})))
       .pipe(concat("main.js"))
@@ -57,6 +57,22 @@ module.exports = function () {
         })
       )
       .pipe($.gulp.dest(scriptsPATH.output+ "login-reg/"));
+  });
+  $.gulp.task("scripts:author-page", () => {
+    return $.gulp
+      .src([scriptsPATH.input + "author-page/*.js"])
+      .pipe(
+        uglify({
+          keep_fnames: true,
+          mangle: false,
+        })
+      )
+      .pipe(
+        babel({
+          presets: ["@babel/preset-env"],
+        })
+      )
+      .pipe($.gulp.dest(scriptsPATH.output+ "author-page/"));
   });
   $.gulp.task("scripts:libs", () => {
     return $.gulp

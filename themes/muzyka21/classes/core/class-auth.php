@@ -12,15 +12,8 @@ class Auth
         }
     }
 
-    function ajax_auth_init()
+    static function ajax_auth_init()
     {
-
-        wp_localize_script('ajax-auth-script', 'ajax_auth_object', array(
-            'ajaxurl' => admin_url('admin-ajax.php'),
-            'redirecturl' => home_url(),
-            'loadingmessage' => __('Sending user info, please wait...')
-        ));
-
         // Enable the user with no privileges to run ajax_login() in AJAX
         add_action('wp_ajax_nopriv_ajax_login', ['Core\Auth', 'ajax_login']);
 
@@ -36,29 +29,34 @@ class Auth
         add_action('login_form_rp', ['Core\Auth', 'do_password_reset']);
         add_action('login_form_resetpass', ['Core\Auth', 'do_password_reset']);
         add_shortcode('custom-password-reset-form', ['Core\Auth', 'render_password_reset_form']);
+
+        wp_localize_script('ajax-auth-script', 'ajax_auth_object', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'redirecturl' => home_url(),
+            'loadingmessage' => __('Sending user info, please wait...')
+        ));
     }
 
     // Execute the action only if the user isn't logged in
 
 
-    function ajax_login()
+    static function ajax_login()
     {
 
         if (
-            //check_ajax_referer( '_log_user', 'nonce' )
-            wp_verify_nonce($_POST['nonce'], '_log_user')
+            wp_verify_nonce($_POST['nonce'], '_regforms')
         ) {
 
-            $this->auth_user_login($_POST['username'], $_POST['password'], 'Login');
+            Auth::auth_user_login($_POST['username'], $_POST['password'], 'Login');
         }
         die();
     }
 
-    function ajax_register()
+    static function ajax_register()
     {
         $response = array();
 
-        if (wp_verify_nonce($_POST['nonce'], '_reg_user')) {
+        if (wp_verify_nonce($_POST['nonce'], '_regforms')) {
 
             header('Content-Type: application/json');
             $info = array();
@@ -121,13 +119,13 @@ class Auth
         }
     }
 
-    function ajax_forgotpassword()
+    static function ajax_forgotpassword()
     {
 
         // First check the nonce, if it fails the function will break
         //   check_ajax_referer( '_lost_pass', 'nonce' );
 
-        if (wp_verify_nonce($_POST['nonce'], '_lost_pass')) {
+        if (wp_verify_nonce($_POST['nonce'], '_regforms')) {
 
             global $wpdb;
 
@@ -204,7 +202,7 @@ class Auth
         die();
     }
 
-    function auth_user_login($user_login, $password, $login)
+    static function auth_user_login($user_login, $password, $login)
     {
 
         $info = array();
@@ -238,7 +236,7 @@ class Auth
      */
 
 
-    function redirect_to_custom_password_reset()
+    static function redirect_to_custom_password_reset()
     {
         if ('GET' == $_SERVER['REQUEST_METHOD']) {
             // Verify key / login combo
@@ -271,7 +269,7 @@ class Auth
      *
      * @return string  The shortcode output
      */
-    function render_password_reset_form($attributes, $content = null)
+    static function render_password_reset_form($attributes, $content = null)
     {
         // Parse shortcode attributes
         $default_attributes = array('show_title' => false);
@@ -306,7 +304,7 @@ class Auth
     /**
      * Resets the user's password if the password reset form was submitted.
      */
-    function do_password_reset()
+    static function do_password_reset()
     {
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $rp_key = $_REQUEST['rp_key'];

@@ -1,5 +1,9 @@
 .muzfeatures {
-    background:#d64367;
+    background: #d64367;
+    background: linear-gradient(
+0deg
+, #f26b41 43%, #d64367 100%);
+
     &_flex{
         display: flex;
         flex-wrap: wrap;
