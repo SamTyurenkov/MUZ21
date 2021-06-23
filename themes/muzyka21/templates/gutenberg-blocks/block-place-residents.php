@@ -1,5 +1,6 @@
 <?php
-$residents = get_field('residents', get_the_ID());
+$post_id = get_query_var('post_id');
+$residents = get_field('residents', $post_id);
 //print_r($residents);
 
 ?>

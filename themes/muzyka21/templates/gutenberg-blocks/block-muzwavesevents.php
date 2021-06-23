@@ -1,8 +1,9 @@
 <?php
-$event_place_text = get_field('event_place_text');
-$event_start_text = get_field('event_start_text');
-$event_end_text = get_field('event_end_text');
-$posttype = get_post_type(get_the_ID());
+$post_id = get_query_var('post_id');
+$event_place_text = get_field('event_place_text','option');
+$event_start_text = get_field('event_start_text','option');
+$event_end_text = get_field('event_end_text','option');
+$posttype = get_post_type($post_id);
 ?>
 
 <div class="muzwavesevents splide">
@@ -31,7 +32,7 @@ $posttype = get_post_type(get_the_ID());
         if($posttype == 'places') {
             $args['meta_query'][] = array(
                 'key' => 'place',
-                'value' => get_the_ID()
+                'value' => $post_id
             );
         };
         $query = new WP_Query($args);

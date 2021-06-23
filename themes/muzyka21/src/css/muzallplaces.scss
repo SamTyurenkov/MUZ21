@@ -28,21 +28,22 @@
           border-radius: 15px;
           transition: padding 0.3s ease;
         }
-
       }
 
       &:nth-child(2n) {
+        transform: rotate(1deg);
         flex: 0 0 400px;
         .muzallplaces_flex_el_icon {
           height: 220px;
         }
-        @media(max-width:440px) {
-            flex: 0 0 100%;
+        @media (max-width: 440px) {
+          flex: 0 0 100%;
         }
       }
 
       &:nth-child(3n) {
         flex: 0 0 270px;
+        transform: rotate(-1deg);
         .muzallplaces_flex_el_icon {
           height: 240px;
         }

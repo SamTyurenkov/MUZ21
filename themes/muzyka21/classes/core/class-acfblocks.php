@@ -73,10 +73,10 @@ class ACFBlocks
             ));
 
             acf_register_block(array(
-                'name' => 'service-optionpicker',
+                'name' => 'service-mainbanner',
                 //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz Service Option Picker'),
-                'description' => __('Muz Service Option Picker'),
+                'title' => __('Service Main Banner'),
+                'description' => __('Service Main Banner'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
@@ -119,11 +119,11 @@ class ACFBlocks
         }
     }
 
-    static function block_render_callback($block)
+    static function block_render_callback($block,$content ='', $is_preview=false,$post_id = 0)
     {
         // convert name ("acf/testimonial") into path friendly slug ("testimonial")
         $slug = str_replace('acf/', '', $block['name']);
-
+        set_query_var('post_id',$post_id);
         // include a template part from within the "template-parts/block" folder
         if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {
             include get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php");

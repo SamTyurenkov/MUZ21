@@ -51,7 +51,8 @@ class Events
 					'custom-fields',
 					'title',
 					'author',
-					'editor'
+					'editor',
+					'excerpt'
 				)
 			)
 		);

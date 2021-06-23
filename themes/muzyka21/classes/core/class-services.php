@@ -7,11 +7,12 @@ class Services
 	public function __construct()
 	{
 		add_action('init', ['Core\Services', 'post_type_services']);
+		add_action('init', ['Core\Services', 'taxonomy_type_services_type']);
 	}
 
 	//ADD Service POST TYPE
 
-	static function post_type_Services()
+	static function post_type_services()
 	{
 		register_post_type(
 			'services',
@@ -51,10 +52,40 @@ class Services
 					'custom-fields',
 					'title',
 					'author',
-					'editor'
+					'editor',
+					'excerpt'
 				)
 			)
 		);
 	}
+
+	static function taxonomy_type_services_type() {	
+			
+		$worklabels = array(
+			'name'              => __( 'Services Type', 'muz21' ),
+			'singular_name'     => __( 'Type', 'muz21' ),
+			'search_items'      => __( 'Search Services', 'muz21' ),
+			'all_items'         => __( 'All Type', 'muz21' ),
+			'parent_item'       => __( 'Parent Type', 'muz21' ),
+			'parent_item_colon' => __( 'Parent Type:', 'muz21' ),
+			'edit_item'         => __( 'Edit Type', 'muz21' ),
+			'update_item'       => __( 'Update Type', 'muz21' ),
+			'add_new_item'      => __( 'Add New Type', 'muz21' ),
+			'new_item_name'     => __( 'New Type Name', 'muz21' ),
+		);
+	
+		register_taxonomy( 'services-type', array( 'services' ), array(
+			'hierarchical' => true, 
+			'labels'       => $worklabels,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'show_in_rest' => true,
+			'rewrite' => array(
+			'slug' => 'services-type',
+			'with_front' => FALSE,
+			)
+		) );	
+			
+		}
 
 }

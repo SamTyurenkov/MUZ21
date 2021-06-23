@@ -50,7 +50,8 @@ class Purchases
 					'custom-fields',
 					'title',
 					'author',
-					'editor'
+					'editor',
+					'excerpt'
 				)
 			)
 		);

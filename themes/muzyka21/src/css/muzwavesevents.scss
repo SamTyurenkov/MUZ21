@@ -1,8 +1,6 @@
 .muzwavesevents {
   background: #d64367;
-  background: linear-gradient(
-0deg
-, #d64367 43%, #f26b41 100%);
+  background: linear-gradient(0deg, #d64367 43%, #f26b41 100%);
   position: relative;
   overflow: hidden;
   &_title {
@@ -29,6 +27,7 @@
       color: #2e2e2e;
       margin-right: 20px;
       margin-bottom: 15px;
+      transform: rotate(1deg);
       &_icon {
         height: 100px;
         margin: -20px -20px 10px;
@@ -47,6 +46,9 @@
         .muzwavesevents_flex_el_icon {
           height: 130px;
         }
+      }
+      &:nth-child(2n+2) {
+        transform: rotate(-2deg);
       }
     }
   }

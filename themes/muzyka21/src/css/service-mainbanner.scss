@@ -1,0 +1,51 @@
+.service-mainbanner {
+    margin: 50px 0;
+    &_flex {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        &_left {
+            flex: 0 0 calc(40% - 40px);
+            padding: 20px;
+            @media(max-width:992px) {
+                flex: 0 0 100%;
+                padding: 20px 0;
+            }
+        }
+        &_right {
+            flex: 0 0 60%;
+            @media(max-width:992px) {
+                flex: 0 0 calc(100% - 40px);
+                padding: 20px;
+                order: -1;
+            }
+        }
+        &_image {
+            img {
+                max-width: 100%;
+                border-radius: 15px;
+                transform: rotate(2deg);
+            }
+        }
+        &_price {
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            &_text {
+                font-size: 25px;
+                margin-right: 20px;
+            }
+            &_num {
+                font-size: 23px;
+            }
+        }
+        &_button {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

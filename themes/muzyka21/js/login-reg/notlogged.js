@@ -68,7 +68,7 @@ $ = jQuery, $(document).ready(function () {
       type: "POST",
       dataType: "json",
       success: function success(data, textStatus, jqXHR) {
-        console.log("data.response " + data.response + " " + textStatus), logform.parentElement.getElementsByClassName("status")[0].style.display = "block", logform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message, "SUCCESS" == data.response && (location.href = window.location.protocol + "//" + window.location.hostname + "/author/" + data.id);
+        console.log("data.response " + data.response + " " + textStatus), logform.parentElement.getElementsByClassName("status")[0].style.display = "block", logform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message, "SUCCESS" == data.response && (location.href = localize.homeurl + "/author/" + data.id);
       },
       error: function error(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown), logform.parentElement.getElementsByClassName("status")[0].innerHTML = errorThrown;
@@ -93,7 +93,7 @@ $ = jQuery, $(document).ready(function () {
       type: "POST",
       dataType: "json",
       success: function success(data, textStatus, jqXHR) {
-        console.log(data.message), regform.parentElement.getElementsByClassName("status")[0].style.display = "block", regform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message, "SUCCESS" == data.response && (location.href = window.location.protocol + "//" + window.location.hostname + "/author/" + data.id);
+        console.log(data.message), regform.parentElement.getElementsByClassName("status")[0].style.display = "block", regform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message, "SUCCESS" == data.response && (location.href = localize.homeurl + "/author/" + data.id);
       },
       error: function error(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown), regform.parentElement.getElementsByClassName("status")[0].innerHTML = errorThrown;

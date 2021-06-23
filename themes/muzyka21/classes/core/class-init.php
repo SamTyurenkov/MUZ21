@@ -92,6 +92,7 @@ class Init
 		//$rules['author/([^/]*)$'] = 'index.php?post_type=events&pagename=$matches[1]';
 		$rules['events/([^/]*)$'] = 'index.php?post_type=events&pagename=$matches[1]';
 		$rules['services/([^/]*)$'] = 'index.php?post_type=services&pagename=$matches[1]';
+		$rules['services-type/([^/]*)$'] = 'index.php?taxonomy=services-type&term=$matches[1]';
 		$rules['places/([^/]*)$'] = 'index.php?post_type=places&pagename=$matches[1]';
 		$rules['([^/]*)$'] = 'index.php?pagename=$matches[1]';
 
@@ -115,6 +116,18 @@ class Init
 			acf_add_options_sub_page(array(
 				'page_title' 	=> 'Author Page',
 				'menu_title'	=> 'Author',
+				'parent_slug'	=> 'theme-general-settings',
+			));
+
+			acf_add_options_sub_page(array(
+				'page_title' 	=> 'Service Page',
+				'menu_title'	=> 'Service',
+				'parent_slug'	=> 'theme-general-settings',
+			));
+
+			acf_add_options_sub_page(array(
+				'page_title' 	=> 'Events Page',
+				'menu_title'	=> 'Events',
 				'parent_slug'	=> 'theme-general-settings',
 			));
 		}

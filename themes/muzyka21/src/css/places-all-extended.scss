@@ -1,84 +1,84 @@
 .places-all-extended {
-    &_flex {
+  &_flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    &_el {
+      margin: 20px;
+      border-radius: 15px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #2e2e2e;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      &_el {
-        margin: 20px;
-        border-radius: 15px;
-        overflow: hidden;
-        text-decoration: none;
-        color: #2e2e2e;
-        display: flex;
-        flex-wrap: wrap;
+      width: 100%;
+      max-width: 600px;
+      flex: 0 0 600px;
+      transform: rotate(-1deg);
+      @media (max-width: 600px) {
+        flex: 0 0 100%;
+        justify-content: center;
+      }
+
+      &_icon {
         width: 100%;
-        max-width: 600px;
-        flex: 0 0 600px;
-        
-        @media(max-width: 600px) {
-            flex: 0 0 100%;
-            justify-content: center;
+        max-width: 250px;
+        height: 210px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        border-radius: 15px;
+
+        @media (max-width: 600px) {
+          max-width: 85%;
         }
+        h3 {
+          padding: 0 20px;
+          margin: 0;
+          position: absolute;
+          bottom: 10px;
+          left: 10px;
+          border-radius: 15px;
+          transition: padding 0.3s ease;
+          color: #2e2e2e;
+        }
+      }
 
-        &_icon {
-            width: 100%;
-            max-width: 250px;
-            height: 210px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: relative;
-            border-radius: 15px;
-
-            @media(max-width: 600px) {
-                max-width: 85%;
+      &_info {
+        width: calc(100% - 40px);
+        max-width: 310px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        @media (max-width: 600px) {
+          padding: 20px 0;
+        }
+        .socials {
+          flex: 0 0 100%;
+          padding: 0 20px;
+          a {
+            img {
+              width: 30px;
+              height: 30px;
+              &:hover {
+                -webkit-filter: hue-rotate(30deg);
+                filter: hue-rotate(30deg);
+              }
             }
-          h3 {
-            padding: 0 20px;
-            margin: 0;
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            border-radius: 15px;
-            transition: padding 0.3s ease;
-            color: #2e2e2e;
           }
         }
-
-        &_info {
-            width: calc(100% - 40px);
-            max-width: 310px;
-            padding: 20px;
-            display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    @media(max-width: 600px) {
-        padding: 20px 0;
-    }
-            .socials {
-                flex: 0 0 100%;
-                padding: 0 20px;
-                a {
-                    img {
-                        width: 30px;
-                        height: 30px;
-                        &:hover {
-                            -webkit-filter:hue-rotate(30deg);
-                                    filter:hue-rotate(30deg);
-                        }
-                    }
-                }
-            }
-        }
-
-  
-        &:hover {
-          color: #000;
-          h3 {
-            padding: 0 30px;
-          }
+      }
+      &:nth-child(3n) {
+        transform: rotate(1deg);
+      }
+      &:hover {
+        color: #000;
+        h3 {
+          padding: 0 30px;
         }
       }
     }
   }
-  
+}
