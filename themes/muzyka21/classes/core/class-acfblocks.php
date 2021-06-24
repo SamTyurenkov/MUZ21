@@ -8,8 +8,8 @@ class ACFBlocks
     public function __construct()
     {
         add_action('acf/init', ['Core\ACFBlocks', 'acf_init']);
+        
     }
-
 
 
     static function acf_init()
@@ -20,8 +20,8 @@ class ACFBlocks
             acf_register_block(array(
                 'name' => 'muzbanner',
                 //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz Banner'),
-                'description' => __('Muz Banner'),
+                'title' => __('Homepage Banner'),
+                'description' => __('Homepage Banner'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
@@ -31,8 +31,8 @@ class ACFBlocks
             acf_register_block(array(
                 'name' => 'muzfeatures',
                 //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz Features'),
-                'description' => __('Muz Features'),
+                'title' => __('General Features List'),
+                'description' => __('General Features List'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
@@ -42,8 +42,8 @@ class ACFBlocks
             acf_register_block(array(
                 'name' => 'muzallplaces',
                 //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz All Places'),
-                'description' => __('Muz All Places'),
+                'title' => __('General List All Places'),
+                'description' => __('General List All Places'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
@@ -52,24 +52,24 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'muzwavesevents',
-                'enqueue_assets' => ['Core\ACFBlocks','muzwavesevents_assets'],
-                'title' => __('Muz Waves Events'),
-                'description' => __('Muz Waves Events'),
+                'enqueue_assets' => ['Core\ACFBlocks', 'muzwavesevents_assets'],
+                'title' => __('General Events in Waves'),
+                'description' => __('General Events in Waves'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('waves','events'),
+                'keywords' => array('waves', 'events'),
             ));
 
             acf_register_block(array(
                 'name' => 'muzsidebanner',
                 //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz Side Banner'),
-                'description' => __('Muz Side Banner'),
+                'title' => __('General Side Banner'),
+                'description' => __('General Side Banner'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('waves','banner'),
+                'keywords' => array('waves', 'banner'),
             ));
 
             acf_register_block(array(
@@ -80,7 +80,7 @@ class ACFBlocks
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('service','banner'),
+                'keywords' => array('service', 'banner'),
             ));
 
             acf_register_block(array(
@@ -91,7 +91,7 @@ class ACFBlocks
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('place','banner','residents'),
+                'keywords' => array('place', 'banner', 'residents'),
             ));
 
             acf_register_block(array(
@@ -102,7 +102,7 @@ class ACFBlocks
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('places','list'),
+                'keywords' => array('places', 'list'),
             ));
 
             acf_register_block(array(
@@ -113,17 +113,16 @@ class ACFBlocks
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('shape','banner'),
+                'keywords' => array('shape', 'banner'),
             ));
-
         }
     }
 
-    static function block_render_callback($block,$content ='', $is_preview=false,$post_id = 0)
+    static function block_render_callback($block, $content = '', $is_preview = false, $post_id = 0)
     {
         // convert name ("acf/testimonial") into path friendly slug ("testimonial")
         $slug = str_replace('acf/', '', $block['name']);
-        set_query_var('post_id',$post_id);
+        set_query_var('post_id', $post_id);
         // include a template part from within the "template-parts/block" folder
         if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {
             include get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php");
@@ -133,6 +132,6 @@ class ACFBlocks
     static function muzwavesevents_assets()
     {
         wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array(), filemtime(get_template_directory() . '/js/splide.min.js'), true);
-        wp_enqueue_script('muzwavesevents', get_template_directory_uri() . '/js/gutenberg-blocks/muzwavesevents.js', array('jquery','splide'), filemtime(get_template_directory() . '/js/gutenberg-blocks/muzwavesevents.js'), true);
+        wp_enqueue_script('muzwavesevents', get_template_directory_uri() . '/js/gutenberg-blocks/muzwavesevents.js', array('jquery', 'splide'), filemtime(get_template_directory() . '/js/gutenberg-blocks/muzwavesevents.js'), true);
     }
 }

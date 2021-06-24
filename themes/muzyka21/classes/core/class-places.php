@@ -7,6 +7,7 @@ class Places
 	public function __construct()
 	{
 		add_action('init', ['Core\Places', 'post_type_places']);
+		add_action('init', ['Core\Places', 'register_post_template']);
 	}
 
 	//ADD Place POST TYPE
@@ -57,5 +58,16 @@ class Places
 			)
 		);
 	}
+
+	static function register_post_template()
+    {
+        $post_type_object = get_post_type_object('places');
+        $post_type_object->template = array(
+            array('acf/muzsidebanner'),
+			array('acf/muzfeatures'),
+			array('acf/place-residents'),
+			array('acf/muzwavesevents')
+        );
+    }
 
 }
