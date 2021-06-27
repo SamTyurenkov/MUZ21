@@ -35,8 +35,8 @@ $uid = wp_get_current_user()->ID;
 		<div class="container">
 			<div class="topbar">
 				<div class="topbar_left">
-					<div class="logo_shape"></div>
-					<a href="<?php echo esc_attr($my_home_url); ?>">MUZYKA<br>XXI</a>
+					
+					<a href="<?php echo esc_attr($my_home_url); ?>"><div class="logo_shape"></div><span>MUZYKA XXI</span></a>
 				</div>
 				<div class="topbar_center">
 					<?php

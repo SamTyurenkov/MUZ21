@@ -1,6 +1,18 @@
 $ = jQuery;
 $(document).ready(function () {
 
+  var scrolltos = document.querySelectorAll('.scrollto');
+  for (var j = 0; j < scrolltos.length; j++) {
+    scrolltos[j].addEventListener('click',function(e){
+      e.preventDefault();
+    var target = this.getAttribute('data-target');
+    $([document.documentElement, document.body]).animate({
+          scrollTop: $(target).offset().top-70
+      }, 700);
+    });
+  }	
+
+
   $('.menu_button').on('click', function () {
     $('.menu_mobile').toggleClass('visible');
   });
@@ -28,6 +40,26 @@ $(document).ready(function () {
     } else {
       $('.account_forms').css('display','flex');
     }
+  });
+
+  
+  anime.timeline({loop: false})
+  .add({
+    targets: 'h1, h2, h3',
+    scale: [0.9, 1],
+    duration: 2300,
+    elasticity: 300,
+    delay: (el, i) => 500 * i
+  });
+
+  anime.timeline({loop: true})
+  .add({
+    targets: '.shape, .shape3',
+    scale: [1, 0.9, 1.2, 1],
+    rotate: ['1turn','0turn'],
+    duration: 7300,
+    elasticity: 300,
+    delay: (el, i) => 700
   });
 
 });

@@ -11,6 +11,7 @@ module.exports = function () {
   $.gulp.task("scripts:site", () => {
     return $.gulp
       .src([
+        scriptsPATH.input + "anime.min.js",
         scriptsPATH.input + "errors_manager.js",
         scriptsPATH.input + "w3schools-select.js",
         scriptsPATH.input + "*.js",
@@ -20,11 +21,6 @@ module.exports = function () {
       ])
       .pipe(gulpif('!**/*.min.js', uglify({mangle: false})))
       .pipe(concat("main.js"))
-      .pipe(
-        babel({
-          presets: ["@babel/preset-env"],
-        })
-      )
       .pipe($.gulp.dest(scriptsPATH.output));
   });
   $.gulp.task("scripts:gutenberg", () => {
@@ -61,17 +57,13 @@ module.exports = function () {
   $.gulp.task("scripts:author-page", () => {
     return $.gulp
       .src([scriptsPATH.input + "author-page/*.js"])
-      .pipe(
+      .pipe(gulpif('!**/*.min.js',
         uglify({
           keep_fnames: true,
           mangle: false,
-        })
+        }))
       )
-      .pipe(
-        babel({
-          presets: ["@babel/preset-env"],
-        })
-      )
+      .pipe(concat("author_page.js"))
       .pipe($.gulp.dest(scriptsPATH.output+ "author-page/"));
   });
   $.gulp.task("scripts:libs", () => {

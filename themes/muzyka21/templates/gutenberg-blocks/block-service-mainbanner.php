@@ -13,9 +13,9 @@ $price = get_field('price', $post_id);
                     <p><?php echo esc_html(get_the_excerpt($post_id)); ?></p>
                 </div>
                 <div class="service-mainbanner_flex_button">
-                    <a class="button" href="#contacts">
+                    <div class="button scrollto" data-target="#contact_form">
                         <?php echo get_field('button_text'); ?>
-                    </a>
+                    </div>
                 </div>
             </div>
             <div class="service-mainbanner_flex_right">

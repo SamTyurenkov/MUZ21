@@ -1,7 +1,9 @@
 <?php
 
 namespace Core;
-
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly.
+}
 class ACFBlocks
 {
 
@@ -84,6 +86,17 @@ class ACFBlocks
             ));
 
             acf_register_block(array(
+                'name' => 'services-all-extended',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Services All Extended'),
+                'description' => __('Services All Extended'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('services', 'list'),
+            ));
+
+            acf_register_block(array(
                 'name' => 'place-residents',
                 //'enqueue_assets' => 'muzbanner_assets',
                 'title' => __('Muz Place Residents'),
@@ -114,6 +127,28 @@ class ACFBlocks
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
                 'keywords' => array('shape', 'banner'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'general-shapebanner-2',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Shape Banner 2'),
+                'description' => __('Shape Banner 2'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('shape', 'banner'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'general-contact-form',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('General Contact Form'),
+                'description' => __('General Contact Form'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('contact', 'form'),
             ));
         }
     }

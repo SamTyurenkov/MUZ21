@@ -1,21 +1,24 @@
 <?php
 
 namespace Core;
-
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly.
+}
 class Enqueues
 {
 	static $ajaxurl;
 	static $uid;
+	static $aid;
 	static $uname;
 	static $homeurl;
 
 	public function __construct()
 	{
+		global $wp_query;
 		Enqueues::$ajaxurl = admin_url('admin-ajax.php');
 		Enqueues::$uid = wp_get_current_user()->ID;
 		Enqueues::$uname = wp_get_current_user()->user_login;
 		Enqueues::$homeurl = apply_filters( 'wpml_home_url', get_option( 'home' ) );
-
 
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'site_scripts'], 999);
 		add_action('admin_enqueue_scripts', ['Core\Enqueues', 'back_scripts'], 999);
@@ -59,14 +62,14 @@ class Enqueues
 
 	static function author_page_scripts() {
 
-		if (is_author() && get_user_meta(Enqueues::$uid, 'valimail', true) == false) {
-			wp_enqueue_script('muzyka21-emailvalidation', get_template_directory_uri() . '/js/author-page/emailvalidation.js', array('jquery'), filemtime(get_template_directory() . '/js/author-page/emailvalidation.js'), true);
-			wp_localize_script('muzyka21-emailvalidation', 'localize', array(
+		 if (is_author() && (Enqueues::$uid == Enqueues::$aid || current_user_can('editor' || 'administrator'))) {
+			wp_enqueue_script('muzyka21-author_page', get_template_directory_uri() . '/js/author-page/author_page.js', array('jquery'), filemtime(get_template_directory() . '/js/author-page/author_page.js'), true);
+			wp_localize_script('muzyka21-author_page', 'localize', array(
 				'ajaxurl' => Enqueues::$ajaxurl,
 				'homeurl' => Enqueues::$homeurl,
 				'uid' => Enqueues::$uid,
-				'uname' => Enqueues::$uname
+				'uname' => Enqueues::$uname,
 			));
-		}
+		 }
 	}
 }

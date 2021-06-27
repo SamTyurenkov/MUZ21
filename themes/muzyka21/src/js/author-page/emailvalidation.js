@@ -18,16 +18,15 @@ var submit = document.getElementById("valisend");
                 action: 'valisend',
             },
             success: function(data, textStatus, jqXHR) {
-                console.log('val.success');
                 document.getElementById("valisend").style.pointerEvents = 'none';
                 document.getElementById("valisend").style.background = '#f2f2f2';
-                document.getElementById('validation').innerHTML = 'Письмо отправлено';
+                ErrorsManager.createEl('success','Письмо успешно отправлено'); 
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('val.error');
                 document.getElementById("valisend").style.pointerEvents = 'none';
                 document.getElementById("valisend").style.background = '#f2f2f2';
-                document.getElementById('validation').innerHTML = textStatus;
+                ErrorsManager.createEl('error','Ошибка: ' + textStatus);
             }
         })
     }, true);

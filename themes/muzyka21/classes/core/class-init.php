@@ -1,12 +1,21 @@
 <?php
 
 namespace Core;
-
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly.
+}
 class Init
 {
 
+	static $techemail;
+
 	public function __construct()
 	{
+		if(str_contains(home_url(),'windowspros')) {
+			$techemail = 'no-reply@asp.sale';
+		} else {
+			$techemail = '';
+		}
 		define('OPTIONS_SLUG', 'muz21');
 		define('LANGUAGE_SLUG', 'muz21');
 		add_theme_support('post-thumbnails');
@@ -128,6 +137,12 @@ class Init
 			acf_add_options_sub_page(array(
 				'page_title' 	=> 'Events Page',
 				'menu_title'	=> 'Events',
+				'parent_slug'	=> 'theme-general-settings',
+			));
+
+			acf_add_options_sub_page(array(
+				'page_title' 	=> 'Contact Forms',
+				'menu_title'	=> 'Forms',
 				'parent_slug'	=> 'theme-general-settings',
 			));
 		}

@@ -1,7 +1,9 @@
 <?php
 
 namespace Core;
-
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly.
+}
 class Places
 {
 	public function __construct()

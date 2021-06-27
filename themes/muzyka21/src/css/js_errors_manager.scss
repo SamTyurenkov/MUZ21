@@ -1,0 +1,43 @@
+.errors {
+    position: fixed !important;
+    width: calc(100% - 20px) !important;
+    z-index: 9999999999;
+    bottom: 0;
+    pointer-events: none;
+
+    &_el {
+        display: block;
+        width: 250px;
+        position: relative;
+        padding: 10px;
+        padding-right: 40px;
+        background: #fff;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        pointer-events: all;
+        transition: all 0.5s;
+    }
+    &_good {
+        box-shadow: 0 0 2px #e0e0e0;
+    }
+    &_bad {
+        box-shadow: 0 0 2px #d03030;
+    }
+    &_close {
+        background: #ffffff;
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        font-weight: 600;
+        line-height: 26px;
+        font-size: 15px;
+        color: #d03030;
+        border-radius: 5px;
+        right: 5px;
+        top: 5px;
+        text-align: center; 
+        transition: all 0.4s;
+        cursor: pointer;
+    }	
+}
+

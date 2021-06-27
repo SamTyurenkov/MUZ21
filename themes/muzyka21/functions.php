@@ -17,9 +17,11 @@ new Core\Enqueues();
 new Core\Auth();
 new Core\Menu();
 new Core\ACFBlocks();
+new Core\Authors();
 $gplaces = new Core\Places();
 $gevents = new Core\Events();
 $gservices = new Core\Services();
+
 
 //CRON DELETE USERS
 if (!wp_next_scheduled( 'my_weeklyClearOut' ))
