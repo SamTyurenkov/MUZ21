@@ -1,5 +1,7 @@
 <?php 
-$titletype = get_field('title_type'); ?>
+$titletype = get_field('title_type'); 
+$image = get_field('image'); 
+?>
 <div class="general-shapebanner">
         
         <img class="shape3" src="<?php echo get_template_directory_uri() . '/images/shapes/shape5.svg'; ?>">

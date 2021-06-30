@@ -1,8 +1,8 @@
 .muzfeatures {
     background: #d64367;
     background: linear-gradient(
-0deg
-, #f26b41 43%, #d64367 100%);
+        0deg
+        ,#f26b41 43%,#d64367 67%);
 
     &_flex{
         display: flex;
@@ -23,6 +23,14 @@
                 flex: 0 0 calc(100% - 40px);
             }
         }
+    }
+
+    .wavestart {
+        position: relative;
+        height: 130px;
+        width: 100%;
+        background: #fff;
+        display: block;
     }
     .wavesend {
         position: relative;

@@ -14,6 +14,7 @@
   max-width: 100%;
   min-height: 100px;
   background: #f2f2f2;
+  overflow: hidden;
 }
 
 h1,
@@ -105,6 +106,7 @@ body {
 }
 
 .content {
+  overflow-x: hidden;
   p,
   h1,
   h2,
@@ -128,7 +130,7 @@ body {
 }
 
 header {
-  background: #fff;
+
   .topbar {
     display: flex;
     flex-wrap: wrap;

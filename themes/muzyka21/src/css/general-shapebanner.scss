@@ -11,12 +11,14 @@
   }
   &_text {
     position: relative;
-    top: 50px;
     padding: 20px;
     text-align: center;
     max-width: 1024px;
-    margin: 0 auto;
+    margin: 70px auto;
     max-width: 550px;
+    @media(max-width: 1023px) {
+      margin: 0 auto 40px;
+    }
     p {
       padding: 0;
     }
@@ -26,8 +28,22 @@
     position: absolute;
     max-width: 200px;
     left: 10%;
-    @media(max-width:992px) {
+    @media(max-width:1200px) {
+      left: 2%;
+    }
+    @media (max-width: 992px) {
       left: 40%;
+      top: 50px;
+    }
+  }
+  .image2 {
+    position: absolute;
+    right: 10%;
+    width: 200px;
+    transform: rotate(5deg);
+    @media (max-width: 1023px) {
+      right: 30%;
+      top: 70px;
     }
   }
   .shape {
@@ -36,9 +52,11 @@
     position: absolute;
     right: 10%;
     bottom: -65px;
-    @media(max-width:992px) {
+    z-index: -1;
+    @media (max-width: 1023px) {
       position: relative;
-      left: 20%;
+      left: calc(50% - 175px);
+      bottom: 0;
     }
   }
   .shape2 {
@@ -53,15 +71,18 @@
     }
   }
   .shape3 {
-    width: 950px;
+    width: 650px;
     max-width: 100%;
     position: absolute;
-    top: -100%;
-    left: 9%;
+    top: 0;
+    right: -1%;
+    z-index: -1;
+    max-height: 100%;
     @media (max-width: 1023px) {
+      position: relative;
       top: -10%;
       width: 350px;
-      left:0;
+      left: 20%;
     }
   }
 }

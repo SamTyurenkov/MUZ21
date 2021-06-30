@@ -1,4 +1,12 @@
 .muzallplaces {
+  &_title {
+    text-align: center;
+  }
+
+  &_description {
+    text-align: center;
+  }
+
   &_flex {
     display: flex;
     flex-wrap: wrap;

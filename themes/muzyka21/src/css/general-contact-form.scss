@@ -5,6 +5,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    overflow: hidden;
     &_banner {
       border-radius: 15px;
       height: 600px;
