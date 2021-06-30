@@ -8,12 +8,12 @@ WPML_String_Translation.ChangeTranslationPriority = function () {
     var privateData = {};
 
     var init = function () {
-        jQuery(document).ready(function () {
+        jQuery(function () {
             privateData.translation_priority_select = jQuery('#icl-st-change-translation-priority-selected');
-            privateData.translation_priority_select.on( 'change', applyChanges );
+            privateData.translation_priority_select.on('change', applyChanges);
 
             privateData.spinner = jQuery('.icl-st-change-spinner');
-            privateData.spinner.detach().insertAfter( privateData.translation_priority_select );
+            privateData.spinner.detach().insertAfter(privateData.translation_priority_select);
 
             initializeSelect2();
         });

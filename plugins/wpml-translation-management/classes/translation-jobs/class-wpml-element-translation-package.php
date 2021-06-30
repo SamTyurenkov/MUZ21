@@ -10,6 +10,7 @@ use function \WPML\FP\curryN;
 use function \WPML\FP\pipe;
 use function \WPML\FP\invoke;
 use WPML\TM\Jobs\Utils;
+use WPML\FP\Relation;
 
 /**
  * Class WPML_Element_Translation_Package
@@ -38,9 +39,9 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 	/**
 	 * Create translation package
 	 *
-	 * @param object|int $post
+	 * @param \WPML_Package|\WP_Post|int $post
 	 *
-	 * @return array
+	 * @return array<string,string|array<string,string>>
 	 */
 	public function create_translation_package( $post ) {
 
@@ -92,14 +93,13 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 			}
 
 			$post_contents = array_merge( $post_contents, $this->get_taxonomy_fields( $post ) );
-			$type = 'post';
+			$type          = 'post';
 		}
 		$package['contents']['original_id'] = array(
 			'translate' => 0,
 			'data'      => $original_id,
 		);
 		$package['type']                    = $type;
-
 
 		$package['contents'] = $this->buildEntries( $package['contents'], $post_contents );
 
@@ -437,30 +437,42 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 		};
 
 		// $getTermMetaFields :: [metakeys] → WP_Term → [[fieldId, fieldVal]]
-		$getTermMetaFields = curryN( 2, function ( $termMetaKeysToTranslate, $term ) {
+		$getTermMetaFields = curryN(
+			2,
+			function ( $termMetaKeysToTranslate, $term ) {
 
-			// $getMeta :: int → string → object
-			$getMeta = curryN( 2, function ( $termId, $key ) {
-				return (object) [ 'id' => $termId, 'key' => $key, 'meta' => get_term_meta( $termId, $key ) ];
-			} );
+				// $getMeta :: int → string → object
+				$getMeta = curryN(
+					2,
+					function ( $termId, $key ) {
+						return (object) [
+							'id'   => $termId,
+							'key'  => $key,
+							'meta' => get_term_meta( $termId, $key ),
+						];
+					}
+				);
 
-			// $hasMeta :: object → bool
-			$hasMeta = function ( $termData ) { return isset( $termData->meta[0] ); };
+				// $hasMeta :: object → bool
+				$hasMeta = function ( $termData ) {
+					return isset( $termData->meta[0] );
+				};
 
-			// $makeField :: object → [fieldId, $fieldVal]
-			$makeField = function ( $termData ) {
-				return [ FieldId::forTermMeta( $termData->id, $termData->key ), $termData->meta[0] ];
-			};
+				// $makeField :: object → [fieldId, $fieldVal]
+				$makeField = function ( $termData ) {
+					return [ FieldId::forTermMeta( $termData->id, $termData->key ), $termData->meta[0] ];
+				};
 
-			// $get :: [metakeys] → [[fieldId, $fieldVal]]
-			$get = pipe(
-				Fns::map( $getMeta( $term->term_taxonomy_id ) ),
-				Fns::filter( $hasMeta ),
-				Fns::map( $makeField )
-			);
+				// $get :: [metakeys] → [[fieldId, $fieldVal]]
+				$get = pipe(
+					Fns::map( $getMeta( $term->term_taxonomy_id ) ),
+					Fns::filter( $hasMeta ),
+					Fns::map( $makeField )
+				);
 
-			return $get( $termMetaKeysToTranslate );
-		} );
+				return $get( $termMetaKeysToTranslate );
+			}
+		);
 
 		// $getAll :: [WP_Term] → [[fieldId, fieldVal]]
 		$getAll = Fns::converge( Lst::concat(), [ $getTermFields, $getTermMetaFields( $termMetaKeysToTranslate ) ] );
@@ -477,6 +489,18 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 
 	public static function getTermMetaKeysToTranslate() {
 		$fieldTranslation = new WPML_Custom_Field_Setting_Factory( self::get_core_translation_management() );
-		return $fieldTranslation->get_term_meta_keys();
+
+		$settingsFactory      = self::get_core_translation_management()->settings_factory();
+
+		$translatableMetaKeys = pipe(
+			[ $settingsFactory, 'term_meta_setting' ],
+			invoke( 'status' ),
+			Relation::equals( WPML_TRANSLATE_CUSTOM_FIELD )
+		);
+
+		return wpml_collect( $fieldTranslation->get_term_meta_keys() )
+			->filter( $translatableMetaKeys )
+			->values()
+			->toArray();
 	}
 }

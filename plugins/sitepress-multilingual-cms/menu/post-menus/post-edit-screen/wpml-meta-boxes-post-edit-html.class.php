@@ -255,6 +255,7 @@ class WPML_Meta_Boxes_Post_Edit_HTML {
 					</select>
 					<?php //Add hidden value when the dropdown is hidden ?>
 					<?php
+					$source_element_id = SitePress::get_original_element_id_by_trid( $this->get_trid() );
 					if ( $disabled && ! empty( $source_element_id ) ) {
 						?>
 						<input type="hidden" name="icl_translation_of" id="icl_translation_of_hidden" value="<?php echo esc_attr( $source_element_id ); ?>">
@@ -842,7 +843,7 @@ class WPML_Meta_Boxes_Post_Edit_HTML {
 				if ( ! $this->is_original ) {
 					$selected_content_language_details = $this->sitepress->get_element_translations( $selected_content_translation,
 					                                                                                 'post_' . $this->post->post_type );
-					if ( isset( $selected_content_language_details ) && isset( $selected_content_language_details->source_language_code ) ) {
+					if (isset( $selected_content_language_details->source_language_code ) ) {
 						$this->source_language = $selected_content_language_details->source_language_code;
 					}
 				}

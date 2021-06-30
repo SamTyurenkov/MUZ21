@@ -133,7 +133,6 @@ class LanguageSwitch implements \IWPML_Action {
 	}
 
 	private function resetTranslationAvailabilityInformation() {
-		/** @var \WP_Textdomain_Registry|null $wp_textdomain_registry */
 		global $wp_textdomain_registry;
 
 		if ( $wp_textdomain_registry ) {

@@ -107,6 +107,7 @@ return array(
     'WPML\\TM\\TranslationProxy\\Services\\Project\\SiteDetails' => $baseDir . '/classes/translation-proxy/services/Project/SiteDetails.php',
     'WPML\\TM\\TranslationProxy\\Services\\Project\\Storage' => $baseDir . '/classes/translation-proxy/services/Project/Storage.php',
     'WPML\\TM\\TranslationProxy\\Services\\Storage' => $baseDir . '/classes/translation-proxy/services/Storage.php',
+    'WPML\\TM\\Troubleshooting\\ResetPreferredTranslationService' => $baseDir . '/classes/troubleshooting/ResetPreferredTranslationService.php',
     'WPML\\TM\\Troubleshooting\\SynchronizeSourceIdOfATEJobs\\TriggerSynchronization' => $baseDir . '/classes/troubleshooting/SynchronizeSourceIdOfATEJobs/TriggerSynchronization.php',
     'WPML\\TM\\Upgrade\\Commands\\CreateAteDownloadQueueTable' => $baseDir . '/classes/upgrade/commands/CreateAteDownloadQueueTable.php',
     'WPML\\TM\\Upgrade\\Commands\\MigrateAteRepository' => $baseDir . '/classes/upgrade/commands/MigrateAteRepository.php',

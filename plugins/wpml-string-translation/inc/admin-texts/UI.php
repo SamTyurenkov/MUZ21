@@ -16,7 +16,7 @@ class UI implements \IWPML_Backend_Action_Loader {
 	// shouldShow :: Collection -> bool
 	public static function shouldShow( Collection $data ) {
 		return $data->get( 'page' ) === WPML_ST_FOLDER . '/menu/string-translation.php' &&
-		       (int) $data->get( 'trop' ) === 1;
+			   (int) $data->get( 'trop' ) === 1;
 	}
 
 
@@ -45,5 +45,6 @@ class UI implements \IWPML_Backend_Action_Loader {
 					->then( Resources::enqueueApp( 'admin-strings' ) );
 			};
 		}
+		return null;
 	}
 }

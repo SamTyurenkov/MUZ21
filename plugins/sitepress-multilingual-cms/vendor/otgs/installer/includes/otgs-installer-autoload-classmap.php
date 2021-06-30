@@ -96,6 +96,7 @@ return [
 	'OTGS\Installer\Templates\Repository\Refunded'           => $baseDir . '/templates/repository-refunded.php',
 	'OTGS\Installer\Templates\Repository\EndUsers'           => $baseDir . '/templates/repository-end-users.php',
 	'OTGS\Installer\Templates\Repository\Registered'         => $baseDir . '/templates/repository-registered.php',
+	'OTGS\Installer\Templates\Repository\LegacyFree'         => $baseDir . '/templates/repository-legacy-free.php',
 	'OTGS\Installer\Templates\Repository\RegisteredButtons'  => $baseDir . '/templates/repository-registered-buttons.php',
 	'OTGS\Installer\Rest\Push'                               => $baseDir . '/includes/rest/Push.php',
 	'OTGS\Installer\Recommendations\RecommendationsManager'        => $baseDir . '/src/Recommendations/RecommendationsManager.php',
@@ -103,4 +104,7 @@ return [
 	'OTGS\Installer\Recommendations\Storage'                       => $baseDir . '/src/Recommendations/Storage.php',
 	'OTGS\Installer\AdminNotices\Notices\Recommendation'           => $baseDir . '/includes/admin-notices/notices/Recommendation.php',
 	'OTGS\Installer\AdminNotices\Notices\Dismissions'              => $baseDir . '/includes/admin-notices/notices/Dismissions.php',
+	'OTGS\Installer\Loader\Config'                              => $baseDir . '/includes/loader/Config.php',
+	'OTGS\Installer\CommercialTab\SectionsManager'                 => $baseDir . '/includes/products/commercial-tab/SectionsManager.php',
+	'OTGS\Installer\CommercialTab\DownloadsList'                   => $baseDir . '/includes/products/commercial-tab/DownloadsList.php',
 ];

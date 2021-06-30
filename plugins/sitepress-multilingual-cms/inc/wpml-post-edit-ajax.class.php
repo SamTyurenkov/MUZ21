@@ -36,6 +36,18 @@ class WPML_Post_Edit_Ajax {
 
 	}
 
+	/**
+	 * @param \SitePress          $sitepress
+	 * @param string              $lang
+	 * @param string              $taxonomy
+	 * @param string              $slug
+	 * @param string              $name
+	 * @param int                 $trid
+	 * @param string              $description
+	 * @param array<string,mixed> $meta_data
+	 *
+	 * @return \WP_Term|false
+	 */
 	public static function save_term_ajax( $sitepress, $lang, $taxonomy, $slug, $name, $trid, $description, $meta_data ) {
 		$new_term_object = false;
 
@@ -64,8 +76,13 @@ class WPML_Post_Edit_Ajax {
 			if ( $res && isset( $res[ 'term_taxonomy_id' ] ) ) {
 				/* res holds the term taxonomy id, we return the whole term objects to the ajax call */
 				$switch_lang = new WPML_Temporary_Switch_Language( $sitepress, $lang );
-				$new_term_object                = get_term_by( 'term_taxonomy_id', (int) $res[ 'term_taxonomy_id' ], $taxonomy );
+				/**
+				 * @var \WP_Term|\stdClass $new_term_object A few lines below, we are adding properties that WP_Term does not have.
+				 *                                          We should probably improve this code and use a specialized object instead.
+				 */
+				$new_term_object = get_term_by( 'term_taxonomy_id', (int) $res['term_taxonomy_id'], $taxonomy );
 				$switch_lang->restore_lang();
+
 				$lang_details                   = $sitepress->get_element_language_details( $new_term_object->term_taxonomy_id, 'tax_' . $new_term_object->taxonomy );
 				$new_term_object->trid          = $lang_details->trid;
 				$new_term_object->language_code = $lang_details->language_code;
@@ -150,9 +167,9 @@ class WPML_Post_Edit_Ajax {
 	/**
 	 * Gets the content of a custom posts custom field , its excerpt as well as its title and returns it as an array
 	 *
-	 * @param  WP_post $post
+	 * @param \WP_Post $post
 	 *
-	 * @return array
+	 * @return array<string,string|array<string,string>>
 	 */
 	public static function copy_from_original_custom_fields( $post ) {
 

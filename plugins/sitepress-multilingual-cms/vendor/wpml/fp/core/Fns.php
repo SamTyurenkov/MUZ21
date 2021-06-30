@@ -83,6 +83,7 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable|object makeN( ...$argCount, ...$className ) - Curried :: int → string → object
  * @method static callable unary( ...$fn ) - Curried:: ( * → b ) → ( a → b )
  * @method static callable|mixed memorizeWith( ...$cacheKeyFn, ...$fn ) - Curried :: ( *… → String ) → ( *… → a ) → ( *… → a )
+ * @method static callable|mixed memorize( ...$fn ) - Curried :: ( *… → a ) → ( *… → a )
  * @method static callable|mixed once( ...$fn ) - Curried :: ( *… → a ) → ( *… → a )
  * @method static callable|mixed withNamedLock( ...$name, ...$returnFn, ...$fn ) - Curried :: String → ( *… → String ) → ( *… → a ) → ( *… → a )
  *
@@ -321,6 +322,11 @@ class Fns {
 				return $result;
 			};
 		} ) );
+
+		self::macro(
+			'memorize',
+			self::memorizeWith( gatherArgs( pipe( Fns::map( 'json_encode'), Lst::join('|') ) ) )
+		);
 
 		self::macro( 'once', curryN( 1, function ( $fn ) {
 			return function () use ( $fn ) {

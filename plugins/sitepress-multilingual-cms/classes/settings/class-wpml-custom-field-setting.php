@@ -27,7 +27,8 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 		return in_array(
 			$this->index,
 			$this->tm_instance->settings[ $this->get_array_setting_index( 'readonly_config' ) ],
-			true );
+			true
+		);
 	}
 
 	/**
@@ -36,7 +37,7 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 	public function is_unlocked() {
 
 		return isset( $this->tm_instance->settings[ $this->get_unlocked_setting_index() ][ $this->index ] ) &&
-		     (bool) $this->tm_instance->settings[ $this->get_unlocked_setting_index() ][ $this->index ];
+			 (bool) $this->tm_instance->settings[ $this->get_unlocked_setting_index() ][ $this->index ];
 	}
 
 	/**
@@ -45,10 +46,10 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 	public function excluded() {
 
 		return in_array( $this->index, $this->get_excluded_keys() ) ||
-		       ( $this->is_read_only() &&
-		         $this->status() === WPML_IGNORE_CUSTOM_FIELD &&
-		         ! $this->is_unlocked()
-		       );
+			   ( $this->is_read_only() &&
+				 $this->status() === WPML_IGNORE_CUSTOM_FIELD &&
+				 ! $this->is_unlocked()
+			   );
 	}
 
 	public function status() {
@@ -111,17 +112,20 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 	}
 
 	public function set_translate_link_target( $state, $sub_fields ) {
-		if ( isset( $sub_fields[ 'value' ] ) ) {
+		if ( isset( $sub_fields['value'] ) ) {
 			// it's a single sub field
 			$sub_fields = array( $sub_fields );
 		}
-		$this->tm_instance->settings[ $this->get_array_setting_index( 'translate_link_target' ) ][ $this->index ] = array( 'state' => $state, 'sub_fields' => $sub_fields );
+		$this->tm_instance->settings[ $this->get_array_setting_index( 'translate_link_target' ) ][ $this->index ] = array(
+			'state'      => $state,
+			'sub_fields' => $sub_fields,
+		);
 	}
 
 	public function is_translate_link_target() {
 		$array_index = $this->get_array_setting_index( 'translate_link_target' );
 		return isset( $this->tm_instance->settings[ $array_index ][ $this->index ] ) ?
-					( $this->tm_instance->settings[ $array_index ][ $this->index ][ 'state' ] ||
+					( $this->tm_instance->settings[ $array_index ][ $this->index ]['state'] ||
 					  $this->get_translate_link_target_sub_fields() ) :
 					false;
 
@@ -129,8 +133,8 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 
 	public function get_translate_link_target_sub_fields() {
 		$array_index = $this->get_array_setting_index( 'translate_link_target' );
-		return isset( $this->tm_instance->settings[ $array_index ][ $this->index ][ 'sub_fields' ] ) ?
-					$this->tm_instance->settings[ $array_index ][ $this->index ][ 'sub_fields' ] :
+		return isset( $this->tm_instance->settings[ $array_index ][ $this->index ]['sub_fields'] ) ?
+					$this->tm_instance->settings[ $array_index ][ $this->index ]['sub_fields'] :
 					array();
 	}
 
@@ -187,18 +191,18 @@ abstract class WPML_Custom_Field_Setting extends WPML_TM_User {
 	/**
 	 * @return string
 	 */
-	protected abstract function get_state_array_setting_index();
+	abstract protected function get_state_array_setting_index();
 
-	protected abstract function get_unlocked_setting_index();
+	abstract protected function get_unlocked_setting_index();
 
 	/**
 	 * @return  string[]
 	 */
-	protected abstract function get_excluded_keys();
+	abstract protected function get_excluded_keys();
 
 	/**
 	 * @return string
 	 */
-	protected abstract function get_setting_prefix();
+	abstract protected function get_setting_prefix();
 
 }

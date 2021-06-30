@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd323294ea67c67bf378120844b2b325a
+class ComposerStaticInitae978ca6248827129b0bbd0dc73ad82b
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -112,6 +112,7 @@ class ComposerStaticInitd323294ea67c67bf378120844b2b325a
         'WPML\\TM\\TranslationProxy\\Services\\Project\\SiteDetails' => __DIR__ . '/../..' . '/classes/translation-proxy/services/Project/SiteDetails.php',
         'WPML\\TM\\TranslationProxy\\Services\\Project\\Storage' => __DIR__ . '/../..' . '/classes/translation-proxy/services/Project/Storage.php',
         'WPML\\TM\\TranslationProxy\\Services\\Storage' => __DIR__ . '/../..' . '/classes/translation-proxy/services/Storage.php',
+        'WPML\\TM\\Troubleshooting\\ResetPreferredTranslationService' => __DIR__ . '/../..' . '/classes/troubleshooting/ResetPreferredTranslationService.php',
         'WPML\\TM\\Troubleshooting\\SynchronizeSourceIdOfATEJobs\\TriggerSynchronization' => __DIR__ . '/../..' . '/classes/troubleshooting/SynchronizeSourceIdOfATEJobs/TriggerSynchronization.php',
         'WPML\\TM\\Upgrade\\Commands\\CreateAteDownloadQueueTable' => __DIR__ . '/../..' . '/classes/upgrade/commands/CreateAteDownloadQueueTable.php',
         'WPML\\TM\\Upgrade\\Commands\\MigrateAteRepository' => __DIR__ . '/../..' . '/classes/upgrade/commands/MigrateAteRepository.php',
@@ -643,7 +644,7 @@ class ComposerStaticInitd323294ea67c67bf378120844b2b325a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitd323294ea67c67bf378120844b2b325a::$classMap;
+            $loader->classMap = ComposerStaticInitae978ca6248827129b0bbd0dc73ad82b::$classMap;
 
         }, null, ClassLoader::class);
     }

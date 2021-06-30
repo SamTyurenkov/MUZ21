@@ -53,7 +53,7 @@ class WPML_Endpoints_Support {
 
 					$endpoint_translation = $this->get_endpoint_translation( $endpoint_key, $endpoint_value );
 
-					if ( $endpoint_value !== $endpoint_translation ) {
+					if ( $endpoint_value !== urldecode( $endpoint_translation ) ) {
 						add_rewrite_endpoint( $endpoint_translation, EP_ROOT | EP_PAGES );
 					}
 				}
@@ -128,7 +128,7 @@ class WPML_Endpoints_Support {
 
 					$endpoint_translation = $this->get_endpoint_translation( $endpoint_key, $endpoint_value );
 
-					if ( $endpoint_value === $endpoint_translation ) {
+					if ( $endpoint_value === urldecode( $endpoint_translation ) ) {
 						continue;
 					}
 
@@ -147,7 +147,7 @@ class WPML_Endpoints_Support {
 	}
 
 	/**
-	 * @param string $p
+	 * @param string $link
 	 * @param int $pid
 	 *
 	 * @return string

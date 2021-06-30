@@ -37,13 +37,16 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		$this->language_codes_map = apply_filters( 'wpml_language_codes_map', $this->language_codes_map );
 
 		$this->language_codes_reverse_map = array_flip( $this->language_codes_map );
-
-		$this->add_hooks();
 	}
 
 	public function add_hooks() {
 		add_filter( 'rest_url', [ $this, 'convertRestUrl' ] );
 	}
+
+	public function remove_hooks() {
+		remove_filter( 'rest_url', [ $this, 'convertRestUrl' ] );
+	}
+
 
 	/**
 	 * @param string $url
@@ -66,7 +69,7 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		if ( $lang && in_array( $lang, $this->active_languages, true ) ) {
 			return $lang;
 		}
-		
+
 		return $this->use_directory_for_default_lang ? null : $this->default_language;
 	}
 
@@ -147,10 +150,10 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 	 * @return bool
 	 */
 	private function is_root_url( $url ) {
-		$result  = false;
+		$result = false;
 
 		if ( isset( $this->urls_settings['root_page'], $this->urls_settings['show_on_root'] ) &&
-		     'page' === $this->urls_settings['show_on_root'] &&
+			 'page' === $this->urls_settings['show_on_root'] &&
 			! empty( $this->urls_settings['directory_for_default_language'] )
 		) {
 
@@ -197,7 +200,7 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 	}
 
 	/**
-	 * @param $url
+	 * @param string $url
 	 *
 	 * @return string
 	 */
@@ -215,7 +218,7 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		}
 
 		return $url_path;
-}
+	}
 
 	/**
 	 * @param string $url_path

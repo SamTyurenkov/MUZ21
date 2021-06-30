@@ -48,7 +48,7 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 				'label' => __( 'Display on language:', 'sitepress' ),
 			),
 			'languages'         => $languages,
-			'selected_language' => Obj::propOr( 'all', 'wpml_language', $instance ),
+			'selected_language' => Obj::propOr( 'all', 'wpml_language', is_array( $instance ) ? $instance : [] ),
 			'nonce'             => wp_create_nonce( self::NONCE ),
 		);
 

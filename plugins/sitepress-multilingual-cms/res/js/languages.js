@@ -1,10 +1,10 @@
 /*jslint browser: true, nomen: true, laxbreak: true*/
-/*global ajaxurl, iclSaveForm, iclSaveForm_success_cb, jQuery, alert, confirm, icl_ajx_url, icl_ajx_saved, icl_ajxloaderimg, icl_default_mark, icl_ajx_error, fadeInAjxResp */
+/*global WPML_core, ajaxurl, iclSaveForm, iclSaveForm_success_cb, jQuery, alert, confirm, icl_ajx_url, icl_ajx_saved, icl_ajxloaderimg, icl_default_mark, icl_ajx_error, fadeInAjxResp */
 
 (function () {
     "use strict";
 
-    jQuery(document).ready(function () {
+    jQuery(function () {
         var icl_hide_languages;
 
         var compatibilityNextButton = jQuery('#icl_setup_next_5');
@@ -70,7 +70,7 @@
                 url: icl_ajx_url,
                 data: "icl_ajx_action=setup_got_to_step" + step + "&_icl_nonce=" + jQuery('#_icl_nonce_gts' + step).val(),
                 success: function () {
-                    location.href = location.href.replace(/#[\w\W]*/, '');
+                    location.href = WPML_core.sanitize(location.href).replace(/#[\w\W]*/, '');
                 }
             });
 
@@ -213,7 +213,7 @@
                     enabled_languages.find('input[value="' + response.data.previousLanguage + '"]').parent().html(enabled_languages.find('input[value="' + response.data.previousLanguage + '"]').parent().html().replace('(' + icl_default_mark + ')', ''));
                     doneEditingDefaultLanguage();
                     fadeInAjxResp('#icl_ajx_response', icl_ajx_saved);
-                    location.href = location.href.replace(/#[\w\W]*/, '') + '&setup=2';
+                    location.href = WPML_core.sanitize(location.href).replace(/#[\w\W]*/, '') + '&setup=2';
                 } else {
                     fadeInAjxResp('#icl_ajx_response', icl_ajx_error);
                 }
@@ -254,13 +254,13 @@
                     if (!response.data.noLanguages) {
                         fadeInAjxResp('#icl_ajx_response', icl_ajx_saved);
                         jQuery('#icl_enabled_languages').html(response.data.enabledLanguages);
-                        location.href = location.href.replace(/#[\w\W]*/, '');
+                        location.href = WPML_core.sanitize(location.href).replace(/#[\w\W]*/, '');
                     } else {
-                        location.href = location.href.replace(/(#|&)[\w\W]*/, '');
+                        location.href = WPML_core.sanitize(location.href).replace(/(#|&)[\w\W]*/, '');
                     }
                 } else {
                     fadeInAjxResp('#icl_ajx_response', icl_ajx_error, true);
-                    location.href = location.href.replace(/(#|&)[\w\W]*/, '');
+                    location.href = WPML_core.sanitize(location.href).replace(/(#|&)[\w\W]*/, '');
                 }
             }
         });
@@ -547,7 +547,7 @@
                 url: icl_ajx_url,
                 data: "icl_ajx_action=reset_languages&_icl_nonce=" + jQuery('#_icl_nonce_rl').val(),
                 success: function () {
-                    location.href = location.pathname + location.search;
+                    location.href = WPML_core.sanitize(location.pathname + location.search);
                 }
             });
         }
@@ -564,9 +564,9 @@
             success: function (msg) {
                 var spl = msg.split('|');
                 if (spl[1]) {
-                    location.href = spl[1];
+                    location.href = WPML_core.sanitize( spl[1] );
                 } else {
-                    location.href = location.href.replace(/#[\w\W]*/, '');
+                    location.href = WPML_core.sanitize(location.href).replace(/#[\w\W]*/, '');
                 }
             }
         });
@@ -627,11 +627,11 @@ function installer_registration_form_submit(){
                     }
                     thisf.find(':submit[name=finish]').prop('disabled', false);
                 } else {
-                    location.href = location.href.replace(/#[\w\W]*/, '');
+                    location.href = WPML_core.sanitize(location.href).replace(/#[\w\W]*/, '');
                 }
             },
             fail: function (xhr, status, error) {
-                var err = eval(status + ': ' + (xhr.responseText));
+                var err = 'Request failed: ' + status;
                 thisf.find('.status_msg').html(err).addClass('icl_error_text');
                 thisf.find(':button[name=save]').prop('disabled', false);
             }
@@ -667,12 +667,10 @@ function installer_registration_form_submit(){
 		        dataType: 'json',
 		        data: "icl_ajx_action=recommendations_form_submit&" + thisf.serialize(),
 		        success: function () {
-			        location.href = location.href.replace( /#[\w\W]*/, '' );
+			        location.href = WPML_core.sanitize(location.href).replace( /#[\w\W]*/, '' );
 		        },
 		        fail: function ( xhr, status, error ) {
-			        var err = eval( status + ': ' + (
-				        xhr.responseText
-			        ) );
+			        var err = 'Request failed: ' + status;
 			        thisf.find( '.status_msg' ).html( err ).addClass( 'icl_error_text' );
 			        thisf.find(':submit[name=finish]').prop('disabled', false);
 		        }

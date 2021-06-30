@@ -432,7 +432,7 @@ function tm_after_load() {
 		require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy.class.php';
 		require_once WPML_TM_PATH . '/inc/ajax.php';
 
-		(new ClassicEditorActions())->addHooks();
+		( new ClassicEditorActions() )->addHooks();
 
 		wpml_tm_load_job_factory();
 		wpml_tm_init_mail_notifications();
@@ -698,8 +698,7 @@ function wpml_tm_get_ate_jobs_repository() {
 
 	if ( ! $instance ) {
 		return new WPML_TM_ATE_Job_Repository(
-			wpml_tm_get_jobs_repository(),
-			wpml_tm_get_ate_job_records()
+			wpml_tm_get_jobs_repository()
 		);
 	}
 
@@ -835,9 +834,9 @@ function wpml_tm_ate_ams_log( WPML\TM\ATE\Log\Entry $entry ) {
 }
 
 /**
- * @param  string  $original
- * @param  string  $translation
- * @param  bool  $finished_state
+ * @param  string $original
+ * @param  string $translation
+ * @param  bool   $finished_state
  *
  * @return WPML_TM_Translated_Field
  */

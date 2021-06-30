@@ -2,10 +2,10 @@
 /**
  * Plugin Name: WPML Translation Management
  * Plugin URI: https://wpml.org/
- * Description: Add a complete translation process for WPML | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/translation-management-2-10-3/">WPML Translation Management 2.10.3 release notes</a>
+ * Description: Add a complete translation process for WPML | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/translation-management-2-10-6/">WPML Translation Management 2.10.6 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 2.10.3
+ * Version: 2.10.6
  * Plugin Slug: wpml-translation-management
  *
  * @package WPML\TM
@@ -18,7 +18,7 @@ if ( defined( 'WPML_TM_VERSION' ) || get_option( '_wpml_inactive' ) ) {
 	return;
 }
 
-define( 'WPML_TM_VERSION', '2.10.3' );
+define( 'WPML_TM_VERSION', '2.10.6' );
 
 // Do not uncomment the following line!
 // If you need to use this constant, use it in the wp-config.php file
@@ -171,9 +171,10 @@ function wpml_tm_load( $sitepress = null ) {
 			'WPML_TM_Translation_Jobs_Fix_Summary_Factory',
 			'WPML_TM_Troubleshooting_Fix_Translation_Jobs_TP_ID_Factory',
 			\WPML\TM\Troubleshooting\SynchronizeSourceIdOfATEJobs\TriggerSynchronization::class,
+			\WPML\TM\Troubleshooting\ResetPreferredTranslationService::class,
 			'WPML_TM_Reset_Options_Filter_Factory',
 			\WPML\TM\User\Hooks::class,
-			\WPML\TM\Jobs\ExtraFieldDataInEditorFactory::class
+			\WPML\TM\Jobs\ExtraFieldDataInEditorFactory::class,
 		];
 		$action_filter_loader->load( $actions );
 

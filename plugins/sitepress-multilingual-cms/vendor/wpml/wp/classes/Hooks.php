@@ -54,4 +54,13 @@ class Hooks {
 		return $promise;
 	}
 
+	public static function callWithFilter( $fn, $name, $filterFn, $priority = 10, $acceptedArgs = 1 ) {
+		add_filter( $name, $filterFn, $priority, $acceptedArgs );
+		$result = $fn();
+		remove_filter( $name, $filterFn, $priority, $acceptedArgs );
+
+		return $result;
+	}
 }
+
+

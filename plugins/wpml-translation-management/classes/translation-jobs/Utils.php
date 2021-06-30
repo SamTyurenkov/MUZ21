@@ -11,8 +11,8 @@ class Utils {
 	 * [ 'a' => ['b' => $x ] ] being returned.
 	 *
 	 * @param string[] $keys indexes ordered from highest to lowest level.
-	 * @param mixed[] $array array into which the value is to be inserted.
-	 * @param mixed $value to be inserted.
+	 * @param mixed[]  $array array into which the value is to be inserted.
+	 * @param mixed    $value to be inserted.
 	 *
 	 * @return mixed[]
 	 */

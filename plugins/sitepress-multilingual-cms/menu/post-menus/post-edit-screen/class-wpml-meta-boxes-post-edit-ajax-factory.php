@@ -1,6 +1,6 @@
 <?php
 
-class WPML_Meta_Boxes_Post_Edit_Ajax_Factory implements IWPML_Backend_Action_Loader, IWPML_Ajax_Action_Loader {
+class WPML_Meta_Boxes_Post_Edit_Ajax_Factory implements IWPML_Backend_Action_Loader, IWPML_AJAX_Action_Loader {
 
 	/**
 	 * @return WPML_Meta_Boxes_Post_Edit_Ajax

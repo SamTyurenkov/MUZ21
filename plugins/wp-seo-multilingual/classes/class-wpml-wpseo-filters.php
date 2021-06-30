@@ -1,7 +1,9 @@
 <?php
 
+use WPML\WPSEO\Utils;
+
 /**
- * Class WPML_ST_WPSEO_Filters
+ * Class WPML_WPSEO_Filters
  *
  * Compatibility class for WordPress SEO plugin
  */
@@ -25,13 +27,20 @@ class WPML_WPSEO_Filters implements IWPML_Action {
 		$this->canonicals = $canonicals;
 	}
 
+	/**
+	 * Add hooks.
+	 */
 	public function add_hooks() {
 		add_filter( 'wpml_translatable_user_meta_fields', array( $this, 'translatable_user_meta_fields_filter' ) );
 		add_action( 'wpml_before_make_duplicate', array( $this, 'before_make_duplicate_action' ) );
 		add_filter( 'wpseo_canonical', array( $this, 'canonical_filter' ) );
+		/**
+		 * @since 1.0.0
+		 */
 		add_filter( 'wpml_must_translate_canonical_url', array( $this, 'must_translate_canonical_url_filter' ), 10, 2 );
 		add_filter( 'wpseo_prev_rel_link', array( $this, 'rel_link_filter' ) );
 		add_filter( 'wpseo_next_rel_link', array( $this, 'rel_link_filter' ) );
+		add_filter( 'wpseo_opengraph_url', array( $this, 'opengraph_url_filter' ) );
 	}
 
 	/**
@@ -54,13 +63,11 @@ class WPML_WPSEO_Filters implements IWPML_Action {
 	 * @link https://onthegosystems.myjetbrains.com/youtrack/issue/wpmlcore-2701
 	 */
 	public function before_make_duplicate_action() {
-		add_filter( 'wpseo_premium_post_redirect_slug_change', '__return_true' );
+		Utils::add_filter( 'wpseo_premium_post_redirect_slug_change', '__return_true' );
 	}
 
 	/**
-	 * @link https://onthegosystems.myjetbrains.com/youtrack/issue/wpmlcore-3694
-	 *
-	 * @param string|bool $url
+	 * @param string $url
 	 *
 	 * @return string
 	 */
@@ -76,7 +83,7 @@ class WPML_WPSEO_Filters implements IWPML_Action {
 			$url = $this->canonicals->get_general_canonical_url( $url );
 		}
 
-		return $url;
+		return urlencode( $url );
 	}
 
 	/**
@@ -113,5 +120,14 @@ class WPML_WPSEO_Filters implements IWPML_Action {
 		}
 
 		return $link;
+	}
+
+	/**
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function opengraph_url_filter( $url ) {
+		return urlencode( $url );
 	}
 }

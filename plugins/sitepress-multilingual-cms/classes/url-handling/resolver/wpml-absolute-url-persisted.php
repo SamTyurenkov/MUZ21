@@ -14,9 +14,8 @@ class WPML_Absolute_Url_Persisted {
 	/**
 	 * @return WPML_Absolute_Url_Persisted
 	 */
-	public static function get_instance()
-	{
-		if (null === self::$instance) {
+	public static function get_instance() {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 
@@ -27,7 +26,12 @@ class WPML_Absolute_Url_Persisted {
 
 	private function __clone() {}
 
-	private function __wakeup() {}
+	/**
+	 * @throws Exception
+	 */
+	public function __wakeup() {
+		throw new Exception( 'Cannot unserialize singleton' );
+	}
 
 	/**
 	 * Returns urls array.

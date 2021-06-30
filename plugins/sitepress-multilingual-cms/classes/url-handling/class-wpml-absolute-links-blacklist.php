@@ -20,7 +20,7 @@ class WPML_Absolute_Links_Blacklist {
 	public function is_blacklisted( $request ) {
 		$isBlacklisted = function ( $request ) {
 			return Lst::includes( $request, $this->blacklist_requests )
-			       || $this->is_blacklisted_with_regex( $request );
+				   || $this->is_blacklisted_with_regex( $request );
 		};
 
 		return Wrapper::of( $request )

@@ -26,7 +26,7 @@ class WPML_Display_As_Translated_Tax_Query implements IWPML_Action {
 	}
 
 	/**
-	 * @param string $where
+	 * @param string   $where
 	 * @param WP_Query $q
 	 *
 	 * @return string
@@ -162,13 +162,12 @@ class WPML_Display_As_Translated_Tax_Query implements IWPML_Action {
 		$taxonomy      = isset( $queriedObject->taxonomy ) ? $queriedObject->taxonomy : null;
 
 		if ( $taxonomy && $this->include_term_children( $q ) ) {
-			$mergeChildren = function ( $term ) use ( $taxonomy, $q ) {
+			$mergeChildren = function ( $term ) use ( $taxonomy ) {
 				return [ $term, get_term_children( $term, $taxonomy ) ];
 			};
 		} else {
 			$mergeChildren = \WPML\FP\Fns::identity();
 		}
-
 
 		return wpml_collect( explode( ',', $terms_string ) )
 			->map( $mergeFallbackTerms )

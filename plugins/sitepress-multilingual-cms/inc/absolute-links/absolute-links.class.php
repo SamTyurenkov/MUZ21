@@ -248,7 +248,12 @@ class AbsoluteLinks {
 						$p                = $get_page_by_path->get( $post_name, $test_language, OBJECT, $post_type );
 
 						if ( empty( $p ) ) { // Fail safe.
+							$switchLang = new WPML_Temporary_Switch_Language( $sitepress, $test_language );
+							remove_filter( 'url_to_postid', array( $sitepress, 'url_to_postid' ) );
 							$post_id = url_to_postid( $home_path . '/' . $post_name );
+							add_filter( 'url_to_postid', array( $sitepress, 'url_to_postid' ) );
+							$switchLang->restore_lang();
+
 							if ( $post_id ) {
 								$p = get_post( $post_id );
 							}
@@ -519,7 +524,7 @@ class AbsoluteLinks {
 			$langprefix = '';
 		}
 		$perm_url = '(' . rtrim( $home_url, '/' ) . ')?' . $langprefix . '/' . str_replace( '?', '\?', $dir_path );
-		$regk     = '@href=[\'"](' . self::escapePlusSign(  $perm_url ) . ')[\'"]@i';
+		$regk     = '@href=[\'"](' . self::escapePlusSign( $perm_url ) . ')[\'"]@i';
 		$regv     = 'href="/' . ltrim( $url_parts['path'], '/' ) . '?' . $type . '=' . $type_id;
 		if ( '' !== $req_uri_params ) {
 			$regv .= '&' . $req_uri_params;
@@ -563,9 +568,9 @@ class AbsoluteLinks {
 		} else {
 			$langprefix = '';
 		}
-		$perm_url         = '(' . rtrim( $home_url, '/' ) . ')?' . $langprefix . '/' . str_replace( '?', '\?', $dir_path );
-		$regk             = '@href=["\'](' . self::escapePlusSign( $perm_url ) . ')["\']@i';
-		$regv             = 'href="' . $offsite_url . $anchor_output . '"';
+		$perm_url = '(' . rtrim( $home_url, '/' ) . ')?' . $langprefix . '/' . str_replace( '?', '\?', $dir_path );
+		$regk     = '@href=["\'](' . self::escapePlusSign( $perm_url ) . ')["\']@i';
+		$regv     = 'href="' . $offsite_url . $anchor_output . '"';
 
 		$def_url[ $regk ] = $regv;
 
@@ -647,9 +652,6 @@ class AbsoluteLinks {
 		}
 
 		update_post_meta( $post_id, '_alp_processed', time() );
-		if ( ! empty( $alp_broken_links ) ) {
-			update_post_meta( $post_id, '_alp_broken_links', $alp_broken_links );
-		}
 	}
 
 	public function convert_text( $text ) {
@@ -686,7 +688,7 @@ class AbsoluteLinks {
 	 * @return bool
 	 */
 	private function is_pagination_in_post( $url, $post_name ) {
-		$is_pagination_url_in_post =  false !== mb_strpos( $url, $post_name . '/page/' );
+		$is_pagination_url_in_post = false !== mb_strpos( $url, $post_name . '/page/' );
 
 		/**
 		 * Check if the given URL is the pagination inside the post.

@@ -57,9 +57,9 @@ class WPML_ST_Translations_File_Components_Find_Plugin implements WPML_ST_Transl
 	}
 
 	/**
-	 * @param $file_path
+	 * @param string $file_path
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	private function extract_plugin_directory( $file_path ) {
 		$dir = ltrim( str_replace( $this->plugin_dir, '', $file_path ), DIRECTORY_SEPARATOR );

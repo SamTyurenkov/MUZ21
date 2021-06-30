@@ -68,7 +68,9 @@ class Places
             array('acf/muzsidebanner'),
 			array('acf/muzfeatures'),
 			array('acf/place-residents'),
-			array('acf/muzwavesevents')
+			array('acf/muzwavesevents'),
+			array('acf/general-gallery'),
+			array('acf/place-contact'),
         );
     }
 

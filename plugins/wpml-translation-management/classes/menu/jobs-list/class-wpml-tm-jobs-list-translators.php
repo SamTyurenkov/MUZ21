@@ -2,6 +2,7 @@
 
 use \WPML\FP\Fns;
 use \WPML\FP\Lst;
+use \WPML\Element\API\Languages;
 use function \WPML\FP\flip;
 use function \WPML\FP\curryN;
 
@@ -33,17 +34,26 @@ class WPML_TM_Jobs_List_Translators {
 
 	private function getLanguagePairs( $translator ) {
 
-		$isValidLanguage       = Lst::includes( Fns::__, array_values( icl_get_languages_codes() ) );
+		$isValidLanguage       = Lst::includes( Fns::__,  Lst::pluck( 'code', Languages::getAll() ) );
 		$sourceIsValidLanguage = flip( $isValidLanguage );
 		$getValidTargets       = Fns::filter( $isValidLanguage );
 
-		$makePair = curryN( 2, function ( $source, $target ) {
-			return [ 'source' => $source, 'target' => $target ];
-		} );
+		$makePair = curryN(
+			2,
+			function ( $source, $target ) {
+				return [
+					'source' => $source,
+					'target' => $target,
+				];
+			}
+		);
 
-		$getAsPair = curryN( 3, function ( $makePair, $targets, $source ) {
-			return Fns::map( $makePair( $source ), $targets );
-		} );
+		$getAsPair = curryN(
+			3,
+			function ( $makePair, $targets, $source ) {
+				return Fns::map( $makePair( $source ), $targets );
+			}
+		);
 
 		return \wpml_collect( $translator->language_pairs )
 			->filter( $sourceIsValidLanguage )

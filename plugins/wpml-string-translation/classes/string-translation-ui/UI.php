@@ -21,8 +21,8 @@ class UI implements \IWPML_Backend_Action_Loader {
 
 			return function () {
 				WPHooks::onAction( 'admin_enqueue_scripts' )
-				       ->then( [ self::class, 'localize' ] )
-				       ->then( Resources::enqueueApp( 'main-ui' ) );
+					   ->then( [ self::class, 'localize' ] )
+					   ->then( Resources::enqueueApp( 'main-ui' ) );
 			};
 		} else {
 			return null;
@@ -34,11 +34,11 @@ class UI implements \IWPML_Backend_Action_Loader {
 			'name' => 'wpml_st_main_ui',
 			'data' => [
 				'languageDetails' => Languages::withRtl( Languages::withFlags( Languages::getAll() ) ),
-				'endpoints' => [
-					'saveTranslation' => SaveTranslation::class,
+				'endpoints'       => [
+					'saveTranslation'   => SaveTranslation::class,
 					'translationMemory' => apply_filters( 'wpml_st_translation_memory_endpoint', '' ),
-				]
-			]
+				],
+			],
 		];
 	}
 }

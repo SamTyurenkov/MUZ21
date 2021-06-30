@@ -88,7 +88,7 @@ class Lst {
 
 		self::macro( 'toObj', curryN( 1, function ( array $data ) { return (object) $data; } ) );
 
-		self::macro( 'pluck', curryN( 2, function ( $prop, array $data ) {
+		self::macro( 'pluck', curryN( 2, function ( $prop, $data ) {
 			return Fns::map( Obj::prop( $prop ), $data );
 		} ) );
 
@@ -269,6 +269,38 @@ class Lst {
 		return call_user_func_array( curryN( 2, $keyBy ), func_get_args() );
 	}
 
+	/**
+	 * This method will return the values in the original collection that are not present in the given collection:
+	 *
+	 * @param array|Collection $array1
+	 * @param array|Collection $array2
+	 *
+	 * @return callable|Collection|array
+	 */
+	public static function diff( $array1 = null, $array2 = null ) {
+		$diff = function( $array1, $array2){
+			if ( is_object( $array1)) {
+				return $array1->diff($array2);
+			} else {
+				return array_diff( $array1, $array2 );
+			}
+		};
+		return call_user_func_array( curryN(2, $diff), func_get_args());
+	}
+
+	/**
+	 * It returns array of $val elements repeated $times times.
+	 *
+	 * @param mixed $val
+	 * @param int $times
+	 *
+	 * @return callable|array[mixed]
+	 */
+	public static function repeat( $val = null, $times = null ) {
+		$repeat = flip( partial( 'array_fill', 0 ) );
+
+		return call_user_func_array( curryN( 2, $repeat ), func_get_args() );
+	}
 }
 
 Lst::init();

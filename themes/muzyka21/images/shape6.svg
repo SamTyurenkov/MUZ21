@@ -1,0 +1,15 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs> 
+                      <linearGradient id="sw-gradient" x1="0" x2="1" y1="1" y2="0">
+                            <stop id="stop1" stop-color="rgba(248, 117, 55, 1)" offset="0%"></stop>
+                            <stop id="stop2" stop-color="#d64367" offset="100%"></stop>
+                        </linearGradient>
+                    </defs>                    <defs> 
+                      <linearGradient id="sw-gradient" x1="0" x2="1" y1="1" y2="0">
+                            <stop id="stop1" stop-color="rgba(248, 117, 55, 1)" offset="0%"></stop>
+                            <stop id="stop2" stop-color="#d64367" offset="100%"></stop>
+                        </linearGradient>
+                    </defs>
+
+  <path fill="url(#sw-gradient)" d="M49,-40.5C63.3,-34.8,74.4,-17.4,76.6,2.2C78.8,21.8,72.1,43.5,57.8,48.9C43.5,54.3,21.8,43.3,6.1,37.2C-9.5,31,-19.1,29.8,-33.6,24.4C-48.2,19.1,-67.8,9.5,-69.8,-2C-71.9,-13.6,-56.3,-27.2,-41.8,-32.9C-27.2,-38.6,-13.6,-36.5,1.9,-38.4C17.4,-40.3,34.8,-46.2,49,-40.5Z" transform="translate(100 100)" />
+</svg>

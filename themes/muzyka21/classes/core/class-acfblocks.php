@@ -86,6 +86,17 @@ class ACFBlocks
             ));
 
             acf_register_block(array(
+                'name' => 'service-price',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Service Price'),
+                'description' => __('Service Price'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('service', 'banner','price'),
+            ));
+
+            acf_register_block(array(
                 'name' => 'services-all-extended',
                 //'enqueue_assets' => 'muzbanner_assets',
                 'title' => __('Services All Extended'),
@@ -99,12 +110,23 @@ class ACFBlocks
             acf_register_block(array(
                 'name' => 'place-residents',
                 //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('Muz Place Residents'),
-                'description' => __('Muz Place Residents'),
+                'title' => __('Place Residents'),
+                'description' => __('Place Residents'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
                 'keywords' => array('place', 'banner', 'residents'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'place-contact',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Place Contact'),
+                'description' => __('Place Contact'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('place', 'banner', 'contact'),
             ));
 
             acf_register_block(array(
@@ -116,6 +138,17 @@ class ACFBlocks
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
                 'keywords' => array('places', 'list'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'general-gallery',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('General Gallery'),
+                'description' => __('General Gallery'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('shape', 'gallery', 'image'),
             ));
 
             acf_register_block(array(

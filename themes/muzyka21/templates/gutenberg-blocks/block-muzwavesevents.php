@@ -30,6 +30,7 @@ $posttype = get_post_type($post_id);
         );
 
         if($posttype == 'places') {
+            //$args['suppress_filters'] = true;
             $args['meta_query'][] = array(
                 'key' => 'place',
                 'value' => $post_id
@@ -47,6 +48,7 @@ $posttype = get_post_type($post_id);
                         <div class="muzwavesevents_flex_el_icon" style="background-image:url(<?php echo esc_attr(get_the_post_thumbnail_url(null, 'medium')); ?>)">
                         </div>
                         <?php endif; ?>
+                        <div class="muzwavesevents_flex_el_bottom">
                         <h3><?php the_title(); ?></h3>
                             
                         <?php if($posttype != 'places' && get_field('place',get_the_ID())) : ?>
@@ -58,6 +60,7 @@ $posttype = get_post_type($post_id);
                         <?php if(get_field('date_end',get_the_ID())) : ?>
                         <div class="muzwavesevents_flex_el_end"><b><?= $event_end_text; ?>: </b><?php echo get_field('date_end',get_the_ID()); ?></div>
                         <?php endif; ?>
+                        </div>
                     </a>
             <?php
             endwhile;

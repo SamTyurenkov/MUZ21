@@ -11,7 +11,7 @@ use WPML\FP\Functor\IdentityFunctor;
  * @method static callable prop( ...$key, ...$obj ) - Curried :: string->Collection|array|object->mixed|null
  * @method static callable propOr( ...$default, ...$key, ...$obj ) - Curried :: mixed->string->Collection|array|object->mixed|null
  * @method static callable|array props( ...$keys, ...$obj ) - Curried :: [keys] → Collection|array|object → [v]
- * @method static callable path( ...$path, ...$obj ) - Curried :: array->Collection|array|object->mixed|null
+ * @method static callable|mixed path( ...$path, ...$obj ) - Curried :: array->Collection|array|object->mixed|null
  * @method static callable|mixed pathOr( ...$default, ...$path, ...$obj ) - Curried :: mixed → array → Collection|array|object → mixed
  * @method static callable assoc( ...$key, ...$value, ...$item ) - Curried :: string->mixed->Collection|array|object->mixed|null
  * @method static callable assocPath( ...$path, ...$value, ...$item ) - Curried :: array->mixed->Collection|array|object->mixed|null
@@ -29,7 +29,7 @@ use WPML\FP\Functor\IdentityFunctor;
  * @method static callable|bool has( ...$prop, ...$item ) - Curried :: string → a → bool
  * @method static callable|mixed evolve( ...$transformations, ...$item ) - Curried :: array → array → array
  *
- * @method static callable|array objOf(...$key, ...$value) - Curried :: string -> mixed -> array
+ * @method static callable|array objOf( ...$key, ...$value ) - Curried :: string->mixed->array
  *
  * Creates an object containing a single key:value pair.
  *
@@ -67,7 +67,9 @@ use WPML\FP\Functor\IdentityFunctor;
  * $this->assertEquals( [ 1, 2, 3 ], Obj::values( (object) [ 'a' => 1, 'b' => 2, 'c' => 3 ] ) );
  * ```
  *
- * @method static callable|array replaceRecursive(array ...$newValue, ...$target) - Curried :: array->array->array
+ * @method static callable|array replaceRecursive( array ...$newValue, ...$target ) - Curried :: array->array->array
+ *
+ * @method static callable|array toArray( Collection|Object ...$item ) - Curried :: Collection|Object->array
  */
 class Obj {
 
@@ -89,7 +91,13 @@ class Obj {
 				return array_key_exists( $key, $item ) ? $item[ $key ] : $default;
 			}
 			if ( is_object( $item ) ) {
-				return property_exists( $item, $key ) ? $item->$key : $default;
+				if ( property_exists( $item, $key ) || isset( $item->$key ) ) {
+					return $item->$key;
+				} elseif ( is_numeric( $key ) ) {
+					return self::propOr( $default, $key, (array) $item );
+				} else {
+					return $default;
+				}
 			}
 			if ( is_null( $item ) ) {
 				return null;
@@ -106,7 +114,9 @@ class Obj {
 		} ) );
 
 		self::macro( 'pathOr', curryN( 3, function ( $default, $path, $item ) {
-			$result = self::path( $path, $item );
+			$result = Either::of( $item )
+			                ->tryCatch( Obj::path( $path ) )
+			                ->getOrElse( null );
 
 			return is_null( $result ) ? $default : $result;
 		} ) );
@@ -295,6 +305,18 @@ class Obj {
 		} ) );
 
 		self::macro( 'replaceRecursive', curryN( 2, flip( 'array_replace_recursive' ) ) );
+
+		self::macro( 'toArray', curryN( 1, function ( $item ) {
+			$temp = $item;
+			if ( $temp instanceof Collection ) {
+				$temp = $temp->toArray();
+			}
+			if ( is_object( $temp ) ) {
+				$temp = (array) $temp;
+			}
+
+			return $temp;
+		} ) );
 	}
 
 	/**
@@ -315,20 +337,23 @@ class Obj {
 	}
 
 	/**
-	 * @param mixed $item
+	 * Curried :: mixed → array|object|Collection → array|object|Collection
+	 * function to remove an item by key from an array.
 	 *
-	 * @return object[]|Collection[]
+	 * @param string|int                   $key
+	 * @param array|object|Collection|null $item
+	 *
+	 * @return callable|array|object|Collection
 	 */
-	private static function toArray( $item ) {
-		$temp = $item;
-		if ( $temp instanceof Collection ) {
-			$temp = $temp->toArray();
-		}
-		if ( is_object( $temp ) ) {
-			$temp = (array) $temp;
-		}
+	static function without( $key = null, $item = null ) {
+		$without = function ( $key, $item ) {
+			$temp = self::toArray( $item );
+			unset( $temp[ $key ] );
 
-		return $temp;
+			return self::matchType( $temp, $item );
+		};
+
+		return call_user_func_array( curryN( 2, $without ), func_get_args() );
 	}
 }
 

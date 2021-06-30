@@ -187,7 +187,7 @@ class WPML_TM_AMS_ATE_Console_Section implements IWPML_TM_Admin_Section {
 	private function add_initialization_script() {
 		$registration_data = $this->ams_api->get_registration_data();
 
-		$fields = [ 'code', 'english_name', 'native_name', 'default_locale', 'encode_url', 'tag' ];
+		$fields    = [ 'code', 'english_name', 'native_name', 'default_locale', 'encode_url', 'tag' ];
 		$languages = Fns::map( Obj::pick( $fields ), $this->sitepress->get_active_languages() );
 
 		$app_constructor = [

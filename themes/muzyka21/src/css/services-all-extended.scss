@@ -7,7 +7,7 @@
       &_el {
         margin: 20px;
         border-radius: 15px;
-        overflow: hidden;
+        overflow: visible;
         text-decoration: none;
         color: #2e2e2e;
         display: flex;
@@ -35,12 +35,11 @@
           }
           h3 {
             background: rgb(224,224,255);
-            padding: 0 20px;
+            padding: 10px 20px;
             margin: 0;
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
+            bottom: -15px;
+            left: -15px;
             text-align: center;
             border-radius: 15px;
             transition: padding 0.3s ease;
@@ -79,7 +78,7 @@
         &:hover {
           color: #000;
           h3 {
-            padding: 0 30px;
+            padding: 12px 24px;
           }
         }
       }

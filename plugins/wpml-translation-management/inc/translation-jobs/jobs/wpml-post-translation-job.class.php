@@ -2,6 +2,7 @@
 
 use WPML\TM\Jobs\FieldId;
 use WPML\TM\Jobs\TermMeta;
+use WPML\FP\Lst;
 
 require_once WPML_TM_PATH . '/inc/translation-jobs/jobs/wpml-translation-job.class.php';
 
@@ -68,21 +69,20 @@ class WPML_Post_Translation_Job extends WPML_Element_Translation_Job {
 				$field_data = '';
 				switch ( $element->field_type ) {
 					case 'title':
-						$field_data = $this->encode_field_data( $post->post_title, $element->field_format );
+						$field_data = $this->encode_field_data( $post->post_title);
 						break;
 					case 'body':
-						$field_data = $this->encode_field_data( $post->post_content, $element->field_format );
+						$field_data = $this->encode_field_data( $post->post_content);
 						break;
 					case 'excerpt':
-						$field_data = $this->encode_field_data( $post->post_excerpt, $element->field_format );
+						$field_data = $this->encode_field_data( $post->post_excerpt);
 						break;
 					case 'URL':
-						$field_data = $this->encode_field_data( $post->post_name, $element->field_format );
+						$field_data = $this->encode_field_data( $post->post_name);
 						break;
 					default:
 						if ( isset( $term_names[ $element->field_type ] ) ) {
-							$field_data = $this->encode_field_data( $term_names[ $element->field_type ],
-								$element->field_format );
+							$field_data = $this->encode_field_data( $term_names[ $element->field_type ]);
 						}
 				}
 				if ( $field_data ) {
@@ -255,9 +255,15 @@ class WPML_Post_Translation_Job extends WPML_Element_Translation_Job {
 		$term_values = $wpdb->get_results( $get_target_terms_for_job_query );
 		foreach ( $term_values as $term ) {
 			if ( $delete ) {
+				$conditions = [
+					"field_type LIKE 'tfield-%-{$term->ttid}'",  // Term fields
+					"field_type LIKE 'tfield-%-{$term->ttid}\_%'", // Term fields as array
+					"field_type = 't_{$term->ttid}'",
+					"field_type = 'tdesc_{$term->ttid}'",
+				];
 				$wpdb->query(
 					"DELETE FROM {$translate_table} WHERE job_id = $job_id AND "
-					. "(field_type LIKE 'tfield-%-{$term->ttid}%' OR field_type = 't_{$term->ttid}' OR field_type = 'tdesc_{$term->ttid}')"
+					. "(" . Lst::join( ' OR ', $conditions ) . ")"
 				);
 			} else {
 				$wpdb->update(

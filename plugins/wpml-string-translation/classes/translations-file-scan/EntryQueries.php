@@ -16,7 +16,7 @@ class EntryQueries {
 	}
 
 	/**
-	 * @param $extension
+	 * @param string $extension
 	 *
 	 * @return \Closure
 	 */

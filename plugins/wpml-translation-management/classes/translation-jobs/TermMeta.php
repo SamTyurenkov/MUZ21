@@ -23,7 +23,7 @@ class TermMeta {
 				FROM {$wpdb->prefix}icl_translate
 				WHERE job_id = %d AND field_type = 'tdesc_%d'";
 
-		$description = $wpdb->get_var( $wpdb->prepare($sql, $iclTranslateJobId, $termTaxonomyId) );
+		$description = $wpdb->get_var( $wpdb->prepare( $sql, $iclTranslateJobId, $termTaxonomyId ) );
 
 		return $description ? base64_decode( $description ) : '';
 	}
@@ -79,7 +79,7 @@ class TermMeta {
 				FROM {$wpdb->prefix}icl_translate
 				WHERE job_id = %d AND field_type LIKE 'tfield-%-%d'";
 
-		$rowset = $wpdb->get_results( $wpdb->prepare($sql, $iclTranslateJobId, $termTaxonomyId) );
+		$rowset = $wpdb->get_results( $wpdb->prepare( $sql, $iclTranslateJobId, $termTaxonomyId ) );
 
 		return Fns::map( Obj::over( Obj::lensProp( 'field_data_translated' ), 'base64_decode' ), $rowset );
 	}
@@ -130,7 +130,6 @@ class TermMeta {
 	 *     ]
 	 *  ]
 	 *
-	 *
 	 * @param int $iclTranslateJobId
 	 * @param int $termTaxonomyId
 	 *
@@ -161,7 +160,9 @@ class TermMeta {
 
 		$groupOptions = function ( $carry, $row ) use ( $extractFieldName, $extractOptions ) {
 			$fieldName = $extractFieldName( $row );
-			! isset( $carry[ $fieldName ] ) && $carry[ $fieldName ] = [];
+			if ( ! isset( $carry[ $fieldName ] ) ) {
+				$carry[ $fieldName ] = [];
+			}
 
 			$options = $extractOptions( $row, $fieldName );
 
@@ -183,7 +184,7 @@ class TermMeta {
 		$recreateJobElement = function ( $data, $fieldType ) use ( $termTaxonomyId ) {
 			return (object) [
 				'field_type'            => 'tfield-' . $fieldType . '-' . $termTaxonomyId,
-				'field_data_translated' => $data
+				'field_data_translated' => $data,
 			];
 		};
 

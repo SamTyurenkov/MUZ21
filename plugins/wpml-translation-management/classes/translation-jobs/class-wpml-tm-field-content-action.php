@@ -43,7 +43,8 @@ class WPML_TM_Field_Content_Action extends WPML_TM_Job_Factory_User {
 		} catch ( Exception $e ) {
 			throw new RuntimeException(
 				'Could not retrieve field contents for job_id: ' . $this->job_id,
-				0, $e
+				0,
+				$e
 			);
 		}
 	}
@@ -64,7 +65,7 @@ class WPML_TM_Field_Content_Action extends WPML_TM_Job_Factory_User {
 
 		$elements                  = $job->elements;
 		$previous_version_elements = isset( $job->prev_version ) ? $job->prev_version->elements : array();
-		$data = array();
+		$data                      = array();
 		foreach ( $elements as $index => $element ) {
 			$previous_element = $this->find_previous_version_element( $element, $previous_version_elements, $index );
 

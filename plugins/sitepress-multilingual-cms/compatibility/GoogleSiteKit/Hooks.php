@@ -2,6 +2,8 @@
 
 namespace WPML\Compatibility\GoogleSiteKit;
 
+use function WPML\Container\make;
+
 class Hooks implements \IWPML_Backend_Action {
 
 	public function add_hooks() {
@@ -9,14 +11,15 @@ class Hooks implements \IWPML_Backend_Action {
 	}
 
 	/**
-	 * @param string $homeUrl
-	 *
 	 * @return string
 	 */
-	public function getCanonicalHomeUrl( $homeUrl ) {
-		$filteredHomeUrl = apply_filters( 'wpml_permalink', $homeUrl, apply_filters( 'wpml_default_language', '' ) );
-		$filteredHomeUrl = trim( filter_var( $filteredHomeUrl, FILTER_SANITIZE_STRING ) );
+	public function getCanonicalHomeUrl() {
+		$wpml_url_filters = make( \WPML_URL_Filters::class );
 
-		return $filteredHomeUrl ?: $homeUrl;
+		$wpml_url_filters->remove_global_hooks();
+		$unfilteredHomeUrl = home_url();
+		$wpml_url_filters->add_global_hooks();
+
+		return $unfilteredHomeUrl;
 	}
 }

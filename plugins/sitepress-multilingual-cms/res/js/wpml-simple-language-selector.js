@@ -4,10 +4,10 @@ WPML_Core.SimpleLanguageSelector = function () {
 	var self         = this;
 
 	var init = function () {
-		jQuery(document).ready(function() {
+        jQuery(function () {
             self.initialize_select2();
-		});
-	};
+        });
+    };
 
     var add_flags = function ( state ) {
         if (!state.id) { return state.text; }

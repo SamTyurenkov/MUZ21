@@ -340,26 +340,26 @@ jQuery(function($) {
 			});
 		},
 
-		scan: function( scanButton ) {
-			$( scanButton ).click();
-		},
+        scan: function (scanButton) {
+            $(scanButton).click();
+        },
 
-		shouldRunAutoScan: function() {
-			return '' !== this.groups[0] && ( -1 !== location.href.search('action=scan_from_notice') || -1 !== location.href.search('action=scan_active_items'))
-		}
-	};
+        shouldRunAutoScan: function () {
+            return '' !== this.groups[0] && (-1 !== location.href.search('action=scan_from_notice') || -1 !== location.href.search('action=scan_active_items'))
+        }
+    };
 
-	$(document).ready(function () {
-		var scanningSections = new WPML_ST.ScanningSections();
-		var	auto_scan_type = wpml_active_plugins_themes;
-		var sections_count = 0;
-		var counter = new WPML_ST.ScanningCounter();
+    $(function () {
+        var scanningSections = new WPML_ST.ScanningSections();
+        var auto_scan_type = wpml_active_plugins_themes;
+        var sections_count = 0;
+        var counter = new WPML_ST.ScanningCounter();
 
-		if ( -1 !== location.href.search('action=scan_from_notice') ) {
-			auto_scan_type = wpml_groups_to_scan;
-		}
+        if (-1 !== location.href.search('action=scan_from_notice')) {
+            auto_scan_type = wpml_groups_to_scan;
+        }
 
-		for (var section in scanningSections) {
+        for (var section in scanningSections) {
 			if (scanningSections.hasOwnProperty(section)) {
 				var	isFirstSection = 0 === sections_count;
 				var scanSection = new WPML_ST.StringsScanning(isFirstSection, counter);

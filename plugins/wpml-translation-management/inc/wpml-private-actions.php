@@ -26,7 +26,7 @@ function wpml_tm_save_data( array $data, $redirect_after_saving = true ) {
 	$save_factory     = new WPML_TM_Job_Action_Factory( $job_factory );
 	$save_data_action = $save_factory->save_action( $data );
 	$result           = $save_data_action->save_translation();
-	$redirect_target = $redirect_after_saving ? $save_data_action->get_redirect_target() : false;
+	$redirect_target  = $redirect_after_saving ? $save_data_action->get_redirect_target() : false;
 	if ( (bool) $redirect_target === true ) {
 		wp_redirect( $redirect_target );
 	}
@@ -59,15 +59,17 @@ function wpml_set_job_translated_term_values( $job_id ) {
 
 add_action( 'wpml_added_local_translation_job', 'wpml_set_job_translated_term_values' );
 
-function wpml_tm_assign_translation_job( $job_id, $translator_id, $service = 'local', $type ) {
+function wpml_tm_assign_translation_job( $job_id, $translator_id, $service, $type ) {
 	global $wpml_translation_job_factory;
 
 	$job = $type === 'string'
 		? new WPML_String_Translation_Job( $job_id )
-		: $wpml_translation_job_factory->get_translation_job( $job_id,
-		                                                      false,
-		                                                      0,
-		                                                      true );
+		: $wpml_translation_job_factory->get_translation_job(
+			$job_id,
+			false,
+			0,
+			true
+		);
 	if ( $job ) {
 		return $job->assign_to( $translator_id, $service );
 	}

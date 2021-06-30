@@ -16,12 +16,14 @@ class TinyMCE implements \IWPML_Backend_Action {
 	 * @return array
 	 */
 	public function filterEditorAutoTags( $config ) {
-		$screen = get_current_screen();
+		if ( did_action( 'admin_init' ) ) {
+			$screen = get_current_screen();
 
-		if ( Obj::prop( 'id', $screen ) === 'wpml_page_wpml-translation-management/menu/translations-queue' ) {
-			$config['wpautop']      = false;
-			$config['indent']       = true;
-			$config['tadv_noautop'] = true;
+			if ( Obj::prop( 'id', $screen ) === 'wpml_page_wpml-translation-management/menu/translations-queue' ) {
+				$config['wpautop']      = false;
+				$config['indent']       = true;
+				$config['tadv_noautop'] = true;
+			}
 		}
 
 		return $config;

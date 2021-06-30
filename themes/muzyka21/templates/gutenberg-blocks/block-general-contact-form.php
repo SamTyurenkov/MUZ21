@@ -6,7 +6,7 @@ $receiver = get_field('receiver');
     <div class="container">
         <div class="general-contact-form_flex">
             <div class="general-contact-form_flex_banner">
-                <img class="shape2" src="<?php echo get_template_directory_uri() . '/images/shapes/shape6.svg'; ?>">
+                <img class="shape2" src="<?php echo get_template_directory_uri() . '/images/shapes/shape2.svg'; ?>">
                 <img src="<?php echo get_template_directory_uri() . '/images/email.svg'; ?>" alt="contact form">
             </div>
             <div class="general-contact-form_flex_text">
