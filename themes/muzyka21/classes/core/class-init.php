@@ -31,26 +31,6 @@ class Init
 
 		add_action('template_redirect', ['Core\Init', 'redirect_attachment_to_post']); //REDIRECT ATTACHEMENTS TO POST
 
-		add_action('init', ['Core\Init', 'stop_loading_wp_embed']);
-
-		// Remove the REST API endpoint.
-		remove_action('rest_api_init', 'wp_oembed_register_route');
-
-		// Turn off oEmbed auto discovery.
-		add_filter('embed_oembed_discover', '__return_false');
-
-		// Don't filter oEmbed results.
-		remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
-
-		// Remove oEmbed discovery links.
-		remove_action('wp_head', 'wp_oembed_add_discovery_links');
-
-		// Remove oEmbed-specific JavaScript from the front-end and back-end.
-		remove_action('wp_head', 'wp_oembed_add_host_js');
-
-		// Remove all embeds rewrite rules.
-		add_filter('rewrite_rules_array', ['Core\Init', 'disable_embeds_rewrites']);
-
 		//REMOVE AUTO P IN CONTENT
 		//remove_filter('the_content', 'wpautop');
 		//remove_filter('the_excerpt', 'wpautop');
@@ -161,24 +141,6 @@ class Init
 		global $wpdb;
 		$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url));
 		return $attachment[0];
-	}
-
-	static function stop_loading_wp_embed()
-	{
-		if (!is_admin()) {
-			wp_deregister_script('wp-embed');
-		}
-	}
-
-
-	static function disable_embeds_rewrites($rules)
-	{
-		foreach ($rules as $rule => $rewrite) {
-			if (false !== strpos($rewrite, 'embed=true')) {
-				unset($rules[$rule]);
-			}
-		}
-		return $rules;
 	}
 
 

@@ -6,7 +6,7 @@ let plumber = require("gulp-plumber"),
   minifyCSS = require("gulp-minify-css");
 
 stylesPATH = {
-  input: ["./themes/muzyka21/src/css/*.scss"],
+  input: ["./themes/muzyka21/src/css/main.scss","./themes/muzyka21/src/css/*.scss"],
   output: "./themes/muzyka21/css/",
 };
 
