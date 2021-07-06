@@ -41,7 +41,8 @@ $uid = wp_get_current_user()->ID;
 				<div class="topbar_center">
 					<?php
 					wp_nav_menu(array(
-						'menu' => 'topbar'
+						'menu' => 'topbar',
+						'walker' => new Core\TopWalker()
 					));
 					?>
 				</div>

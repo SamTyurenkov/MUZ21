@@ -62,4 +62,21 @@ $(document).ready(function () {
     delay: (el, i) => 700
   });
 
+  if ($(".audioplayer_inner").length) {
+    new Splide(".audioplayer_inner", {
+        type: 'loop',
+        width: "100%",
+        gap: "15px",
+        lazyLoad: 'sequential',
+        autoWidth: true,
+        autoplay: false,
+        arrows: false, //'slider',
+        pagination: false,
+        interval: 1800,
+        pauseOnHover: true,
+        trimSpace: "move",
+        focus: 'center'
+    }).mount();
+}
+
 });

@@ -24,8 +24,8 @@ $gservices = new Core\Services();
 
 
 //CRON DELETE USERS
-if (!wp_next_scheduled( 'my_weeklyClearOut' ))
-wp_schedule_event(time(), 'weekly', 'my_weeklyClearOut');
+//if (!wp_next_scheduled( 'my_weeklyClearOut' ))
+//wp_schedule_event(time(), 'weekly', 'my_weeklyClearOut');
 
 function my_clearOldUsers() {
 	require_once(ABSPATH.'wp-admin/includes/user.php');

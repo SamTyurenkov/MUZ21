@@ -80,8 +80,10 @@ body {
 .container {
   max-width: 1600px;
   margin: 0 auto;
+  width: 100%;
   @media(min-width:500px) and (max-width:992px) {
     padding: 0 30px;
+    width: calc(100% - 60px);
   }
 }
 .small-container {

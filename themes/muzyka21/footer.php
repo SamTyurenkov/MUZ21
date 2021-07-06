@@ -8,6 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		
 	</div>
 </footer>
+<?php
+get_template_part('templates/audioplayer');
+?>
 <div class="errors">
 
 </div>

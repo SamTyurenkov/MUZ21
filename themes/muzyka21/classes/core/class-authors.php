@@ -42,6 +42,7 @@ class Authors
 
 		
         if($args->menu->slug == 'personal') {
+
 			$uid = get_current_user_id();
 
 		if($uid > 0) {
@@ -55,6 +56,8 @@ class Authors
 
         return $nav;
     }
+
+
 	//RENAME AVATAR FILE ON UPLOAD
 	static function avatar_filenames($filename)
 	{
