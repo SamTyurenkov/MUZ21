@@ -23,7 +23,9 @@ h3 {
   text-transform: uppercase;
 }
 
-input[type="text"], input[type="password"],input[type="email"]{
+input[type="text"],
+input[type="password"],
+input[type="email"] {
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #b0b0b0;
@@ -45,8 +47,8 @@ input[type="text"], input[type="password"],input[type="email"]{
   margin-top: 10px;
   text-decoration: none;
   font-size: 18px;
-  @media(max-width:767px) {
-    font-size:16px;
+  @media (max-width: 767px) {
+    font-size: 16px;
   }
   &:hover {
     background: #000;
@@ -72,16 +74,16 @@ html,
 body {
   margin: 0;
 }
-*[class^=wp-block] {
+*[class^="wp-block"] {
   max-width: 1600px;
   margin: 0 auto;
-
 }
 .container {
   max-width: 1600px;
   margin: 0 auto;
   width: 100%;
-  @media(min-width:500px) and (max-width:992px) {
+  position: relative;
+  @media (min-width: 500px) and (max-width: 992px) {
     padding: 0 30px;
     width: calc(100% - 60px);
   }
@@ -98,7 +100,7 @@ body {
   input[type="submit"] {
     width: auto;
   }
-  @media(max-width:400px) {
+  @media (max-width: 400px) {
     width: 100%;
   }
 }
@@ -107,6 +109,24 @@ body {
   margin: 0 auto;
 }
 
+.swipehelp {
+  background-image: url(../images/swipe.svg);
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 50px;
+  z-index: 2;
+  pointer-events: none;
+  -webkit-animation: linear infinite alternate;
+  -webkit-animation-name: left_to_right;
+  -webkit-animation-duration: 2s;
+  animation: linear infinite alternate;
+  animation-name: left_to_right;
+  animation-duration: 2s;
+  bottom: 0;
+}
 .content {
   overflow-x: hidden;
   p,
@@ -121,8 +141,8 @@ body {
   h2 {
     font-size: 40px;
     line-height: 55px;
-    @media(max-width:767px) {
-      font-size:26px;
+    @media (max-width: 767px) {
+      font-size: 26px;
       line-height: 40px;
     }
   }
@@ -132,7 +152,6 @@ body {
 }
 
 header {
-
   .topbar {
     display: flex;
     flex-wrap: wrap;
@@ -230,7 +249,7 @@ header {
             text-decoration: none;
             color: #373737;
             display: flex;
-    align-items: center;
+            align-items: center;
             &:hover {
               background: rgba(224, 224, 224, 0.1);
               color: #000;

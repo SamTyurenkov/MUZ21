@@ -1,0 +1,28 @@
+@-webkit-keyframes left_to_right {
+    0% {
+        right: 10px;
+        transform: rotate(-2deg);
+      }
+      50% {
+        right: 0;
+        transform: rotate(2deg);
+      }
+      100% {
+        right: 10px;
+        transform: rotate(-2deg);
+      }
+}
+@keyframes left_to_right {
+    0% {
+        right: 10px;
+        transform: rotate(-2deg);
+      }
+      50% {
+        right: 0;
+        transform: rotate(2deg);
+      }
+      100% {
+        right: 10px;
+        transform: rotate(-2deg);
+      }
+}

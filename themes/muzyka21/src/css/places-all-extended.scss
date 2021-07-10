@@ -60,7 +60,9 @@
         .socials {
           flex: 0 0 100%;
           padding: 0 20px;
+          display: flex;
           a {
+            margin-right: 10px;
             img {
               width: 30px;
               height: 30px;

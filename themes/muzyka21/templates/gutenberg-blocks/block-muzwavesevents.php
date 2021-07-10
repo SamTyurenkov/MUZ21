@@ -71,6 +71,7 @@ $posttype = get_post_type($post_id);
             </ul>
 
         </div>
+        <div class="swipehelp"></div>
     </div>
     <img class="wavesend" src="<?php echo get_template_directory_uri().'/images/wave2end.svg'; ?>">
 </div>
