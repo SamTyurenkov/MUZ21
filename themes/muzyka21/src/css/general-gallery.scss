@@ -6,7 +6,7 @@
     align-items: center;
     
     &_el {
-      flex: 0 0 24%;
+      flex: 0 0 20%;
       min-width: 300px;
       margin: 15px 0.5%;
       position: relative;
@@ -14,7 +14,7 @@
       padding: 10px;
       
       &.active {
-        flex: 0 0 48%;
+        flex: 0 0 40%;
       }
       img {
         max-width: 100%;
