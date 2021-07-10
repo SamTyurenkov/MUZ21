@@ -27,7 +27,7 @@
         margin-right: 0;
         transform: rotate(1deg);
       }
-      &:nth-child(1n+2) {
+      &:nth-child(2n+2) {
         transform: rotate(-1deg);
       }
     }
