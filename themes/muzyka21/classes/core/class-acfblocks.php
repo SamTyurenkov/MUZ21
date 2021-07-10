@@ -142,7 +142,7 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'general-gallery',
-                //'enqueue_assets' => 'muzbanner_assets',
+                'enqueue_assets' => ['Core\ACFBlocks','general_gallery_assets'],
                 'title' => __('General Gallery'),
                 'description' => __('General Gallery'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
@@ -202,4 +202,9 @@ class ACFBlocks
         wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array(), filemtime(get_template_directory() . '/js/splide.min.js'), true);
         wp_enqueue_script('muzwavesevents', get_template_directory_uri() . '/js/gutenberg-blocks/muzwavesevents.js', array('jquery', 'splide'), filemtime(get_template_directory() . '/js/gutenberg-blocks/muzwavesevents.js'), true);
     }
+
+    static function general_gallery_assets()
+    {
+        wp_enqueue_script('general-gallery', get_template_directory_uri() . '/js/gutenberg-blocks/general-gallery.js', array('jquery'), filemtime(get_template_directory() . 'js/gutenberg-blocks/general-gallery.js'), true);
+   }
 }

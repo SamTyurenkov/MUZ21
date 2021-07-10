@@ -1,0 +1,35 @@
+.general-gallery {
+  &_flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+    &_el {
+      flex: 0 0 24%;
+      min-width: 300px;
+      margin: 15px 0.5%;
+      position: relative;
+      transition: all 1s ease;
+      padding: 10px;
+      
+      &.active {
+        flex: 0 0 48%;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+
+      }
+      &:nth-child(3n) {
+        margin-right: 0;
+        transform: rotate(1deg);
+      }
+      &:nth-child(1n+2) {
+        transform: rotate(-1deg);
+      }
+    }
+  }
+}

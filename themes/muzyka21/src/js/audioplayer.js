@@ -1,7 +1,11 @@
 $ = jQuery;
 $(document).ready(function () {
-  var audio = document.querySelector(".audioplayer audio");
+  const audio = document.querySelector(".audioplayer audio");
   var state = audio.muted;
+  
+  const volumeSlider = document.querySelector(".audioplayer_volume input");
+  const muteIcon = document.getElementById("mute-icon");
+
   var player = new Splide(".audioplayer_inner", {
     type: "loop",
     width: "100%",
@@ -29,14 +33,19 @@ $(document).ready(function () {
   $(document).on('click','.audioplayer_list_el_play',function(){
     var current = this.parentNode;
     audio.setAttribute("src", current.getAttribute("data-src"));
+    muteIcon.classList.remove("muted");
     audio.muted = false;
-    audio.play();
+    try {
+      audio.play();
+      } catch(e) {
+        
+      }
   });
-
+  try {
   audio.play();
+  } catch(e) {
 
-  const volumeSlider = document.querySelector(".audioplayer_volume input");
-  const muteIcon = document.getElementById("mute-icon");
+  }
   volumeSlider.addEventListener("input", (e) => {
     const value = e.target.value;
     audio.volume = value / 100;
@@ -47,7 +56,11 @@ $(document).ready(function () {
       muteIcon.classList.add("muted");
       state = true;
     }
-    audio.play();
+    try {
+      audio.play();
+      } catch(e) {
+        
+      }
   });
 
   muteIcon.addEventListener("click", () => {
@@ -64,6 +77,10 @@ $(document).ready(function () {
         audio.volume = 50 / 100;
       }
     }
-    audio.play();
+    try {
+      audio.play();
+      } catch(e) {
+        
+      }
   });
 });
