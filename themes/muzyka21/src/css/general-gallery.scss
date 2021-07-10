@@ -4,31 +4,55 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    
+
     &_el {
       flex: 0 0 20%;
       min-width: 300px;
       margin: 15px 0.5%;
       position: relative;
-      transition: all 1s ease;
       padding: 10px;
-      
-      &.active {
-        flex: 0 0 40%;
-      }
       img {
         max-width: 100%;
         border-radius: 10px;
         cursor: pointer;
         position: relative;
-
+        transition: all 1s ease;
+        left: 0;
+      }
+      &.active {
+        z-index: 99;
+        img {
+          max-width: 200%;
+          left: -50%;
+          box-shadow: 0 0 5px;
+        }
       }
       &:nth-child(3n) {
         margin-right: 0;
         transform: rotate(1deg);
       }
-      &:nth-child(2n+2) {
+      &:nth-child(2n + 2) {
         transform: rotate(-1deg);
+      }
+      @media (max-width: 992px) {
+        margin: 0 1%;
+        flex: 0 0 calc(48% - 20px);
+        &.active {
+          img {
+            max-width: 140%;
+            left: -20%;
+          }
+        }
+      }
+      @media (max-width: 660px) {
+        margin: 0 1.5%;
+        flex: 0 0 calc(97% - 20px);
+        &.active {
+          img {
+            max-width: 100%;
+            left: 0;
+          }
+        }
       }
     }
   }
