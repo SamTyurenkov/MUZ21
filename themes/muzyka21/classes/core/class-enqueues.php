@@ -28,7 +28,10 @@ class Enqueues
 
 	static function back_scripts()
 	{
+		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array(), filemtime(get_template_directory() . '/js/splide.min.js'), true);
+		wp_enqueue_script('muzyka21-main', get_template_directory_uri() . '/js/main.js', array('jquery'), filemtime(get_template_directory() . '/js/main.js'), true);
 		wp_enqueue_style('muzyka21-main', get_template_directory_uri() . '/css/main.css', array(), filemtime(get_template_directory() . '/css/main.css'), 'all');
+		
 	}
 
 	static function site_scripts()
@@ -37,8 +40,8 @@ class Enqueues
 		//$uid = wp_get_current_user()->ID;
 		//$uname = wp_get_current_user()->user_login;
 
+		wp_enqueue_script('splide', get_template_directory_uri() . '/js/splide.min.js', array(), filemtime(get_template_directory() . '/js/splide.min.js'), true);
 		wp_enqueue_script('muzyka21-main', get_template_directory_uri() . '/js/main.js', array('jquery'), filemtime(get_template_directory() . '/js/main.js'), true);
-
 
 		wp_localize_script('muzyka21-main', 'localize', array(
 			'ajaxurl' => Enqueues::$ajaxurl,
