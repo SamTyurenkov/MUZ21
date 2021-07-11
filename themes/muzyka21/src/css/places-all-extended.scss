@@ -25,14 +25,19 @@
         width: 100%;
         max-width: 250px;
         height: 210px;
-        background-size: cover;
-        background-repeat: no-repeat;
         position: relative;
         border-radius: 15px;
 
         @media (max-width: 600px) {
           max-width: 85%;
         }
+
+        img {
+          max-width: 100%;
+          width: 100%;
+          border-radius: 15px;
+        }
+
         h3 {
           padding: 10px 20px;
           margin: 0;
