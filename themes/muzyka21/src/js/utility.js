@@ -57,7 +57,7 @@ $(document).ready(function () {
     targets: '.shape, .shape3',
     scale: [1, 0.9, 1.2, 1],
     rotate: ['1turn','0turn'],
-    duration: 7300,
+    duration: 20300,
     elasticity: 300,
     delay: (el, i) => 700
   });
