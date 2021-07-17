@@ -14,7 +14,8 @@ $gallery = get_field('gallery', $post_id);
             <?php
             foreach ($gallery as $item) : ?>
                 <figure class="general-gallery_flex_el">
-                    <img src="<?php echo esc_attr($item['url']); ?>" alt="<?php echo esc_attr($item['url']); ?>">
+
+                    <img srcset="<?php echo esc_attr(wp_get_attachment_image_srcset($item['ID'], 'full' )); ?>" alt="<?php echo esc_attr($item['alt']); ?>">
                     <figcaption><?php echo esc_attr($item['caption']); ?></figcaption>
                 </figure>
             <?php endforeach; ?>

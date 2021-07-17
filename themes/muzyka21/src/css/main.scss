@@ -19,19 +19,38 @@
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   text-transform: uppercase;
 }
 
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-  padding: 10px;
+  padding: 25px 10px 10px;
   border-radius: 5px;
   border: 2px solid #b0b0b0;
   margin-bottom: 10px;
   width: calc(100% - 20px);
   font-size: 16px;
+}
+.input_container {
+  flex: 0 0 calc(50% - 10px);
+  position: relative;
+  margin: 5px;
+  display: block;
+  &.input_large {
+      flex: 0 0 calc(100% - 10px);
+  }
+label {
+  position: absolute;
+  top: -2px;
+  left: 5px;
+  padding: 0 10px;
+  color: #bbbbbb;
+  font-size: 12px;
+  background: none;
+}
 }
 
 .button {
@@ -132,7 +151,8 @@ body {
   p,
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     max-width: 1560px;
     margin: 15px auto;
     padding: 0 20px;
@@ -146,10 +166,16 @@ body {
       line-height: 40px;
     }
   }
+  h4 {
+    font-size: 22px;
+    line-height: 30px;
+  }
   p {
     font-size: 18px;
   }
 }
+
+
 
 header {
   .topbar {

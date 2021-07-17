@@ -1,0 +1,36 @@
+.prepayment-frame {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: calc(100% - 20px);
+  height: calc(100vh - 20px);
+  padding: 10px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  
+  &_customer_details {
+    background: #ffffff;
+    max-width: 300px;
+    width: calc(100% - 40px);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+
+      input[type="submit"] {
+        display: block;
+        width: 100%;
+        flex: 0 0 100%;
+      }
+
+  }
+}
+#alfa-payment__button {
+    display: none;
+}
+#alfa-payment__message {
+    display: none;
+}

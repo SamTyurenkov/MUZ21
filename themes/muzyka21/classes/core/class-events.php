@@ -60,4 +60,13 @@ class Events
 		);
 	}
 
+	static function register_post_template()
+    {
+        $post_type_object = get_post_type_object('events');
+        $post_type_object->template = array(
+            array('acf/event-banner'),
+			array('acf/general-contact-form'),
+        );
+    }
+
 }

@@ -1,22 +1,20 @@
+"use strict";
+
 $ = jQuery;
 $(document).ready(function () {
-
-console.log('muzevents');
-
-if ($(".muzwavesevents").length) {
-    new Splide(".muzwavesevents", {
+  if ($(".event-price_flex_left").length) {
+    new Splide(".event-price_flex_left", {
       width: "100%",
       gap: "15px",
       lazyLoad: 'sequential',
       autoWidth: true,
       autoplay: false,
-      arrows: false, //'slider',
+      arrows: false,
+      //'slider',
       pagination: false,
       interval: 1800,
       pauseOnHover: true,
-      trimSpace: "move",
+      trimSpace: "move"
     }).mount();
   }
-
 });
- 

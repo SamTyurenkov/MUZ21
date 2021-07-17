@@ -38,10 +38,19 @@ wp_localize_script('muzyka21-author_page', 'localize_author', array(
 					<?php }; ?>
 				</div>
 				<?php if (have_posts() == false || $curuser->ID == $curauth->ID || current_user_can('editor' || 'administrator')) { ?>
-					<div class="editauthor">
-						<input class="text display_name" type="text" value="<?php echo esc_html($name); ?>" placeholder="Отображаемое имя">
-						<input class="text user_email" type="email" value="<?php echo esc_html(get_the_author_meta('user_email', $curauth->ID)); ?>" placeholder="E-mail адрес">
-						<input class="text user_phone" type="text" value="<?php echo esc_html($phone); ?>" placeholder="Контактный телефон">
+					<div class="editauthor"> 
+						<span class="input_container">
+						<label>Отображаемое имя</label>
+						<input class="text display_name" type="text" value="<?php echo esc_html($name); ?>" placeholder="Имя или ник">
+						</span>
+						<span class="input_container">
+						<label>E-mail адрес</label>
+						<input class="text user_email" type="email" value="<?php echo esc_html(get_the_author_meta('user_email', $curauth->ID)); ?>" placeholder="your@email.domain">
+						</span>
+						<span class="input_container">
+						<label>Контактный телефон</label>
+						<input class="text user_phone" type="text" value="<?php echo esc_html($phone); ?>" placeholder="+7....">
+						</span>
 					</div>
 				<?php } else { ?>
 					<h1><?php echo esc_html($name); ?></h1>

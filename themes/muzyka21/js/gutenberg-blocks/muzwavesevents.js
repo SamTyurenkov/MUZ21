@@ -4,8 +4,8 @@ $ = jQuery;
 $(document).ready(function () {
   console.log('muzevents');
 
-  if ($(".splide").length) {
-    new Splide(".splide", {
+  if ($(".muzwavesevents").length) {
+    new Splide(".muzwavesevents", {
       width: "100%",
       gap: "15px",
       lazyLoad: 'sequential',

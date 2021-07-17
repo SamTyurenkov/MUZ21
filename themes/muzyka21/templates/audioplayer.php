@@ -13,7 +13,8 @@
             <div class="audioplayer_list splide__track">
                 <ul class="splide__list">
                     <?php if (have_rows('channels', 'options')) : while (have_rows('channels', 'options')) : the_row(); ?>
-                            <div class="audioplayer_list_el splide__slide" data-src="<?php echo esc_attr(get_sub_field('link')); ?>" style="background:url(<?php echo esc_attr(get_sub_field('image')['url']); ?>)  no-repeat center center; background-size:cover">
+
+                            <div class="audioplayer_list_el splide__slide" data-src="<?php echo esc_attr(get_sub_field('link')); ?>" style="background:url(<?php echo esc_attr(wp_get_attachment_image_src(get_sub_field('image')['ID'],'medium')[0]); ?>)  no-repeat center center; background-size:cover">
                                 <div class="audioplayer_list_el_play"></div>
                                 <div class="audioplayer_list_el_title"><?php the_sub_field('title'); ?></div>
                             </div>

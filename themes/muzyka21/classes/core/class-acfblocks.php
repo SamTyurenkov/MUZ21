@@ -183,6 +183,40 @@ class ACFBlocks
                 'icon' => 'admin-comments',
                 'keywords' => array('contact', 'form'),
             ));
+
+            acf_register_block(array(
+                'name' => 'general-contact-form',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('General Contact Form'),
+                'description' => __('General Contact Form'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('contact', 'form'),
+            ));
+
+            
+            acf_register_block(array(
+                'name' => 'event-banner',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('Event Banner'),
+                'description' => __('Event Banner'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('banner', 'event'),
+            ));
+
+            acf_register_block(array(
+                'name' => 'event-price',
+                'enqueue_assets' => ['Core\ACFBlocks','event_price_assets'],
+                'title' => __('Event Price'),
+                'description' => __('Event Price'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('price', 'event', 'buy'),
+            ));
         }
     }
 
@@ -206,4 +240,9 @@ class ACFBlocks
     {
         wp_enqueue_script('general-gallery', get_template_directory_uri() . '/js/gutenberg-blocks/general-gallery.js', array('jquery'), filemtime(get_template_directory() . 'js/gutenberg-blocks/general-gallery.js'), true);
    }
+
+   static function event_price_assets()
+   {
+       wp_enqueue_script('event-price', get_template_directory_uri() . '/js/gutenberg-blocks/event-price.js', array('jquery'), filemtime(get_template_directory() . 'js/gutenberg-blocks/event-price.js'), true);
+  }
 }
