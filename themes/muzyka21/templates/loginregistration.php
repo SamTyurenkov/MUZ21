@@ -8,7 +8,7 @@ $uid = wp_get_current_user()->ID;
 	<div class="container">
 		<?php wp_nonce_field('_regforms', '_regforms'); ?>
 		<div class="small-container">
-			<span class="button close closeaccforms" style="right: 0;position: absolute;top: -50px;padding: 3px 7px">X</span>
+			<span class="button close closeaccforms" style="right: 0;position: absolute;top: -50px;padding: 3px 7px;z-index:15">X</span>
 		</div>
 
 		<div id="auth1">

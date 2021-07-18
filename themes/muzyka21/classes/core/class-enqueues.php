@@ -11,6 +11,7 @@ class Enqueues
 	static $aid;
 	static $uname;
 	static $homeurl;
+	static $postid;
 
 	public function __construct()
 	{
@@ -19,11 +20,13 @@ class Enqueues
 		Enqueues::$uid = wp_get_current_user()->ID;
 		Enqueues::$uname = wp_get_current_user()->user_login;
 		Enqueues::$homeurl = apply_filters( 'wpml_home_url', get_option( 'home' ) );
+		Enqueues::$postid = get_the_ID();
 
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'site_scripts'], 999);
 		add_action('admin_enqueue_scripts', ['Core\Enqueues', 'back_scripts'], 999);
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'login_reg_scripts'], 999);
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'author_page_scripts'], 999);
+		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'payment_scripts'], 999);
 	}
 
 	static function back_scripts()
@@ -50,6 +53,23 @@ class Enqueues
 			'uname' => Enqueues::$uname
 		));
 		wp_enqueue_style('muzyka21-main', get_template_directory_uri() . '/css/main.css', array(), filemtime(get_template_directory() . '/css/main.css'), 'all');
+
+
+	}
+
+	static function payment_scripts() {
+
+		if (is_singular('events')) {
+
+		wp_enqueue_script('prepayment-frame', get_template_directory_uri() . '/js/prepayment-frame.js', array('jquery'), filemtime(get_template_directory() . '/js/prepayment-frame.js'), true);
+		wp_localize_script('prepayment-frame', 'localize', array(
+			'ajaxurl' => Enqueues::$ajaxurl,
+			'postid' => Enqueues::$postid,
+		));
+
+			
+		}
+
 	}
 
 	static function login_reg_scripts() {

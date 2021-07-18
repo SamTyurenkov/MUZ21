@@ -12,7 +12,9 @@ $(document).ready(function () {
     });
   }	
 
-
+  $('input').on('click', function(e){
+    $(this).removeClass('input_invalid');
+  })
   $('.menu_button').on('click', function () {
     $('.menu_mobile').toggleClass('visible');
   });

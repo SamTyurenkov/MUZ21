@@ -10,8 +10,12 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  &.active {
+    display: flex;
+  }
   
   &_customer_details {
+    position: relative;
     background: #ffffff;
     max-width: 300px;
     width: calc(100% - 40px);
