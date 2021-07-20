@@ -48,7 +48,7 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
     $(this.parentNode.querySelector('.sub-menu')).toggleClass('active');
-  })
+  });
   
   anime.timeline({loop: false})
   .add({
