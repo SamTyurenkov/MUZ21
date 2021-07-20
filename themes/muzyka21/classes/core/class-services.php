@@ -10,6 +10,7 @@ class Services
 	{
 		add_action('init', ['Core\Services', 'post_type_services']);
 		add_action('init', ['Core\Services', 'taxonomy_type_services_type']);
+		add_action('init', ['Core\Services', 'register_post_template']);
 	}
 
 	//ADD Service POST TYPE
@@ -88,6 +89,18 @@ class Services
 			)
 		) );	
 			
+		}
+
+		static function register_post_template()
+		{
+			$post_type_object = get_post_type_object('services');
+			$post_type_object->template = array(
+				array('acf/service-mainbanner'),
+				array('acf/muzfeatures'),
+				array('acf/muzallplaces'),
+				array('acf/service-price'),
+				array('acf/general-contact-form')
+			);
 		}
 
 }

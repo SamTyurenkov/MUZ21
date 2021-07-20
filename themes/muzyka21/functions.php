@@ -12,15 +12,19 @@ spl_autoload_register( function($classname) {
    
 } );
 
-new Core\Init();
-new Core\Enqueues();
-new Core\Auth();
-new Core\Menu();
-new Core\ACFBlocks();
-new Core\Authors();
-$gplaces = new Core\Places();
-$gevents = new Core\Events();
-$gservices = new Core\Services();
+
+    new Core\Init();
+    new Core\Enqueues();
+    new Core\Auth();
+    new Core\Menu();
+    new Core\ACFBlocks();
+    new Core\Authors();
+    $gplaces = new Core\Places();
+    $gevents = new Core\Events();
+    $gservices = new Core\Services();
+    $gpurchases = new Core\Purchases();
+
+
 
 
 //CRON DELETE USERS

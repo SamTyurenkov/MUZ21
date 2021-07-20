@@ -7,10 +7,12 @@ if (!defined('ABSPATH')) {
 class Init
 {
 
+
 	static $techemail;
 
 	public function __construct()
 	{
+
 		if(str_contains(home_url(),'windowspros')) {
 			$techemail = 'no-reply@asp.sale';
 		} else {
@@ -69,6 +71,7 @@ class Init
 		add_action('init', ['Core\Init', 'acf_options_pages']);
 		add_action('init', ['Core\Init', 'change_author_permalinks']);
 	}
+
 	static function change_author_permalinks()
 	{
 		global $wp_rewrite;

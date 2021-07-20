@@ -184,17 +184,6 @@ class ACFBlocks
                 'keywords' => array('contact', 'form'),
             ));
 
-            acf_register_block(array(
-                'name' => 'general-contact-form',
-                //'enqueue_assets' => 'muzbanner_assets',
-                'title' => __('General Contact Form'),
-                'description' => __('General Contact Form'),
-                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
-                'category' => 'formatting',
-                'icon' => 'admin-comments',
-                'keywords' => array('contact', 'form'),
-            ));
-
             
             acf_register_block(array(
                 'name' => 'event-banner',

@@ -6,7 +6,6 @@ global $curauth;
 $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
 $curuser = wp_get_current_user();
 $uid = $curuser->ID; 
-
 get_header();
 
 
@@ -58,11 +57,11 @@ wp_localize_script('muzyka21-author_page', 'localize_author', array(
 			</div>
 			<div class="medium-container">
 				<?php
-				if (get_user_meta($uid, 'valimail', true) == false) {
-					get_template_part('templates/emailvalidation');
-				} else {
+				// if (get_user_meta($uid, 'valimail', true) == false) {
+				// 	get_template_part('templates/emailvalidation');
+				// } else {
 					get_template_part('templates/usermenu');
-				}
+				//}
 				?>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ class Events
 	public function __construct()
 	{
 		add_action('init', ['Core\Events', 'post_type_events']);
+		add_action('init', ['Core\Events', 'register_post_template']);
 	}
 
 	//ADD Event POST TYPE
@@ -65,7 +66,7 @@ class Events
         $post_type_object = get_post_type_object('events');
         $post_type_object->template = array(
             array('acf/event-banner'),
-			array('acf/general-contact-form'),
+			array('acf/event-price'),
         );
     }
 

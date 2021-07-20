@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
+
 $uid = wp_get_current_user()->ID; 
 ?>
 <!DOCTYPE html>
