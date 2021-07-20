@@ -44,6 +44,11 @@ $(document).ready(function () {
     }
   });
 
+  $('.menu-topbar-container .menu-item-has-children:after').on('click',function(e){
+    e.stopPropagation();
+    e.preventDefault();
+    $(this.parentNode.querySelector('.sub-menu')).toggleClass('active');
+  })
   
   anime.timeline({loop: false})
   .add({

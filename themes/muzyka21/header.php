@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
-$uid = wp_get_current_user()->ID; 
+$uid = wp_get_current_user()->ID;
 ?>
 <!DOCTYPE html>
 <html lang="ru" class="no-js">
@@ -28,7 +28,7 @@ $uid = wp_get_current_user()->ID;
 	<meta name="apple-mobile-web-app-status-bar-style" content="#d03030">
 
 	<?php wp_head(); ?>
-	<?php $my_home_url = apply_filters( 'wpml_home_url', get_option( 'home' ) ); ?>
+	<?php $my_home_url = apply_filters('wpml_home_url', get_option('home')); ?>
 </head>
 
 <body>
@@ -36,8 +36,10 @@ $uid = wp_get_current_user()->ID;
 		<div class="container">
 			<div class="topbar">
 				<div class="topbar_left">
-					
-					<a href="<?php echo esc_attr($my_home_url); ?>"><div class="logo_shape"></div><span>MUZYKA XXI</span></a>
+
+					<a href="<?php echo esc_attr($my_home_url); ?>">
+						<div class="logo_shape"></div><span>MUSIC XXI</span>
+					</a>
 				</div>
 				<div class="topbar_center">
 					<?php
@@ -64,7 +66,12 @@ $uid = wp_get_current_user()->ID;
 			<div class="menu_button">X</div>
 			<?php
 			wp_nav_menu(array(
-				'menu' => 'mobile'
+				'menu' => 'topbar',
+			));
+			?>
+			<?php
+			wp_nav_menu(array(
+				'menu' => 'personal'
 			));
 			?>
 		</div>
