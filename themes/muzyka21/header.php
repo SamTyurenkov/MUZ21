@@ -62,18 +62,20 @@ $uid = wp_get_current_user()->ID;
 			</div>
 
 		</div>
-		<div class="menu_mobile">
-			<div class="menu_button">X</div>
-			<?php
-			wp_nav_menu(array(
-				'menu' => 'topbar',
-			));
-			?>
-			<?php
-			wp_nav_menu(array(
-				'menu' => 'personal'
-			));
-			?>
+		<div class="menu_mobile_container">
+			<div class="menu_mobile">
+				<div class="menu_button">X</div>
+				<?php
+				wp_nav_menu(array(
+					'menu' => 'topbar',
+				));
+				?>
+				<?php
+				wp_nav_menu(array(
+					'menu' => 'personal'
+				));
+				?>
+			</div>
 		</div>
 	</header>
 
