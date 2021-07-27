@@ -8,15 +8,15 @@
             <p><?php echo get_field('payment_frame_subtitle','option'); ?></p>
             </span>
             <span class="input_container input_large">
-                <label><?php echo esc_attr(get_field('contact_form_email_text', 'options')); ?></label>
+                <label><?php echo esc_attr(get_field('contact_form_email_text', 'option')); ?></label>
                 <input class="form_email" required type="email" value="<?php echo esc_attr(get_the_author_meta('email', get_current_user_id())); ?>"></input>
             </span>
             <span class="input_container">
-                <label><?php echo esc_attr(get_field('contact_form_name_text', 'options')); ?></label>
+                <label><?php echo esc_attr(get_field('contact_form_name_text', 'option')); ?></label>
                 <input class="form_name" required type="text" value="<?php echo esc_attr(get_the_author_meta('display_name', get_current_user_id())); ?>"></input>
             </span>
             <span class="input_container">
-                <label><?php echo esc_attr(get_field('contact_form_phone_text', 'options')); ?></label>
+                <label><?php echo esc_attr(get_field('contact_form_phone_text', 'option')); ?></label>
                 <input class="form_phone" required type="text" value="<?php echo esc_attr(get_the_author_meta('user_phone', get_current_user_id())); ?>"></input>
             </span>
             <span class="input_container input_large form_title">
@@ -26,7 +26,7 @@
 
             </span>
             <input class="form_page" type="hidden" value="<?php echo esc_attr(get_permalink()); ?>"></input>
-            <input type="submit" class="button" value="<?php echo esc_attr(get_field('payment_frame_submit', 'options')); ?>">
+            <input type="submit" class="button" value="<?php echo esc_attr(get_field('payment_frame_submit', 'option')); ?>">
         </div>
 
 

@@ -20,6 +20,7 @@ $.gulp.task('default', $.gulp.series(
         'scripts:gutenberg',
         'scripts:login-reg',
         'scripts:author-page',
+        'scripts:admin-stuff',
         'scripts:libs',
         'imgs'
     )
@@ -37,6 +38,7 @@ $.gulp.task('scripts', $.gulp.series(
         'scripts:gutenberg',
         'scripts:login-reg',
         'scripts:author-page',
+        'scripts:admin-stuff',
         'scripts:libs',
     )
 ));

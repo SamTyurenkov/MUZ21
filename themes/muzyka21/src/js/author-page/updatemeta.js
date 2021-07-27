@@ -11,7 +11,7 @@ function updatemetas(field) {
         var meta = field.value;
     }
 
-    var ajaxurl = localize.ajaxurl;
+    var ajaxurl = localize_author.ajaxurl;
     var id = localize_author.aid;
     var nonce = document.getElementById("_editauthmeta").value;
 

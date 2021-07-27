@@ -12,7 +12,7 @@ class Init
 
 	public function __construct()
 	{
-
+		define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
 		if(str_contains(home_url(),'windowspros')) {
 			$techemail = 'no-reply@asp.sale';
 		} else {

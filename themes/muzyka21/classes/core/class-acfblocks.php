@@ -227,11 +227,11 @@ class ACFBlocks
 
     static function general_gallery_assets()
     {
-        wp_enqueue_script('general-gallery', get_template_directory_uri() . '/js/gutenberg-blocks/general-gallery.js', array('jquery'), filemtime(get_template_directory() . 'js/gutenberg-blocks/general-gallery.js'), true);
+        wp_enqueue_script('general-gallery', get_template_directory_uri() . '/js/gutenberg-blocks/general-gallery.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/general-gallery.js'), true);
    }
 
    static function event_price_assets()
    {
-       wp_enqueue_script('event-price', get_template_directory_uri() . '/js/gutenberg-blocks/event-price.js', array('jquery'), filemtime(get_template_directory() . 'js/gutenberg-blocks/event-price.js'), true);
+       wp_enqueue_script('event-price', get_template_directory_uri() . '/js/gutenberg-blocks/event-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/event-price.js'), true);
   }
 }

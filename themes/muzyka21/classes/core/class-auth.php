@@ -113,7 +113,7 @@ class Auth
                 $user = get_userdata($user_register);
                 update_user_meta($user_register, 'user_phone', $phone);
                 update_user_meta($user_register, 'xmlhash', hash('md5', $user->ID . $user->user_email));
-                $this->auth_user_login($info['nickname'], $info['user_pass'], 'Registration');
+                Auth::auth_user_login($info['nickname'], $info['user_pass'], 'Registration');
             }
 
             die();

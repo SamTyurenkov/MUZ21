@@ -35,6 +35,12 @@ class Authors
 		add_action('wp_ajax_logout', ['Core\Authors', 'logout']);
 		add_filter('wp_nav_menu_items',['Core\Authors','avatar_in_menu'], 10, 2);
 
+
+		//ADMIN AUTHOR
+		add_action('wp_ajax_validateuseremail', ['Core\Authors', 'validateuseremail']);
+		add_action('wp_ajax_invalidateuseremail', ['Core\Authors', 'invalidateuseremail']);
+		add_action('wp_ajax_makeresident', ['Core\Authors', 'makeresident']);
+		add_action('wp_ajax_cancelresident', ['Core\Authors', 'cancelresident']);
 	}
 	
 
@@ -516,5 +522,26 @@ class Authors
 			echo json_encode($data);
 			die();
 		}
+	}
+
+	static function validateuseremail() {
+		if(!current_user_can('administrator')) return;
+		$aid = intval($_POST['aid']);
+		update_user_meta($aid,'valimail',true);
+	}
+	static function invalidateuseremail() {
+		if(!current_user_can('administrator')) return;
+		$aid = intval($_POST['aid']);
+		update_user_meta($aid,'valimail',false);
+	}
+	static function makeresident() {
+		if(!current_user_can('administrator')) return;
+		$aid = intval($_POST['aid']);
+		update_user_meta($aid,'resident',true);
+	}
+	static function cancelresident() {
+		if(!current_user_can('administrator')) return;
+		$aid = intval($_POST['aid']);
+		update_user_meta($aid,'resident',false);
 	}
 }

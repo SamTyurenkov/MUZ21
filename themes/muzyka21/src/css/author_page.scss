@@ -36,7 +36,6 @@
       transition: all 0.4s ease;
       &:hover {
         border: 2px solid #f2f2f2;
-
       }
     }
     #userthumb {
@@ -44,7 +43,110 @@
     }
   }
   .editauthor {
-    max-width: 200px;
-    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    h4 {
+      display: block;
+      text-align: center;
+      margin-top: 0;
+      flex: 0 0 100%;
+    }
+  }
+}
+
+.usermenu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 600px;
+  max-width: 100%;
+  &_tabs {
+    flex: 0 0 100px;
+    background: #f2f2f2;
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: 4px solid #fff;
+    &_el {
+      padding: 10px;
+      cursor: pointer;
+      &.active {
+        color: #db4a61;
+        font-weight: 600;
+        cursor: initial;
+        pointer-events: none;
+      }
+    }
+  }
+  &_tabscontent {
+    flex: 0 0 calc(100% - 186px);
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    &_el {
+      display: none;
+      .author_event {
+        display: block;
+        padding: 20px 0;
+        border-bottom: 4px solid #ffffff;
+        text-decoration: none;
+        color: #444;
+        &_thumb {
+          background-color: #db4a61;
+          width: 80px;
+          height: 80px;
+          background-size: cover;
+          border-radius: 5px;
+          float: left;
+          margin-right: 10px;
+        }
+        &_title {
+          flex: 0 0 100%;
+        }
+        &_status {
+          text-align: right;
+          color: #d8a9a9;
+          flex: 0 0 50%;
+        }
+        &_date {
+          color: #616161;
+          font-weight: 600;
+          font-size: 13px;
+          flex: 0 0 50%;
+        }
+        &_right {
+          display: flex;
+          flex-wrap: wrap;
+          min-height: 80px;
+          align-items: center;
+        }
+        &:nth-last-child(1) {
+          border-bottom: 0;
+        }
+        h4 {
+          text-align: center;
+          margin-top: 0;
+        }
+        .createevent {
+          width: calc(80% - 20px);
+          text-align: center;
+          margin-left: 10%;
+        }
+      }
+      .orders {
+        padding: 20px 0;
+        .order {
+          h4 {
+            margin-top: 0;
+            text-align: center;
+          }
+        }
+      }
+      &.active {
+        display: block;
+      }
+    }
   }
 }

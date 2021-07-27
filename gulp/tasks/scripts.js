@@ -15,6 +15,7 @@ module.exports = function () {
         scriptsPATH.input + "errors_manager.js",
         scriptsPATH.input + "w3schools-select.js",
         scriptsPATH.input + "*.js",
+        "!" + scriptsPATH.input + "admin-stuff/*.js",
         "!" + scriptsPATH.input + "login-reg/*.js",
         "!" + scriptsPATH.input + "gutenberg-blocks/*.js",
         "!" + scriptsPATH.input + "author_page/*.js",
@@ -65,6 +66,18 @@ module.exports = function () {
       )
       .pipe(concat("author_page.js"))
       .pipe($.gulp.dest(scriptsPATH.output+ "author-page/"));
+  });
+  $.gulp.task("scripts:admin-stuff", () => {
+    return $.gulp
+      .src([scriptsPATH.input + "admin-stuff/*.js"])
+      .pipe(gulpif('!**/*.min.js',
+        uglify({
+          keep_fnames: true,
+          mangle: false,
+        }))
+      )
+      //.pipe(concat("admin-author.js"))
+      .pipe($.gulp.dest(scriptsPATH.output+ "admin-stuff/"));
   });
   $.gulp.task("scripts:libs", () => {
     return $.gulp

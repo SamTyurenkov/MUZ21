@@ -35,7 +35,6 @@ $(document).ready(function () {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(Number.isInteger(parseInt(localize.uid)));
     if(Number.isInteger(parseInt(localize.uid))) {
       location.href = window.location.protocol + '//' + window.location.hostname + '/author/' + localize.uname;
       console.log(window.location.protocol + '//' + window.location.hostname + '/author/' + localize.uname);

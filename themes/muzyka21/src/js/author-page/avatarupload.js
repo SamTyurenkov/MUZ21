@@ -5,7 +5,7 @@ $(document).ready(function () {
 var uthumb = document.getElementById("userthumb");
 uthumb.addEventListener("change", function(e) {
 
-    var ajaxurl = localize.ajaxurl;
+    var ajaxurl = localize_author.ajaxurl;
     var id = localize_author.aid;
     var nonce = document.getElementById("_editauthmeta").value;
     var extension = false;

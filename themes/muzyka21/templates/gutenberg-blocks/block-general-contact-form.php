@@ -13,11 +13,11 @@ $receiver = get_field('receiver');
                     <h2><?php echo get_field('title'); ?></h2>
                     <p><?php echo get_field('subtitle'); ?></p>
                     <div class="general-contact-form_flex_text_input_holder">
-                    <input required type="email" placeholder="<?php echo esc_attr(get_field('contact_form_email_text','options')); ?>" value="<?php echo esc_attr(get_the_author_meta('email',get_current_user_id())); ?>"></input>
-                    <input required type="text" placeholder="<?php echo esc_attr(get_field('contact_form_name_text','options')); ?>" value="<?php echo esc_attr(get_the_author_meta('display_name',get_current_user_id())); ?>"></input>
-                    <input required type="text" placeholder="<?php echo esc_attr(get_field('contact_form_phone_text','options')); ?>" value="<?php echo esc_attr(get_the_author_meta('user_phone',get_current_user_id())); ?>"></input>
+                    <input required type="email" placeholder="<?php echo esc_attr(get_field('contact_form_email_text','option')); ?>" value="<?php echo esc_attr(get_the_author_meta('email',get_current_user_id())); ?>"></input>
+                    <input required type="text" placeholder="<?php echo esc_attr(get_field('contact_form_name_text','option')); ?>" value="<?php echo esc_attr(get_the_author_meta('display_name',get_current_user_id())); ?>"></input>
+                    <input required type="text" placeholder="<?php echo esc_attr(get_field('contact_form_phone_text','option')); ?>" value="<?php echo esc_attr(get_the_author_meta('user_phone',get_current_user_id())); ?>"></input>
                     <input type="page" hidden value="<?php echo esc_attr(get_permalink()); ?>"></input>
-                    <input type="submit" class="button" value="<?php echo esc_attr(get_field('contact_form_submit_text','options')); ?>" >
+                    <input type="submit" class="button" value="<?php echo esc_attr(get_field('contact_form_submit_text','option')); ?>" >
                     </div>
             </div>
         </div>

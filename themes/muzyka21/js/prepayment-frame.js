@@ -51,13 +51,13 @@ $(document).ready(function () {
           "input_invalid"
         );
 
-      var ajaxurl = localize.ajaxurl;
+      var ajaxurl = localize_prepayment.ajaxurl;
       var nonce = $("#_payments").val();
       var username = $(".prepayment-frame_customer_details .form_name").val();
       var email = $(".prepayment-frame_customer_details .form_email").val();
       var phone = $(".prepayment-frame_customer_details .form_phone").val();
       var title = $(".prepayment-frame_customer_details .form_title").html();
-      var postid = localize.postid;
+      var postid = localize_prepayment.postid;
       var optionid = $(".prepayment-frame_customer_details").data("id");
 
       var value = jQuery.ajax({
