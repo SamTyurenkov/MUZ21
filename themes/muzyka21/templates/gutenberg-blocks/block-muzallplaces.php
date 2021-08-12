@@ -1,6 +1,7 @@
 <?php
 $post_id = get_query_var('post_id');
 $posttype = get_post_type($post_id);
+$places = get_field('places',$post_id);
 ?>
 
 <div class="muzallplaces">
@@ -16,11 +17,12 @@ $posttype = get_post_type($post_id);
             'posts_per_page' => 20
         );
 
-        if ($posttype == 'places') {
-            $args['meta_query'][] = array(
-                'key' => 'places',
-                'value' => $post_id
-            );
+        if ($posttype == 'services') {
+            $args['post__in '] = array();
+
+            foreach($places as $place) {
+                $args['post__in'][] = $place->ID;
+            }
         };
 
         $query = new WP_Query($args);

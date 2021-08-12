@@ -32,12 +32,7 @@ class Init
 		add_image_size('mini', 60, 60, true); //ADD ICON IMAGE SIZE
 
 		add_action('template_redirect', ['Core\Init', 'redirect_attachment_to_post']); //REDIRECT ATTACHEMENTS TO POST
-
-		//REMOVE AUTO P IN CONTENT
-		//remove_filter('the_content', 'wpautop');
-		//remove_filter('the_excerpt', 'wpautop');
-
-		//REMOVE FEEDS
+		
 		remove_action('wp_head', 'feed_links_extra', 3);
 		remove_action('wp_head', 'feed_links', 2);
 
@@ -139,7 +134,7 @@ class Init
 		return $sizes;
 	}
 
-	static function get_image_id($image_url)
+	public static function get_image_id($image_url)
 	{
 		global $wpdb;
 		$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url));

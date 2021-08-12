@@ -3,7 +3,7 @@ $(document).ready(function () {
 $('#valisend').on("click", function(e) {
         e.preventDefault();
 
-        var ajaxurl = localize.ajaxurl;
+        var ajaxurl = localize_author.ajaxurl;
         var nonce = document.getElementById("_vali_send").value;
 
         var value = jQuery.ajax({

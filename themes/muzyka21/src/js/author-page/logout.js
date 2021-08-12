@@ -15,10 +15,10 @@ logout.addEventListener("click", function(e) {
             action: 'logout',
         },
         success: function(data, textStatus, jqXHR) {
-            window.open(localize.homeurl, "_self");
+            window.open(localize_author.homeurl, "_self");
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            window.open(localize.homeurl, "_self");
+            window.open(localize_author.homeurl, "_self");
         }
     });
 

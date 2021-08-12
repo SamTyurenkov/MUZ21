@@ -4,7 +4,8 @@ $(document).ready(function () {
   $(".createevent").on("click", function (e) { 
       e.preventDefault();
 
-      var ajaxurl = localize.ajaxurl;
+      var ajaxurl = localize_author.ajaxurl;
+      var aid = localize_author.aid;
       var meta = document.getElementsByClassName("neweventname")[0].value;
       var nonce = document.getElementById("_editauthmeta").value;
 
@@ -13,10 +14,10 @@ $(document).ready(function () {
         url: ajaxurl,
         cache: false,
         data: {
-          id: id,
+          aid: aid,
           meta: meta,
           nonce: nonce,
-          action: "creategame",
+          action: "createevent",
         },
         success: function (data, textStatus, jqXHR) {
           if (data.response == "SUCCESS") {

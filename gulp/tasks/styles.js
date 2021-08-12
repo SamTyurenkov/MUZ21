@@ -3,6 +3,7 @@ let plumber = require("gulp-plumber"),
   concat = require("gulp-concat-css"),
   prefix = require("gulp-autoprefixer"),
   sass = require("gulp-sass"),
+  sourcemaps = require("gulp-sourcemaps"),
   minifyCSS = require("gulp-minify-css");
 
 stylesPATH = {
@@ -30,10 +31,13 @@ module.exports = function () {
   $.gulp.task("styles", () => {
     return $.gulp
       .src(stylesPATH.input)
+      .pipe(sourcemaps.init())
       .pipe(sass().on('error', sass.logError))
       .pipe(prefix("last 2 versions"))
+      .pipe(sourcemaps.write())
       .pipe(concat("main.css"))
       .pipe(minifyCSS())
-      .pipe($.gulp.dest(stylesPATH.output));
+      .pipe($.gulp.dest(stylesPATH.output))
+      .on('end', $.browserSync.reload);
   });
 };

@@ -28,6 +28,7 @@ class Enqueues
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'login_reg_scripts'], 999);
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'author_page_scripts'], 999);
 		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'payment_scripts'], 999);
+		add_action('wp_enqueue_scripts', ['Core\Enqueues', 'editor_scripts'], 999);
 	}
 
 	static function back_scripts()
@@ -55,10 +56,25 @@ class Enqueues
 		wp_enqueue_style('muzyka21-main', get_template_directory_uri() . '/css/main.css', array(), filemtime(get_template_directory() . '/css/main.css'), 'all');
 	}
 
+	static function editor_scripts() 
+	{
+		if (is_singular('events') && current_user_can('edit_post', get_the_ID())) {
+
+			Enqueues::$postid = get_the_ID();
+
+			wp_enqueue_script('editor-frame', get_template_directory_uri() . '/js/editor-frame.js', array('jquery'), filemtime(get_template_directory() . '/js/editor-frame.js'), true);
+			wp_localize_script('editor-frame', 'localize_editor', array(
+				'uid' => Enqueues::$uid,
+				'ajaxurl' => Enqueues::$ajaxurl,
+				'postid' => Enqueues::$postid,
+			));
+		}
+	}
+
 	static function payment_scripts()
 	{
 
-		if (is_singular('events')) {
+		if (is_singular('events') || is_singular('services')) {
 
 			Enqueues::$postid = get_the_ID();
 
@@ -66,6 +82,7 @@ class Enqueues
 			wp_localize_script('prepayment-frame', 'localize_prepayment', array(
 				'ajaxurl' => Enqueues::$ajaxurl,
 				'postid' => Enqueues::$postid,
+				'type' => get_post_type(Enqueues::$postid)
 			));
 		}
 	}

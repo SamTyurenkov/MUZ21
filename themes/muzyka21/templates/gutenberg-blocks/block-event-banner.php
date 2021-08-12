@@ -13,6 +13,10 @@ $event_end_text = get_field('event_end_text', 'option');
             <div class="event-banner_flex_left">
                 <?php if ($thumbnail) : ?>
                     <img class="event-banner_flex_image" src="<?php echo esc_attr($thumbnail); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                <?php elseif (current_user_can('edit_post', $post_id)) : ?>
+                    <div class="event-banner_flex_image empty" style="background:#000" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                        Здесь будет изображение события
+                    </div>
                 <?php endif; ?>
             </div>
             <div class="event-banner_flex_right">
@@ -42,8 +46,12 @@ $event_end_text = get_field('event_end_text', 'option');
             <div class="event-banner_flex_right">
                 <?php if (get_field('place', $post_id)) : ?>
                     <?php $placethumb = get_the_post_thumbnail_url(get_field('place',  $post_id)->ID, 'large'); ?>
-                    <img class="event-banner_flex_el_placeimg" srcset="<?php echo esc_attr($placethumb); ?>">
+                    <img class="event-banner_flex_image" srcset="<?php echo esc_attr($placethumb); ?>">
 
+                <?php elseif (current_user_can('edit_post', $post_id)) : ?>
+                    <div class="event-banner_flex_image empty" style="background:#000" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                        Здесь будет фотка места
+                    </div>
                 <?php endif; ?>
 
             </div>

@@ -36,8 +36,7 @@ $(document).ready(function () {
     e.stopPropagation();
 
     if(Number.isInteger(parseInt(localize.uid))) {
-      location.href = window.location.protocol + '//' + window.location.hostname + '/author/' + localize.uname;
-      console.log(window.location.protocol + '//' + window.location.hostname + '/author/' + localize.uname);
+      location.href = localize.homeurl + '/author/' + localize.uname;
     } else {
       $('.account_forms').css('display','flex');
     }

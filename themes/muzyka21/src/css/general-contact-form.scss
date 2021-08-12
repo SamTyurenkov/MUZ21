@@ -1,54 +1,61 @@
 .general-contact-form {
-  background-size: 100%;
-  min-height: 600px;
-  &_flex {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    overflow: hidden;
-    &_banner {
-      border-radius: 15px;
-      height: 600px;
-      flex: 0 0 60%;
-      display: flex;
-      align-items: center;
-      transform: rotate(-1deg);
-      @media (max-width: 1440px) {
-        flex: 0 0 calc(60% - 40px);
-        padding: 50px 20px;
-        height: auto;
-      }
-      @media (max-width: 800px) {
-        flex: 0 0 calc(100% - 40px);
-        padding: 20px;
-      }
-      img {
-        max-width: 80%;
-        border-radius: 15px;
-        &:nth-child(2) {
-          width: 200px;
-          position: absolute;
-          right: 30%;
-        }
-      }
-    }
-    &_text {
-      flex: 0 0 40%;
-      text-align: center;
-      max-width: 470px;
-  
-      @media (max-width: 800px) {
-        flex: 0 0 100%;
-      }
-      &_input_holder{
-        padding: 0 20px;
-      }
-      input[type="submit"] {
-        text-align: center;
-        display: block;
-        margin: 15px auto;
-        width: 260px;
-      }
-    }
-  }
+	background-size: 100%;
+	min-height: 600px;
+	&_flex {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		overflow: hidden;
+		&_banner {
+			border-radius: 15px;
+			height: 600px;
+			flex: 0 0 60%;
+			display: flex;
+			align-items: center;
+			transform: rotate(-1deg);
+			@media (max-width: 1440px) {
+				flex: 0 0 calc(60% - 40px);
+				padding: 50px 20px;
+				height: auto;
+			}
+			@media (max-width: 800px) {
+				flex: 0 0 calc(100% - 40px);
+				padding: 20px;
+			}
+			img {
+				max-width: 80%;
+				border-radius: 15px;
+				@media (max-width: 800px) {
+					max-height: 350px;
+					margin-bottom: -50px;
+				}
+				&:nth-child(2) {
+					width: 200px;
+					position: absolute;
+					right: 30%;
+				}
+			}
+		}
+		&_text {
+			flex: 0 0 40%;
+			text-align: center;
+			max-width: 470px;
+
+			@media (max-width: 800px) {
+				flex: 0 0 100%;
+				display: block;
+				margin: 0 auto;
+			}
+			&_input_holder {
+				padding: 0 20px;
+        margin-top: 40px;
+			}
+			input[type="submit"] {
+				text-align: center;
+				display: block;
+				margin: 15px auto;
+				width: 260px;
+			}
+		}
+	}
 }

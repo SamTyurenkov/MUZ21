@@ -1,6 +1,7 @@
 <?php
 $post_id = get_query_var('post_id');
 $receiver = get_field('receiver');
+$translations = get_field('settings', 'option');
 ?>
 <div class="general-contact-form" id="contact_form">
     <div class="container">
@@ -10,15 +11,24 @@ $receiver = get_field('receiver');
                 <img src="<?php echo get_template_directory_uri() . '/images/email.svg'; ?>" alt="contact form">
             </div>
             <div class="general-contact-form_flex_text">
-                    <h2><?php echo get_field('title'); ?></h2>
-                    <p><?php echo get_field('subtitle'); ?></p>
-                    <div class="general-contact-form_flex_text_input_holder">
-                    <input required type="email" placeholder="<?php echo esc_attr(get_field('contact_form_email_text','option')); ?>" value="<?php echo esc_attr(get_the_author_meta('email',get_current_user_id())); ?>"></input>
-                    <input required type="text" placeholder="<?php echo esc_attr(get_field('contact_form_name_text','option')); ?>" value="<?php echo esc_attr(get_the_author_meta('display_name',get_current_user_id())); ?>"></input>
-                    <input required type="text" placeholder="<?php echo esc_attr(get_field('contact_form_phone_text','option')); ?>" value="<?php echo esc_attr(get_the_author_meta('user_phone',get_current_user_id())); ?>"></input>
+                <h2><?php echo get_field('title'); ?></h2>
+                <p><?php echo get_field('subtitle'); ?></p>
+                <div class="general-contact-form_flex_text_input_holder">
+                    <span class="input_container input_large">
+                        <label><?php echo esc_html($translations['label_email']); ?></label>
+                        <input required type="email" placeholder="your@email.domain" value="<?php echo esc_attr(get_the_author_meta('email', get_current_user_id())); ?>"></input>
+                    </span>
+                    <span class="input_container input_large">
+                        <label><?php echo esc_html($translations['label_display_name']); ?></label>
+                        <input required type="text" placeholder="Имя или ник" value="<?php echo esc_attr(get_the_author_meta('display_name', get_current_user_id())); ?>"></input>
+                    </span>
+                    <span class="input_container input_large">
+                        <label><?php echo esc_html($translations['label_phone']); ?></label>
+                        <input required type="text" placeholder="+7...." value="<?php echo esc_attr(get_the_author_meta('user_phone', get_current_user_id())); ?>"></input>
+                    </span>
                     <input type="page" hidden value="<?php echo esc_attr(get_permalink()); ?>"></input>
-                    <input type="submit" class="button" value="<?php echo esc_attr(get_field('contact_form_submit_text','option')); ?>" >
-                    </div>
+                    <input type="submit" class="button" value="<?php echo esc_attr(get_field('contact_form_submit_text', 'option')); ?>">
+                </div>
             </div>
         </div>
     </div>

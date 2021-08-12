@@ -5,6 +5,7 @@ global.$ = {
         task: require('./gulp/path/tasks.js')
     },
     gulp: require('gulp'),
+    browserSync: require('browser-sync').create(),
     del: require('del')
 };
 
@@ -22,7 +23,9 @@ $.gulp.task('default', $.gulp.series(
         'scripts:author-page',
         'scripts:admin-stuff',
         'scripts:libs',
-        'imgs'
+        'imgs',
+        'watch',
+        'browser-sync'
     )
 ));
 

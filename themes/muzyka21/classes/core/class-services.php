@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
@@ -62,45 +63,44 @@ class Services
 		);
 	}
 
-	static function taxonomy_type_services_type() {	
-			
+	static function taxonomy_type_services_type()
+	{
+
 		$worklabels = array(
-			'name'              => __( 'Services Type', 'muz21' ),
-			'singular_name'     => __( 'Type', 'muz21' ),
-			'search_items'      => __( 'Search Services', 'muz21' ),
-			'all_items'         => __( 'All Type', 'muz21' ),
-			'parent_item'       => __( 'Parent Type', 'muz21' ),
-			'parent_item_colon' => __( 'Parent Type:', 'muz21' ),
-			'edit_item'         => __( 'Edit Type', 'muz21' ),
-			'update_item'       => __( 'Update Type', 'muz21' ),
-			'add_new_item'      => __( 'Add New Type', 'muz21' ),
-			'new_item_name'     => __( 'New Type Name', 'muz21' ),
+			'name'              => __('Services Type', 'muz21'),
+			'singular_name'     => __('Type', 'muz21'),
+			'search_items'      => __('Search Services', 'muz21'),
+			'all_items'         => __('All Type', 'muz21'),
+			'parent_item'       => __('Parent Type', 'muz21'),
+			'parent_item_colon' => __('Parent Type:', 'muz21'),
+			'edit_item'         => __('Edit Type', 'muz21'),
+			'update_item'       => __('Update Type', 'muz21'),
+			'add_new_item'      => __('Add New Type', 'muz21'),
+			'new_item_name'     => __('New Type Name', 'muz21'),
 		);
-	
-		register_taxonomy( 'services-type', array( 'services' ), array(
-			'hierarchical' => true, 
+
+		register_taxonomy('services-type', array('services'), array(
+			'hierarchical' => true,
 			'labels'       => $worklabels,
 			'show_ui'      => true,
 			'query_var'    => true,
 			'show_in_rest' => true,
 			'rewrite' => array(
-			'slug' => 'services-type',
-			'with_front' => FALSE,
+				'slug' => 'services-type',
+				'with_front' => FALSE,
 			)
-		) );	
-			
-		}
+		));
+	}
 
-		static function register_post_template()
-		{
-			$post_type_object = get_post_type_object('services');
-			$post_type_object->template = array(
-				array('acf/service-mainbanner'),
-				array('acf/muzfeatures'),
-				array('acf/muzallplaces'),
-				array('acf/service-price'),
-				array('acf/general-contact-form')
-			);
-		}
-
+	static function register_post_template()
+	{
+		$post_type_object = get_post_type_object('services');
+		$post_type_object->template = array(
+			array('acf/service-mainbanner'),
+			array('acf/muzfeatures'),
+			array('acf/muzallplaces'),
+			array('acf/service-price'),
+			array('acf/general-contact-form')
+		);
+	}
 }

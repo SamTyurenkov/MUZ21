@@ -10,6 +10,9 @@ class Purchases
 	public function __construct()
 	{
 		add_action('init', ['Core\Purchases', 'post_type_purchases']);
+		add_action('init', ['Core\Purchases', 'taxonomy_type_purchase_status']);
+		add_action('wp_ajax_prepayment', ['Core\Purchases', 'prepayment']);
+
 		add_action('rest_api_init', function () {
 			register_rest_route('custom', '/purchases/alphabank/', array(
 				'methods' => 'GET',
@@ -20,6 +23,69 @@ class Purchases
 	}
 
 	//ADD PURCHASE POST TYPE
+
+	public static function prepayment()
+	{
+		if (wp_verify_nonce($_POST['nonce'], '_payments')) {
+
+			$email = sanitize_email($_POST['email']);
+			$phone = sanitize_text_field($_POST['phone']);
+			$postid = intval($_POST['postid']);
+			$optionid = intval($_POST['optionid']);
+			$type = sanitize_text_field($_POST['type']);
+
+
+			$price = sanitize_text_field($_POST['price']);
+
+			$userquery = get_user_by('email', $email);
+			if ($userquery) {
+				$uid = $userquery->ID;
+			} else {
+				$uid = 1;
+			};
+
+			$post_content = '';
+			$my_post = array(
+				'post_type' => 'purchases',
+				'post_title'    => sanitize_text_field($_POST['title']),
+				'post_content'  => $post_content,
+				'post_status'   => "draft",
+				'post_author'   => intval($uid),
+				'meta_input' => array(
+					'price' => $price,
+					'type' => $type,
+					'buyer' => $email,
+					'phone' => $phone,
+					'postid' => $postid,
+					'optionid' => $optionid,
+					'status' => 'pending',
+				)
+			);
+
+			if (is_numeric($price) == false && $type == 'event') {
+				$my_post['meta_input']['status'] = 'paid';
+			}
+
+			$post_id = wp_insert_post($my_post);
+
+			if (is_numeric($post_id)) {
+
+				if (is_numeric($price) == false && $type == 'event') {
+					//Emails::sendEmail('ticket', array());
+				}
+
+				$response['response'] = 'SUCCESS';
+				$response['info'] = $post_id;
+				echo json_encode($response);
+				die();
+			}
+		} else {
+			$response['response'] = 'ERROR';
+			$response['error'] = 'Обновите страницу и попробуйте снова';
+			echo json_encode($response);
+			die();
+		}
+	}
 
 	public static function post_type_purchases()
 	{
@@ -67,8 +133,41 @@ class Purchases
 		);
 	}
 
+	static function taxonomy_type_purchase_status()
+	{
+
+		$worklabels = array(
+			'name'              => __('Purchase Status', 'muz21'),
+			'singular_name'     => __('Status', 'muz21'),
+			'search_items'      => __('Search Statuses', 'muz21'),
+			'all_items'         => __('All Statuses', 'muz21'),
+			'parent_item'       => __('Parent Status', 'muz21'),
+			'parent_item_colon' => __('Parent Status:', 'muz21'),
+			'edit_item'         => __('Edit Status', 'muz21'),
+			'update_item'       => __('Update Status', 'muz21'),
+			'add_new_item'      => __('Add New Status', 'muz21'),
+			'new_item_name'     => __('New Status Name', 'muz21'),
+		);
+
+		register_taxonomy('purchase-status', array('purchases'), array(
+			'hierarchical' => true,
+			'labels'       => $worklabels,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'show_in_rest' => true,
+			'rewrite' => array(
+				'slug' => 'purchase-status',
+				'with_front' => FALSE,
+			)
+		));
+	}
+
 	public static function completepurchase($request)
 	{
+
+		$queries = array();
+		parse_str($_SERVER['QUERY_STRING'], $queries);
+
 		http_response_code(200);
 		$secret = 'BFs2CRQxfU5ydFPnEedXYrWu';
 		$validity = strip_tags($request['notification_type']) . '&' . strip_tags($request['operation_id']) . '&' . strip_tags($request['amount']) . '&' . strip_tags($request['currency']) . '&' . strip_tags($request['datetime']) . '&' . strip_tags($request['sender']) . '&' . strip_tags($request['codepro']) . '&' . $secret . '&' . strip_tags($request['label']);

@@ -19,6 +19,7 @@ spl_autoload_register( function($classname) {
     new Core\Menu();
     new Core\ACFBlocks();
     new Core\Authors();
+    new Core\Uploads();
     $gplaces = new Core\Places();
     $gevents = new Core\Events();
     $gservices = new Core\Services();
@@ -46,3 +47,9 @@ function my_clearOldUsers() {
 }
 
 add_action('my_weeklyClearOut', 'my_clearOldUsers');
+
+add_filter('acf/update_value/type=date_time_picker', 'my_update_value_date_time_picker', 10, 3);
+
+function my_update_value_date_time_picker( $value, $post_id, $field ) {
+    return strtotime( $value );
+}

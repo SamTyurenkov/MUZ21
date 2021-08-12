@@ -1,4 +1,4 @@
-<?php if (is_singular('events')) : ?>
+<?php if (is_singular('events') || is_singular('services')) : ?>
     <div class="prepayment-frame">
 		<?php wp_nonce_field('_payments', '_payments'); ?>
         <div class="prepayment-frame_customer_details">

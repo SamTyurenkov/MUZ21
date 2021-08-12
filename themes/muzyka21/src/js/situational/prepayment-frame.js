@@ -1,5 +1,3 @@
-"use strict";
-
 $ = jQuery;
 $(document).ready(function () {
   function ValidateEmail(mail) {
@@ -57,6 +55,8 @@ $(document).ready(function () {
       var email = $(".prepayment-frame_customer_details .form_email").val();
       var phone = $(".prepayment-frame_customer_details .form_phone").val();
       var title = $(".prepayment-frame_customer_details .form_title").html();
+      var price = $(".event-price_flex_price_value span").html();
+      var type = localize_prepayment.type;
       var postid = localize_prepayment.postid;
       var optionid = $(".prepayment-frame_customer_details").data("id");
 
@@ -68,15 +68,17 @@ $(document).ready(function () {
           email: email,
           phone: phone,
           title: title,
+          price: price,
           postid: postid,
           optionid: optionid,
+          type: type,
           action: "prepayment",
         },
         type: "POST",
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
           if (data.response == "SUCCESS") {
-            ErrorsManager.createEl("success", "Информация успешно обновлена");
+            ErrorsManager.createEl("success", "Заказ успешно создан");
           } else if (data.response == "ERROR") {
             ErrorsManager.createEl("error", "Ошибка: " + data.error);
           }

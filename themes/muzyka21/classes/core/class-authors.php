@@ -33,7 +33,6 @@ class Authors
 		add_filter('get_avatar_url', ['Core\Authors', 'avatar_url'], 999, 3);
 		add_filter('intermediate_image_sizes_advanced', ['Core\Authors', 'avatar_unset_sizes'], 999, 3);
 		add_action('wp_ajax_logout', ['Core\Authors', 'logout']);
-		add_filter('wp_nav_menu_items',['Core\Authors','avatar_in_menu'], 10, 2);
 
 
 		//ADMIN AUTHOR
@@ -43,26 +42,6 @@ class Authors
 		add_action('wp_ajax_cancelresident', ['Core\Authors', 'cancelresident']);
 	}
 	
-
-    static function avatar_in_menu( $nav, $args ) {
-
-		
-        if($args->menu->slug == 'personal') {
-
-			$uid = get_current_user_id();
-
-		if($uid > 0) {
-		$avaversion = get_the_author_meta( 'avaversion', $uid);
-		return str_replace('<a href="#">','<a href="#"><img src="'.get_avatar_url($uid, array('size' => 30,)).'?v='.$avaversion.'">',$nav);
-		} else {
-		return str_replace('<a href="#">','<a href="#"><img src="'.content_url().'/themes/muzyka21/images/user/avatar.svg">',$nav);
-		}
-
-		}
-
-        return $nav;
-    }
-
 
 	//RENAME AVATAR FILE ON UPLOAD
 	static function avatar_filenames($filename)
@@ -121,8 +100,11 @@ class Authors
 
 	static function valisend()
 	{
+		
+		$response = array();
+
 		if (wp_verify_nonce($_POST['nonce'], '_vali_send')) {
-			$response = array();
+			
 			// Get user data by field and data, fields are id, slug, email and login
 			$user = wp_get_current_user();
 

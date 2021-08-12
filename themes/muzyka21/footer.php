@@ -3,7 +3,8 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 ?>
-	<?php get_template_part('templates/payments'); ?>
+<?php get_template_part('templates/editor'); ?>
+<?php get_template_part('templates/payments'); ?>
 
 <footer class="footer">
 	<div class="container">

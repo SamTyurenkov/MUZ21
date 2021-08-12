@@ -87,7 +87,7 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'service-price',
-                //'enqueue_assets' => 'muzbanner_assets',
+                'enqueue_assets' => ['Core\ACFBlocks','service_price_assets'],
                 'title' => __('Service Price'),
                 'description' => __('Service Price'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
@@ -234,4 +234,8 @@ class ACFBlocks
    {
        wp_enqueue_script('event-price', get_template_directory_uri() . '/js/gutenberg-blocks/event-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/event-price.js'), true);
   }
+  static function service_price_assets()
+  {
+      wp_enqueue_script('service-price', get_template_directory_uri() . '/js/gutenberg-blocks/service-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/service-price.js'), true);
+ }
 }
