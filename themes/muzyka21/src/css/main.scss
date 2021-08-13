@@ -380,7 +380,7 @@ header {
     .menu_button {
       height: 40px;
       width: 40px;
-      margin: 10px 10px 10px calc(100% - 50px);
+      margin: 20px 10px 10px calc(100% - 50px);
       cursor: pointer;
       position: relative;
       right: 0;
@@ -446,8 +446,7 @@ header {
         }
       }
     }
-    .menu-personal-container {
-      ul {
+    .menu-personal {
         border-top: 0;
         a {
           border-bottom: 0;
@@ -456,7 +455,7 @@ header {
             top: 3px;
           }
         }
-      }
+      
     }
   }
 }

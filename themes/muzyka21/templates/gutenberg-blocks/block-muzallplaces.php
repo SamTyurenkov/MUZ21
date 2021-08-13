@@ -14,7 +14,7 @@ $places = get_field('places',$post_id);
             'order'     => 'DESC',
             'post_status' => 'publish',
             'orderby'       => 'modified',
-            'posts_per_page' => 20
+            'posts_per_page' => 10
         );
 
         if ($posttype == 'services') {
@@ -48,7 +48,7 @@ $places = get_field('places',$post_id);
             <?php $i++;
                 endwhile;
             endif;
-
+            wp_reset_query();
             wp_reset_postdata();
             ?>
 

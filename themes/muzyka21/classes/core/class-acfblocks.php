@@ -1,8 +1,9 @@
 <?php
 
 namespace Core;
+
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 class ACFBlocks
 {
@@ -10,7 +11,6 @@ class ACFBlocks
     public function __construct()
     {
         add_action('acf/init', ['Core\ACFBlocks', 'acf_init']);
-        
     }
 
 
@@ -87,13 +87,13 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'service-price',
-                'enqueue_assets' => ['Core\ACFBlocks','service_price_assets'],
+                'enqueue_assets' => ['Core\ACFBlocks', 'service_price_assets'],
                 'title' => __('Service Price'),
                 'description' => __('Service Price'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
                 'category' => 'formatting',
                 'icon' => 'admin-comments',
-                'keywords' => array('service', 'banner','price'),
+                'keywords' => array('service', 'banner', 'price'),
             ));
 
             acf_register_block(array(
@@ -142,7 +142,7 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'general-gallery',
-                'enqueue_assets' => ['Core\ACFBlocks','general_gallery_assets'],
+                'enqueue_assets' => ['Core\ACFBlocks', 'general_gallery_assets'],
                 'title' => __('General Gallery'),
                 'description' => __('General Gallery'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
@@ -184,7 +184,7 @@ class ACFBlocks
                 'keywords' => array('contact', 'form'),
             ));
 
-            
+
             acf_register_block(array(
                 'name' => 'event-banner',
                 //'enqueue_assets' => 'muzbanner_assets',
@@ -198,7 +198,7 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'event-price',
-                'enqueue_assets' => ['Core\ACFBlocks','event_price_assets'],
+                'enqueue_assets' => ['Core\ACFBlocks', 'event_price_assets'],
                 'title' => __('Event Price'),
                 'description' => __('Event Price'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
@@ -209,10 +209,18 @@ class ACFBlocks
         }
     }
 
+    private static function convert($size)
+    {
+        $unit=array('b','kb','mb','gb','tb','pb');
+        return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+    }
+
     static function block_render_callback($block, $content = '', $is_preview = false, $post_id = 0)
     {
         // convert name ("acf/testimonial") into path friendly slug ("testimonial")
         $slug = str_replace('acf/', '', $block['name']);
+        error_log($slug);
+        error_log(ACFBlocks::convert(memory_get_usage(true)));
         set_query_var('post_id', $post_id);
         // include a template part from within the "template-parts/block" folder
         if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {
@@ -228,14 +236,14 @@ class ACFBlocks
     static function general_gallery_assets()
     {
         wp_enqueue_script('general-gallery', get_template_directory_uri() . '/js/gutenberg-blocks/general-gallery.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/general-gallery.js'), true);
-   }
+    }
 
-   static function event_price_assets()
-   {
-       wp_enqueue_script('event-price', get_template_directory_uri() . '/js/gutenberg-blocks/event-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/event-price.js'), true);
-  }
-  static function service_price_assets()
-  {
-      wp_enqueue_script('service-price', get_template_directory_uri() . '/js/gutenberg-blocks/service-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/service-price.js'), true);
- }
+    static function event_price_assets()
+    {
+        wp_enqueue_script('event-price', get_template_directory_uri() . '/js/gutenberg-blocks/event-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/event-price.js'), true);
+    }
+    static function service_price_assets()
+    {
+        wp_enqueue_script('service-price', get_template_directory_uri() . '/js/gutenberg-blocks/service-price.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/service-price.js'), true);
+    }
 }

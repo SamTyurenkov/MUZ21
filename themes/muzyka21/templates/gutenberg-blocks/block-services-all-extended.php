@@ -7,7 +7,7 @@
             'order'     => 'DESC',
             'post_status' => 'publish',
             'orderby'       => 'modified',
-            'posts_per_page' => 40
+            'posts_per_page' => 20
         );
         $query = new WP_Query($args);
         ?>
@@ -41,7 +41,7 @@
             <?php
                 endwhile;
             endif;
-
+            wp_reset_query();
             wp_reset_postdata();
             ?>
 

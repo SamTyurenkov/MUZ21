@@ -2,7 +2,6 @@
 $post_id = get_query_var('post_id');
 $thumbnail = get_the_post_thumbnail_url($post_id, 'large');
 $providers = get_field('providers', $post_id);
-$price = get_field('price', $post_id);
 ?>
 <div class="service-mainbanner">
     <div class="container">

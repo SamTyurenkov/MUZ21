@@ -65,7 +65,7 @@ $posttype = get_post_type($post_id);
             <?php
             endwhile;
             endif;
-
+            wp_reset_query();
             wp_reset_postdata();
             ?>
             </ul>

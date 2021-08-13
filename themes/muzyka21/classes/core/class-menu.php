@@ -21,7 +21,7 @@ class Menu
 
 
         if (strpos($args->menu->slug,'personal') !== false) {
-
+            $nav = str_replace('class="menu"','class="menu menu-personal"', $nav);
             $uid = get_current_user_id();
 
             if ($uid > 0) {

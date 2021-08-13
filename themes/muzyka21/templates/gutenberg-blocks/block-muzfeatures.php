@@ -5,9 +5,9 @@ $startwave = get_field('startwave');
 $posttype = get_post_type($post_id);
 ?>
 <div class="muzfeatures">
-<?php if ($startwave == 'show') { ?>
-    <img class="wavestart" src="<?php echo get_template_directory_uri() . '/images/wave2start.svg'; ?>">
-<?php }; ?>
+    <?php if ($startwave == 'show') { ?>
+        <img class="wavestart" src="<?php echo get_template_directory_uri() . '/images/wave2start.svg'; ?>">
+    <?php }; ?>
     <div class="container">
         <div class="muzfeatures_flex">
             <?php if ($option == 'general') { ?>
@@ -24,7 +24,7 @@ $posttype = get_post_type($post_id);
                 <?php endwhile;
                 endif; ?>
             <?php } else if ($option == 'services') { ?>
-                <?php if (have_rows('main_features',$post_id)) : while (have_rows('main_features',$post_id)) : the_row(); ?>
+                <?php if (have_rows('main_features', $post_id)) : while (have_rows('main_features', $post_id)) : the_row(); ?>
                         <div class="muzfeatures_flex_el">
                             <h3><?php the_sub_field('title'); ?></h3>
                             <p><?php the_sub_field('subtitle'); ?></p>

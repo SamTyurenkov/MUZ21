@@ -14,10 +14,10 @@ $post_id = get_query_var('post_id');
                         <?php
                         $i = 0;
                         if (have_rows('prices', $post_id)) : while (have_rows('prices', $post_id)) : the_row();
-                                if(get_sub_field('option_variant') == 'fix-price') {
-                                $price = (int) get_sub_field('option_price');
+                                if (get_sub_field('option_variant') == 'fix-price') {
+                                    $price = (int) get_sub_field('option_price');
                                 } else {
-                                $price = get_field('by_request', 'option');
+                                    $price = get_field('by_request', 'option');
                                 }
 
                         ?>
@@ -38,7 +38,7 @@ $post_id = get_query_var('post_id');
 
             <div class="service-price_flex_right">
                 <div class="service-price_flex_image">
-                    <img src="<?php echo get_template_directory_uri() . '/images/wallet.svg'; ?>" alt="<?php echo esc_attr(get_field('title')); ?>">
+                    <img src="<?php echo esc_attr(get_template_directory_uri() . '/images/wallet.svg'); ?>" alt="<?php echo esc_attr(get_field('title',$post_id)); ?>">
                 </div>
             </div>
 

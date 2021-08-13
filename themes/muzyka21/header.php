@@ -72,7 +72,8 @@ $uid = wp_get_current_user()->ID;
 				?>
 				<?php
 				wp_nav_menu(array(
-					'menu' => 'personal'
+					'menu' => 'personal',
+					'container_class' => 'menu-personal'
 				));
 				?>
 			</div>
