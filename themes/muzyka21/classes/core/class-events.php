@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use DateTime;
+
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
@@ -14,7 +16,9 @@ class Events
 
 		add_action('wp_ajax_updateticketinfo', ['Core\Events', 'updateticketinfo']);
 		add_action('wp_ajax_createnewticket', ['Core\Events', 'createnewticket']);
+		add_action('wp_ajax_deleteticket', ['Core\Events', 'deleteticket']);
 		add_action('wp_ajax_createevent', ['Core\Events', 'createevent']);
+		add_action('wp_ajax_updateeventinfo', ['Core\Events', 'updateeventinfo']);
 	}
 
 	//ADD Event POST TYPE
@@ -87,7 +91,7 @@ class Events
 				'option_price' => null,
 				'option_description' => null
 			);
-			update_field('prices', $prices, $postid);
+			\update_field('prices', $prices, $postid);
 
 			$response['response'] = 'SUCCESS';
 			echo json_encode($response);
@@ -116,8 +120,30 @@ class Events
 			$prices = get_field('prices', $postid);
 
 			$prices[$ticketid][$field] = $value;
-			update_field('prices', $prices, $postid);
+			\update_field('prices', $prices, $postid);
 
+			$response['response'] = 'SUCCESS';
+			echo json_encode($response);
+			die();
+		} else {
+			$response['response'] = 'ERROR';
+			$response['error'] = 'Обновите страницу и попробуйте снова';
+			echo json_encode($response);
+			die();
+		}
+	}
+
+	static function deleteticket()
+	{
+		if (!current_user_can('edit_post', $_POST['postid'])) return;
+		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
+			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
+			$ticketid = filter_var($_POST['ticketid'], FILTER_SANITIZE_NUMBER_INT);
+
+			$prices = get_field('prices', $postid);
+			unset($prices[$ticketid]);
+
+			\update_field('prices', $prices, $postid);
 			$response['response'] = 'SUCCESS';
 			echo json_encode($response);
 			die();
@@ -133,7 +159,9 @@ class Events
 	{
 		if (!current_user_can('administrator') && get_current_user_id() != $_POST['aid']) return;
 		if (wp_verify_nonce($_POST['nonce'], '_editauthmeta')) {
+			global $sitepress;
 			$tempdate = new \DateTime();
+
 
 			$post_content = '<!-- wp:acf/event-banner {
 			"id": "block_60f312ca4e573",
@@ -169,12 +197,76 @@ class Events
 			);
 
 			$post_id = wp_insert_post($my_post);
+			$def_trid = $sitepress->get_element_trid($post_id);
+
+			$languages = apply_filters('wpml_active_languages', NULL, 'orderby=id&order=desc');
+
+			foreach ($languages as $language) {
+				if ($language['code'] != \ICL_LANGUAGE_CODE) {
+					$translated_id = wp_insert_post($my_post);
+					$sitepress->set_element_language_details($translated_id, 'post_events', $def_trid, $language['code']);
+				}
+			}
+
 			if (is_numeric($post_id)) {
 				$response['response'] = 'SUCCESS';
 				$response['info'] = $post_id;
 				echo json_encode($response);
 				die();
 			}
+		} else {
+			$response['response'] = 'ERROR';
+			$response['error'] = 'Обновите страницу и попробуйте снова';
+			echo json_encode($response);
+			die();
+		}
+	}
+
+	static function updateeventinfo()
+	{
+		if (!current_user_can('edit_post', $_POST['postid'])) return;
+		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
+			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
+			$field = sanitize_text_field($_POST['field']);
+			$value = sanitize_text_field($_POST['value']);
+
+			switch ($field) {
+
+				case 'event_place':
+
+					\update_field('place', intval($value), $postid);
+					break;
+
+				case 'event_date_start':
+					$date = new DateTime($value);
+					\update_field('date_start', $date->format('Y-m-d H:i:s'), $postid);
+					break;
+
+				case 'event_date_end':
+					$date = new DateTime($value);
+					\update_field('date_end', $date->format('Y-m-d H:i:s'), $postid);
+					break;
+
+				case 'event_title':
+					$array = array(
+						'ID'           => intval($postid),
+						'post_title' => strip_tags($value),
+					);
+					wp_update_post($array);
+					break;
+
+				case 'event_description':
+					$array = array(
+						'ID'           => intval($postid),
+						'post_excerpt' => strip_tags($value),
+					);
+					wp_update_post($array);
+					break;
+			}
+
+			$response['response'] = 'SUCCESS';
+			echo json_encode($response);
+			die();
 		} else {
 			$response['response'] = 'ERROR';
 			$response['error'] = 'Обновите страницу и попробуйте снова';

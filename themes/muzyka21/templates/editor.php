@@ -20,7 +20,7 @@
                 </span>
                 <span class="input_container input_large">
                     <label>Описание</label>
-                    <textarea spellcheck="true" rows="6" class="text event_description" value="<?php echo esc_attr(get_the_excerpt(get_the_ID())); ?>" placeholder="Почему стоит посетить?"></textarea>
+                    <textarea spellcheck="true" rows="7" class="text event_description" value="" placeholder="Почему стоит посетить?"><?php echo esc_html(get_the_excerpt(get_the_ID())); ?></textarea>
                 </span>
 
                 <span class="input_container input_large">
@@ -40,9 +40,10 @@
 
                         ?>
                         <?php
+                        $place = get_field('place',get_the_ID());
                         if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
-                                <option value="<?php echo esc_attr(get_the_ID()); ?>"><?php echo esc_html(get_the_title()); ?></option>
+                                <option value="<?php echo esc_attr(get_the_ID()); ?>" <?php if($place->ID == get_the_ID()) echo 'selected'; ?> ><?php echo esc_html(get_the_title()); ?></option>
 
                         <?php
                             endwhile;
@@ -61,9 +62,22 @@
                     <label for="eventthumb" style="<?php if (has_post_thumbnail(get_the_ID())) echo 'background:url(' . esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')) . ');background-size: cover'; ?>"></label>
 
                     <input type="file" name="eventthumb" id="eventthumb" multiple="false">
-                    <p style="text-align: center;">Нажми, чтобы изменить</p>
                 </div>
 
+                <?php
+                $datestart = new DateTime(get_field('date_start',get_the_ID()));
+                $dateend = new DateTime(get_field('date_end',get_the_ID()));
+                ?>
+                <h4>Когда будет проходить</h4>
+                <span class="input_container input_large">
+                    <label>Дата и время начала</label>
+                    <input type="datetime-local" class="text event_date_start" value="<?php echo date('Y-m-d\TH:i:s',$datestart->getTimestamp()); ?>">
+                </span>
+
+                <span class="input_container input_large">
+                    <label>Дата и время конца</label>
+                    <input type="datetime-local" class="text event_date_end" value="<?php echo date('Y-m-d\TH:i:s',$dateend->getTimestamp()); ?>">
+                </span>
             </div>
             <div class="editor-frame_content_part tickets_editor">
 
@@ -89,13 +103,16 @@
                 <?php
                 $i = 0;
                 if (have_rows('prices', get_the_ID())) : while (have_rows('prices', get_the_ID())) : the_row();
-                        $price = (int) get_sub_field('option_price');
-                        $name = get_sub_field('option_name');
-                        $desc = get_sub_field('option_description'); ?>
+                        $price = (int) get_sub_field('option_price') ? get_sub_field('option_price') : '';
+                        $name = get_sub_field('option_name') ? get_sub_field('option_name') : '';
+                        $desc = get_sub_field('option_description') ? get_sub_field('option_description') : ''; ?>
                         <div class="editor-frame_content_part_ticket <?php if($i == 0) echo 'active'; ?>" data-id="<?= $i; ?>">
-                            <span class="input_container input_large">
+                            <span class="input_container">
                                 <label>Стоимость</label>
                                 <input class="text option_price" type="number" value="<?= $price; ?>" min="0" placeholder="0+">
+                            </span>
+                            <span class="input_container ticket_delete">
+                            <div class="button editor-frame_content_part_ticket_delete">Удалить</div>
                             </span>
                             <span class="input_container input_large">
                                 <label>Тип билета</label>

@@ -17,7 +17,15 @@ $uid = wp_get_current_user()->ID;
 			mvp.setAttribute('content', 'width=1980, initial-scale=1.0');
 		};
 	</script>
-	<title><?php the_title(); ?></title>
+	<title><?php
+	if(is_singular()) {
+	 the_title();
+	} else if (is_author()) {
+		$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+		$name = get_the_author_meta('display_name', $curauth->ID);
+		echo esc_html($name);	
+	}
+	 ?></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<!-- Chrome, Firefox OS and Opera -->

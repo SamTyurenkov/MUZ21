@@ -74,7 +74,14 @@
       &_ticket {
         display: none;
         &.active {
-          display: block;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        .ticket_delete {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
         }
       }
       .eventthumb {

@@ -219,8 +219,8 @@ class ACFBlocks
     {
         // convert name ("acf/testimonial") into path friendly slug ("testimonial")
         $slug = str_replace('acf/', '', $block['name']);
-        error_log($slug);
-        error_log(ACFBlocks::convert(memory_get_usage(true)));
+        // error_log($slug);
+        // error_log(ACFBlocks::convert(memory_get_usage(true)));
         set_query_var('post_id', $post_id);
         // include a template part from within the "template-parts/block" folder
         if (file_exists(get_theme_file_path("/templates/gutenberg-blocks/block-{$slug}.php"))) {

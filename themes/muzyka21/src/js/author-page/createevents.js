@@ -20,6 +20,7 @@ $(document).ready(function () {
           action: "createevent",
         },
         success: function (data, textStatus, jqXHR) {
+          console.log(data);
           if (data.response == "SUCCESS") {
             ErrorsManager.createEl("success", "Черновик события создан");
             location.href = localize.homeurl + "?p=" + data.info;
