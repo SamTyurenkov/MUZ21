@@ -186,6 +186,7 @@ class Purchases
 		$status = $queries['status'];
 		$email = filter_var($queries['clientId'], FILTER_SANITIZE_EMAIL);
 
+
 		$securitystring = ''; 		//'amount;'.$amount.';clientId;'.$email.';mdOrder;'.$mdOrder.';operation;'.$operation.';orderNumber;'.$orderNumber.';status;'.$status.';';
 		foreach ($queriessorted as $k => $q) {
 			$securitystring .= $k . ';' . $q . ';';
@@ -202,8 +203,17 @@ class Purchases
 
 		if ($status == 0) die();
 
+		$posttype = get_post_type($orderNumber);
+
 		if ($operation == 'deposited') {
-			$status = 'paid';
+
+			$status = 'pending';
+			if (have_rows('prices', $orderNumber)) : while (have_rows('prices', $orderNumber)) : the_row();
+
+					if ((int) $amount == (int) get_sub_field('option_price')) $status = 'paid';
+
+				endwhile;
+			endif;
 		} else if ($operation == 'declinedByTimeout' || $operation == 'refunded' || $operation == 'reversed') {
 			$status = 'cancel';
 		} else {
@@ -219,15 +229,28 @@ class Purchases
 
 		$result = wp_update_post($my_post);
 
-		if ($status == 'paid') {
+		if ($status == 'paid' && $posttype == 'events') {
+
 			$emailargs = array(
 				'to' => $email,
 				'subject' => 'MUSIC XXI: Приобретен Билет',
 				'post_id' => $orderNumber,
-				'image' => get_the_post_thumbnail_url($orderNumber,'medium'),
+				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
 				'title' => get_the_title($orderNumber)
 			);
 			Emails::sendEmail('completepurchaseevent', $emailargs);
+		}
+
+		if ($status == 'paid' && $posttype == 'services') {
+
+			$emailargs = array(
+				'to' => $email,
+				'subject' => 'MUSIC XXI: Приобретена Услуга',
+				'post_id' => $orderNumber,
+				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
+				'title' => get_the_title($orderNumber)
+			);
+			Emails::sendEmail('completepurchaseservice', $emailargs);
 		}
 
 		die();

@@ -14,6 +14,7 @@ $free = get_field('price_free', 'option');
                     <ul class="splide__list">
                         <?php
                         $i = 0;
+
                         if (have_rows('prices', $post_id)) : while (have_rows('prices', $post_id)) : the_row();
                                 $price = (int) get_sub_field('option_price');
 

@@ -13,9 +13,9 @@
                 <table width="88%">
                     <div id="headerimage" style="width:100%;height:300px;background:url(<?php echo $args['image']; ?>) no-repeat center center;background-size:cover"></div>
                     <div id="contentstuff" style="padding: 0px 15px 15px 15px;text-align:justify">
-                        <h2>Билет приобретен</h2>
-                        <p>Это письмо - подтверждение приобретения билета на сайте MUSIC XXI</p>
-                        <p>Событие: <?php echo $args['title']; ?></p>
+                        <h2>Услуга приобретена</h2>
+                        <p>Это письмо - подтверждение приобретения услуги на сайте MUSIC XXI</p>
+                        <p>Услуга: <?php echo $args['title']; ?></p>
                         <p>Номер заказа: <?php echo $args['post_id']; ?></p>
                     </div>
                 </table>
