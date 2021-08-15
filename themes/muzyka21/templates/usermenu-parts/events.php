@@ -48,38 +48,47 @@ $query = new WP_Query($args);
 
 if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
-		<div class="author_event" href="<?php echo esc_attr(get_the_permalink()); ?>">
-
-			<div class="author_event_thumb" style="background-image:url(<?php echo esc_attr(get_the_post_thumbnail_url(null, 'medium')); ?>)"></div>
-
+		<div class="author_event">
+			<a href="<?php echo esc_attr(get_the_permalink()); ?>">
+				<div class="author_event_thumb" style="background-image:url(<?php echo esc_attr(get_the_post_thumbnail_url(null, 'medium')); ?>)"></div>
+			</a>
 			<div class="author_event_right">
 				<div class="author_event_left">
 					<div class="author_event_date"><?php echo get_field('date_start', get_the_ID()); ?></div>
 					<div class="author_event_title"><?php the_title(); ?></div>
 					<div class="author_event_tickets">Продано билетов: </div>
 				</div>
-				<?php if (current_user_can('administrator') && $curauth->ID == $curuser->ID) { ?>
+				<?php if (current_user_can('administrator') || $curauth->ID == $curuser->ID) { ?>
 					<div class="author_event_languages">
 						<?php
 						foreach ($languages as $language) {
 							$translatedeventid = apply_filters('wpml_object_id', get_the_ID(), 'events', false, $language['code']);
 
-							if($translatedeventid) :
+							if ($translatedeventid) {
 						?>
-							<a href="<?php if($language['code'] != 'ru') echo '/'.$language['code']; echo '/?post_type=events&p='.$translatedeventid; ?>">
-								<img src="/wp-content/plugins/sitepress-multilingual-cms/res/flags/<?php echo $language['code']; ?>.png"><span><?php echo esc_html($post_statuses[get_post_status()]); ?></span>
-							</a>
-						<?php
-						endif; }
-						?>
-
-
+								<a href="<?php if ($language['code'] != 'ru') echo '/' . $language['code'];
+											echo '/?post_type=events&p=' . $translatedeventid; ?>">
+									<img src="/wp-content/plugins/sitepress-multilingual-cms/res/flags/<?php echo $language['code']; ?>.png"><span><?php echo esc_html($post_statuses[get_post_status()]); ?></span>
+								</a>
+						<?php }}; ?>
 					</div>
 				<?php } ?>
 			</div>
 		</div>
 
-<?php endwhile;
-endif;
+	<?php endwhile;
+else : ?>
+	<div class="author_event">
+
+		<div class="author_event_thumb" style="background:#222"></div>
+
+		<div class="author_event_right">
+			<div class="author_event_left">
+				<div class="author_event_date">...</div>
+				<div class="author_event_title">Автор пока не создавал события</div>
+			</div>
+		</div>
+	</div>
+<?php endif;
 wp_reset_postdata();
 ?>
