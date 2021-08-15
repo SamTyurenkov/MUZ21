@@ -7,6 +7,14 @@
     overflow: hidden;
     margin-top: 80px;
   }
+  .emailvalidation-form {
+	max-width: 600px;
+    width: calc(100% - 40px);
+    padding: 20px;
+    padding-top: 60px;
+    text-align: center;
+    margin: 0 auto;
+  }
 	.author_shape {
 		background-image: url(../images/shape_logo.svg);
 		width: 440px;

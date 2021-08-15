@@ -33,7 +33,7 @@ $avaversion = get_the_author_meta('avaversion', $curauth->ID);
 			</div>
 			<div class="medium-container">
 				<?php
-				if (get_user_meta($uid, 'valimail', true) == false) {
+				if ($curuser->ID == $curauth->ID && get_user_meta($curauth->ID, 'valimail', true) == false) {
 					get_template_part('templates/emailvalidation');
 				} else {
 					get_template_part('templates/usermenu');
