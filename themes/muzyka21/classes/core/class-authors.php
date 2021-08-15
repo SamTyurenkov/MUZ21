@@ -21,7 +21,7 @@ class Authors
 		add_action('rest_api_init', function () {
 			register_rest_route('usermeta', '/validate/', array(
 				'methods' => 'GET',
-				'callback' => 'valimail',
+				'callback' => ['Core\Authors','valimail'],
 				'permission_callback' => '__return_true'
 			));
 		});
