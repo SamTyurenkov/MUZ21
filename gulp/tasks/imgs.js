@@ -27,11 +27,11 @@ module.exports = function() {
             }),
             imagemin.optipng({
                 optimizationLevel: 3
-            }),
-            pngquant({
-                quality: '100',
-                speed: 5
             })
+            // pngquant({
+            //     quality: '100',
+            //     speed: 5
+            // })
         ], {
             verbose: true
         }))
