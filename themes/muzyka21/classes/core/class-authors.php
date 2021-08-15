@@ -117,7 +117,8 @@ class Authors
 
 				$emailargs = array(
 					'to' => $user->user_email,
-					'subject' => 'MUSIC XXI: Подтверждение E-MAIL'
+					'subject' => 'MUSIC XXI: Подтверждение E-MAIL',
+					'rp_link' => $rp_link
 				);
 				$result = Emails::sendEmail('emailconfirmation', $emailargs);
 

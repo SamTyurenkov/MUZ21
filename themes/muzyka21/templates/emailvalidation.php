@@ -6,7 +6,7 @@ $uid = wp_get_current_user()->ID;
 $translations = get_field('email_validation','option');
 ?>
 
-    <form class="add-form" action="valisend" method="post" style="max-width:100%;width:600px;padding-top:60px;text-align:center;margin:0 auto">
+    <form class="emailvalidation-form" action="valisend" method="post" style="max-width:100%;width:600px;padding-top:60px;text-align:center;margin:0 auto">
         <div>
             <div>
             <?php echo $translations['text']; ?>
