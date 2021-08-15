@@ -27,6 +27,7 @@
         transition: all 1s ease;
         left: 0;
         border: 4px solid white;
+        transform: translateZ(0);
       }
       &.active {
         z-index: 99;

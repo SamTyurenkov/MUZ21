@@ -24,7 +24,6 @@ $.gulp.task('default', $.gulp.series(
         'scripts:admin-stuff',
         'scripts:libs',
         'imgs',
-        'watch',
         'browser-sync'
     )
 ));

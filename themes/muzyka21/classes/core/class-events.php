@@ -17,8 +17,12 @@ class Events
 		add_action('wp_ajax_updateticketinfo', ['Core\Events', 'updateticketinfo']);
 		add_action('wp_ajax_createnewticket', ['Core\Events', 'createnewticket']);
 		add_action('wp_ajax_deleteticket', ['Core\Events', 'deleteticket']);
+
+
 		add_action('wp_ajax_createevent', ['Core\Events', 'createevent']);
 		add_action('wp_ajax_updateeventinfo', ['Core\Events', 'updateeventinfo']);
+		add_action('wp_ajax_deleteevent', ['Core\Events', 'deleteevent']);
+		add_action('wp_ajax_seteventstatus', ['Core\Events', 'seteventstatus']);
 	}
 
 	//ADD Event POST TYPE
@@ -81,7 +85,7 @@ class Events
 
 	static function createnewticket()
 	{
-		if (!current_user_can('edit_post', $_POST['postid'])) return;
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
 		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
 			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
 			$prices = get_field('prices', $postid);
@@ -106,7 +110,7 @@ class Events
 
 	static function updateticketinfo()
 	{
-		if (!current_user_can('edit_post', $_POST['postid'])) return;
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
 		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
 			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
 			$ticketid = filter_var($_POST['ticketid'], FILTER_SANITIZE_NUMBER_INT);
@@ -135,7 +139,7 @@ class Events
 
 	static function deleteticket()
 	{
-		if (!current_user_can('edit_post', $_POST['postid'])) return;
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
 		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
 			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
 			$ticketid = filter_var($_POST['ticketid'], FILTER_SANITIZE_NUMBER_INT);
@@ -157,9 +161,12 @@ class Events
 
 	static function createevent()
 	{
-		if (!current_user_can('administrator') && get_current_user_id() != $_POST['aid']) return;
+		header('Content-Type: application/json');
+		$response = array();
+
+		if (!current_user_can('administrator') && get_current_user_id() != $_POST['aid']) die();
 		if (wp_verify_nonce($_POST['nonce'], '_editauthmeta')) {
-			global $sitepress;
+
 			$tempdate = new \DateTime();
 
 
@@ -196,6 +203,7 @@ class Events
 				)
 			);
 
+			global $sitepress;
 			$post_id = wp_insert_post($my_post);
 			$def_trid = $sitepress->get_element_trid($post_id);
 
@@ -204,10 +212,18 @@ class Events
 			foreach ($languages as $language) {
 				if ($language['code'] != \ICL_LANGUAGE_CODE) {
 					$translated_id = wp_insert_post($my_post);
-					$sitepress->set_element_language_details($translated_id, 'post_events', $def_trid, $language['code']);
+					$wpml_element_type = apply_filters('wpml_element_type', 'events');
+					$set_language_args = array(
+						'element_id'    => $translated_id,
+						'element_type'  => $wpml_element_type,
+						'trid'   => $def_trid,
+						'language_code'   => $language['code'],
+						'source_language_code' => \ICL_LANGUAGE_CODE
+					);
+					do_action('wpml_set_element_language_details', $set_language_args);
 				}
 			}
-
+			error_log($post_id);
 			if (is_numeric($post_id)) {
 				$response['response'] = 'SUCCESS';
 				$response['info'] = $post_id;
@@ -224,7 +240,7 @@ class Events
 
 	static function updateeventinfo()
 	{
-		if (!current_user_can('edit_post', $_POST['postid'])) return;
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
 		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
 			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
 			$field = sanitize_text_field($_POST['field']);
@@ -262,6 +278,72 @@ class Events
 					);
 					wp_update_post($array);
 					break;
+			}
+
+			$response['response'] = 'SUCCESS';
+			echo json_encode($response);
+			die();
+		} else {
+			$response['response'] = 'ERROR';
+			$response['error'] = 'Обновите страницу и попробуйте снова';
+			echo json_encode($response);
+			die();
+		}
+	}
+
+	static function deleteevent()
+	{
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
+		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
+			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
+
+			$languages = apply_filters('wpml_active_languages', NULL, 'orderby=id&order=desc');
+			$posts = array();
+			foreach ($languages as $language) {
+				$posts[] = apply_filters('wpml_object_id', $postid, 'events', FALSE, $language['code']);
+			};
+			foreach($posts as $p) {
+				wp_delete_post($p, true);
+			};
+
+			$response['response'] = 'SUCCESS';
+			echo json_encode($response);
+			die();
+		} else {
+			$response['response'] = 'ERROR';
+			$response['error'] = 'Обновите страницу и попробуйте снова';
+			echo json_encode($response);
+			die();
+		}
+	}
+
+	static function seteventstatus()
+	{
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
+		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
+
+			$postid = filter_var($_POST['postid'], FILTER_SANITIZE_NUMBER_INT);
+
+			$eltoarray = explode('_', sanitize_text_field($_POST['el']));
+			$newstatus = end($eltoarray);
+			if (($newstatus == 'publish') && (!current_user_can('administrator'))) die();
+
+			$array = array(
+				'ID'           => intval($postid),
+				'post_status' => $newstatus,
+			);
+			wp_update_post($array);
+
+			if (($newstatus == 'pending')) {
+				$emailargs = array(
+					'to' => Init::$adminemail,
+					'subject' => 'MUSIC XXI: Событие на модерации',
+					'postid' => $postid,
+					'image' => get_the_post_thumbnail_url($postid, 'medium')
+				);
+				$result = Emails::sendEmail('moderateevent', $emailargs);
+			} else if (($newstatus == 'publish')) {
+				//TO DO: SEND EMAIL TO USER
 			}
 
 			$response['response'] = 'SUCCESS';

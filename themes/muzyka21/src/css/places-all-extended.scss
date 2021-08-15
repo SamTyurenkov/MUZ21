@@ -16,6 +16,7 @@
       max-width: 600px;
       flex: 0 0 600px;
       transform: rotate(-1deg);
+      margin-bottom: 50px;
       @media (max-width: 600px) {
         flex: 0 0 100%;
         justify-content: center;

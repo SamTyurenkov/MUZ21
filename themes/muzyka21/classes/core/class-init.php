@@ -9,15 +9,18 @@ class Init
 
 
 	static $techemail;
+	static $adminemail;
 
 	public function __construct()
 	{
 		define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
 		if(str_contains(home_url(),'windowspros')) {
-			$techemail = 'no-reply@asp.sale';
+			self::$techemail = 'no-reply@asp.sale';
 		} else {
-			$techemail = '';
+			self::$techemail = '';
 		}
+		self::$adminemail = get_bloginfo('admin_email');
+
 		define('OPTIONS_SLUG', 'muz21');
 		define('LANGUAGE_SLUG', 'muz21');
 		add_theme_support('post-thumbnails');

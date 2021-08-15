@@ -64,7 +64,14 @@ $posttype = get_post_type($post_id);
                     </a>
             <?php
             endwhile;
-            endif;
+            else : ?>
+                    <div class="muzwavesevents_flex_el splide__slide" href="<?php echo esc_attr(get_permalink()); ?>">
+                        <div class="muzwavesevents_flex_el_bottom">
+                        <h3>Пока тут пусто</h3>
+                        <div> Еще никто не добавил ни одного события. </div>
+                        </div>
+                        </div>
+            <?php endif;
             wp_reset_query();
             wp_reset_postdata();
             ?>

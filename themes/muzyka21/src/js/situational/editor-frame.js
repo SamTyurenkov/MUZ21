@@ -5,6 +5,77 @@ $(document).ready(function () {
 		$(".editor-frame_content").toggleClass("active");
 	});
 
+	$(document).on("click", ".editor-frame_buttons_pending, .editor-frame_buttons_draft, .editor-frame_buttons_publish", function (e) {
+		e.stopPropagation();
+		$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "none").css("opacity", "0.3");
+		var ajaxurl = localize_editor.ajaxurl;
+		var nonce = $("#_editor").val();
+		var postid = localize_editor.postid;
+		var el = this;
+		console.log(el.classList[1].toString());
+		var ajax = jQuery.ajax({
+			url: ajaxurl,
+			data: {
+				nonce: nonce,
+				postid: postid,
+				action: "seteventstatus",
+				el: el.classList[1].toString(),
+			},
+			type: "POST",
+			dataType: "json",
+			success: function (data, textStatus, jqXHR) {
+				if (data.response == "SUCCESS") {
+					if (el.classList[1].toString() == "editor-frame_buttons_pending") {
+						ErrorsManager.createEl("success", "Событие отправлено на модерацию");
+						el.remove();
+					} else {
+						ErrorsManager.createEl("success", "Статус события изменен");
+					}
+
+				} else if (data.response == "ERROR") {
+					ErrorsManager.createEl("error", "Ошибка: " + data.error);
+				}
+				$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "all").css("opacity", "1");
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				ErrorsManager.createEl("error", "Ошибка: " + errorThrown);
+				$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "all").css("opacity", "1");
+			},
+		});
+	});
+
+	$(document).on("click", ".editor-frame_buttons_delete", function (e) {
+		e.stopPropagation();
+		$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "none").css("opacity", "0.3");
+		var ajaxurl = localize_editor.ajaxurl;
+		var nonce = $("#_editor").val();
+		var postid = localize_editor.postid;
+
+		var ajax = jQuery.ajax({
+			url: ajaxurl,
+			data: {
+				nonce: nonce,
+				postid: postid,
+				action: "deleteevent",
+			},
+			type: "POST",
+			dataType: "json",
+			success: function (data, textStatus, jqXHR) {
+				if (data.response == "SUCCESS") {
+					ErrorsManager.createEl("success", "Событие и его переводы удалены");
+					location.href = localize_editor.homeurl + "/author/" + localize_editor.uname;
+				} else if (data.response == "ERROR") {
+					ErrorsManager.createEl("error", "Ошибка: " + data.error);
+				}
+				$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "all").css("opacity", "1");
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				ErrorsManager.createEl("error", "Ошибка: " + errorThrown);
+				$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "all").css("opacity", "1");
+			},
+		});
+	});
+
 	$(document).on("click", ".editor-frame_content_part_tickets_tab", function (e) {
 		e.stopPropagation();
 		var id = $(this).data("id");
@@ -15,7 +86,7 @@ $(document).ready(function () {
 			$(".editor-frame_content_part_ticket[data-id=" + id + "]").addClass("active");
 		} else if (id == "+") {
 			var plus = this;
-			plus.style.pointerEvents = "none";
+			$(".tickets_editor").css("pointer-events", "none").css("opacity", "0.3");
 
 			var ajaxurl = localize_editor.ajaxurl;
 			var nonce = $("#_editor").val();
@@ -61,11 +132,11 @@ $(document).ready(function () {
 					} else if (data.response == "ERROR") {
 						ErrorsManager.createEl("error", "Ошибка: " + data.error);
 					}
-					plus.style.pointerEvents = "all";
+					$(".tickets_editor").css("pointer-events", "all").css("opacity", "1");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					ErrorsManager.createEl("error", "Ошибка: " + errorThrown);
-					plus.style.pointerEvents = "none";
+					$(".tickets_editor").css("pointer-events", "all").css("opacity", "1");
 				},
 			});
 		}
@@ -74,6 +145,7 @@ $(document).ready(function () {
 	$(document).on("click", ".editor-frame_content_part_ticket_delete", function (e) {
 		e.stopPropagation();
 		var ticketid = $(this).parent().parent().data("id");
+		if (document.querySelectorAll(".editor-frame_content_part_ticket").length < 2) return;
 		$(".tickets_editor").css("pointer-events", "none").css("opacity", "0.3");
 		var ajaxurl = localize_editor.ajaxurl;
 		var nonce = $("#_editor").val();
@@ -94,22 +166,23 @@ $(document).ready(function () {
 				if (data.response == "SUCCESS") {
 					ErrorsManager.createEl("success", "Билет удален");
 
-					document.querySelectorAll('.editor-frame_content_part_tickets_tab')[ticketid-1].remove();	
-					$(el).remove();
+					document.querySelectorAll(".editor-frame_content_part_tickets_tab")[ticketid].remove();
+					$(el).parent().parent().remove();
 
-					let tabs = document.querySelectorAll('.editor-frame_content_part_tickets_tab');
-					let tickets = document.querySelectorAll('.editor-frame_content_part_ticket');
-					
-					for(var i = 0; i < tickets.length - 1; i++) {
+					let tabs = document.querySelectorAll(".editor-frame_content_part_tickets_tab");
+					let tickets = document.querySelectorAll(".editor-frame_content_part_ticket");
+
+					for (var i = 0; i < tickets.length; i++) {
+						tabs[i].classList.remove("active");
+						tickets[i].classList.remove("active");
 						tabs[i].innerHTML = i;
-						tabs[i].setAttribute('data-id', i);
-						tickets[i].setAttribute('data-id',i);
-						if(i == 0) {
-							tabs[i].classList.add('active');
-							tickets[i].classList.add('acitve');
+						tabs[i].setAttribute("data-id", i);
+						tickets[i].setAttribute("data-id", i);
+						if (i == 0) {
+							tabs[i].classList.add("active");
+							tickets[i].classList.add("active");
 						}
 					}
-
 				} else if (data.response == "ERROR") {
 					ErrorsManager.createEl("error", "Ошибка: " + data.error);
 				}
@@ -210,7 +283,7 @@ $(document).ready(function () {
 				data.append("nonce", nonce);
 				data.append("meta", meta);
 				data.append("place", "featured");
-				//data.append('posttype', posttype);
+
 				data.append("action", "add_attachement_ajax");
 				var value = jQuery.ajax({
 					url: ajaxurl,
@@ -225,17 +298,17 @@ $(document).ready(function () {
 						if (data.response == "SUCCESS") {
 							uthumb.parentElement.getElementsByTagName("label")[0].style.background = "url('" + data.thumb + "') no-repeat center center";
 							uthumb.parentElement.getElementsByTagName("label")[0].style.backgroundSize = "cover";
-							uthumb.parentElement.getElementsByTagName("label")[0].innerHTML = "";
+							ErrorsManager.createEl("success", "Изображение успешно загружено");
 						}
 						if (data.response == "ERROR") {
 							uthumb.parentElement.getElementsByTagName("label")[0].style.background = "#fdd2d2";
-							uthumb.parentElement.getElementsByTagName("label")[0].innerHTML = "Ошибка: " + data.error;
+							ErrorsManager.createEl("error", "Ошибка: " + data.error);
 						}
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						var uthumb = document.getElementById("eventthumb").parentElement.getElementsByTagName("label")[0];
 						uthumb.parentElement.getElementsByTagName("label")[0].style.background = "#fdd2d2";
-						uthumb.parentElement.getElementsByTagName("label")[0].innerHTML = "Ошибка: " + textStatus;
+						ErrorsManager.createEl("error", "Ошибка: " + textStatus);
 					},
 				});
 			}

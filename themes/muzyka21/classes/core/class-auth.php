@@ -167,38 +167,22 @@ class Auth
                 // if  update user return true then lets send user an email containing the new password
                 if ($user_login) {
 
-                    $from = 'no-reply@test.com'; // Set whatever you want like mail@yourdomain.com
 
-                    $to = $user->user_email;
-                    $subject = 'MUZYKA 21: Восстановление Пароля';
-                    $sender = 'From: MUZYKA 21 <' . $from . '>' . "\r\n";
+                    $emailargs = array(
+                        'to' => $user->user_email,
+                        'subject' => 'MUSIC XXI: Восстановление Пароля',
+                        'rp_link' => $rp_link
+                    );
+                    $result = Emails::sendEmail('forgotpassword',$emailargs);
 
-                    $message = '<!DOCTYPE html><html><head><base target="_blank"></head><body><table width="100%" border="0"><td align="center" style="background:#f2f2f2;width:100%"><div id="brand" style="font-size:20px;line-height:80px;text-align:center;color: #d03030;font-weight: 800">ASP</div><div id="emailcontainer" style="width:100%;max-width:600px;background:#fff;padding:30px 0;margin:auto"><table width="88%">';
-                    $message .= '<div id="headerimage" style="width:100%;height:300px;background:url(\'https://media.asp.sale/wp-content/themes/asp/images/banners/real-estate-min.jpg\')no-repeat center center;background-size:cover"></div><div id="contentstuff" style="padding: 0px 15px 15px 15px;text-align:justify">';
-                    $message .= '<h2>Восстановление Пароля</h2><p>Кто-то запросил новый пароль для аккаунта привязанного к этой почте.</p><p>Если это были вы - нажмите на кнопку ниже, чтобы создать новый пароль. Если это были не вы - просто проигнорируйте это сообщение.</p><table height="50" align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="max-width:360px">';
-                    $message .= '<td align="center" valign="bottom" height="50" style="padding:0"><a href="' . $rp_link . '" style="display: inline-block; max-width: 360px; width: 100%; font-size: 16px; text-align: center;  text-decoration: none;  border: 1px solid #e0e0e0;color: #d03030;  padding: 3px 7px;  line-height: 30px; font-weight: 600;  box-shadow: -1px 1px 1px rgba(0,0,0,.25);border-radius: 5px;  background: #fff;  margin-left: 1px; cursor: pointer">Сбросить Пароль</a>';
-                    $message .= '</td></table></div></table></div><table style="font-size:12px;line-height:80px;text-align:center;color:#444;height:80px"></table></td></table></body></html>';
-
-                    $headers[] = 'MIME-Version: 1.0' . "\r\n";
-                    $headers[] = 'Content-type: text/html; charset=UTF-8' . "\r\n";
-                    $headers[] = "X-Mailer: PHP \r\n";
-                    $headers[] = $sender;
-
-                    $mail = wp_mail($to, $subject, $message, $headers);
-                    if ($mail)
-                        $success = 'Проверьте вашу почту, письмо может идти пару минут, и может попасть в спам.';
-                    else
-                        $error = 'Мы не смогли отправить вам ссылку на сброс пароля, попробуйте снова.';
                 } else {
-                    $error = 'Похоже это какая-то неизвестная ошибка, обратитесь к админам.';
+                    $result['status'] = 'error';
+                    $result['message'] = 'Похоже это какая-то неизвестная ошибка, обратитесь к админам.';
                 }
             }
 
-            if (!empty($error))
-                echo json_encode(array('loggedin' => false, 'message' => __($error)));
+            echo json_encode(array('loggedin' => false, 'message' => $result['message']));
 
-            if (!empty($success))
-                echo json_encode(array('loggedin' => false, 'message' => __($success)));
         }
         die();
     }

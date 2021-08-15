@@ -41,7 +41,7 @@ class Authors
 		add_action('wp_ajax_makeresident', ['Core\Authors', 'makeresident']);
 		add_action('wp_ajax_cancelresident', ['Core\Authors', 'cancelresident']);
 	}
-	
+
 
 	//RENAME AVATAR FILE ON UPLOAD
 	static function avatar_filenames($filename)
@@ -62,7 +62,7 @@ class Authors
 
 	static function avatar_unset_sizes($sizes, $image_meta)
 	{
-		
+
 		if (str_contains($image_meta['file'], 'avatars')) {
 			error_log('str contains');
 			unset($sizes['thumbnail']);
@@ -100,11 +100,11 @@ class Authors
 
 	static function valisend()
 	{
-		
+
 		$response = array();
 
 		if (wp_verify_nonce($_POST['nonce'], '_vali_send')) {
-			
+
 			// Get user data by field and data, fields are id, slug, email and login
 			$user = wp_get_current_user();
 
@@ -115,33 +115,15 @@ class Authors
 			// if  update user return true then lets send user an email containing the new password
 			if ($user_login) {
 
-				$from = Init::$techemail; // Set whatever you want like mail@yourdomain.com
+				$emailargs = array(
+					'to' => $user->user_email,
+					'subject' => 'MUSIC XXI: Подтверждение E-MAIL'
+				);
+				$result = Emails::sendEmail('emailconfirmation', $emailargs);
 
-				$to = $user->user_email;
-				$subject = 'Подтверждение E-MAIL';
-				$sender = 'From: MUZYKA XXI <' . $from . '>' . "\r\n";
-
-				$message = '<!DOCTYPE html><html><head><base target="_blank"></head><body><table width="100%" border="0"><td align="center" style="background:#f2f2f2;width:100%"><div id="brand" style="font-size:20px;line-height:80px;text-align:center;color: #d03030;font-weight: 800">MUZYKA XXI</div><div id="emailcontainer" style="width:100%;max-width:600px;background:#fff;padding:30px 0;margin:auto"><table width="88%">';
-				$message .= '<div id="headerimage" style="width:100%;height:300px;background:url(\'' . content_url() . '/wp-content/themes/asp/images/banners/real-estate-min.jpg\')no-repeat center center;background-size:cover"></div><div id="contentstuff" style="padding: 0px 15px 15px 15px;text-align:justify">';
-				$message .= '<h2>Подтвердите почту</h2><p>Кто-то пытается подтвердить почту, указанную в профиле на сайте.</p><p>Если это вы, нажмите на кнопку ниже. Если нет - просто проигнорируйте письмо.</p><table height="50" align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="max-width:360px">';
-				$message .= '<td align="center" valign="bottom" height="50" style="padding:0"><a href="' . $rp_link . '" style="display: inline-block; max-width: 360px; width: 100%; font-size: 16px; text-align: center;  text-decoration: none;  color: #333;  padding: 3px 7px;  line-height: 30px; font-weight: 600;  box-shadow: -1px 1px 1px rgba(0,0,0,.25);border-radius: 5px;  background: rgba(0,0,0,.1);  margin-left: 1px;  border-style: initial; cursor: pointer">ПОДТВЕРДИТЬ</a>';
-				$message .= '</td></table></div></table></div><table style="font-size:12px;line-height:80px;text-align:center;color:#444;height:80px"></table></td></table></body></html>';
-
-				$headers[] = 'MIME-Version: 1.0' . "\r\n";
-				$headers[] = 'Content-type: text/html; charset=UTF-8' . "\r\n";
-				$headers[] = "X-Mailer: PHP \r\n";
-				$headers[] = $sender;
-
-				$mail = wp_mail($to, $subject, $message, $headers);
-				if ($mail) {
-					$response['info'] = 'Письмо отправлено';
-					echo json_encode($response);
-					die();
-				} else {
-					$response['info'] = 'Письмо не было отправлено';
-					echo json_encode($response);
-					die();
-				};
+				$response['info'] = $result['message'];
+				echo json_encode($response);
+				die();
 			} else {
 				$response['info'] = 'Пользователь не найден';
 				echo json_encode($response);
@@ -506,24 +488,28 @@ class Authors
 		}
 	}
 
-	static function validateuseremail() {
-		if(!current_user_can('administrator')) return;
+	static function validateuseremail()
+	{
+		if (!current_user_can('administrator')) return;
 		$aid = intval($_POST['aid']);
-		update_user_meta($aid,'valimail',true);
+		update_user_meta($aid, 'valimail', true);
 	}
-	static function invalidateuseremail() {
-		if(!current_user_can('administrator')) return;
+	static function invalidateuseremail()
+	{
+		if (!current_user_can('administrator')) return;
 		$aid = intval($_POST['aid']);
-		update_user_meta($aid,'valimail',false);
+		update_user_meta($aid, 'valimail', false);
 	}
-	static function makeresident() {
-		if(!current_user_can('administrator')) return;
+	static function makeresident()
+	{
+		if (!current_user_can('administrator')) return;
 		$aid = intval($_POST['aid']);
-		update_user_meta($aid,'resident',true);
+		update_user_meta($aid, 'resident', true);
 	}
-	static function cancelresident() {
-		if(!current_user_can('administrator')) return;
+	static function cancelresident()
+	{
+		if (!current_user_can('administrator')) return;
 		$aid = intval($_POST['aid']);
-		update_user_meta($aid,'resident',false);
+		update_user_meta($aid, 'resident', false);
 	}
 }

@@ -15,7 +15,7 @@ $posttype = get_post_type($post_id);
 
                         <?php $icon = get_sub_field('icon'); ?>
                         <div class="muzfeatures_flex_el">
-                            <?php if ($icon) : ?>
+                            <?php if ($icon && ($posttype != 'places')) : ?>
                                 <div class="muzfeatures_flex_el_icon" style="background-image:url(<?php echo esc_attr($icon['url']); ?>)"> </div>
                             <?php endif; ?>
                             <h3><?php the_sub_field('title'); ?></h3>

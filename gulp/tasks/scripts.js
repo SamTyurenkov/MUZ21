@@ -22,7 +22,8 @@ module.exports = function () {
       ])
       .pipe(gulpif('!**/*.min.js', uglify({mangle: false})))
       .pipe(concat("main.js"))
-      .pipe($.gulp.dest(scriptsPATH.output));
+      .pipe($.gulp.dest(scriptsPATH.output))
+      .pipe($.browserSync.stream());
   });
   $.gulp.task("scripts:gutenberg", () => {
     return $.gulp
@@ -37,7 +38,8 @@ module.exports = function () {
           ]
         })
       )
-      .pipe($.gulp.dest(scriptsPATH.output + "gutenberg-blocks/"));
+      .pipe($.gulp.dest(scriptsPATH.output + "gutenberg-blocks/"))
+      .pipe($.browserSync.stream());
   });
   $.gulp.task("scripts:login-reg", () => {
     return $.gulp
@@ -53,7 +55,8 @@ module.exports = function () {
           presets: ["@babel/preset-env"],
         })
       )
-      .pipe($.gulp.dest(scriptsPATH.output+ "login-reg/"));
+      .pipe($.gulp.dest(scriptsPATH.output+ "login-reg/"))
+      .pipe($.browserSync.stream());
   });
   $.gulp.task("scripts:author-page", () => {
     return $.gulp
@@ -65,7 +68,8 @@ module.exports = function () {
         }))
       )
       .pipe(concat("author_page.js"))
-      .pipe($.gulp.dest(scriptsPATH.output+ "author-page/"));
+      .pipe($.gulp.dest(scriptsPATH.output+ "author-page/"))
+      .pipe($.browserSync.stream());
   });
   $.gulp.task("scripts:admin-stuff", () => {
     return $.gulp
@@ -77,11 +81,13 @@ module.exports = function () {
         }))
       )
       //.pipe(concat("admin-author.js"))
-      .pipe($.gulp.dest(scriptsPATH.output+ "admin-stuff/"));
+      .pipe($.gulp.dest(scriptsPATH.output+ "admin-stuff/"))
+      .pipe($.browserSync.stream());
   });
   $.gulp.task("scripts:libs", () => {
     return $.gulp
       .src(["./node_modules/@splidejs/splide/dist/js/splide.min.js",scriptsPATH.input + "situational/*.js"])
-      .pipe($.gulp.dest(scriptsPATH.output));
+      .pipe($.gulp.dest(scriptsPATH.output))
+      .pipe($.browserSync.stream());
   });
 };

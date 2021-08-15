@@ -67,6 +67,8 @@ class Enqueues
 				'uid' => Enqueues::$uid,
 				'ajaxurl' => Enqueues::$ajaxurl,
 				'postid' => Enqueues::$postid,
+				'homeurl' => Enqueues::$homeurl,
+				'uname' => Enqueues::$uname
 			));
 		}
 	}

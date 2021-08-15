@@ -36,6 +36,9 @@
         transform: rotate(2deg);
         display: block;
         margin: 0 auto;
+        @media(max-width:767px) {
+          max-height: 200px;
+        }
       }
     }
     &_price {

@@ -133,7 +133,11 @@
 					background-size: cover;
 					border-radius: 5px;
 					float: left;
-					margin-right: 10px;
+					margin-right: 10px;  
+				}
+				&_tickets {
+					font-size: 14px;
+					margin-top: 5px;
 				}
 				&_title {
 					flex: 0 0 100%;
@@ -144,11 +148,12 @@
 					flex-wrap: wrap;
 					a {
 						transition: all 0.3s ease;
-						color: #d8a9a9;
+						color: #bf7d7d;
 						text-decoration: none;
 						flex: 0 0 100%;
 						margin-bottom: 10px;
-
+						font-size: 14px;
+						
 						img {
 							margin-right: 10px;
 							transform: scale(0.9);
@@ -158,7 +163,7 @@
 							text-align: right;
 						}
 						&:hover {
-							color: #666;
+							color: #666;  
 							img {
 								transform: scale(1);
 							}
