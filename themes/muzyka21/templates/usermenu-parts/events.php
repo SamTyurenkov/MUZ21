@@ -8,12 +8,11 @@ $pendqu = new WP_Query($pendargs);
 $count = $pendqu->post_count;
 wp_reset_postdata();
 ?>
-<?php if ($count > 2) { ?>
+<?php if ($count > 2 && $curauth->ID == $curuser->ID) { ?>
 	<div class="author_event">
-		Too Many Drafts
 		<?php echo esc_html($translations['too_many_drafts']); ?>
 	</div>
-<?php } else if ($count < 3) { ?>
+<?php } else if ($count < 3 && $curauth->ID == $curuser->ID) { ?>
 	<div class="author_event">
 		<h4><?php echo esc_html($translations['add_event_header']); ?></h4>
 		<span class="input_container">
