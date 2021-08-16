@@ -17,7 +17,7 @@ class Init
 		if(str_contains(home_url(),'windowspros')) {
 			self::$techemail = 'no-reply@asp.sale';
 		} else {
-			self::$techemail = '';
+			self::$techemail = 'no-reply@musicspb21.ru';
 		}
 		self::$adminemail = get_bloginfo('admin_email');
 
