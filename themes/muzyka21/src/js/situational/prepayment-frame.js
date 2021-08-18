@@ -1,18 +1,5 @@
 $ = jQuery;
 $(document).ready(function () {
-	function ValidateEmail(mail) {
-		if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
-			return true;
-		}
-		return false;
-	}
-
-	function ValidatePhone(phone) {
-		if (/^\+[0-9]{11,15}$/.test(phone)) {
-			return true;
-		}
-		return false;
-	}
 
 	$(".prepayment-frame").on("click", function (e) {
 		$(this).toggleClass("active");
