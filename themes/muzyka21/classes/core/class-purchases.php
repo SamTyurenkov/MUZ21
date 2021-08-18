@@ -12,6 +12,7 @@ class Purchases
 		add_action('init', ['Core\Purchases', 'post_type_purchases']);
 		add_action('init', ['Core\Purchases', 'taxonomy_type_purchase_status']);
 		add_action('wp_ajax_prepayment', ['Core\Purchases', 'prepayment']);
+		add_action('wp_ajax_general_contact_submission', ['Core\Purchases', 'general_contact_submission']);
 		add_action('wp_ajax_getpurchases', ['Core\Purchases', 'getpurchases']);
 
 		add_action('rest_api_init', function () {
