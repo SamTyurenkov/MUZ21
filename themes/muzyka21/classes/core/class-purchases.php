@@ -77,6 +77,38 @@ class Purchases
 		die();
 	}
 
+	public static function general_contact_submission()
+	{
+		if (wp_verify_nonce($_POST['nonce'], '_general_contact_form')) {
+
+			$email = sanitize_email($_POST['email']);
+			$phone = sanitize_text_field($_POST['phone']);
+			$page = sanitize_text_field($_POST['page']);
+			$username = sanitize_text_field($_POST['username']);
+
+					$emailargs = array(
+						'to' => Init::$adminemail,
+						'email' => $email,
+						'username' => $username,
+						'phone' => $phone,
+						'subject' => 'MUSIC XXI: Заявка с сайта',
+						'page' => $page
+					);
+					Emails::sendEmail('callmeback', $emailargs);
+				
+
+				$response['response'] = 'SUCCESS';
+				echo json_encode($response);
+				die();
+			
+		} else {
+			$response['response'] = 'ERROR';
+			$response['error'] = 'Обновите страницу и попробуйте снова';
+			echo json_encode($response);
+			die();
+		}
+	}
+
 	public static function prepayment()
 	{
 		if (wp_verify_nonce($_POST['nonce'], '_payments')) {

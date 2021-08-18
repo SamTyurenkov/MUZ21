@@ -15,6 +15,7 @@
       padding: 100px;
       display: flex;
       align-items: center;
+      justify-content: center;
       transform: rotate(-1deg);
       @media (max-width: 1440px) {
         flex: 0 0 calc(60% - 40px);

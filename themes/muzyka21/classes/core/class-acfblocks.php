@@ -175,7 +175,7 @@ class ACFBlocks
 
             acf_register_block(array(
                 'name' => 'general-contact-form',
-                //'enqueue_assets' => 'muzbanner_assets',
+                'enqueue_assets' => ['Core\ACFBlocks', 'general_contact_form_assets'],
                 'title' => __('General Contact Form'),
                 'description' => __('General Contact Form'),
                 'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
@@ -237,6 +237,12 @@ class ACFBlocks
     {
         wp_enqueue_script('general-gallery', get_template_directory_uri() . '/js/gutenberg-blocks/general-gallery.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/general-gallery.js'), true);
     }
+
+    static function general_contact_form_assets()
+    {
+        wp_enqueue_script('general-contact', get_template_directory_uri() . '/js/gutenberg-blocks/general-contact-form.js', array('jquery'), filemtime(get_template_directory() . '/js/gutenberg-blocks/general-contact-form.js'), true);
+    }
+
 
     static function event_price_assets()
     {
