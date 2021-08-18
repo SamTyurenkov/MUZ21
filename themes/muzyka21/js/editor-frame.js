@@ -1,8 +1,57 @@
 $ = jQuery;
 $(document).ready(function () {
+var soldticketspage = 1;
+
+	function getSoldTickets() {
+		var ajaxurl = localize_editor.ajaxurl;
+			var nonce = $("#_editor").val();
+			var postid = localize_editor.postid;
+			$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "none").css("opacity", "0.3");
+			var ajax = jQuery.ajax({
+				url: ajaxurl,
+				data: {
+					nonce: nonce,
+					postid: postid,
+					action: "getpurchases",
+					paged: soldticketspage,
+				},
+				type: "POST",
+				dataType: "json",
+				success: function (data, textStatus, jqXHR) {
+					if (data.response == "SUCCESS") {
+						document.querySelector('.editor-frame_soldtickets').innerHTML += data.content;
+						soldticketspage++;
+					} else if (data.response == "ERROR") {
+						ErrorsManager.createEl("error", "Ошибка: " + data.error);
+					}
+					$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "all").css("opacity", "1");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					ErrorsManager.createEl("error", "Ошибка: " + errorThrown);
+					$(".editor-frame_buttons, .editor-frame_content").css("pointer-events", "all").css("opacity", "1");
+				},
+			});
+	}
+
+	$(".editor-frame_buttons_sold").on("click", function (e) {
+		e.stopPropagation();
+		$(".editor-frame_soldtickets").addClass("active");
+		$(".editor-frame_content").removeClass("active");
+		if(soldticketspage == 1) {
+			getSoldTickets();
+		}
+	});
+
 	$(".editor-frame_buttons_edit").on("click", function (e) {
 		e.stopPropagation();
-		$(".editor-frame_content").toggleClass("active");
+		$(".editor-frame_content").addClass("active");
+		$(".editor-frame_soldtickets").removeClass("active");
+	});
+
+	$(".editor-frame_buttons_close").on("click", function (e) {
+		e.stopPropagation();
+		$(".editor-frame_soldtickets").removeClass("active");
+		$(".editor-frame_content").removeClass("active");
 	});
 
 	$(document).on("click", ".editor-frame_buttons_pending, .editor-frame_buttons_draft, .editor-frame_buttons_publish", function (e) {

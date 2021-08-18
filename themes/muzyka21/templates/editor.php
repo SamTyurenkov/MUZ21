@@ -3,15 +3,17 @@
     <div class="editor-frame">
 
         <div class="editor-frame_buttons">
+            <div class="button editor-frame_buttons_sold">Проданные билеты</div>
             <div class="button editor-frame_buttons_edit">Редактировать</div>
             <div class="button editor-frame_buttons_delete">Удалить</div>
-        <?php if(get_post_status(get_the_ID()) == 'draft') : ?>
-            <div class="button editor-frame_buttons_pending">На модерацию</div>
-        <?php endif; ?>
-        <?php if(current_user_can('administrator')) : ?>
-            <div class="button editor-frame_buttons_draft">В черновики</div>
-            <div class="button editor-frame_buttons_publish">Опубликовать</div>
-        <?php endif; ?>
+            <?php if (get_post_status(get_the_ID()) == 'draft') : ?>
+                <div class="button editor-frame_buttons_pending">На модерацию</div>
+            <?php endif; ?>
+            <?php if (current_user_can('administrator')) : ?>
+                <div class="button editor-frame_buttons_draft">В черновики</div>
+                <div class="button editor-frame_buttons_publish">Опубликовать</div>
+            <?php endif; ?>
+            <div class="button editor-frame_buttons_close" style="padding: 3px 9px;">X</div>
         </div>
 
         <div class="editor-frame_content">
@@ -145,10 +147,12 @@
                             <label>Описание билета</label>
                             <textarea spellcheck="true" rows="6" class="text option_description" max="200" placeholder="Что входит в билет?"></textarea>
                         </span>
-
-                    <?php endif; ?>
                     </div>
+                <?php endif; ?>
             </div>
+
+        </div>
+        <div class="editor-frame_soldtickets">
 
         </div>
     </div>

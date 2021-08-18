@@ -199,7 +199,8 @@ class Events
 				'post_author'   => intval($_POST['aid']),
 				'meta_input' => array(
 					'date_start' => $tempdate->format('Y-m-d H:i:s'),
-					'_date_start' => 'field_60c6622c76ae7' //ACF field value
+					'_date_start' => 'field_60c6622c76ae7', //ACF field value
+					'sold_tickets' => 0
 				)
 			);
 

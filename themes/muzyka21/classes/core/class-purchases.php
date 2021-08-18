@@ -12,6 +12,7 @@ class Purchases
 		add_action('init', ['Core\Purchases', 'post_type_purchases']);
 		add_action('init', ['Core\Purchases', 'taxonomy_type_purchase_status']);
 		add_action('wp_ajax_prepayment', ['Core\Purchases', 'prepayment']);
+		add_action('wp_ajax_getpurchases', ['Core\Purchases', 'getpurchases']);
 
 		add_action('rest_api_init', function () {
 			register_rest_route('custom', '/purchases/alphabank/', array(
@@ -24,6 +25,58 @@ class Purchases
 
 	//ADD PURCHASE POST TYPE
 
+	public static function getpurchases()
+	{
+
+		if (!current_user_can('edit_post', $_POST['postid'])) die();
+		if (wp_verify_nonce($_POST['nonce'], '_editor')) {
+
+			$response = array();
+			header('Content-Type: application/json');
+
+			$postid = intval($_POST['postid']);
+			$paged = intval($_POST['paged']);
+
+			$args = array(
+				'post_type' => 'purchases',
+				'order'     => 'DESC',
+				'post_status' => 'publish',
+				'orderby'       => 'modified',
+				'paged' => $paged,
+				'posts_per_page' => 20,
+				'meta_query' => array(
+					'relation' => 'AND',
+					array(
+						'key' => 'itemid',
+						'value' => apply_filters('wpml_object_id', $postid, 'events', FALSE, 'ru')
+					),
+					array(
+						'key' => 'status',
+						'value' => 'paid'
+					)
+				)
+			);
+			$query = new \WP_Query($args);
+			$html = '';
+			if($query->have_posts()) : while($query->have_posts()) : $query->the_post();
+
+			ob_start();
+			get_template_part('templates/purchases/single-in-list', null);
+			$html .= ob_get_contents();
+			ob_end_clean();
+
+			endwhile; else :
+			$html .= 'Пока это все.';
+			endif;
+
+			$response['response'] = 'SUCCESS';
+			$response['content'] = $html;
+			echo json_encode($response);
+			die();
+		}
+		die();
+	}
+
 	public static function prepayment()
 	{
 		if (wp_verify_nonce($_POST['nonce'], '_payments')) {
@@ -33,7 +86,7 @@ class Purchases
 			$postid = intval($_POST['postid']);
 			$optionid = intval($_POST['optionid']);
 			$type = sanitize_text_field($_POST['type']);
-
+			$postid = apply_filters('wpml_object_id', $postid, 'events', false, 'ru');
 
 			$price = sanitize_text_field($_POST['price']);
 
@@ -71,6 +124,10 @@ class Purchases
 			if (is_numeric($post_id)) {
 
 				if ((is_numeric($price) == false || $price == 0) && $type == 'events') {
+
+					global $wpdb;
+					$wpdb->query( 
+					$wpdb->prepare( "UPDATE wp_postmeta SET meta_value = Coalesce(meta_value, 0) + 1 + 1 WHERE (post_id = %d AND meta_key = 'sold_tickets')", $postid));
 
 					$emailargs = array(
 						'to' => $email,
@@ -231,6 +288,14 @@ class Purchases
 
 		if ($status == 'paid' && $posttype == 'events') {
 
+			global $wpdb;
+			$wpdb->query( 
+			$wpdb->prepare( "UPDATE wp_postmeta
+			SET meta_value = meta_value + 1
+			WHERE (post_id = %d AND meta_key = 'sold_tickets')", get_field('itemid',$my_post)
+			)
+			);
+
 			$emailargs = array(
 				'to' => $email,
 				'subject' => 'MUSIC XXI: Приобретен Билет',
@@ -239,6 +304,7 @@ class Purchases
 				'title' => get_the_title($orderNumber)
 			);
 			Emails::sendEmail('completepurchaseevent', $emailargs);
+
 		}
 
 		if ($status == 'paid' && $posttype == 'services') {
