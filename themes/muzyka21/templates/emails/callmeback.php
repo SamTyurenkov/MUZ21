@@ -15,7 +15,7 @@
                 <div id="contentstuff" style="padding: 0px 15px 15px 15px;text-align:justify">
                         <h2>Заявка с сайта</h2>
                         <p>Посетитель <b><?php echo $args['username']; ?></b> с сайта просит связаться с ним для консультации.</p>
-                        <p>Email: <?php echo $args['email']; ?> | Телефон: <?php echo $args['username']; ?></p>
+                        <p>Email: <?php echo $args['email']; ?> | Телефон: <?php echo $args['phone']; ?></p>
                         <p>Страница с которой отправлен запрос: <a href="<?php echo $args['page']; ?>"><?php echo $args['page']; ?></a></p>
                     </div>
                 </table>
