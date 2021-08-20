@@ -1,6 +1,5 @@
 $ = jQuery;
 $(document).ready(function () {
-
 	$(".prepayment-frame").on("click", function (e) {
 		$(this).toggleClass("active");
 	});
@@ -22,7 +21,7 @@ $(document).ready(function () {
 		if ($(".prepayment-frame_customer_details .form_phone").val().length < 1 || !ValidatePhone($(".prepayment-frame_customer_details .form_phone").val()))
 			$(".prepayment-frame_customer_details .form_phone").addClass("input_invalid");
 
-    $(this).css("pointer-events", "none").css("opacity", "0.3");
+		$(this).css("pointer-events", "none").css("opacity", "0.3");
 
 		var ajaxurl = localize_prepayment.ajaxurl;
 		var nonce = $("#_payments").val();
@@ -34,6 +33,8 @@ $(document).ready(function () {
 		var type = localize_prepayment.type;
 		var postid = localize_prepayment.postid;
 		var optionid = $(".prepayment-frame_customer_details").data("id");
+		var yaclientID = ym(84234994, "getClientID", function (yaclientID) { return yaclientID; });
+		console.log(yaclientID);
 
 		var value = jQuery.ajax({
 			url: ajaxurl,
@@ -46,6 +47,7 @@ $(document).ready(function () {
 				price: price,
 				postid: postid,
 				optionid: optionid,
+				yaclientID: yaclientID,
 				type: type,
 				action: "prepayment",
 			},
@@ -53,16 +55,17 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (data, textStatus, jqXHR) {
 				if (data.response == "SUCCESS") {
+					ym(84234994, "reachGoal", "make-order");
 					ErrorsManager.createEl("success", "Заказ успешно создан");
-          $(".prepayment-frame").removeClass('active');
+					$(".prepayment-frame").removeClass("active");
 				} else if (data.response == "ERROR") {
 					ErrorsManager.createEl("error", "Ошибка: " + data.error);
 				}
-        $('.prepayment-frame_customer_details input[type="submit"]').css("pointer-events", "all").css("opacity", "1");
+				$('.prepayment-frame_customer_details input[type="submit"]').css("pointer-events", "all").css("opacity", "1");
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
 				ErrorsManager.createEl("error", "Ошибка: " + errorThrown);
-        $('.prepayment-frame_customer_details input[type="submit"]').css("pointer-events", "all").css("opacity", "1");
+				$('.prepayment-frame_customer_details input[type="submit"]').css("pointer-events", "all").css("opacity", "1");
 			},
 		});
 	});

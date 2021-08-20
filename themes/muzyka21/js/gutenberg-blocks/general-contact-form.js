@@ -28,6 +28,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function success(data, textStatus, jqXHR) {
         if (data.response == "SUCCESS") {
+          ym(84234994, 'reachGoal', 'form-submission');
           ErrorsManager.createEl("success", "Запрос успешно создан");
         } else if (data.response == "ERROR") {
           ErrorsManager.createEl("error", "Ошибка: " + data.error);

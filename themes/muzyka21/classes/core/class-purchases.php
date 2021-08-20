@@ -61,15 +61,16 @@ class Purchases
 			);
 			$query = new \WP_Query($args);
 			$html = '';
-			if($query->have_posts()) : while($query->have_posts()) : $query->the_post();
+			if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
 
-			ob_start();
-			get_template_part('templates/purchases/single-in-list', null);
-			$html .= ob_get_contents();
-			ob_end_clean();
+					ob_start();
+					get_template_part('templates/purchases/single-in-list', null);
+					$html .= ob_get_contents();
+					ob_end_clean();
 
-			endwhile; else :
-			$html .= 'Пока это все.';
+				endwhile;
+			else :
+				$html .= 'Пока это все.';
 			endif;
 
 			$response['response'] = 'SUCCESS';
@@ -89,21 +90,20 @@ class Purchases
 			$page = sanitize_text_field($_POST['page']);
 			$username = sanitize_text_field($_POST['username']);
 
-					$emailargs = array(
-						'to' => Init::$adminemail,
-						'email' => $email,
-						'username' => $username,
-						'phone' => $phone,
-						'subject' => 'MUSIC XXI: Заявка с сайта',
-						'page' => $page
-					);
-					Emails::sendEmail('callmeback', $emailargs);
-				
+			$emailargs = array(
+				'to' => Init::$adminemail,
+				'email' => $email,
+				'username' => $username,
+				'phone' => $phone,
+				'subject' => 'MUSIC XXI: Заявка с сайта',
+				'page' => $page
+			);
+			Emails::sendEmail('callmeback', $emailargs);
 
-				$response['response'] = 'SUCCESS';
-				echo json_encode($response);
-				die();
-			
+
+			$response['response'] = 'SUCCESS';
+			echo json_encode($response);
+			die();
 		} else {
 			$response['response'] = 'ERROR';
 			$response['error'] = 'Обновите страницу и попробуйте снова';
@@ -122,7 +122,7 @@ class Purchases
 			$optionid = intval($_POST['optionid']);
 			$type = sanitize_text_field($_POST['type']);
 			$postid = apply_filters('wpml_object_id', $postid, 'events', false, 'ru');
-
+			$yaclientID = sanitize_text_field($_POST['yaclientID']);
 			$price = sanitize_text_field($_POST['price']);
 
 			$userquery = get_user_by('email', $email);
@@ -147,6 +147,7 @@ class Purchases
 					'itemid' => $postid,
 					'optionid' => $optionid,
 					'status' => 'pending',
+					'yaclientID' => $yaclientID
 				)
 			);
 
@@ -161,8 +162,9 @@ class Purchases
 				if ((is_numeric($price) == false || $price == 0) && $type == 'events') {
 
 					global $wpdb;
-					$wpdb->query( 
-					$wpdb->prepare( "UPDATE wp_postmeta SET meta_value = Coalesce(meta_value, 0) + 1 + 1 WHERE (post_id = %d AND meta_key = 'sold_tickets')", $postid));
+					$wpdb->query(
+						$wpdb->prepare("UPDATE wp_postmeta SET meta_value = Coalesce(meta_value, 0) + 1 + 1 WHERE (post_id = %d AND meta_key = 'sold_tickets')", $postid)
+					);
 
 					$emailargs = array(
 						'to' => $email,
@@ -269,7 +271,7 @@ class Purchases
 		$queriessorted = $queries;
 		sort($queriessorted);
 		//http_response_code(200);
-		$secret = 'BFs2CRQxfU5ydFPnEedXYrWu';
+		$secret = '';
 		$amount = $queries['amount'];
 		$mdOrder = $queries['mdOrder'];
 		$orderNumber = filter_var($queries['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
@@ -324,11 +326,13 @@ class Purchases
 		if ($status == 'paid' && $posttype == 'events') {
 
 			global $wpdb;
-			$wpdb->query( 
-			$wpdb->prepare( "UPDATE wp_postmeta
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE wp_postmeta
 			SET meta_value = meta_value + 1
-			WHERE (post_id = %d AND meta_key = 'sold_tickets')", get_field('itemid',$my_post)
-			)
+			WHERE (post_id = %d AND meta_key = 'sold_tickets')",
+					get_field('itemid', $my_post)
+				)
 			);
 
 			$emailargs = array(
@@ -339,7 +343,12 @@ class Purchases
 				'title' => get_the_title($orderNumber)
 			);
 			Emails::sendEmail('completepurchaseevent', $emailargs);
-
+			$metrika = array(
+				'ClientId' => get_field('yaclientID', $orderNumber),
+				'Target' => 'pay-order',
+				'Price' => get_field('price', $orderNumber)
+			);
+			Purchases::senddatatometrika($metrika);
 		}
 
 		if ($status == 'paid' && $posttype == 'services') {
@@ -352,8 +361,41 @@ class Purchases
 				'title' => get_the_title($orderNumber)
 			);
 			Emails::sendEmail('completepurchaseservice', $emailargs);
+			$metrika = array(
+				'ClientId' => get_field('yaclientID', $orderNumber),
+				'Target' => 'pay-order',
+				'Price' => get_field('price', $orderNumber)
+			);
+			Purchases::senddatatometrika($metrika);
 		}
 
 		die();
+	}
+
+	public static function senddatatometrika(array $data)
+	{
+
+		$data['DateTime'] = time();
+		$data['Currency'] = 'RUB';
+		$counter = "84234994";            // Укажите номер счетчика
+		$token = "AQAAAAAVbZJ7AAdSsinOepAniUyTpuAM_XQw8EU";              // Укажите OAuth-токен
+		$client_id_type = "CLIENT_ID";     // Укажите тип идентификаторов посетителей – CLIENT_ID, USER_ID или YCLID
+
+		$curl = curl_init('https://api-metrika.yandex.ru/management/v1/counter/' . $counter . '/offline_conversions/upload?client_id_type=' . $client_id_type);
+
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: multipart/form-data", 'Authorization: OAuth ' . $token));
+
+		$result = curl_exec($curl);
+
+		echo $result;
+
+		curl_close($curl);
+
+		error_log('senddatatometrika');
+		error_log(print_r($result, true));
 	}
 }

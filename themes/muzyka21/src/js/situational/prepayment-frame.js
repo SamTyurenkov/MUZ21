@@ -53,6 +53,7 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (data, textStatus, jqXHR) {
 				if (data.response == "SUCCESS") {
+					ym(84234994,'reachGoal','make-order');
 					ErrorsManager.createEl("success", "Заказ успешно создан");
           $(".prepayment-frame").removeClass('active');
 				} else if (data.response == "ERROR") {

@@ -155,6 +155,7 @@ $(document).ready(function () {
 						regform.parentElement.getElementsByClassName("status")[0].style.display = 'block';
 						regform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message;
 						if (data.response == 'SUCCESS') {
+							ym(84234994,'reachGoal','registration');
 							location.href = localize.homeurl + '/author/' + data.id; //window.location.protocol + '//' + window.location.hostname + '/author/' + data.id;
 						}
 					},

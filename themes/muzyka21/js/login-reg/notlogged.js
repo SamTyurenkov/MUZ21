@@ -93,7 +93,7 @@ $ = jQuery, $(document).ready(function () {
       type: "POST",
       dataType: "json",
       success: function success(data, textStatus, jqXHR) {
-        console.log(data.message), regform.parentElement.getElementsByClassName("status")[0].style.display = "block", regform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message, "SUCCESS" == data.response && (location.href = localize.homeurl + "/author/" + data.id);
+        console.log(data.message), regform.parentElement.getElementsByClassName("status")[0].style.display = "block", regform.parentElement.getElementsByClassName("status")[0].innerHTML = data.message, "SUCCESS" == data.response && (ym(84234994, "reachGoal", "registration"), location.href = localize.homeurl + "/author/" + data.id);
       },
       error: function error(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown), regform.parentElement.getElementsByClassName("status")[0].innerHTML = errorThrown;
