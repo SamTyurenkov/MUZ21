@@ -216,9 +216,8 @@
 					border-bottom: 4px solid #fff;
 					h4 {
 						margin-top: 0;
-						text-align: center;
+						text-align: left;
 						flex: 0 0 100%;
-						font-size: 18px;
 						margin-bottom: 10px;
 					}
 					.order_price {
@@ -236,6 +235,7 @@
 						margin: 0;
 						padding: 3px 10px;
 						font-size: 14px;
+						text-align: center;
 					}
 				}
 			}

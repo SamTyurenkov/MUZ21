@@ -67,7 +67,7 @@ if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?
 						?>
 								<a href="<?php if ($language['code'] != 'ru') echo '/' . $language['code'];
 											echo '/?post_type=events&p=' . $translatedeventid; ?>">
-									<img src="/wp-content/plugins/sitepress-multilingual-cms/res/flags/<?php echo $language['code']; ?>.png"><span><?php echo esc_html($post_statuses[get_post_status()]); ?></span>
+									<img src="/wp-content/plugins/sitepress-multilingual-cms/res/flags/<?php echo $language['code']; ?>.png"><span><?php echo esc_html($post_statuses[get_post_status($translatedeventid)]); ?></span>
 								</a>
 						<?php }}; ?>
 					</div>
