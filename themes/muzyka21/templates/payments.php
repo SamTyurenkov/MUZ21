@@ -9,15 +9,15 @@
             </span>
             <span class="input_container input_large">
                 <label><?php echo esc_attr(get_field('contact_form_email_text', 'option')); ?></label>
-                <input class="form_email" required type="email" value="<?php echo esc_attr(get_the_author_meta('email', get_current_user_id())); ?>"></input>
+                <input class="form_email" required type="email" value="<?php if(get_current_user_id() > 0)  echo esc_attr(get_the_author_meta('email', get_current_user_id())); ?>"></input>
             </span>
             <span class="input_container">
                 <label><?php echo esc_attr(get_field('contact_form_name_text', 'option')); ?></label>
-                <input class="form_name" required type="text" value="<?php echo esc_attr(get_the_author_meta('display_name', get_current_user_id())); ?>"></input>
+                <input class="form_name" required type="text" value="<?php if(get_current_user_id() > 0)  echo esc_attr(get_the_author_meta('display_name', get_current_user_id())); ?>"></input>
             </span>
             <span class="input_container">
                 <label><?php echo esc_attr(get_field('contact_form_phone_text', 'option')); ?></label>
-                <input class="form_phone" required type="text" value="<?php echo esc_attr(get_the_author_meta('user_phone', get_current_user_id())); ?>"></input>
+                <input class="form_phone" required type="text" value="<?php if(get_current_user_id() > 0) echo esc_attr(get_the_author_meta('user_phone', get_current_user_id())); ?>"></input>
             </span>
             <span class="input_container input_large form_title">
 
