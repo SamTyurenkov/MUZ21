@@ -45,7 +45,13 @@ $languages = apply_filters('wpml_active_languages', NULL, 'orderby=id&order=desc
 add_filter('wpml_should_use_display_as_translated_snippet', '__return_false');
 $query = new WP_Query($args);
 
-if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
+if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); 
+$soldtickets = get_post_meta(apply_filters('wpml_object_id', get_the_ID(), 'events', FALSE, 'ru'),'sold_tickets',true);
+if(empty($soldtickets)) {
+	$soldtickets = 0;
+	update_post_meta(apply_filters('wpml_object_id', get_the_ID(), 'events', FALSE, 'ru'),'sold_tickets',0);
+}
+?>
 
 		<div class="author_event">
 			<a href="<?php echo esc_attr(get_the_permalink()); ?>">
@@ -55,7 +61,7 @@ if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?
 				<div class="author_event_left">
 					<div class="author_event_date"><?php echo get_field('date_start', get_the_ID()); ?></div>
 					<div class="author_event_title"><?php the_title(); ?></div>
-					<div class="author_event_tickets">Продано билетов: <?php echo get_post_meta(apply_filters('wpml_object_id', get_the_ID(), 'events', FALSE, 'ru'),'sold_tickets',true); ?></div>
+					<div class="author_event_tickets">Продано билетов: <?php echo $soldtickets ?></div>
 				</div>
 				<?php if (current_user_can('administrator') || $curauth->ID == $curuser->ID) { ?>
 					<div class="author_event_languages">
