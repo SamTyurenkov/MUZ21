@@ -42,7 +42,7 @@ if (current_user_can('administrator') && $curauth->ID == $curuser->ID) {
 };
 
 $languages = apply_filters('wpml_active_languages', NULL, 'orderby=id&order=desc');
-
+add_filter('wpml_should_use_display_as_translated_snippet', '__return_false');
 $query = new WP_Query($args);
 
 if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
