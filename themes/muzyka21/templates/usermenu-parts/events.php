@@ -61,7 +61,7 @@ if(empty($soldtickets)) {
 				<div class="author_event_left">
 					<div class="author_event_date"><?php echo get_field('date_start', get_the_ID()); ?></div>
 					<div class="author_event_title"><?php the_title(); ?></div>
-					<div class="author_event_tickets">Продано билетов: <?php echo $soldtickets ?></div>
+					<div class="author_event_tickets">Продано билетов: <?php echo $soldtickets; ?></div>
 				</div>
 				<?php if (current_user_can('administrator') || $curauth->ID == $curuser->ID) { ?>
 					<div class="author_event_languages">
