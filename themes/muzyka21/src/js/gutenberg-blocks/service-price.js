@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   $(document).on("click",".service-price_flex_price_value", function () {
 
-    $(".prepayment-frame").data('id',$(this).parent().data('id'));
+    $(".prepayment-frame").attr("data-id",$(this).parent().data('id'));
     $(".prepayment-frame .form_title").html(
       $("h1").html() + " - " + $(this).parent().find("h4").html()
     );

@@ -33,8 +33,6 @@ $(document).ready(function () {
 		var type = localize_prepayment.type;
 		var postid = localize_prepayment.postid;
 		var optionid = $(".prepayment-frame_customer_details").data("id");
-		var yaclientID = ym(84234994, "getClientID", function (yaclientID) { return yaclientID; });
-		console.log(yaclientID);
 
 		var value = jQuery.ajax({
 			url: ajaxurl,
@@ -47,7 +45,7 @@ $(document).ready(function () {
 				price: price,
 				postid: postid,
 				optionid: optionid,
-				yaclientID: yaclientID,
+				yaclientID: document.querySelector('#yaCID').attr('content'),
 				type: type, 
 				action: "prepayment",
 			},
@@ -59,7 +57,7 @@ $(document).ready(function () {
 					ym(84234994, "reachGoal", "make-order");
 					ErrorsManager.createEl("success", "Заказ успешно создан");
 					$(".prepayment-frame").removeClass("active");
-					$(".alfa-payment-button button").trigger( "click" );
+					$("#alfa-payment-button button").trigger( "click" );
 				} else if (data.response == "ERROR") {
 					ErrorsManager.createEl("error", "Ошибка: " + data.error);
 				}

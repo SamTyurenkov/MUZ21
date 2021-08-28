@@ -34,7 +34,7 @@ $uid = wp_get_current_user()->ID;
 	<meta name="msapplication-navbutton-color" content="#d03030">
 	<!-- iOS Safari -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="#d03030">
-
+	<meta id="yaCID" content="">
 	<?php wp_head(); ?>
 	<?php $my_home_url = apply_filters('wpml_home_url', get_option('home')); ?>
 </head>
@@ -57,6 +57,9 @@ $uid = wp_get_current_user()->ID;
 			trackLinks: true,
 			accurateTrackBounce: true,
 			webvisor: true
+		});
+		ym(84234994, "getClientID", function (yaclientID) { 
+			document.querySelector('#yaCID').setAttribute('content',yaclientID); 
 		});
 	</script>
 	<noscript>
