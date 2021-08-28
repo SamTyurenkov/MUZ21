@@ -45,7 +45,7 @@ $(document).ready(function () {
 				price: price,
 				postid: postid,
 				optionid: optionid,
-				yaclientID: document.querySelector('#yaCID').attr('content'),
+				yaclientID: document.querySelector('#yaCID').getAttribute('content'),
 				type: type, 
 				action: "prepayment",
 			},
