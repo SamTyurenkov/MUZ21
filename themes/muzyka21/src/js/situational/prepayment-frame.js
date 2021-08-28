@@ -56,6 +56,7 @@ $(document).ready(function () {
 					$(".prepayment-frame_customer_details .order_id").html(data.info);
 					ym(84234994, "reachGoal", "make-order");
 					ErrorsManager.createEl("success", "Заказ успешно создан");
+					$("#alfa-payment-button").attr('data-amount',price);
 					$(".prepayment-frame").removeClass("active");
 					$("#alfa-payment-button button").trigger( "click" );
 				} else if (data.response == "ERROR") {
