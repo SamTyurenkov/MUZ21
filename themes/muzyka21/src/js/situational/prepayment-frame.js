@@ -59,7 +59,7 @@ $(document).ready(function () {
 					ym(84234994, "reachGoal", "make-order");
 					ErrorsManager.createEl("success", "Заказ успешно создан");
 					$(".prepayment-frame").removeClass("active");
-					$(".alfa-payment-button").click();
+					$(".alfa-payment-button button").click();
 				} else if (data.response == "ERROR") {
 					ErrorsManager.createEl("error", "Ошибка: " + data.error);
 				}
