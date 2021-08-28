@@ -22,7 +22,7 @@ class Purchases
 				'methods' => 'GET',
 				'callback' => ['Core\Purchases', 'completepurchase'],
 				'permission_callback' => '__return_true'
-			));
+			)); 
 		});
 	}
 

@@ -48,16 +48,18 @@ $(document).ready(function () {
 				postid: postid,
 				optionid: optionid,
 				yaclientID: yaclientID,
-				type: type,
+				type: type, 
 				action: "prepayment",
 			},
 			type: "POST",
 			dataType: "json",
 			success: function (data, textStatus, jqXHR) {
 				if (data.response == "SUCCESS") {
+					$(".prepayment-frame_customer_details .order_id").html(response.info);
 					ym(84234994, "reachGoal", "make-order");
 					ErrorsManager.createEl("success", "Заказ успешно создан");
 					$(".prepayment-frame").removeClass("active");
+					$(".alfa-payment-button").click();
 				} else if (data.response == "ERROR") {
 					ErrorsManager.createEl("error", "Ошибка: " + data.error);
 				}
