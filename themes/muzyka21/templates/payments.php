@@ -32,7 +32,7 @@
 
 
     </div>
-    <div id="alfa-payment-button" data-amount='.event-price_flex_price_value span' data-description-selector='.form_title' data-order-number-selector='.order_id' data-version='1.0' data-stages='1' data-amount-format='kopeyki' data-client-info-selector='.form_email' data-token='r3u3ps5om0uq8j7c2tjj1pjicq' data-language-selector='<?php echo esc_attr(ICL_LANGUAGE_CODE); ?>'></div>
+    <div id="alfa-payment-button" data-amount='.event-price_flex_price_value span' data-description-selector='.form_title' data-order-number-selector='.order_id' data-version='1.0' data-stages='1' data-amount-format='rubli' data-client-info-selector='.form_email' data-token='r3u3ps5om0uq8j7c2tjj1pjicq' data-language-selector='<?php echo esc_attr(ICL_LANGUAGE_CODE); ?>'></div>
     <script id="alfa-payment-script" type="text/javascript" src="https://testpay.alfabank.ru/assets/alfa-payment.js">
     </script>
 <?php endif; ?>
