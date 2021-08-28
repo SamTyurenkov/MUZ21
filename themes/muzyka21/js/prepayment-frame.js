@@ -55,7 +55,7 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (data, textStatus, jqXHR) {
 				if (data.response == "SUCCESS") {
-					$(".prepayment-frame_customer_details .order_id").html(response.info);
+					$(".prepayment-frame_customer_details .order_id").html(data.info);
 					ym(84234994, "reachGoal", "make-order");
 					ErrorsManager.createEl("success", "Заказ успешно создан");
 					$(".prepayment-frame").removeClass("active");
