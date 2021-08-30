@@ -304,7 +304,7 @@ class Purchases
 			$status = 'pending';
 			if (have_rows('prices', $orderNumber)) : while (have_rows('prices', $orderNumber)) : the_row();
 
-					if ((int) $amount == (int) get_sub_field('option_price')) $status = 'paid';
+					if ((int) ($amount * 0.01) == (int) get_sub_field('option_price')) $status = 'paid';
 
 				endwhile;
 			endif;

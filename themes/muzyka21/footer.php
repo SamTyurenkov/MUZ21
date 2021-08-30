@@ -8,7 +8,11 @@ if (!defined('ABSPATH')) {
 
 <footer class="footer">
 	<div class="container">
-
+		<?php
+		wp_nav_menu(array(
+			'menu' => 'footer'
+		));
+		?>
 	</div>
 </footer>
 <?php

@@ -144,6 +144,8 @@ body {
 *[class^="wp-block"] {
 	max-width: 1600px;
 	margin: 0 auto;
+	justify-content: center;
+	margin-bottom: 50px;
 }
 .container {
 	max-width: 1600px;
@@ -222,7 +224,19 @@ body {
 		font-size: 18px;
 	}
 }
-
+#menu-footer {
+	text-align: center;
+	li {
+		list-style: none;
+		a {
+			color: #444;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
 header {
 	.topbar {
 		display: flex;
@@ -452,5 +466,6 @@ header {
 				}
 			}
 		}
+
 	}
 }
