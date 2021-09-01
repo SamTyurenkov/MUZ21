@@ -262,7 +262,7 @@ class Purchases
 		));
 	}
 
-	public static function completepurchaseevent($request)
+	public static function completepurchase($request)
 	{
 		$response = array();
 		$queries = array();
@@ -270,7 +270,12 @@ class Purchases
 		parse_str($_SERVER['QUERY_STRING'], $queries);
 		$queriessorted = $queries;
 		sort($queriessorted);
-		//http_response_code(200);
+
+		if(empty($queriessorted)) {
+			http_response_code(403);
+			die();
+		}
+
 		$secret = '';
 		$amount = $queries['amount'];
 		$mdOrder = $queries['mdOrder'];
