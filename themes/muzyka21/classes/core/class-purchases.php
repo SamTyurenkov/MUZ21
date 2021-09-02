@@ -276,7 +276,7 @@ class Purchases
 			die();
 		}
 
-		$secret = '';
+		$secret = 'rh3e9dh480kd1df07rdt84mrvp';
 		$amount = $queries['amount'];
 		$mdOrder = $queries['mdOrder'];
 		$orderNumber = filter_var($queries['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
