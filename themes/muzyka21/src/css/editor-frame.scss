@@ -164,17 +164,10 @@
 				margin-bottom: 20px;
 				@media (max-width: 992px) {
 					border-right: 0;
-					flex: 0 0 calc(33% - 10px);
+					flex: 0 0 calc(50% - 10px);
 					font-size: 12px;
 					margin-left: 0;
-					padding-right: 15px;
-				}
-				&:nth-child(3) {
-					@media (max-width: 992px) {
-						order: 4;
-						flex: 0 0 100%;
-						padding-right: 0;
-					}
+					padding-right: 10px;
 				}
 			}
 		}
