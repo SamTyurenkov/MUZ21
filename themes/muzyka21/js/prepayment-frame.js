@@ -29,7 +29,7 @@ $(document).ready(function () {
 		var email = $(".prepayment-frame_customer_details .form_email").val();
 		var phone = $(".prepayment-frame_customer_details .form_phone").val();
 		var title = $(".prepayment-frame_customer_details .form_title").html();
-		var price = $(".event-price_flex_price_value span").html();
+		var price = $(".item_price_option span").html();
 		var type = localize_prepayment.type;
 		var postid = localize_prepayment.postid;
 		var optionid = $(".prepayment-frame").attr("data-id");
