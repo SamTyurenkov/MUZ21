@@ -385,7 +385,7 @@ class Purchases
 		$token = "AQAAAAAVbZJ7AAdSsinOepAniUyTpuAM_XQw8EU";              // Укажите OAuth-токен
 		$client_id_type = "CLIENT_ID";     // Укажите тип идентификаторов посетителей – CLIENT_ID, USER_ID или YCLID
 
-		$content = 'ClientId,Target,DateTime,Price,Currency\n'.$data['ClientId'].','.$data['Target'].','.$data['DateTime'].','.$data['Price'].',RUB';
+		$content = 'ClientId,Target,DateTime,Price,Currency'.PHP_EOL.$data['ClientId'].','.$data['Target'].','.$data['DateTime'].','.$data['Price'].',RUB';
 		$filecreation = file_put_contents($file, $content);
 		if($filecreation) error_log('wrote content into offline.csv');
 
