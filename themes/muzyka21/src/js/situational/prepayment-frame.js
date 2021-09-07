@@ -32,7 +32,7 @@ $(document).ready(function () {
 		var price = $(".event-price_flex_price_value span").html();
 		var type = localize_prepayment.type;
 		var postid = localize_prepayment.postid;
-		var optionid = $(".prepayment-frame_customer_details").attr("data-id");
+		var optionid = $(".prepayment-frame").attr("data-id");
 
 		var value = jQuery.ajax({
 			url: ajaxurl,

@@ -275,15 +275,15 @@ class Purchases
 			http_response_code(403);
 			die();
 		}
-
+		error_log(print_r($queriessorted,true));
 		$secret = 'rh3e9dh480kd1df07rdt84mrvp';
-		$amount = $queries['amount'];
-		$mdOrder = $queries['mdOrder'];
-		$orderNumber = filter_var($queries['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
-		$checksum = $queries['checksum'];
-		$operation = $queries['operation'];
-		$status = $queries['status'];
-		$email = filter_var($queries['clientId'], FILTER_SANITIZE_EMAIL);
+		$amount = $queriessorted['amount'];
+		$mdOrder = $queriessorted['mdOrder'];
+		$orderNumber = filter_var($queriessorted['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
+		$checksum = $queriessorted['checksum'];
+		$operation = $queriessorted['operation'];
+		$status = $queriessorted['status'];
+		$email = filter_var($queriessorted['clientId'], FILTER_SANITIZE_EMAIL);
 
 
 		$securitystring = ''; 		//'amount;'.$amount.';clientId;'.$email.';mdOrder;'.$mdOrder.';operation;'.$operation.';orderNumber;'.$orderNumber.';status;'.$status.';';
@@ -295,9 +295,11 @@ class Purchases
 
 		if ($checksum != $hmac) {
 			http_response_code(403);
+			error_log('check sum failed');
 			die();
 		} else {
 			http_response_code(200);
+			error_log('check sum ok');
 		};
 
 		if ($status == 0) die();
