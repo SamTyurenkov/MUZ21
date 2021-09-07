@@ -336,7 +336,7 @@ class Purchases
 					"UPDATE wp_postmeta
 			SET meta_value = meta_value + 1
 			WHERE (post_id = %d AND meta_key = 'sold_tickets')",
-					get_field('itemid', $my_post)
+					get_field('itemid', $orderNumber)
 				)
 			);
 
