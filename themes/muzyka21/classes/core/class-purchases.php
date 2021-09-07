@@ -305,7 +305,7 @@ class Purchases
 
 		if ($status == 0) die();
 
-		$posttype = get_post_type($orderNumber);
+
 
 		if ($operation == 'deposited') {
 
@@ -328,7 +328,7 @@ class Purchases
 
 		$result = wp_update_post($my_post);
 
-
+		$posttype = get_post_type(get_field('itemid', $orderNumber));
 		error_log($posttype);
 
 		if ($status == 'paid' && $posttype == 'events') {
