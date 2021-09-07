@@ -324,14 +324,21 @@ class Purchases
 			)
 		);
 
+
+
 		$result = wp_update_post($my_post);
 
-		if ($status == 'paid' && $posttype == 'events') {
 
+		error_log($posttype);
+
+		if ($status == 'paid' && $posttype == 'events') {
+			error_log('works');
 			global $wpdb;
-			$wpdb->query(
-				$wpdb->prepare("UPDATE wp_postmeta SET meta_value = meta_value + 1 WHERE (post_id = %d AND meta_key = 'sold_tickets')",intval(get_field('itemid', $orderNumber)))
+			$queryresult = $wpdb->query(
+				$wpdb->prepare("UPDATE wp_postmeta SET meta_value = meta_value + 1 WHERE (post_id = %d AND meta_key = 'sold_tickets')", intval(get_field('itemid', $orderNumber)))
 			);
+
+			if($queryresult === false) error_log('update sold_tickets failed');
 
 			$emailargs = array(
 				'to' => get_field('buyer', $orderNumber),
@@ -340,16 +347,14 @@ class Purchases
 				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
 				'title' => get_the_title($orderNumber)
 			);
-			error_log(print_r(Emails::sendEmail('completepurchaseevent', $emailargs),true));
+			error_log(print_r(Emails::sendEmail('completepurchaseevent', $emailargs), true));
 			$metrika = array(
 				'ClientId' => get_field('yaclientID', $orderNumber),
 				'Target' => 'pay-order',
 				'Price' => get_field('price', $orderNumber)
 			);
 			Purchases::senddatatometrika($metrika);
-		}
-
-		if ($status == 'paid' && $posttype == 'services') {
+		} else if ($status == 'paid' && $posttype == 'services') {
 
 			$emailargs = array(
 				'to' => get_field('buyer', $orderNumber),
