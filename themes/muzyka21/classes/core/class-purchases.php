@@ -269,7 +269,7 @@ class Purchases
 
 		parse_str($_SERVER['QUERY_STRING'], $queries);
 		$queriessorted = $queries;
-		asort($queriessorted);
+		ksort($queriessorted);
 		error_log(print_r($queries,true));
 		error_log(print_r($queriessorted,true));
 		if(empty($queriessorted)) {
@@ -285,7 +285,7 @@ class Purchases
 		$operation = $queries['operation'];
 		$status = $queries['status'];
 
-
+		unset($queriessorted['checksum']);
 		$securitystring = ''; 		//'amount;'.$amount.';clientId;'.$email.';mdOrder;'.$mdOrder.';operation;'.$operation.';orderNumber;'.$orderNumber.';status;'.$status.';';
 		foreach ($queriessorted as $k => $q) {
 			$securitystring .= $k . ';' . $q . ';';
