@@ -386,7 +386,8 @@ class Purchases
 		$client_id_type = "CLIENT_ID";     // Укажите тип идентификаторов посетителей – CLIENT_ID, USER_ID или YCLID
 
 		$content = 'ClientId,Target,DateTime,Price,Currency\n'.$data['ClientId'].','.$data['Target'].','.$data['DateTime'].','.$data['Price'].',RUB';
-		file_put_contents($file, $content);
+		$filecreation = file_put_contents($file, $content);
+		if($filecreation) error_log('wrote content into offline.csv');
 
 		$curl = curl_init('https://api-metrika.yandex.ru/management/v1/counter/' . $counter . '/offline_conversions/upload?client_id_type=' . $client_id_type);
 
