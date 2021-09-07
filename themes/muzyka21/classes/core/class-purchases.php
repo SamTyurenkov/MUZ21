@@ -278,7 +278,6 @@ class Purchases
 		}
 		
 		$secret = 'rh3e9dh480kd1df07rdt84mrvp';
-		$amount = $queries['amount'];
 		$mdOrder = $queries['mdOrder'];
 		$orderNumber = filter_var($queries['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
 		$checksum = $queries['checksum'];
@@ -293,7 +292,7 @@ class Purchases
 
 		$hmac = hash_hmac('sha256', $securitystring, $secret);
 
-		if ($checksum != $hmac) {
+		if ($checksum != strtoupper($hmac)) {
 			http_response_code(403);
 			error_log('check sum failed');
 			error_log($securitystring);
@@ -310,15 +309,12 @@ class Purchases
 
 		if ($operation == 'deposited') {
 
-			$status = 'pending';
-			if (have_rows('prices', $orderNumber)) : while (have_rows('prices', $orderNumber)) : the_row();
+			$status = 'paid';
 
-					if ((int) ($amount * 0.01) == (int) get_sub_field('option_price')) $status = 'paid';
-
-				endwhile;
-			endif;
 		} else if ($operation == 'declinedByTimeout' || $operation == 'refunded' || $operation == 'reversed') {
+
 			$status = 'cancel';
+
 		} else {
 			die();
 		}
