@@ -269,7 +269,7 @@ class Purchases
 
 		parse_str($_SERVER['QUERY_STRING'], $queries);
 		$queriessorted = $queries;
-		sort($queriessorted);
+		asort($queriessorted);
 		error_log(print_r($queries,true));
 		error_log(print_r($queriessorted,true));
 		if(empty($queriessorted)) {
@@ -284,7 +284,6 @@ class Purchases
 		$checksum = $queries['checksum'];
 		$operation = $queries['operation'];
 		$status = $queries['status'];
-		$email = filter_var($queries['clientId'], FILTER_SANITIZE_EMAIL);
 
 
 		$securitystring = ''; 		//'amount;'.$amount.';clientId;'.$email.';mdOrder;'.$mdOrder.';operation;'.$operation.';orderNumber;'.$orderNumber.';status;'.$status.';';
@@ -297,6 +296,8 @@ class Purchases
 		if ($checksum != $hmac) {
 			http_response_code(403);
 			error_log('check sum failed');
+			error_log($securitystring);
+			error_log($hmac);
 			die();
 		} else {
 			http_response_code(200);
@@ -344,7 +345,7 @@ class Purchases
 			);
 
 			$emailargs = array(
-				'to' => $email,
+				'to' => get_field('buyer', $orderNumber),
 				'subject' => 'MUSIC XXI: Приобретен Билет',
 				'post_id' => $orderNumber,
 				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
@@ -362,7 +363,7 @@ class Purchases
 		if ($status == 'paid' && $posttype == 'services') {
 
 			$emailargs = array(
-				'to' => $email,
+				'to' => get_field('buyer', $orderNumber),
 				'subject' => 'MUSIC XXI: Приобретена Услуга',
 				'post_id' => $orderNumber,
 				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
