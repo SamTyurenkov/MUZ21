@@ -10,7 +10,7 @@
 	width: 992px;
 	left: calc(50% - 496px);
 	max-height: 60vh;
-    z-index: 10;
+	z-index: 10;
 	.button {
 		font-size: 14px;
 		padding: 3px 5px;
@@ -23,6 +23,12 @@
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
+		@media (max-width: 992px) {
+			padding-bottom: 10px;
+			box-shadow: -1px 19px 20px 0px #f2f2f2;
+			z-index: 60;
+			position: relative;
+		}
 	}
 
 	&_content {
@@ -35,7 +41,7 @@
 
 		&.active {
 			overflow-y: scroll;
-			max-height: 500px;
+			max-height: 330px;
 		}
 
 		&_part {
@@ -44,7 +50,7 @@
 			padding: 0 20px;
 			min-width: 260px;
 			@media (max-width: 800px) {
-				flex: 0 0 100%;
+				flex: 0 0 calc(100% - 40px);
 			}
 			h4 {
 				text-align: center;
@@ -121,7 +127,7 @@
 		transition: all 0.3s ease;
 		&.active {
 			overflow-y: scroll;
-			max-height: 500px;
+			max-height: 330px;
 			padding: 30px 20px;
 		}
 
@@ -132,37 +138,43 @@
 			margin-bottom: 20px;
 			padding-bottom: 10px;
 			border-bottom: 4px solid #fff;
-      justify-content: center;
-      @media(max-width:992px) {
-      justify-content: flex-start;
-      }
+			justify-content: center;
+			@media (max-width: 992px) {
+				justify-content: flex-start;
+			}
 			&_id {
 				padding-right: 10px;
-        border-right: 4px solid #fff;
+				border-right: 4px solid #fff;
 			}
 			&_user {
-        margin-left: 10px;
+				margin-left: 10px;
 				padding-right: 10px;
-        border-right: 4px solid #fff;
+				border-right: 4px solid #fff;
 			}
-      &_type {
-        margin-left: 10px;
+			&_type {
+				margin-left: 10px;
 				padding-right: 10px;
-        border-right: 4px solid #fff;
+				border-right: 4px solid #fff;
 			}
 			&_price {
-        margin-left: 10px;
+				margin-left: 10px;
 			}
 
-      &_el {
+			&_el {
 				margin-bottom: 20px;
-        @media(max-width:992px) {
-          border-right: 0;
-          flex: 0 0 calc(50% - 30px);
-          font-size: 14px;
-          margin-left: 0;
-        }
-      }
+				@media (max-width: 992px) {
+					border-right: 0;
+					flex: 0 0 calc(33% - 30px);
+					font-size: 14px;
+					margin-left: 0;
+				}
+				&:nth-child(3) {
+					@media (max-width: 992px) {
+						order: 4;
+						flex: 0 0 calc(100% - 30px);
+					}
+				}
+			}
 		}
 	}
 }
