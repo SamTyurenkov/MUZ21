@@ -40,9 +40,9 @@ $free = get_field('price_free', 'option');
                                     <h4><?php the_sub_field('option_name'); ?></h4>
                                     <p><?php the_sub_field('option_description'); ?></p>
                                     <?php if ($price > 0) : ?>
-                                        <div class="event-price_flex_price_value button"><span><?php echo esc_html($price); ?></span><span>&#8381;</span></div>
+                                        <div class="event-price_flex_price_value item_price_option button"><span><?php echo esc_html($price); ?></span><span>&#8381;</span></div>
                                     <?php else : ?>
-                                        <div class="event-price_flex_price_value button"><span><?php echo esc_html($free); ?></span></div>
+                                        <div class="event-price_flex_price_value item_price_option button"><span><?php echo esc_html($free); ?></span></div>
                                     <?php endif; ?>
                                 </div>
                             <?php endwhile;

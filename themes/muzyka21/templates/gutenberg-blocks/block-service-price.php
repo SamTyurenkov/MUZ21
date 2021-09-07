@@ -26,9 +26,9 @@ $post_id = get_query_var('post_id');
                                     <h4><?php the_sub_field('option_name'); ?></h4>
                                     <p><?php the_sub_field('option_description'); ?></p>
                                     <?php if (is_numeric($price)) : ?>
-                                        <div class="service-price_flex_price_value button"><span><?php echo esc_html($price); ?></span><span>&#8381;</span></div>
+                                        <div class="service-price_flex_price_value item_price_option button"><span><?php echo esc_html($price); ?></span><span>&#8381;</span></div>
                                     <?php else : ?>
-                                        <div class="service-price_flex_price_value button"><span><?php echo esc_html($price); ?></span></div>
+                                        <div class="service-price_flex_price_value item_price_option button"><span><?php echo esc_html($price); ?></span></div>
                                     <?php endif; ?>
                                 </div>
                         <?php endwhile;
