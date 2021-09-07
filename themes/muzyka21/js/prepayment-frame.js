@@ -33,7 +33,7 @@ $(document).ready(function () {
 		var type = localize_prepayment.type;
 		var postid = localize_prepayment.postid;
 		var optionid = $(".prepayment-frame").attr("data-id");
-		var price = document.querySelectorAll('.item_price_option')[optionid].querySelector('span').html();
+		var price = document.querySelectorAll('.item_price_option')[optionid].querySelector('span').innerHTML;
 
 
 		var value = jQuery.ajax({
