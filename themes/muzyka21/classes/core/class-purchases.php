@@ -344,7 +344,7 @@ class Purchases
 				'to' => get_field('buyer', $orderNumber),
 				'subject' => 'MUSIC XXI: Приобретен Билет',
 				'post_id' => $orderNumber,
-				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
+				'image' => get_the_post_thumbnail_url(get_field('itemid', $orderNumber), 'medium'),
 				'title' => get_the_title($orderNumber)
 			);
 			error_log(print_r(Emails::sendEmail('completepurchaseevent', $emailargs), true));
@@ -360,7 +360,7 @@ class Purchases
 				'to' => get_field('buyer', $orderNumber),
 				'subject' => 'MUSIC XXI: Приобретена Услуга',
 				'post_id' => $orderNumber,
-				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
+				'image' => get_the_post_thumbnail_url(get_field('itemid', $orderNumber), 'medium'),
 				'title' => get_the_title($orderNumber)
 			);
 			Emails::sendEmail('completepurchaseservice', $emailargs);
