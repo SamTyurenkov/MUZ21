@@ -22,7 +22,7 @@ class Purchases
 				'methods' => 'GET',
 				'callback' => ['Core\Purchases', 'completepurchase'],
 				'permission_callback' => '__return_true'
-			)); 
+			));
 		});
 	}
 
@@ -270,13 +270,13 @@ class Purchases
 		parse_str($_SERVER['QUERY_STRING'], $queries);
 		$queriessorted = $queries;
 		ksort($queriessorted);
-		error_log(print_r($queries,true));
-		error_log(print_r($queriessorted,true));
-		if(empty($queriessorted)) {
+		error_log(print_r($queries, true));
+		error_log(print_r($queriessorted, true));
+		if (empty($queriessorted)) {
 			http_response_code(403);
 			die();
 		}
-		
+
 		$secret = 'rh3e9dh480kd1df07rdt84mrvp';
 		$mdOrder = $queries['mdOrder'];
 		$orderNumber = filter_var($queries['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
@@ -310,11 +310,9 @@ class Purchases
 		if ($operation == 'deposited') {
 
 			$status = 'paid';
-
 		} else if ($operation == 'declinedByTimeout' || $operation == 'refunded' || $operation == 'reversed') {
 
 			$status = 'cancel';
-
 		} else {
 			die();
 		}
@@ -332,12 +330,7 @@ class Purchases
 
 			global $wpdb;
 			$wpdb->query(
-				$wpdb->prepare(
-					"UPDATE wp_postmeta
-			SET meta_value = meta_value + 1
-			WHERE (post_id = %d AND meta_key = 'sold_tickets')",
-					get_field('itemid', $orderNumber)
-				)
+				$wpdb->prepare("UPDATE wp_postmeta SET meta_value = meta_value + 1 WHERE (post_id = %d AND meta_key = 'sold_tickets')",intval(get_field('itemid', $orderNumber)))
 			);
 
 			$emailargs = array(
@@ -347,7 +340,7 @@ class Purchases
 				'image' => get_the_post_thumbnail_url($orderNumber, 'medium'),
 				'title' => get_the_title($orderNumber)
 			);
-			Emails::sendEmail('completepurchaseevent', $emailargs);
+			error_log(print_r(Emails::sendEmail('completepurchaseevent', $emailargs),true));
 			$metrika = array(
 				'ClientId' => get_field('yaclientID', $orderNumber),
 				'Target' => 'pay-order',
