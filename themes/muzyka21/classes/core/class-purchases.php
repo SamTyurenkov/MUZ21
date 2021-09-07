@@ -378,16 +378,20 @@ class Purchases
 	public static function senddatatometrika(array $data)
 	{
 
+		$file = 'offline.csv';
 		$data['DateTime'] = time();
 		$data['Currency'] = 'RUB';
 		$counter = "84234994";            // Укажите номер счетчика
 		$token = "AQAAAAAVbZJ7AAdSsinOepAniUyTpuAM_XQw8EU";              // Укажите OAuth-токен
 		$client_id_type = "CLIENT_ID";     // Укажите тип идентификаторов посетителей – CLIENT_ID, USER_ID или YCLID
 
+		$content = 'ClientId,Target,DateTime,Price,Currency\n'.$data['ClientId'].','.$data['Target'].','.$data['DateTime'].','.$data['Price'].',RUB';
+		file_put_contents($file, $content);
+
 		$curl = curl_init('https://api-metrika.yandex.ru/management/v1/counter/' . $counter . '/offline_conversions/upload?client_id_type=' . $client_id_type);
 
 		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, array('file' => new \CurlFile(realpath('offline.csv'))));
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: multipart/form-data", 'Authorization: OAuth ' . $token));
