@@ -270,20 +270,21 @@ class Purchases
 		parse_str($_SERVER['QUERY_STRING'], $queries);
 		$queriessorted = $queries;
 		sort($queriessorted);
-
+		error_log(print_r($queries,true));
+		error_log(print_r($queriessorted,true));
 		if(empty($queriessorted)) {
 			http_response_code(403);
 			die();
 		}
-		error_log(print_r($queriessorted,true));
+		
 		$secret = 'rh3e9dh480kd1df07rdt84mrvp';
-		$amount = $queriessorted['amount'];
-		$mdOrder = $queriessorted['mdOrder'];
-		$orderNumber = filter_var($queriessorted['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
-		$checksum = $queriessorted['checksum'];
-		$operation = $queriessorted['operation'];
-		$status = $queriessorted['status'];
-		$email = filter_var($queriessorted['clientId'], FILTER_SANITIZE_EMAIL);
+		$amount = $queries['amount'];
+		$mdOrder = $queries['mdOrder'];
+		$orderNumber = filter_var($queries['orderNumber'], FILTER_SANITIZE_NUMBER_INT);
+		$checksum = $queries['checksum'];
+		$operation = $queries['operation'];
+		$status = $queries['status'];
+		$email = filter_var($queries['clientId'], FILTER_SANITIZE_EMAIL);
 
 
 		$securitystring = ''; 		//'amount;'.$amount.';clientId;'.$email.';mdOrder;'.$mdOrder.';operation;'.$operation.';orderNumber;'.$orderNumber.';status;'.$status.';';
