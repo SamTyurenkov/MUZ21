@@ -29,6 +29,8 @@ class Auth
 
         add_action('login_form_rp', ['Core\Auth', 'do_password_reset']);
         add_action('login_form_resetpass', ['Core\Auth', 'do_password_reset']);
+
+        
         add_shortcode('custom-password-reset-form', ['Core\Auth', 'render_password_reset_form']);
 
         wp_localize_script('ajax-auth-script', 'ajax_auth_object', array(

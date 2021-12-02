@@ -1,8 +1,3 @@
-<?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
-?>
 <div id="auth4" class="container">
 <form id="register" class="ajax-auth"  action="<?php echo site_url( 'wp-login.php?action=resetpass' ); ?>" method="post" autocomplete="off">
     <h4>Установите Новый Пароль</h4>
