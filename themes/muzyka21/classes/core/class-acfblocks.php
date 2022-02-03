@@ -75,6 +75,17 @@ class ACFBlocks
             ));
 
             acf_register_block(array(
+                'name' => 'general-wavefix',
+                //'enqueue_assets' => 'muzbanner_assets',
+                'title' => __('General Wave Fix'),
+                'description' => __('General Wave Fix'),
+                'render_callback' => ['Core\ACFBlocks', 'block_render_callback'],
+                'category' => 'formatting',
+                'icon' => 'admin-comments',
+                'keywords' => array('waves', 'banner'),
+            ));
+
+            acf_register_block(array(
                 'name' => 'service-mainbanner',
                 //'enqueue_assets' => 'muzbanner_assets',
                 'title' => __('Service Main Banner'),

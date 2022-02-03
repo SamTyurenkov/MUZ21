@@ -2,7 +2,7 @@ const autoPrefixer = require("gulp-autoprefixer"),
   plumber = require("gulp-plumber"),
   concat = require("gulp-concat-css"),
   prefix = require("gulp-autoprefixer"),
-  sass = require("gulp-sass"),
+  sass = require('gulp-sass')(require('sass')),
   sourcemaps = require("gulp-sourcemaps"),
   minifyCSS = require("gulp-csso");
 

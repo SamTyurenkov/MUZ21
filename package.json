@@ -4,50 +4,51 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "gulp": "gulp"
+      "test": "mocha",
+      "gulp": "gulp"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SamTyurenkov/MUZ21.git"
+      "type": "git",
+      "url": "git+https://github.com/SamTyurenkov/pbg.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SamTyurenkov/MUZ21/issues"
+      "url": "https://github.com/SamTyurenkov/pbg/issues"
   },
-  "homepage": "https://github.com/SamTyurenkov/MUZ21#readme",
+  "homepage": "https://github.com/SamTyurenkov/pbg#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.2",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.14.2",
-    "@babel/preset-react": "^7.13.13",
-    "browser-sync": "^2.27.5",
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
-    "gulp-cache": "^1.1.3",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-concat-css": "^3.1.0",
-    "gulp-csscomb": "^3.1.0",
-    "gulp-csso": "^4.0.1",
-    "gulp-if": "^3.0.0",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-plumber": "^1.2.1",
-    "gulp-sass": "^4.1.1",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-terser": "^2.0.1",
-    "imagemin-jpeg-recompress": "^7.0.0",
-    "imagemin-pngquant": "^9.0.2",
-    "normalize.css": "^8.0.1",
-    "rimraf": "^3.0.2",
-    "sass": "^1.37.5"
+      "@babel/core": "^7.14.2",
+      "@babel/plugin-proposal-class-properties": "^7.13.0",
+      "@babel/preset-env": "^7.14.2",
+      "@babel/preset-react": "^7.13.13",
+      "browser-sync": "^2.27.5",
+      "del": "^6.0.0",
+      "flickity": "^2.3.0",
+      "gulp": "^4.0.2",
+      "gulp-autoprefixer": "^7.0.1",
+      "gulp-babel": "^8.0.0",
+      "gulp-cache": "^1.1.3",
+      "gulp-clean-css": "^4.3.0",
+      "gulp-concat": "^2.6.1",
+      "gulp-concat-css": "^3.1.0",
+      "gulp-csscomb": "^3.1.0",
+      "gulp-csso": "^4.0.1",
+      "gulp-if": "^3.0.0",
+      "gulp-imagemin": "^7.1.0",
+      "gulp-minify-css": "^1.2.4",
+      "gulp-plumber": "^1.2.1",
+      "gulp-sass": "^5.1.0",
+      "gulp-sourcemaps": "^3.0.0",
+      "gulp-strip-comments": "^2.5.2",
+      "gulp-uglify": "^3.0.2",
+      "imagemin-jpeg-recompress": "^7.0.0",
+      "imagemin-pngquant": "^9.0.2",
+      "normalize.css": "^8.0.1",
+      "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@splidejs/splide": "^2.4.21"
+      "@splidejs/splide": "^2.4.21"
   }
 }
