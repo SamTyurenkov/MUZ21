@@ -14,14 +14,14 @@ $free = get_field('price_free', 'option');
                     <ul class="splide__list">
                         <?php
                         $i = 0;
-                        if (get_field('date_start', get_the_ID())) {
-                            $datestart = new DateTime(get_field('date_start', get_the_ID()));
+                        if (get_field('date_start', $post_id)) {
+                            $datestart = new DateTime(get_field('date_start', $post_id));
                         };
-                        if (get_field('date_end', get_the_ID())) {
-                            $dateend = new DateTime(get_field('date_end', get_the_ID()));
+                        if (get_field('date_end', $post_id)) {
+                            $dateend = new DateTime(get_field('date_end', $post_id));
                         };
 
-                        if (isset($datestart) && isset($dateend) && time() > $dateend->getTimestamp()) { ?>
+                        if (isset($datestart) && isset($dateend) && (time() > $dateend->getTimestamp())) { ?>
                             <div class="event-price_flex_price_option splide__slide">
                                 <h4>Событие завершено</h4>
                                 <p>Это событие уже закончилось и билеты не продаются</p>
