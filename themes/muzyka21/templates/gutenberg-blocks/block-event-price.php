@@ -26,7 +26,7 @@ $free = get_field('price_free', 'option');
                                 <h4>Событие завершено</h4>
                                 <p>Это событие уже закончилось и билеты не продаются</p>
                             </div>
-                        <?php  } else if (isset($datestart) && (time() + (60 * 60 * 5)) > $datestart->getTimestamp()) { ?>
+                        <?php  } else if (isset($datestart) && !isset($dateend) && (time() + (60 * 60 * 5)) > $datestart->getTimestamp()) { ?>
                             <div class="event-price_flex_price_option splide__slide">
                                 <h4>Событие завершено</h4>
                                 <p>Это событие уже закончилось и билеты не продаются</p>
